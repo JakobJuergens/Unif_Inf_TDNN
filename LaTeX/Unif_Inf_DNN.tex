@@ -185,6 +185,7 @@ As the DNN estimator does not incorporate such additional randomness, the term i
 Noteworthy properties of $\kappa$ are its permutational symmetry in $D_s$ and that $\kappa$ does not consider the response variable when assigning weights to the observations under consideration.
 The latter immediately implies a property that has been called \textit{Honesty} by \citet{wager_estimation_2018}.
 
+\vspace{0.5cm}
 \begin{definition}[Symmetry and Honesty - Adapted from \citet{ritzwoller_uniform_2024}]
 	\begin{enumerate}
 		\item The kernel $\kappa\left(\cdot, \cdot, D_{\mathrm{s}}\right)$ is Honest in the sense that
@@ -225,6 +226,7 @@ Among other properties, it has been shown that under smoothness assumptions and 
 Starting from this setup, \citet{demirkaya_optimal_2024} develop a novel bias-correction method for the DNN estimator that leads to appealing finite-sample properties of the resulting Two-Scale Distributional Nearest Neighbor (TDNN) estimator.
 Their method is based on an explicit formula for the first-order bias term of the DNN estimator, which in turn allows them to eliminate it entirely through a clever combination of two DNN estimators.
 
+\vspace{0.5cm}
 \begin{theorem}[\citet{demirkaya_optimal_2024} - Theorem 1]\label{demirkaya_Thm1}
 	Assume that the distribution of $\mathbf{X}$ has a density function $f(\cdot)$ with respect to the Lebesgue measure $\lambda$ on the Euclidean space $\mathbb{R}^d$.
 	Let $\mathbf{x} \in \operatorname{supp}(\mathbf{X})$ be a fixed feature vector.
@@ -270,6 +272,7 @@ they define the corresponding TDNN estimator as follows.
 As a direct consequence of Theorem \ref{demirkaya_Thm1}, this leads to the elimination of the first-order bias term leading to desirable finite-sample properties.
 Furthermore, the authors show that this construction improves on the quality of the normal approximation.
 
+\vspace{0.5cm}
 \begin{theorem}[\citet{demirkaya_optimal_2024} - Theorem 3]\label{demirkaya_Thm3}
 	Assume that Conditions (1) to (3) from Theorem \ref{demirkaya_Thm1} hold.
 	Furthermore, let $s_2 \rightarrow \infty$ with $s_2 = o(n)$ and $c_1 \leq s_1/s_2 \leq c_2$ for some constants $0 < c_1 < c_2 < 1$.
@@ -292,13 +295,13 @@ As part of their asymptotic analysis of the TDNN estimator, the authors analyze 
 Borrowing the notational conventions from \citet{lee_u-statistics_2019}, we introduce the following notation.
 \begin{align}
 	\psi_{c}^{s}(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c})
-	 & = \mathbb{E}_{\mathbf{Z}}\left[\psi^{s}\left(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \mathbf{Z}_{c+1}, \dotsc, \mathbf{Z}_{s}\right)\right]  \\
+	 & = \mathbb{E}_{\mathbf{Z}}\left[\psi^{s}\left(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \mathbf{Z}_{c+1}, \dotsc, \mathbf{Z}_{s}\right)\right]                                 \\
 	%
 	h_{s}^{(1)}\left(\mathbf{x}; \mathbf{z}_{1}\right)
-	 & = \psi_{1}^{s}(\mathbf{x}; \mathbf{z}_{1}) - \mu(\mathbf{x})                                                                                             \\
+	 & = \psi_{1}^{s}(\mathbf{x}; \mathbf{z}_{1}) - \mu(\mathbf{x})                                                                                                                            \\
 	%
 	h_{s}^{(c)}\left(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}\right)
-	 & = \psi_{c}^{s}(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}) - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{n,j}}h_{s}^{(j)}(\mathbf{x}; \mathbf{z}_{\ell})\right) - \mu(\mathbf{x})   
+	 & = \psi_{c}^{s}(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}) - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{n,j}}h_{s}^{(j)}(\mathbf{x}; \mathbf{z}_{\ell})\right) - \mu(\mathbf{x})
 	\quad \text{for } c = 2, \dotsc, s
 \end{align}
 In the usual fashion, these terms can be used to express the Hoeffding projections of different orders.
@@ -332,10 +335,11 @@ It should be pointed out that, due to the local definition of the kernel in the 
 Furthermore, going forward $\hat{\mu}\left(\mathbf{x}; D\right)$ can be taken as the DNN or TDNN estimator evaluated at $\mathbf{x}$ based on the (sub-)sample $D$, respectively.
 To summarize the kind of object we want to construct, we define a uniform confidence region for the TDNN estimator in the following way following closely the notation of \citet{ritzwoller_uniform_2024}.
 
+\vspace{0.5cm}
 \begin{definition}[Uniform Confidence Regions]
 	A confidence region for the TDNN (or DNN) estimators that is uniformly valid at the rate $r_{n,d}$ is a family of random intervals
 	\begin{equation}
-		\hat{\mathcal{C}}\left(\mathbf{x}^{(p)}\right) 
+		\hat{\mathcal{C}}\left(\mathbf{x}^{(p)}\right)
 		:= \left\{\hat{C}(\mathbf{x}^{(p)}_{j}) = \left[c_{L}(\mathbf{x}^{(p)}_{j}), c_{U}(\mathbf{x}^{(p)}_{j})\right]\, : \, j \in [p]\right\}
 	\end{equation}
 	based on the observed data, such that
@@ -348,6 +352,7 @@ To summarize the kind of object we want to construct, we define a uniform confid
 Recent advances in the field of uniform inference for infinite-order U-statistics, specifically \citet{ritzwoller_uniform_2024}, and careful analysis of the Hoeffding projections of different orders will be the cornerstones in developing uniform inference methods.
 The authors' approach to constructing uniform confidence regions is based on the half-sample bootstrap root.
 
+\vspace{0.5cm}
 \begin{definition}[Half-Sample Bootstrap Root Approximation - \citet{ritzwoller_uniform_2024}]
 	The Half-Sample Bootstrap Root Approximation of the sampling distribution of the root
 	\begin{equation}
@@ -375,22 +380,89 @@ Let $\operatorname{cv}\left(\alpha; \mathbf{D}_n\right)$ denote the $1-\alpha$ q
 As the authors point out specifically, and as indicated by the more explicit notation chosen in this presentation, this is a quantile of the conditional distribution given the data $\mathbf{D}_n$.
 Given this construction, the uniform confidence region developed in \citet{ritzwoller_uniform_2024} adapted to the TDNN estimator takes the following form.
 
+\vspace{0.5cm}
 \begin{theorem}[Uniform Confidence Region - \citet{ritzwoller_uniform_2024}]
-	
+	Define the intervals
+	\begin{equation}
+		\hat{\mathcal{C}}\left(\mathbf{x}^{(p)}_j; \mathbf{D}_n\right)
+		:= \hat{\mu}\left(\mathbf{x}^{(p)}_{j}; \mathbf{D}_n\right) \pm
+		n^{-1/2} \hat{\lambda}_{j}\left(\mathbf{x}^{(p)}; \mathbf{D}_n\right)\operatorname{cv}\left(\alpha; \mathbf{D}_n\right)
+	\end{equation}
+	The $\alpha$-level uniform confidence region for $\mu\left(\mathbf{x}^{(p)}\right)$ is given by $\hat{\mathcal{C}}\left(\mathbf{x}^{(p)}\right)$.
 \end{theorem}
 
 To justify the use of this uniform confidence region, it remains to be shown if and how the other conditions for the inner workings of this procedure apply to the TDNN estimator.
+This is substantially simplified due to the absence of a nuisance parameter.
+Thus, consider the following conditions from \cite{ritzwoller_uniform_2024} that are simplified to fit the problem at hand.
+
+\vspace{0.5cm}
+\begin{definition}[Shrinkage and Incrementality - Adapted from \citet{ritzwoller_uniform_2024}]
+	We say that the kernel $\kappa\left(\cdot, \cdot, D_{\mathrm{s}}\right)$ has a uniform shrinkage rate $\epsilon_b$ if
+	\begin{equation}
+		\sup_{P \in \mathbf{P}} \sup_{j \in[p]}
+		\mathbb{E}\left[\max \left\{\left\|X_i-\mathbf{x}^{(p)}_{j}\right\|_{2}: \kappa\left(\mathbf{x}^{(p)}_{j}, X_i, D_{\mathrm{s}}\right)>0\right\}\right]
+		\leq \epsilon_b .
+	\end{equation}
+	We say that a kernel $\kappa\left(\cdot, \cdot, D_{\mathrm{s}}\right)$ is uniformly incremental if
+	\begin{equation}
+		\inf_{P \in \mathbf{P}} \sup_{j \in[p]}
+		\operatorname{Var}\left(\mathbb{E}\left[\sum_{i \in \mathbf{s}} \kappa\left(\mathbf{x}^{(p)}_{j}, X_i, D_{\mathbf{s}}\right) m\left(D_i ; \mu\right) \mid l \in \mathbf{s}, D_l=D\right]\right)
+		\gtrsim b^{-1}
+	\end{equation}
+	where $D$ is an independent random variable with distribution $P$.
+\end{definition}
+
+{\color{red} LOREM IPSUM}
+
+\vspace{0.5cm}
+\begin{assumption}[Boundedness - Adapted from \citet{ritzwoller_uniform_2024}]
+	The absolute value of the function $m(\cdot; \mu)$ is bounded by the constant $(\theta+1) \phi$ almost surely.
+	\begin{equation}
+		|m(\mathbf{Z}_i ; \mu)|
+		= |Y_i - \mu(\mathbf{X}_i)|
+		= |\varepsilon_i|
+		\leq (\theta+1) \phi
+		\quad \text{a.s.}
+	\end{equation}
+\end{assumption}
+As the authors point out, this condition can easily be replaced by a condition on the subexponential norm.
+This, being more in line with the assumptions of \cite{demirkaya_optimal_2024}, is a desirable substitution.
+Thus, we will instead consider the following assumption.
+
+\vspace{0.5cm}
+\begin{assumption}[Sub-Exponential Norm Bound]
+
+\end{assumption}
+
+{\color{red} LOREM IPSUM}
+
+\vspace{0.5cm}
+\begin{assumption}[Moment Smoothness - Adapted from \citet{ritzwoller_uniform_2024}]
+
+\end{assumption}
+{\color{red} LOREM IPSUM}
+
+\section{Approximation  as Incomplete IOUS}
+\hrule
+
+Due to the inherent complexity of evaluating a U-statistic on a large sample size, it is valuable to consider the approximation through an incomplete U-statistic.
 
 {\color{red} LOREM IPSUM}
 
 \section{Simulations}\label{Simulations}
 \hrule
 
-\subsection{Setups}
+{\color{red} LOREM IPSUM}
+
+\subsection*{Setups}
 \hrule
 
-\subsection{Results}
+{\color{red} LOREM IPSUM}
+
+\subsection*{Results}
 \hrule
+
+{\color{red} LOREM IPSUM}
 
 \section{Application}\label{Application}
 \hrule
