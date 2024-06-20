@@ -97,8 +97,8 @@
 \begin{abstract}
 	Recent advances in the literature on non-parametric regression and uniform inference for incomplete infinite-order U-statistics have enabled us to consider the problem of uniform inference for a broader class of estimators.
 	One class of such estimators are bagged nearest neighbor estimators and among them specifically the Two-Scale Distributional Nearest Neighbor Estimator (TDNN) of \citet{demirkaya_optimal_2024}.
-	In this paper, I develop uniform inference procedures based on recent work by \citet{ritzwoller_uniform_2024} for the TDNN estimator.
-	\dots
+	In this paper, we develop uniform inference procedures based on recent work by \citet{ritzwoller_uniform_2024} for the TDNN estimator.
+	Furthermore, we consider the approximation of the TDNN estimator by an incomplete U-statistic and analyze the influence of this approximation on inference procedures.
 \end{abstract}
 \vspace{0.3cm}
 \hrule
@@ -412,6 +412,8 @@ Thus, consider the following conditions from \cite{ritzwoller_uniform_2024} that
 	where $D$ is an independent random variable with distribution $P$.
 \end{definition}
 
+\citet{peng_rates_2022}
+
 {\color{red} LOREM IPSUM}
 
 \vspace{0.5cm}
@@ -427,7 +429,7 @@ Thus, consider the following conditions from \cite{ritzwoller_uniform_2024} that
 \end{assumption}
 As the authors point out, this condition can easily be replaced by a condition on the subexponential norm.
 This, being more in line with the assumptions of \cite{demirkaya_optimal_2024}, is a desirable substitution.
-Thus, we will instead consider the following assumption.
+Thus, we will instead consider the following assumption and fill in parts of the proofs that hinge on boundedness for ease of exposition in the original paper.
 
 \vspace{0.5cm}
 \begin{assumption}[Sub-Exponential Norm Bound]
@@ -439,7 +441,27 @@ Thus, we will instead consider the following assumption.
 \vspace{0.5cm}
 \begin{assumption}[Moment Smoothness - Adapted from \citet{ritzwoller_uniform_2024}]
 
+The variogram
+\begin{equation}
+	V(x ; g)=\mathbb{E}\left[\left(m\left(Z_i ; \theta_0(x), g\right)-m\left(Z_i ; \theta_0(x), g_0\right)\right)^2 \mid X=x\right]
+\end{equation}
+is uniformly Lipschitz in both of its components, in the sense that
+\begin{equation}
+	\sup _{P \in \mathbf{P}} \sup _{g \in \mathcal{G}}\left|V(x ; g)-V\left(x^{\prime} ; g\right)\right| \lesssim\left\|x-x^{\prime}\right\|_{\infty}
+\end{equation}
+holds for all $x$ and $x^{\prime}$ in $\mathcal{X}$
+
+Define the moments
+\begin{equation}
+	M^{(1)}(x ; \theta, g)=\mathbb{E}\left[m^{(1)}\left(D_i ; \theta, g\right) \mid X_i=x\right] \quad \text { and } \quad M^{(2)}(x ; g)=\mathbb{E}\left[m^{(2)}\left(D_i ; g\right) \mid X_i=x\right] \text {, }
+\end{equation}
+associated with the functions $m^{(1)}(\cdot ; \theta, g)$ and $m^{(2)}(\cdot ; g)$ introduced in Assumption 3.2. Both moments are uniformly Lipschitz in their first component, in the sense that
+\begin{equation}
+	\sup _{P \in \mathbf{P}} \sup _{g \in \mathcal{G}}\left|M^{(j)}(x ; g)-M^{(j)}\left(x^{\prime} ; g\right)\right| \lesssim\left\|x-x^{\prime}\right\|_{\infty}
+\end{equation}
+for each $j$ in $\{1,2\}$ and all $x$ and $x^{\prime}$ in $\mathcal{X}$. 
 \end{assumption}
+
 {\color{red} LOREM IPSUM}
 
 \section{Approximation  as Incomplete IOUS}

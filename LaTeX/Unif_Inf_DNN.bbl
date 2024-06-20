@@ -240,6 +240,51 @@
       \verb 10.1201/9780203734520
       \endverb
     \endentry
+    \entry{peng_rates_2022}{article}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=0ffbf7da53582dbc0a920a400eddc057}{%
+           family={Peng},
+           familyi={P\bibinitperiod},
+           given={Wei},
+           giveni={W\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d44622ed0304b58ed1f4a7462c02f8fa}{%
+           family={Coleman},
+           familyi={C\bibinitperiod},
+           given={Tim},
+           giveni={T\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d3570b0ad408f1718fc65049b825ec7b}{%
+           family={Mentch},
+           familyi={M\bibinitperiod},
+           given={Lucas},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{142449543f9679940960a838d9b77eae}
+      \strng{fullhash}{142449543f9679940960a838d9b77eae}
+      \strng{bibnamehash}{142449543f9679940960a838d9b77eae}
+      \strng{authorbibnamehash}{142449543f9679940960a838d9b77eae}
+      \strng{authornamehash}{142449543f9679940960a838d9b77eae}
+      \strng{authorfullhash}{142449543f9679940960a838d9b77eae}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Electronic Journal of Statistics}
+      \field{month}{1}
+      \field{number}{1}
+      \field{title}{Rates of convergence for random forests via generalized {U}-statistics}
+      \field{volume}{16}
+      \field{year}{2022}
+      \field{pages}{232\bibrangedash 292}
+      \range{pages}{61}
+      \verb{doi}
+      \verb 10.1214/21-EJS1958
+      \endverb
+    \endentry
     \entry{ritzwoller_uniform_2024}{misc}{}
       \name{author}{2}{}{%
         {{un=0,uniquepart=base,hash=4d6a912596e242b0cc13cd623ebb5e3f}{%
