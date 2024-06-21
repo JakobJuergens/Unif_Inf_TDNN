@@ -99,6 +99,7 @@
 	One class of such estimators are bagged nearest neighbor estimators and among them specifically the Two-Scale Distributional Nearest Neighbor Estimator (TDNN) of \citet{demirkaya_optimal_2024}.
 	In this paper, we develop uniform inference procedures based on recent work by \citet{ritzwoller_uniform_2024} for the TDNN estimator.
 	Furthermore, we consider the approximation of the TDNN estimator by an incomplete U-statistic and analyze the influence of this approximation on inference procedures.
+	As part of this work, we provide a complementary R package that implements the presented methods.
 \end{abstract}
 \vspace{0.3cm}
 \hrule
@@ -106,7 +107,7 @@
 
 \vspace{-0.3cm}
 \begin{center}
-	{\small Supplementary material is available at: {\color{red} LOREM IPSUM}}
+	{\small Supplementary material is available at: \url{https://github.com/JakobJuergens/Unif_Inf_TDNN}}
 \end{center}
 \vspace{0.3cm}
 \hrule
@@ -123,7 +124,7 @@
 Nearest Neighbor Estimators and their derivatives form a flexible class of estimators for a variety of purposes including nonparametric regression.
 Although widely used in practice for the latter purpose, some of their properties are still elusive when it comes to performing inference.
 This paper contributes to improving our understanding by establishing an asymptotically valid method to construct uniform confidence bands when using the Two-Scale Distributional Nearest Neighbor (TDNN) method of \citet{demirkaya_optimal_2024}.
-To achieve this goal, we use novel results on uniform inference for infinite-order U-statistics developed in \citet{ritzwoller_uniform_2024}.
+To achieve this goal, we use novel results on uniform inference for infinite-order U-statistics (IOUS) developed in \citet{ritzwoller_uniform_2024}.
 Due to the inherent connection of the Potential Nearest Neighbors (PNN) framework to Random Forests (RF), this work also contributes to contextualizing recent advances in inference techniques for random forests.
 	{\color{red} LOREM IPSUM}
 
@@ -174,7 +175,7 @@ To simplify further expressions, let $[n] = \{1, \dotsc, n\}$ and define $L_{n,r
 	L_{n,s} & = \left\{\left(l_1, \dotsc, l_r\right) \in [n]^{s} \, : \, \text{entries of vector are distinct} \right\} \\
 	I_{n,s} & = \left\{\left(i_1, \dotsc, i_r\right) \in L_{n,s} \, : \, i_1 < \dotsc < i_s \right\}
 \end{align}
-Given a subsampling scale $s$ satisfying $1 \leq s \leq n$, a generic set of subsample indices $\ell \in L_{n,s}$ and a corresponding generic subset of our data $D_{\ell} = \{\mathbf{Z}_i \, | \, i \in \ell\}$, we can consider an analogous ordering of $D_s$.
+Given a subsampling scale $s$ satisfying $1 \leq s \leq n$, a generic set of subsample indices $\ell \in L_{n,s}$ and a corresponding generic subset of our data $D_{\ell} = \{\mathbf{Z}_i \, | \, i \in \ell\}$, we can consider an analogous ordering of $D_{\ell}$.
 This enables us to define a data-driven kernel function $\kappa$ following the notation of \citet{ritzwoller_uniform_2024}.
 \begin{equation}
 	\kappa(\mathbf{x}; \mathbf{Z}_i, D_{\ell}, \xi)
@@ -182,18 +183,18 @@ This enables us to define a data-driven kernel function $\kappa$ following the n
 \end{equation}
 Here, $\xi$ is an additional source of randomness in the construction of the base learner that comes into play when analyzing, for example, random forests as proposed by \citet{breiman_random_2001} using the CART-algorithm described in \citet{breiman_classification_2017}.
 As the DNN estimator does not incorporate such additional randomness, the term is omitted in further considerations.
-Noteworthy properties of $\kappa$ are its permutational symmetry in $D_s$ and that $\kappa$ does not consider the response variable when assigning weights to the observations under consideration.
+Noteworthy properties of $\kappa$ are its permutational symmetry in $D_{\ell}$ and that $\kappa$ does not consider the response variable when assigning weights to the observations under consideration.
 The latter immediately implies a property that has been called \textit{Honesty} by \citet{wager_estimation_2018}.
 
 \vspace{0.5cm}
-\begin{definition}[Symmetry and Honesty - Adapted from \citet{ritzwoller_uniform_2024}]
+\begin{definition}[Symmetry and Honesty - Adapted from \citet{ritzwoller_uniform_2024}]\label{Symmetry_Honesty}
 	\begin{enumerate}
-		\item The kernel $\kappa\left(\cdot, \cdot, D_{\mathrm{s}}\right)$ is Honest in the sense that
-		      $$\kappa\left(x, X_i, D_{\mathbf{s}}\right) \indep m\left(Z_i ; \mu\right) \mid X_i, D_{\mathbf{s}_{-i}},$$
-		      where $\indep$ denotes conditional independence and $\mathrm{s}_{-i}$ denotes the set $\mathrm{s} \backslash\{i\}$.
-		\item The kernel $\kappa\left(\cdot, \cdot, D_{\mathrm{s}}\right)$ is positive and satisfies the restriction
-		      $\sum_{i \in s} \kappa\left(\cdot, X_i, D_{\mathrm{s}}\right)=1$ almost surely.
-		      Moreover, the kernel $\kappa\left(\cdot, X_i, D_{\mathrm{s}}\right)$ is invariant to permutations of the data $D_{\mathrm{s}}.$
+		\item The kernel $\kappa\left(\cdot, \cdot, D_{\ell}\right)$ is Honest in the sense that
+		      $$\kappa\left(x, X_i, D_{\ell}\right) \indep m\left(Z_i ; \mu\right) \mid X_i, D_{\ell_{-i}},$$
+		      where $\indep$ denotes conditional independence and $\ell_{-i}$ denotes the set $\ell \backslash\{i\}$.
+		\item The kernel $\kappa\left(\cdot, \cdot, D_{\ell}\right)$ is positive and satisfies the restriction
+		      $\sum_{i \in s} \kappa\left(\cdot, X_i, D_{\ell}\right)=1$ almost surely.
+		      Moreover, the kernel $\kappa\left(\cdot, X_i, D_{\ell}\right)$ is invariant to permutations of the data $D_{\ell}.$
 	\end{enumerate}
 \end{definition}
 Using $\kappa$, it is straightforward to find an expression for the distance function $K$ in Equation \ref{EmpCondMomEq} corresponding to the DNN estimator.
@@ -397,20 +398,43 @@ Thus, consider the following conditions from \cite{ritzwoller_uniform_2024} that
 
 \vspace{0.5cm}
 \begin{definition}[Shrinkage and Incrementality - Adapted from \citet{ritzwoller_uniform_2024}]
-	We say that the kernel $\kappa\left(\cdot, \cdot, D_{\mathrm{s}}\right)$ has a uniform shrinkage rate $\epsilon_b$ if
+	We say that the kernel $\kappa\left(\cdot, \cdot, D_{\ell}\right)$ has a uniform shrinkage rate $\epsilon_b$ if
 	\begin{equation}
 		\sup_{P \in \mathbf{P}} \sup_{j \in[p]}
-		\mathbb{E}\left[\max \left\{\left\|X_i-\mathbf{x}^{(p)}_{j}\right\|_{2}: \kappa\left(\mathbf{x}^{(p)}_{j}, X_i, D_{\mathrm{s}}\right)>0\right\}\right]
+		\mathbb{E}\left[\max \left\{\left\|\mathbf{X}_i-\mathbf{x}^{(p)}_{j}\right\|_{2}: \kappa\left(\mathbf{x}^{(p)}_{j}, \mathbf{X}_i, D_{\ell}\right)>0\right\}\right]
 		\leq \epsilon_b .
 	\end{equation}
-	We say that a kernel $\kappa\left(\cdot, \cdot, D_{\mathrm{s}}\right)$ is uniformly incremental if
+	We say that a kernel $\kappa\left(\cdot, \cdot, D_{\ell}\right)$ is uniformly incremental if
 	\begin{equation}
 		\inf_{P \in \mathbf{P}} \sup_{j \in[p]}
-		\operatorname{Var}\left(\mathbb{E}\left[\sum_{i \in \mathbf{s}} \kappa\left(\mathbf{x}^{(p)}_{j}, X_i, D_{\mathbf{s}}\right) m\left(D_i ; \mu\right) \mid l \in \mathbf{s}, D_l=D\right]\right)
+		\operatorname{Var}\left(\mathbb{E}\left[\sum_{i \in \ell} \kappa\left(\mathbf{x}^{(p)}_{j}, \mathbf{X}_i, D_{\ell}\right) m\left(\mathbf{Z}_i ; \mu\right) \mid l \in \ell, \mathbf{Z}_l = Z\right]\right)
 		\gtrsim b^{-1}
 	\end{equation}
-	where $D$ is an independent random variable with distribution $P$.
+	where $Z$ is an independent random variable with distribution $P$.
 \end{definition}
+
+Translating these properties to suit the TDNN regression problem, we obtain the following conditions that need to be verified.
+First, to verify uniform shrinkage at a rate $\epsilon_b$, the following remains to be shown.
+\begin{equation}
+	\sup_{P \in \mathbf{P}} \sup_{j \in[p]}
+	\mathbb{E}\left[\max \left\{\left\|\mathbf{X}_i-\mathbf{x}^{(p)}_{j}\right\|_{2}:
+	\operatorname{rk}(\mathbf{x}^{(p)}_{j}; \mathbf{X}_i, D_{\ell}) = 1\right\}\right]
+	\leq \epsilon_b
+\end{equation}
+Second, for uniform incrementality, we need to show the following.
+\begin{equation}
+	\begin{aligned}
+		& \inf_{P \in \mathbf{P}} \sup_{j \in[p]}
+		\operatorname{Var}\left(\mathbb{E}\left[
+				\sum_{i \in \ell} \mathbbm{1}\left(\operatorname{rk}(\mathbf{x}^{(p)}_{j}; \mathbf{X}_i, D_{\ell}) = 1\right) \left(Y_i - \mu\left(\mathbf{X}_i\right)\right) \mid l \in \ell, \mathbf{Z}_l = Z\right]
+				\right) \\
+		= & \inf_{P \in \mathbf{P}} \sup_{j \in[p]} 
+		\operatorname{Var}\left(
+			\sum_{i \in \ell}\mathbb{E}\left[\mathbbm{1}\left(\operatorname{rk}(\mathbf{x}^{(p)}_{j}; \mathbf{X}_i, D_{\ell}) = 1\right) \varepsilon_i \mid l \in \ell, \mathbf{Z}_l = Z\right]
+		\right)\\
+		\gtrsim & b^{-1}
+	\end{aligned}
+\end{equation}
 
 \citet{peng_rates_2022}
 
@@ -427,8 +451,9 @@ Thus, consider the following conditions from \cite{ritzwoller_uniform_2024} that
 		\quad \text{a.s.}
 	\end{equation}
 \end{assumption}
-As the authors point out, this condition can easily be replaced by a condition on the subexponential norm.
-This, being more in line with the assumptions of \cite{demirkaya_optimal_2024}, is a desirable substitution.
+To follow the notational conventions, we will further define the two functions $m^{(1)}(\mathbf{Z}_i; \mu) = - \mu(\mathbf{X}_i)$ and $m^{(2)}(\mathbf{Z}_i) = Y_i$.
+As the authors point out, the boundedness condition can easily be replaced by a condition on the subexponential norm.
+This, being more in line with the assumptions of \citet{demirkaya_optimal_2024}, is a desirable substitution.
 Thus, we will instead consider the following assumption and fill in parts of the proofs that hinge on boundedness for ease of exposition in the original paper.
 
 \vspace{0.5cm}
@@ -438,37 +463,59 @@ Thus, we will instead consider the following assumption and fill in parts of the
 
 {\color{red} LOREM IPSUM}
 
+% \vspace{0.5cm}
+% \begin{assumption}[Consistency]
+
+% \end{assumption}
+
+% {\color{red} LOREM IPSUM}
+
 \vspace{0.5cm}
 \begin{assumption}[Moment Smoothness - Adapted from \citet{ritzwoller_uniform_2024}]
-
-The variogram
-\begin{equation}
-	V(x ; g)=\mathbb{E}\left[\left(m\left(Z_i ; \theta_0(x), g\right)-m\left(Z_i ; \theta_0(x), g_0\right)\right)^2 \mid X=x\right]
-\end{equation}
-is uniformly Lipschitz in both of its components, in the sense that
-\begin{equation}
-	\sup _{P \in \mathbf{P}} \sup _{g \in \mathcal{G}}\left|V(x ; g)-V\left(x^{\prime} ; g\right)\right| \lesssim\left\|x-x^{\prime}\right\|_{\infty}
-\end{equation}
-holds for all $x$ and $x^{\prime}$ in $\mathcal{X}$
-
-Define the moments
-\begin{equation}
-	M^{(1)}(x ; \theta, g)=\mathbb{E}\left[m^{(1)}\left(D_i ; \theta, g\right) \mid X_i=x\right] \quad \text { and } \quad M^{(2)}(x ; g)=\mathbb{E}\left[m^{(2)}\left(D_i ; g\right) \mid X_i=x\right] \text {, }
-\end{equation}
-associated with the functions $m^{(1)}(\cdot ; \theta, g)$ and $m^{(2)}(\cdot ; g)$ introduced in Assumption 3.2. Both moments are uniformly Lipschitz in their first component, in the sense that
-\begin{equation}
-	\sup _{P \in \mathbf{P}} \sup _{g \in \mathcal{G}}\left|M^{(j)}(x ; g)-M^{(j)}\left(x^{\prime} ; g\right)\right| \lesssim\left\|x-x^{\prime}\right\|_{\infty}
-\end{equation}
-for each $j$ in $\{1,2\}$ and all $x$ and $x^{\prime}$ in $\mathcal{X}$. 
+	Define the moments
+	\begin{equation}
+		M^{(1)}(\mathbf{x} ; \mu)
+		= \mathbb{E}\left[m^{(1)}\left(\mathbf{Z}_i ; \mu\right) \mid \mathbf{X}_i= \mathbf{x}\right]
+		\quad \text{and} \quad
+		M^{(2)}(\mathbf{x})
+		= \mathbb{E}\left[m^{(2)}\left(\mathbf{Z}_i\right) \mid \mathbf{X}_i = \mathbf{x}\right],
+	\end{equation}
+	associated with the functions $m^{(1)}(\cdot ; \mu)$ and $m^{(2)}(\cdot)$.
+	Plugging in yields the following functions.
+	\begin{equation}
+		M^{(1)}(\mathbf{x} ; \mu)
+		= -\mu(\mathbf{x})
+		\quad \text{and} \quad
+		M^{(2)}(\mathbf{x})
+		= \mu(\mathbf{x}).
+	\end{equation}
+	Both moments are uniformly Lipschitz in their first component, in the sense that
+	\begin{equation}
+		\forall \mathbf{x}, \mathbf{x}^{\prime} \in \operatorname{supp}\left(\mathbf{X}\right): \quad
+		\sup _{P \in \mathbf{P}}
+		\left|\mu(\mathbf{x})-\mu\left(\mathbf{x}^{\prime}\right)\right|
+		\lesssim\left\|\mathbf{x}-\mathbf{x}^{\prime}\right\|_{2}.
+	\end{equation}
+	and $M^{(1)}$ is bounded below in the following sense
+	\begin{equation}
+		\inf_{P \in \mathbf{P}} \inf_{j \in [p]} \Big|M^{(1)}\left(\mathbf{x}^{(p)}_{j}\right) \Big|
+		= \inf_{P \in \mathbf{P}} \inf_{j \in [p]} \Big|\mu\left(\mathbf{x}^{(p)}_{j}\right) \Big| \geq c
+	\end{equation}
+	for some positive constant $c$.
 \end{assumption}
 
-{\color{red} LOREM IPSUM}
+Clearly, the Lipschitz continuity part of this assumption translates directly into a Lipschitz continuity assumption on the unknown nonparametric regression function.
+The boundedness assumption is
+	{\color{red} LOREM IPSUM}
 
 \section{Approximation  as Incomplete IOUS}
 \hrule
 
 Due to the inherent complexity of evaluating a U-statistic on a large sample size, it is valuable to consider the approximation through an incomplete U-statistic.
-
+Specifically, using the Bernoulli sampling scheme introduced in \citet{chen_randomized_2019} for a given computational budget $N$ we consider the incomplete IOUS of the following form.
+\begin{equation}
+	{\color{red} LOREM IPSUM}
+\end{equation}
 {\color{red} LOREM IPSUM}
 
 \section{Simulations}\label{Simulations}
