@@ -1,14 +1,14 @@
 # Fdb version 3
-["biber Unif_Inf_DNN"] 1718913197 "Unif_Inf_DNN.bcf" "Unif_Inf_DNN.bbl" "Unif_Inf_DNN" 1718913506
-  "Unif_Inf_DNN.bcf" 1718913506 111867 828d5430bf3d68ddad2ad348aed2a4db "pdflatex"
+["biber Unif_Inf_DNN"] 1718985565 "Unif_Inf_DNN.bcf" "Unif_Inf_DNN.bbl" "Unif_Inf_DNN" 1718985603
+  "Unif_Inf_DNN.bcf" 1718985603 111798 310f127cbfb90da1893aa7afa8fae584 "pdflatex"
   "bibliography.bib" 1718913133 4665 21f2a3140c5950f51c3255b7494f51fc ""
   (generated)
   "Unif_Inf_DNN.bbl"
   "Unif_Inf_DNN.blg"
-["pdflatex"] 1718913505 "/media/F/Insync_DropBox/Research/Individual_Projects/Unif_Inf_TDNN/LaTeX/Unif_Inf_DNN.tex" "Unif_Inf_DNN.pdf" "Unif_Inf_DNN" 1718913506
+["pdflatex"] 1718985602 "/media/F/Insync_DropBox/Research/Individual_Projects/Unif_Inf_TDNN/LaTeX/Unif_Inf_DNN.tex" "Unif_Inf_DNN.pdf" "Unif_Inf_DNN" 1718985603
   "/etc/texmf/web2c/texmf.cnf" 1680916460 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/jjuergens/.texlive2021/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.600pk" 1694889862 6964 d49ec969b16adb0ee98a7d2a13ac74ff ""
-  "/media/F/Insync_DropBox/Research/Individual_Projects/Unif_Inf_TDNN/LaTeX/Unif_Inf_DNN.tex" 1718913505 49263 2e32e4dc04bb705d70169b5ba6f98815 ""
+  "/media/F/Insync_DropBox/Research/Individual_Projects/Unif_Inf_TDNN/LaTeX/Unif_Inf_DNN.tex" 1718985602 49485 5f561a7e21dbc0ccbacc5d2a8a9eacd9 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecbi1000.tfm" 1136768653 3072 e6fe53b666f9cbd66cb135c6fdea66d3 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecbx0900.tfm" 1136768653 3584 1a7de6c99457381c64abc1a7c545505f ""
@@ -196,12 +196,12 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1680916482 4379155 98693266ff65f58d9f98aff394de12d2 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1710437863 2803142 b37177ff83111486da59f5a941231711 ""
-  "Unif_Inf_DNN.aux" 1718913506 12682 a9d41e79bcc21d11a679aeb22b9108cd "pdflatex"
-  "Unif_Inf_DNN.bbl" 1718913197 18079 c948e940f7c614ab308301812ca4fe25 "biber Unif_Inf_DNN"
-  "Unif_Inf_DNN.out" 1718913506 1223 a879958fd1d5bc1a1fad1dcd35b7c44e "pdflatex"
-  "Unif_Inf_DNN.run.xml" 1718913506 2447 7cf8dca4ddc857041de26d6b0c366ffb "pdflatex"
-  "Unif_Inf_DNN.tex" 1718913505 49263 2e32e4dc04bb705d70169b5ba6f98815 ""
-  "Unif_Inf_DNN.toc" 1718913506 649 2b05427a62c0438779a53edb5571dbe9 "pdflatex"
+  "Unif_Inf_DNN.aux" 1718985603 12440 00ddcadca552dd996328170b47a7bd81 "pdflatex"
+  "Unif_Inf_DNN.bbl" 1718985565 16570 254d2fcaf6629b37d045772ce4ae1aea "biber Unif_Inf_DNN"
+  "Unif_Inf_DNN.out" 1718985603 1011 0b92895f62cbd338472e16fe848c3e08 "pdflatex"
+  "Unif_Inf_DNN.run.xml" 1718985603 2447 7cf8dca4ddc857041de26d6b0c366ffb "pdflatex"
+  "Unif_Inf_DNN.tex" 1718985602 49485 5f561a7e21dbc0ccbacc5d2a8a9eacd9 ""
+  "Unif_Inf_DNN.toc" 1718985603 561 40413ff78fd3073722af94388ca83c8d "pdflatex"
   (generated)
   "Unif_Inf_DNN.aux"
   "Unif_Inf_DNN.bcf"

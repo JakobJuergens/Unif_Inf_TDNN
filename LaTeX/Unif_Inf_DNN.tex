@@ -223,9 +223,10 @@ After rearranging the terms, it is given by the following U-statistic.
 From the empirical conditional moment equation, it becomes apparent that the DNN estimator is a Weighted Nearest Neighbor (WNN) estimator that automatically assigns suitable weights in a distributional fashion.
 Weighted nearest neighbor estimators in their general form have been studied in detail by {\color{red} ADD REFERENCES}.
 Among other properties, it has been shown that under smoothness assumptions and using a suitable weight vector their convergence rate is optimal with $O_p(n^{-\frac{2}{d+4}}).$
+Furthermore, through an equivalent representation as an L-statistic developed by \citet{steele_exact_2009}, the estimator has a computationally simple way to be evaluated compared to the usual U-statistic approach.
 
 Starting from this setup, \citet{demirkaya_optimal_2024} develop a novel bias-correction method for the DNN estimator that leads to appealing finite-sample properties of the resulting Two-Scale Distributional Nearest Neighbor (TDNN) estimator.
-Their method is based on an explicit formula for the first-order bias term of the DNN estimator, which in turn allows them to eliminate it entirely through a clever combination of two DNN estimators.
+Their method is based on an explicit formula for the first-order bias term of the DNN estimator, which in turn allows them to eliminate it through a clever combination of two DNN estimators.
 
 \vspace{0.5cm}
 \begin{theorem}[\citet{demirkaya_optimal_2024} - Theorem 1]\label{demirkaya_Thm1}
@@ -508,15 +509,15 @@ Clearly, the Lipschitz continuity part of this assumption translates directly in
 The boundedness assumption is
 	{\color{red} LOREM IPSUM}
 
-\section{Approximation  as Incomplete IOUS}
-\hrule
+% \section{Approximation  as Incomplete IOUS}
+% \hrule
 
-Due to the inherent complexity of evaluating a U-statistic on a large sample size, it is valuable to consider the approximation through an incomplete U-statistic.
-Specifically, using the Bernoulli sampling scheme introduced in \citet{chen_randomized_2019} for a given computational budget $N$ we consider the incomplete IOUS of the following form.
-\begin{equation}
-	{\color{red} LOREM IPSUM}
-\end{equation}
-{\color{red} LOREM IPSUM}
+% Due to the inherent complexity of evaluating a U-statistic on a large sample size, it is valuable to consider the approximation through an incomplete U-statistic.
+% Specifically, using the Bernoulli sampling scheme introduced in \citet{chen_randomized_2019} for a given computational budget $N$ we consider the incomplete IOUS of the following form.
+% \begin{equation}
+% 	{\color{red} LOREM IPSUM}
+% \end{equation}
+% {\color{red} LOREM IPSUM}
 
 \section{Simulations}\label{Simulations}
 \hrule

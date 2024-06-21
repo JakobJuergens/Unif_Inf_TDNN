@@ -2,8 +2,7 @@
 \contentsline {section}{\numberline {1}Introduction}{2}{section.1}%
 \contentsline {section}{\numberline {2}Two-Scale Distributional Nearest Neighbor Estimator}{2}{section.2}%
 \contentsline {section}{\numberline {3}Uniform Inference for TDNN Estimator}{6}{section.3}%
-\contentsline {section}{\numberline {4}Approximation as Incomplete IOUS}{9}{section.4}%
-\contentsline {section}{\numberline {5}Simulations}{9}{section.5}%
-\contentsline {section}{\numberline {6}Application}{9}{section.6}%
-\contentsline {section}{\numberline {7}Conclusion}{9}{section.7}%
+\contentsline {section}{\numberline {4}Simulations}{9}{section.4}%
+\contentsline {section}{\numberline {5}Application}{9}{section.5}%
+\contentsline {section}{\numberline {6}Conclusion}{9}{section.6}%
 \contentsline {section}{\numberline {A}Proofs}{10}{appendix.A}%
