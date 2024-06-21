@@ -4,10 +4,10 @@
 \alias{TDNN}
 \title{Calculate the distributional nearest neighbor estimate for a point x
 based on a sample data with subsampling scale s.
-The implementation is based on the equivalent represetation as an L-statistic
-described in Steele (2009)}
+The implementation is based on the equivalent representation as an L-statistic
+described in Steele (2009) and Demirkaya et al. (2024)}
 \usage{
-TDNN(x, data, s)
+TDNN(x, data, s1, s2)
 }
 \arguments{
 \item{x}{The point of interest.}
@@ -24,6 +24,6 @@ A number.
 \description{
 Calculate the distributional nearest neighbor estimate for a point x
 based on a sample data with subsampling scale s.
-The implementation is based on the equivalent represetation as an L-statistic
-described in Steele (2009)
+The implementation is based on the equivalent representation as an L-statistic
+described in Steele (2009) and Demirkaya et al. (2024)
 }

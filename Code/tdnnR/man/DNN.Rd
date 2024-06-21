@@ -4,7 +4,7 @@
 \alias{DNN}
 \title{Calculate the distributional nearest neighbor estimate for a point x
 based on a sample data with subsampling scale s.
-The implementation is based on the equivalent represetation as an L-statistic
+The implementation is based on the equivalent representation as an L-statistic
 described in Steele (2009)}
 \usage{
 DNN(x, data, s)
@@ -22,6 +22,6 @@ A number.
 \description{
 Calculate the distributional nearest neighbor estimate for a point x
 based on a sample data with subsampling scale s.
-The implementation is based on the equivalent represetation as an L-statistic
+The implementation is based on the equivalent representation as an L-statistic
 described in Steele (2009)
 }
