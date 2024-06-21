@@ -1,47 +1,6 @@
 #' Calculate the distributional nearest neighbor estimate for a point x
 #' based on a sample data with subsampling scale s.
 #' The implementation is based on the equivalent representation as an L-statistic
-#' described in Steele (2009)
-#'
-#' @param x The point of interest.
-#' @param data The data set containing the observations.
-#' @param s The subsampling scale.
-#' @return A number.
-#'
-#' @export
-DNN <- function(x, data, s, presorted = FALSE) {
-  # Check inputs for executing function
-  point_check(x)
-  data_check(data)
-  data_point_compatibility_check(x, data)
-  samplingscale_check(s, data)
-
-  # Pre-sort data relative to point of interest
-  if (presorted == FALSE) {
-    data <- pre_sort(x = x, data = data)
-  }
-
-  n <- nrow(data)
-  d <- ncol(data) - 1
-
-  # Calculate DNN estimator
-  res <- 0
-  factor <- 1
-  prefactor <- 1 / choose(n, s)
-  for (i in 1:(n - s + 1)) {
-    index <- n - s + 2 - i
-    res <- res + factor * data[index, 1]
-    factor <- factor * ((n - index + 1) / (n - index - s + 2))
-  }
-  res <- prefactor * res
-
-  # return calculated result
-  return(res)
-}
-
-#' Calculate the distributional nearest neighbor estimate for a point x
-#' based on a sample data with subsampling scale s.
-#' The implementation is based on the equivalent representation as an L-statistic
 #' described in Steele (2009) and the TDNN estimator from Demirkaya et al. (2024)
 #'
 #' @param x The point of interest.
@@ -63,6 +22,10 @@ TDNN <- function(x, data, s1, s2, presorted = FALSE) {
     data <- pre_sort(x = x, data = data)
   }
 
+  Y <- as.vector(data[1,])
+  d <- ncol(data) - 1
+  n <- length(Y)
+
   # Check that s2 > s1 and reverse if not
   if (s1 > s2) {
     tmp <- s1
@@ -71,7 +34,7 @@ TDNN <- function(x, data, s1, s2, presorted = FALSE) {
   }
 
   # Calculate weights for two-scale DNN
-  w1 <- 0.5
+  w1 <- (1 - (s1/s2)^(-2/d))^(-1)
   w2 <- 1 - w_1
 
   # Calculate the two DNN estimators
@@ -84,7 +47,7 @@ TDNN <- function(x, data, s1, s2, presorted = FALSE) {
 
   for (i in 1:(s2 - s1)) {
     index <- n - s2 + 2 - i
-    res2 <- res2 + factor2 * data[index, 1]
+    res2 <- res2 + factor2 * Y[index]
     factor2 <- factor2 * ((n - index + 1) / (n - index - s2 + 2))
   }
 

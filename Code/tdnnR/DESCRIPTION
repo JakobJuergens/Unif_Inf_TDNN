@@ -6,8 +6,10 @@ Authors@R: person("Jakob R.", "Juergens", email = "info@jakobjuergens.com",
   role = c("aut", "cre"))
 URL: https://github.com/JakobJuergens/Unif_Inf_TDNN
 BugReports: https://github.com/JakobJuergens/Unif_Inf_TDNN/issues
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: This package implements the DNN and TDNN estimators described in Deimarkaya et al. (2024)
+    including functions for pointwise inference and pointwise confidence intervals.
+    Furthermore, it implements the uniform confidence bands described in Juergens (202?) inspired by
+    Ritzwoller and Syrgkanis (2024 wp).
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
