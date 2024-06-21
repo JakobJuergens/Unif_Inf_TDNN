@@ -9,7 +9,7 @@
 #' @return A number.
 #'
 #' @export
-DNN <- function(x, data, s, presorted = FALSE){
+DNN <- function(x, data, s, presorted = FALSE) {
   # Check inputs for executing function
   point_check(x)
   data_check(data)
@@ -17,7 +17,7 @@ DNN <- function(x, data, s, presorted = FALSE){
   samplingscale_check(s, data)
 
   # Pre-sort data relative to point of interest
-  if(presorted == FALSE){
+  if (presorted == FALSE) {
     data <- pre_sort(x = x, data = data)
   }
 
@@ -27,13 +27,13 @@ DNN <- function(x, data, s, presorted = FALSE){
   # Calculate DNN estimator
   res <- 0
   factor <- 1
-  prefactor <- 1/choose(n,s)
-  for(i in 1:(n-s+1)){
-    index <- n-s+2-i
-    res <- res + factor*data[index,1]
-    factor <- factor*((n-index+1)/(n - index - s + 2))
+  prefactor <- 1 / choose(n, s)
+  for (i in 1:(n - s + 1)) {
+    index <- n - s + 2 - i
+    res <- res + factor * data[index, 1]
+    factor <- factor * ((n - index + 1) / (n - index - s + 2))
   }
-  res <- prefactor*res
+  res <- prefactor * res
 
   # return calculated result
   return(res)
@@ -51,7 +51,7 @@ DNN <- function(x, data, s, presorted = FALSE){
 #' @return A number.
 #'
 #' @export
-TDNN <- function(x, data, s1, s2, presorted = FALSE){
+TDNN <- function(x, data, s1, s2, presorted = FALSE) {
   # Check inputs for executing function
   point_check(x)
   data_check(data)
@@ -59,12 +59,12 @@ TDNN <- function(x, data, s1, s2, presorted = FALSE){
   samplingscale_check2(s1, s2, data)
 
   # Pre-sort data relative to point of interest
-  if(presorted == FALSE){
+  if (presorted == FALSE) {
     data <- pre_sort(x = x, data = data)
   }
 
   # Check that s2 > s1 and reverse if not
-  if(s1 > s2){
+  if (s1 > s2) {
     tmp <- s1
     s_1 <- s2
     s_2 <- tmp
@@ -79,30 +79,31 @@ TDNN <- function(x, data, s1, s2, presorted = FALSE){
   res2 <- 0
   factor1 <- 1
   factor2 <- 1
-  prefactor1 <- 1/choose(n,s1)
-  prefactor2 <- 1/choose(n,s2)
+  prefactor1 <- 1 / choose(n, s1)
+  prefactor2 <- 1 / choose(n, s2)
 
-  for(i in 1:(s2-s1)){
-    index <- n-s2+2-i
-    res2 <- res2 + factor2*data[index,1]
-    factor2 <- factor2*((n-index+1)/(n - index - s2 + 2))
+  for (i in 1:(s2 - s1)) {
+    index <- n - s2 + 2 - i
+    res2 <- res2 + factor2 * data[index, 1]
+    factor2 <- factor2 * ((n - index + 1) / (n - index - s2 + 2))
   }
 
-  for(i in 1:(n-s1+1)){
-    index <- n-s1+2-i
+  for (i in 1:(n - s1 + 1)) {
+    index <- n - s1 + 2 - i
 
-    res1 <- res1 + factor1*data[index,1]
-    res2 <- res2 + factor2*data[index,1]
+    res1 <- res1 + factor1 * data[index, 1]
+    res2 <- res2 + factor2 * data[index, 1]
 
-    factor1 <- factor1*((n-index+1)/(n - index - s1 + 2))
-    factor2 <- factor2*((n-index+1)/(n - index - s2 + 2))
+    factor1 <- factor1 * ((n - index + 1) / (n - index - s1 + 2))
+    factor2 <- factor2 * ((n - index + 1) / (n - index - s2 + 2))
   }
 
-  res1 <- prefactor1*res1
-  res2 <- prefactor2*res2
+  res1 <- prefactor1 * res1
+  res2 <- prefactor2 * res2
 
   # Combine results
+  res <- w1 * res1 + w2 * res2
 
+  # return results
+  return(res)
 }
-
-
