@@ -7,7 +7,7 @@ based on a sample data with subsampling scale s.
 The implementation is based on the equivalent representation as an L-statistic
 described in Steele (2009)}
 \usage{
-DNN(x, data, s)
+DNN(x, data, s, presorted = FALSE)
 }
 \arguments{
 \item{x}{The point of interest.}

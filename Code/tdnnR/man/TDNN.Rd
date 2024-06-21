@@ -7,7 +7,7 @@ based on a sample data with subsampling scale s.
 The implementation is based on the equivalent representation as an L-statistic
 described in Steele (2009) and the TDNN estimator from Demirkaya et al. (2024)}
 \usage{
-TDNN(x, data, s1, s2)
+TDNN(x, data, s1, s2, presorted = FALSE)
 }
 \arguments{
 \item{x}{The point of interest.}
