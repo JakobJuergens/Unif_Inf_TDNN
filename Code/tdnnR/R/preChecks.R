@@ -58,7 +58,7 @@ samplingscale_check <- function(s, data) {
 #' @return TRUE or FALSE
 samplingscale_check2 <- function(s1, s2, data) {
   n <- nrow(data)
-  if (!all(is.integer(c(s1,s2)))) {
+  if (!(all(c(s1,s2)%%1==0))) {
     stop("s1 and s2 need to be integers.")
   }
   if (s1 > n) {
