@@ -10,12 +10,21 @@
 #' @return A number.
 #'
 #' @export
-DNN <- function(x, data, s, presorted = FALSE) {
+DNN <- function(x, data, s,
+                presorted = FALSE, standardize = FALSE,
+                verbose = FALSE) {
   # Check inputs for executing function
   point_check(x)
   data_check(data)
   data_point_compatibility_check(x, data)
   samplingscale_check(s, data)
+
+  # Standardize Data
+  if(standardize == TRUE){
+    stand <- standardize(x = x, data = data)
+    x <- stand$x
+    data <- stand$data
+  }
 
   # Pre-sort data relative to point of interest
   if (presorted == FALSE) {
@@ -23,7 +32,12 @@ DNN <- function(x, data, s, presorted = FALSE) {
   }
 
   Y <- as.vector(data[,1])
+  d <- ncol(data) - 1
   n <- length(Y)
+
+  if (verbose) {
+    print(paste0("d = ", d, ", n = ", n))
+  }
 
   # Calculate DNN estimator
   res <- 0

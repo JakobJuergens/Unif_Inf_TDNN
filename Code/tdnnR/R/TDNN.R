@@ -11,12 +11,21 @@
 #' @return A number.
 #'
 #' @export
-TDNN <- function(x, data, s1, s2, presorted = FALSE, verbose = FALSE) {
+TDNN <- function(x, data, s1, s2,
+                 presorted = FALSE, standardize = FALSE,
+                 verbose = FALSE) {
   # Check inputs for executing function
   point_check(x)
   data_check(data)
   data_point_compatibility_check(x, data)
   samplingscale_check2(s1, s2, data)
+
+  # Standardize Data
+  if(standardize == TRUE){
+    stand <- standardize(x = x, data = data)
+    x <- stand$x
+    data <- stand$data
+  }
 
   # Pre-sort data relative to point of interest
   if (presorted == FALSE) {

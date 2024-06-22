@@ -21,3 +21,19 @@ pre_sort <- function(x, data) {
   )))
   return(data[dist_ranks, ])
 }
+
+#' Standardizes a point of interest and a sample
+#' to improve comparability between dimensions
+#'
+#' @param x Point of interest
+#' @param data Sample under Consideration
+#' @return The sample sorted relative to x
+standardize <- function(x, data) {
+  d <- ncol(data) - 1
+  for (i in 1:d) {
+    sd <- sd(data[, i + 1])
+    data[, i + 1] <- data[, i + 1] / sd
+    x[i] <- x[i] / sd
+  }
+  return(list(x = x, data = data))
+}
