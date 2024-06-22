@@ -5,6 +5,7 @@
 #'
 #' @param x The point of interest.
 #' @param data The data set containing the observations.
+#' As a matrix containing the response value in the first column.
 #' @param s1 The first subsampling scale.
 #' @param s2 The second subsampling scale.
 #' @return A number.
@@ -26,7 +27,7 @@ TDNN <- function(x, data, s1, s2, presorted = FALSE, verbose = FALSE) {
   d <- ncol(data) - 1
   n <- length(Y)
 
-  if(verbose){
+  if (verbose) {
     print(paste0("d = ", d, ", n = ", n))
   }
 
@@ -37,8 +38,7 @@ TDNN <- function(x, data, s1, s2, presorted = FALSE, verbose = FALSE) {
     s2 <- tmp
   }
 
-  if(verbose)
-  {
+  if (verbose) {
     print(paste0("s1 = ", s1, ", s2 = ", s2))
   }
   # Calculate weights for two-scale DNN
@@ -71,14 +71,14 @@ TDNN <- function(x, data, s1, s2, presorted = FALSE, verbose = FALSE) {
     factor2 <- factor2 * ((n - index + 1) / i)
   }
 
-  if(verbose){
+  if (verbose) {
     print(paste0("res1 = ", res1, ", res2 = ", res2))
   }
 
   # At this point the factors are (n-1 choose s-1)
   # so we ca simplify for the prefactors
-  prefactor1 <- (factor1*(1 + n/s1))^(-1)
-  prefactor2 <- (factor2*(1 + n/s2))^(-1)
+  prefactor1 <- (factor1 * (1 + n / s1))^(-1)
+  prefactor2 <- (factor2 * (1 + n / s2))^(-1)
 
   if (verbose) {
     print(paste0("prefactor1 = ", prefactor1, ", prefactor2 = ", prefactor2))

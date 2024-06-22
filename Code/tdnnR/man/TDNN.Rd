@@ -7,12 +7,13 @@ based on a sample data with subsampling scale s.
 The implementation is based on the equivalent representation as an L-statistic
 described in Steele (2009) and the TDNN estimator from Demirkaya et al. (2024)}
 \usage{
-TDNN(x, data, s1, s2, presorted = FALSE)
+TDNN(x, data, s1, s2, presorted = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{x}{The point of interest.}
 
-\item{data}{The data set containing the observations.}
+\item{data}{The data set containing the observations.
+As a matrix containing the response value in the first column.}
 
 \item{s1}{The first subsampling scale.}
 

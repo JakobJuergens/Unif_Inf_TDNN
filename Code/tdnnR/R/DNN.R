@@ -5,6 +5,7 @@
 #'
 #' @param x The point of interest.
 #' @param data The data set containing the observations.
+#' As a matrix containing the response value in the first column.
 #' @param s The subsampling scale.
 #' @return A number.
 #'
