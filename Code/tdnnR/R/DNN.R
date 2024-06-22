@@ -21,7 +21,7 @@ DNN <- function(x, data, s, presorted = FALSE) {
     data <- pre_sort(x = x, data = data)
   }
 
-  Y <- as.vector(data[1,])
+  Y <- as.vector(data[,1])
   n <- length(Y)
 
   # Calculate DNN estimator
@@ -31,7 +31,7 @@ DNN <- function(x, data, s, presorted = FALSE) {
   for (i in 1:(n - s + 1)) {
     index <- n - s + 2 - i
     res <- res + factor * Y[index]
-    factor <- factor * ((n - index + 1) / (n - index - s + 2))
+    factor <- factor * ((n - index + 1) / i)
   }
   res <- prefactor * res
 

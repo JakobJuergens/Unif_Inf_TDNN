@@ -14,5 +14,10 @@ dist <- function(x, y) {
 #' @param data Sample under Consideration
 #' @return The sample sorted relative to x
 pre_sort <- function(x, data) {
-
+  n <- nrow(data)
+  dist_ranks <- order(unlist(purrr::map(
+    .x = 1:n,
+    .f = ~ philentropy::euclidean(x, data[.x, -1], testNA = FALSE)
+  )))
+  return(data[dist_ranks, ])
 }
