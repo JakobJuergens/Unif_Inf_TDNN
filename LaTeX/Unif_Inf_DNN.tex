@@ -48,8 +48,8 @@
 
 \declaretheorem[style=mystyle, thmbox=M]{theorem}
 \numberwithin{theorem}{section}
-\declaretheorem[style=mystyle, thmbox=M, numberlike=theorem]{lemma, proposition, corollary, definition, assumption}
-\declaretheorem[style=mystyle, thmbox=M]{remark}
+\declaretheorem[style=mystyle, thmbox=M, numberlike=theorem]{remark, lemma, proposition, corollary, definition, assumption}
+% \declaretheorem[style=mystyle, thmbox=M]{remark}
 \declaretheorem[style=mystyle, thmbox=M]{example}
 \declaretheorem[style=mystyle_pf, thmbox=M]{proof}
 
@@ -170,6 +170,14 @@ where draws are broken according to the natural indices of the observations in a
 Let $\operatorname{rk}(\mathbf{x}; \mathbf{Z}_i, D)$ denote the \textit{rank} that is assigned to observation $i$ in a sample $D$ relative to a point of interest $\mathbf{x}$ in this fashion.
 By convention, let $\operatorname{rk}(\mathbf{x}; \mathbf{Z}_i, D) = \infty$ if $\mathbf{Z}_i \not\in D$.
 Similarly, let $Y_{(1)}(\mathbf{x}; D)$ indicate the response value of the closest neighbor in set $D$.
+
+\vspace{0.5cm}
+\begin{remark}[Standardization]
+	Depending on the underlying norm that is used to calculate the distances between observations, it can be advisable to standardize the feature space before applying nearest neighbor methods.
+	Since this is highly context-dependent, it is impossible to give general advice on when to standardize.
+	Thus, this decision is left to the practitioner.
+\end{remark}
+
 To simplify further expressions, let $[n] = \{1, \dotsc, n\}$ and define $L_{n,r}$ and $I_{n,r}$ as follows.
 \begin{align}
 	L_{n,s} & = \left\{\left(l_1, \dotsc, l_r\right) \in [n]^{s} \, : \, \text{entries of vector are distinct} \right\} \\
@@ -345,6 +353,7 @@ To summarize the kind of object we want to construct, we define a uniform confid
 		:= \left\{\hat{C}(\mathbf{x}^{(p)}_{j}) = \left[c_{L}(\mathbf{x}^{(p)}_{j}), c_{U}(\mathbf{x}^{(p)}_{j})\right]\, : \, j \in [p]\right\}
 	\end{equation}
 	based on the observed data, such that
+	
 	\begin{equation}
 		\sup_{P \in \mathbf{P}} \left| P\left(\mu(\mathbf{x}^{(d)}) \in \hat{\mathcal{C}}\left(\mathbf{x}^{(d)}\right)\right) \right| \leq r_{n,d}
 	\end{equation}
@@ -522,17 +531,10 @@ The boundedness assumption is
 \section{Simulations}\label{Simulations}
 \hrule
 
-{\color{red} LOREM IPSUM}
-
-\subsection*{Setups}
-\hrule
+Having developed theoretical results concerning uniform inference methods for the TDNN estimator, we will proceed by testing their properties in a number of simulation studies.
 
 {\color{red} LOREM IPSUM}
 
-\subsection*{Results}
-\hrule
-
-{\color{red} LOREM IPSUM}
 
 \section{Application}\label{Application}
 \hrule

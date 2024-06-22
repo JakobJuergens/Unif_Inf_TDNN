@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.3.14)  22 JUN 2024 11:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.3.14)  22 JUN 2024 14:59
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -696,16 +696,15 @@ Package: thmbox 2005/04/24 v2.0 fancy theorem outlining
 \thmbox@dim=\dimen189
 )
 \c@theorem=\count436
-\c@remark=\count437
-\c@example=\count438
-\c@proof=\count439
-\c@thm=\count440
-\c@lem=\count441
-\c@cor=\count442
-\c@prop=\count443
-\c@asm=\count444
-\c@rem=\count445
-\c@ex=\count446
+\c@example=\count437
+\c@proof=\count438
+\c@thm=\count439
+\c@lem=\count440
+\c@cor=\count441
+\c@prop=\count442
+\c@asm=\count443
+\c@rem=\count444
+\c@ex=\count445
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
  (./Unif_Inf_DNN.aux)
@@ -772,7 +771,7 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ) (/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count447
+\c@section@level=\count446
 )
 LaTeX Info: Redefining \ref on input line 89.
 LaTeX Info: Redefining \pageref on input line 89.
@@ -783,16 +782,16 @@ LaTeX Info: Redefining \nameref on input line 89.
 
  (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count448
+\scratchcounter=\count447
 \scratchdimen=\dimen190
 \scratchbox=\box104
-\nofMPsegments=\count449
-\nofMParguments=\count450
+\nofMPsegments=\count448
+\nofMParguments=\count449
 \everyMPshowfont=\toks37
-\MPscratchCnt=\count451
+\MPscratchCnt=\count450
 \MPscratchDim=\dimen191
-\MPnumerator=\count452
-\makeMPintoPDFobject=\count453
+\MPnumerator=\count451
+\makeMPintoPDFobject=\count452
 \everyMPtoPDFconversion=\toks38
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -833,32 +832,33 @@ File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
-LaTeX Font Info:    Trying to load font information for U+bbm on input line 182.
+Package hyperref Info: bookmark level for unknown remark defaults to 0 on input line 175.
+LaTeX Font Info:    Trying to load font information for U+bbm on input line 190.
  (/usr/share/texlive/texmf-dist/tex/latex/bbm-macros/ubbm.fd
 File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
 )
-Package hyperref Info: bookmark level for unknown definition defaults to 0 on input line 190.
+Package hyperref Info: bookmark level for unknown definition defaults to 0 on input line 198.
  [3]
-Package hyperref Info: bookmark level for unknown theorem defaults to 0 on input line 232.
- [4] [5]pdfTeX warning (ext4): destination with the same identifier (name{definition.1}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.341 ...n{definition}[Uniform Confidence Regions]
-                                                   [6]pdfTeX warning (ext4): destination with the same identifier (name{theorem.3}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.386 ...Region - \citet{ritzwoller_uniform_2024}]
-                                                  
-Underfull \vbox (badness 10000) detected at line 415
+Package hyperref Info: bookmark level for unknown theorem defaults to 0 on input line 240.
+
+Underfull \vbox (badness 2564) detected at line 270
  []
 
-[7]
-Package hyperref Info: bookmark level for unknown assumption defaults to 0 on input line 445.
-
-Underfull \vbox (badness 10000) detected at line 506
+[4] [5]
+Underfull \vbox (badness 10000) detected at line 361
  []
 
-[8] [9] [10] (./Unif_Inf_DNN.aux)
+[6]pdfTeX warning (ext4): destination with the same identifier (name{definition.2}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.367 ...mation - \citet{ritzwoller_uniform_2024}]
+                                                  pdfTeX warning (ext4): destination with the same identifier (name{theorem.3}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.395 ...Region - \citet{ritzwoller_uniform_2024}]
+                                                   [7]
+Package hyperref Info: bookmark level for unknown assumption defaults to 0 on input line 454.
+ [8] [9] [10] (./Unif_Inf_DNN.aux)
 Package rerunfilecheck Info: File `Unif_Inf_DNN.out' has not changed.
 (rerunfilecheck)             Checksum: 0B92895F62CBD338472E16FE848C3E08;1011.
 Package logreq Info: Writing requests to 'Unif_Inf_DNN.run.xml'.
@@ -867,17 +867,17 @@ Package logreq Info: Writing requests to 'Unif_Inf_DNN.run.xml'.
  ) 
 Here is how much of TeX's memory you used:
  21810 strings out of 478287
- 378812 string characters out of 5849289
- 1119542 words of memory out of 5000000
- 39594 multiletter control sequences out of 15000+600000
- 493108 words of font info for 87 fonts, out of 8000000 for 9000
+ 378845 string characters out of 5849289
+ 1120521 words of memory out of 5000000
+ 39595 multiletter control sequences out of 15000+600000
+ 492332 words of font info for 86 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  60i,16n,68p,1401b,1817s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc} </home/jjuergens/.texlive2021/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbi1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfcc1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0700.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfsl1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on Unif_Inf_DNN.pdf (10 pages, 494049 bytes).
+{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc} </home/jjuergens/.texlive2021/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbi1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfcc1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0700.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfsl1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1000.pfb>
+Output written on Unif_Inf_DNN.pdf (10 pages, 482337 bytes).
 PDF statistics:
- 392 PDF objects out of 1000 (max. 8388607)
- 314 compressed objects within 4 object streams
+ 387 PDF objects out of 1000 (max. 8388607)
+ 311 compressed objects within 4 object streams
  89 named destinations out of 1000 (max. 500000)
  57 words of extra memory for PDF output out of 10000 (max. 10000000)
 
