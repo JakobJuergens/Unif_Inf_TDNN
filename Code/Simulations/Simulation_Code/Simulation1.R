@@ -1,25 +1,32 @@
+# This is the first simulation assessing the performance for pointwise estimation
+
 library(tidyverse)
 library(tdnnR)
+set.seed(1234)
 
-n = 2000
+reps <- 10000
+n <- 10000
+sample_sizes <- c(20, 50, 100, 500, 1000, 5000, 10000)
+x <- 0.5
 
-grid <- seq(from = 0, to = 1, by = 0.01)
+#grid <- seq(from = 0, to = 1, by = 0.01)
 my_f <- function(x) {
   (5 * x)^2
 }
 my_F <- Vectorize(FUN = my_f)
-f_vals <- my_F(grid)
+#f_vals <- my_F(grid)
 
-data_x <- runif(n = n)
-data_y <- my_F(data_x) + rnorm(n = n, mean = 0, sd = 2)
-data <- cbind(data_y, data_x)
+predictions <- matrix(data = NA, nrow = reps, ncol = length(sample_sizes))
+predictions2 <- matrix(data = NA, nrow = reps, ncol = length(sample_sizes))
 
-predictions <- unlist(purrr::map(
-  .x = grid,
-  .f = ~tdnnR::DNN(x = .x, data = data, s = 20)
-))
+for(i in 1:reps){
+  for(j in 1:length(sample_sizes)){
+    data_x <- runif(n = sample_sizes[j])
+    data_y <- my_F(data_x) + rnorm(n = sample_sizes[j], mean = 0, sd = 2)
+    data <- cbind(data_y, data_x)
 
-predictions2 <- unlist(purrr::map(
-  .x = grid,
-  .f = ~tdnnR::TDNN(x = .x, data = data, s1 = 5, s2 = 20)
-))
+    predictions[i,j] <- tdnnR::DNN(x = x, data = data[1:sample_sizes[j],], s = 20)
+    predictions2[i,j] <- tdnnR::TDNN(x = x, data = data[1:sample_sizes[j],], s1 = 5, s2 = 20)
+  }
+}
+
