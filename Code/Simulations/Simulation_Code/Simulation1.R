@@ -5,7 +5,6 @@ library(tdnnR)
 set.seed(1234)
 
 reps <- 10000
-n <- 10000
 sample_sizes <- c(20, 50, 100, 500, 1000, 5000, 10000)
 x <- 0.5
 
@@ -20,6 +19,9 @@ predictions <- matrix(data = NA, nrow = reps, ncol = length(sample_sizes))
 predictions2 <- matrix(data = NA, nrow = reps, ncol = length(sample_sizes))
 
 for(i in 1:reps){
+  if(i %% 100){
+    print(paste0("Repetition: ", i))
+  }
   for(j in 1:length(sample_sizes)){
     data_x <- runif(n = sample_sizes[j])
     data_y <- my_F(data_x) + rnorm(n = sample_sizes[j], mean = 0, sd = 2)
