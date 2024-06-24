@@ -1,8 +1,9 @@
 \babel@toc {english}{}\relax 
-\contentsline {section}{\numberline {1}Introduction}{2}{section.1}%
-\contentsline {section}{\numberline {2}Two-Scale Distributional Nearest Neighbor Estimator}{2}{section.2}%
-\contentsline {section}{\numberline {3}Uniform Inference for TDNN Estimator}{6}{section.3}%
-\contentsline {section}{\numberline {4}Simulations}{9}{section.4}%
-\contentsline {section}{\numberline {5}Application}{9}{section.5}%
-\contentsline {section}{\numberline {6}Conclusion}{9}{section.6}%
-\contentsline {section}{\numberline {A}Proofs}{10}{appendix.A}%
+\contentsline {section}{\numberline {1}Introduction}{3}{section.1}%
+\contentsline {section}{\numberline {2}Two-Scale Distributional Nearest Neighbor Estimator}{3}{section.2}%
+\contentsline {section}{\numberline {3}Subsampling Rate Improvements for the TDNN Estimator}{7}{section.3}%
+\contentsline {section}{\numberline {4}Uniform Inference for the TDNN Estimator}{7}{section.4}%
+\contentsline {section}{\numberline {5}Simulations}{10}{section.5}%
+\contentsline {section}{\numberline {6}Application}{10}{section.6}%
+\contentsline {section}{\numberline {7}Conclusion}{10}{section.7}%
+\contentsline {section}{\numberline {A}Proofs}{11}{appendix.A}%
