@@ -88,7 +88,7 @@
 
 \begin{document}
 \singlespacing
-\title{Uniform Inference for the Two-Scale Distributional Nearest Neighbor Estimator}
+\title{Pointwise and Uniform Inference for the Two-Scale\\ Distributional Nearest Neighbor Estimator}
 \date{Last edited: \today}
 \author{Jakob R. Juergens \\ University of Wisconsin - Madison}
 \maketitle
@@ -130,9 +130,11 @@ Due to the inherent connection of the Potential Nearest Neighbors (PNN) framewor
 
 The remainder of this paper will be organized as follows.
 Section \ref{TDNN} introduces the TDNN estimator as developed by \citet{demirkaya_optimal_2024} and presents some of the results this paper is based on.
+Section \ref{Subsampling_Improvements} uses recent theoretical developments to show that the distributional approximations provided by \citet{demirkaya_optimal_2024} can be justified under weaker assumptions on the chosen subsampling scales.
 Section \ref{UnifInf} extends results from \citet{ritzwoller_uniform_2024} to the TDNN estimator and thus introduces methods to construct uniform confidence bands for the TDNN estimator.
 Section \ref{Simulations} explores the performance of the developed uniform inference methods in a number of setups and Section \ref{Application} applies them to the context of {\color{red} LOREM IPSUM}.
 
+\newpage
 \section{Two-Scale Distributional Nearest Neighbor Estimator}\label{TDNN}
 \hrule
 As in \citet{demirkaya_optimal_2024}, consider a sample of independent and identically distributed observations
@@ -222,17 +224,51 @@ Inserting into Equation \ref{EmpCondMomEq}, this gives us the following empirica
 \end{equation}
 Solving this empirical conditional moment equation then yields the DNN estimator $D_{n}^{s}(\mathbf{x})$ with subsampling scale $s$ estimating the conditional expectation function $\mu(\mathbf{x}) = \mathbb{E}\left[Y \, | \, \mathbf{X} = \mathbf{x}\right]$.
 After rearranging the terms, it is given by the following U-statistic.
-\begin{equation}
+\begin{equation}\label{U_stat}
 	D_{n}^{s}(\mathbf{x})
 	%= \binom{n}{s}^{-1} \sum_{\iota \in I_{n,s}} h_{\mathbf{x}}(D_{\iota})
 	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} \frac{1}{s!} Y_{(1)}(\mathbf{x}; D_{\ell})
-	=: \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} \psi^{s}(\mathbf{x}; D_{\ell})
+	=: \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} h_{s}(\mathbf{x}; D_{\ell})
 \end{equation}
-From the empirical conditional moment equation, it becomes apparent that the DNN estimator is a Weighted Nearest Neighbor (WNN) estimator that automatically assigns suitable weights in a distributional fashion.
-Weighted nearest neighbor estimators in their general form have been studied in detail by {\color{red} ADD REFERENCES}.
-Among other properties, it has been shown that under smoothness assumptions and using a suitable weight vector their convergence rate is optimal with $O_p(n^{-\frac{2}{d+4}}).$
-Furthermore, through an equivalent representation as an L-statistic developed by \citet{steele_exact_2009}, the estimator has a computationally simple way to be evaluated compared to the usual U-statistic approach.
+For any $1 \leq c \leq s$, let
+\begin{equation}
+	\zeta_{c,s}
+	= \operatorname{Cov}\left(\mathbf{x}; h_s\left(\mathbf{Z}_1, \ldots, \mathbf{Z}_c, \mathbf{Z}_{c+1}, \ldots, \mathbf{Z}_s\right),
+	h_s\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_c, \mathbf{Z}_{c+1}^{\prime}, \ldots, \mathbf{Z}_s^{\prime}\right)\right)
+\end{equation}
+where $\mathbf{Z}_{c+1}^{\prime}, \ldots, \mathbf{Z}_n^{\prime}$ are i.i.d. from $P$ and independent of $\mathbf{Z}_1, \ldots, \mathbf{Z}_n$ and thus
+$\zeta_{s,s} = \operatorname{Var}\left(\mathbf{x}; h_s\left(\mathbf{Z}_1, \ldots, \mathbf{Z}_s\right)\right).$
+As part of their asymptotic analysis of the TDNN estimator, the authors analyze its properties by considering the relevant Hoeffding decompositions.
+Borrowing the notational conventions from \citet{lee_u-statistics_2019}, introduce the following notation for usage later in this paper.
+\begin{align}
+	\psi_{c}^{s}(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c})
+	 & = \mathbb{E}_{\mathbf{Z}}\left[h_{s}\left(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \mathbf{Z}_{c+1}, \dotsc, \mathbf{Z}_{s}\right)\right]                                    \\
+	%
+	h_{s}^{(1)}\left(\mathbf{x}; \mathbf{z}_{1}\right)
+	 & = \psi_{1}^{s}(\mathbf{x}; \mathbf{z}_{1}) - \mu(\mathbf{x})                                                                                                                            \\
+	%
+	h_{s}^{(c)}\left(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}\right)
+	 & = \psi_{c}^{s}(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}) - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{n,j}}h_{s}^{(j)}(\mathbf{x}; \mathbf{z}_{\ell})\right) - \mu(\mathbf{x})
+	\quad \text{for } c = 2, \dotsc, s
+\end{align}
+In contrast to the notational inspiration, the subsampling size $s$ is made explicit.
+Since we are dealing with an infinite-order U-statistic, $s$ will be diverging with $n$.
+In the usual fashion, these terms can be used to express the Hoeffding projections of different orders.
+\begin{equation}
+	H_{n,s}^{c}
+	= \binom{n}{c}^{-1} \sum_{\ell \in L_{n,c}} h^{(c)}_{s}(\mathbf{x}; \mathbf{z}_{\ell})
+\end{equation}
+Thus, we find the following representation of the DNN estimator using the Hoeffding decomposition.
+\begin{equation}
+	D_n^s\left(\mathbf{x}\right) - \mu(\mathbf{x})
+	= \sum_{j = 1}^{s}\binom{s}{j}H_{n,s}^{j}
+\end{equation}
 
+% From the empirical conditional moment equation, it becomes apparent that the DNN estimator is a Weighted Nearest Neighbor (WNN) estimator that automatically assigns suitable weights in a distributional fashion.
+% Weighted nearest neighbor estimators in their general form have been studied in detail by {\color{red} ADD REFERENCES}.
+% Among other properties, it has been shown that under smoothness assumptions and using a suitable weight vector their convergence rate is optimal with $O_p(n^{-\frac{2}{d+4}}).$
+% Furthermore, t
+Through an equivalent representation as an L-statistic developed by \citet{steele_exact_2009}, the estimator has a computationally simple way to be evaluated compared to the usual U-statistic approach.
 Starting from this setup, \citet{demirkaya_optimal_2024} develop a novel bias-correction method for the DNN estimator that leads to appealing finite-sample properties of the resulting Two-Scale Distributional Nearest Neighbor (TDNN) estimator.
 Their method is based on an explicit formula for the first-order bias term of the DNN estimator, which in turn allows them to eliminate it through a clever combination of two DNN estimators.
 
@@ -298,33 +334,17 @@ Furthermore, the authors show that this construction improves on the quality of 
 		\end{cases}.
 	\end{equation*}
 \end{theorem}
-Furthermore, the authors provide an upper bound for the point-wise MSE of the TDNN estimator and suitable variance estimators.
-This bound can be used to derive subsampling scales that optimize the bias-variance tradeoff.
-
-As part of their asymptotic analysis of the TDNN estimator, the authors analyze its properties by considering the relevant Hoeffding decompositions.
-Borrowing the notational conventions from \citet{lee_u-statistics_2019}, we introduce the following notation.
-\begin{align}
-	\psi_{c}^{s}(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c})
-	 & = \mathbb{E}_{\mathbf{Z}}\left[\psi^{s}\left(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \mathbf{Z}_{c+1}, \dotsc, \mathbf{Z}_{s}\right)\right]                                 \\
-	%
-	h_{s}^{(1)}\left(\mathbf{x}; \mathbf{z}_{1}\right)
-	 & = \psi_{1}^{s}(\mathbf{x}; \mathbf{z}_{1}) - \mu(\mathbf{x})                                                                                                                            \\
-	%
-	h_{s}^{(c)}\left(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}\right)
-	 & = \psi_{c}^{s}(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}) - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{n,j}}h_{s}^{(j)}(\mathbf{x}; \mathbf{z}_{\ell})\right) - \mu(\mathbf{x})
-	\quad \text{for } c = 2, \dotsc, s
-\end{align}
-In the usual fashion, these terms can be used to express the Hoeffding projections of different orders.
+Recalling Equation \ref{U_stat}, the DNN and TDNN estimators can be expressed in the following U-statistic form.
 \begin{equation}
-	H_{n,s}^{c}
-	= \binom{n}{c}^{-1} \sum_{\ell \in L_{n,c}} h^{(c)}_{s}(\mathbf{x}; \mathbf{z}_{\ell})
+	D_{n}^{s}(\mathbf{x})
+	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} h_{s}(\mathbf{x}; D_{\ell})
+	\quad \text{and} \quad
+	D_{n}^{s_1, s_2}(\mathbf{x})
+	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s_2}} h_{s_1, s_2}(\mathbf{x}; D_{\ell})
 \end{equation}
-In contrast to the notational inspiration, the subsampling size $s$ is made explicit.
-Since we are dealing with an infinite-order U-statistic, $s$ will be diverging with $n$.
-In a completely analogous fashion, we can define the corresponding terms for the TDNN estimator.
 In contrast to the DNN estimator, the kernel under consideration is of order $s_2$.
-The corresponding expressions will be denoted analogous to the terms above with ``$s_1, s_2$'' replacing ``$s$''.
-Thus, we find the following representations of the DNN and TDNN estimators using the Hoeffding decomposition.
+In a completely analogous fashion to the DNN estimator, we can define the corresponding terms for the Hoeffding decomposition of the TDNN estimator.
+The corresponding expressions will be denoted analogous to the terms for the DNN estimator with ``$s_1, s_2$'' replacing ``$s$''.
 \begin{equation}
 	D_n^s\left(\mathbf{x}\right) - \mu(\mathbf{x})
 	= \sum_{j = 1}^{s}\binom{s}{j}H_{n,s}^{j}\\
@@ -332,11 +352,19 @@ Thus, we find the following representations of the DNN and TDNN estimators using
 	D_n^{s_1,s_2}\left(\mathbf{x}\right) - \mu(\mathbf{x})
 	= \sum_{j = 1}^{s_2}\binom{s}{j}H_{n,s_1, s_2}^{j}
 \end{equation}
-Overall, \citet{demirkaya_optimal_2024} lay out a clear path to perform point-wise inference using their TDNN estimator.
 
-\section{Subsampling Rate Improvements for the TDNN Estimator}
+\newpage
+\section{Subsampling Rate Improvements for the TDNN Estimator}\label{Subsampling_Improvements}
 \hrule
+To perform inference, the authors introduce variance estimators based on the Jackknife and Bootstrap (see Section 4 \citet{demirkaya_optimal_2024}).
+Although combined these results lay out a clear path to perform pointwise inference, their properties limit the TDNN estimator in practice.
+While Theorem \ref{demirkaya_Thm3} allows $s_2$ to be of the order $o(n)$, the variance estimators rely on the considerably stronger condition that $s_2 = o(n^{1/3})$.
+Finding variance estimators that allow for larger subsampling rates could broaden the scope of the TDNN estimator for inferential purposes considerably.
+Due to the stark improvements in the bias properties introduced by the TDNN, the construction of confidence intervals based in part on undersmoothing seems attractive.
 
+{\color{red}I ASSUME, we can improve on this condition by using \citet{ritzwoller_uniform_2024}.}
+
+\newpage
 \section{Uniform Inference for the TDNN Estimator}\label{UnifInf}
 \hrule
 Absent from \citet{demirkaya_optimal_2024} is a way to construct uniformly valid confidence bands around the TDNN estimator.
@@ -356,7 +384,7 @@ To summarize the kind of object we want to construct, we define a uniform confid
 		:= \left\{\hat{C}(\mathbf{x}^{(p)}_{j}) = \left[c_{L}(\mathbf{x}^{(p)}_{j}), c_{U}(\mathbf{x}^{(p)}_{j})\right]\, : \, j \in [p]\right\}
 	\end{equation}
 	based on the observed data, such that
-	
+
 	\begin{equation}
 		\sup_{P \in \mathbf{P}} \left| P\left(\mu(\mathbf{x}^{(d)}) \in \hat{\mathcal{C}}\left(\mathbf{x}^{(d)}\right)\right) \right| \leq r_{n,d}
 	\end{equation}
@@ -437,23 +465,33 @@ First, to verify uniform shrinkage at a rate $\epsilon_b$, the following remains
 Second, for uniform incrementality, we need to show the following.
 \begin{equation}
 	\begin{aligned}
-		& \inf_{P \in \mathbf{P}} \sup_{j \in[p]}
+		  & \inf_{P \in \mathbf{P}} \sup_{j \in[p]}
 		\operatorname{Var}\left(\mathbb{E}\left[
 				\sum_{i \in \ell} \mathbbm{1}\left(\operatorname{rk}(\mathbf{x}^{(p)}_{j}; \mathbf{X}_i, D_{\ell}) = 1\right) \left(Y_i - \mu\left(\mathbf{X}_i\right)\right) \mid l \in \ell, \mathbf{Z}_l = Z\right]
-				\right) \\
-		= & \inf_{P \in \mathbf{P}} \sup_{j \in[p]} 
+		\right)                                     \\
+		%
+		= & \inf_{P \in \mathbf{P}} \sup_{j \in[p]}
 		\operatorname{Var}\left(
-			\sum_{i \in \ell}\mathbb{E}\left[\mathbbm{1}\left(\operatorname{rk}(\mathbf{x}^{(p)}_{j}; \mathbf{X}_i, D_{\ell}) = 1\right) \varepsilon_i \mid l \in \ell, \mathbf{Z}_l = Z\right]
-		\right)\\
-		\gtrsim & b^{-1}
+		\sum_{i \in \ell}\mathbb{E}\left[\mathbbm{1}\left(\operatorname{rk}(\mathbf{x}^{(p)}_{j}; \mathbf{X}_i, D_{\ell}) = 1\right) \varepsilon_i \mid l \in \ell, \mathbf{Z}_l = Z\right]
+		\right)                                     \\
+		%
+		= & \inf_{P \in \mathbf{P}} \sup_{j \in[p]}
+		\operatorname{Var}\left(
+		\sum_{i = 1}^{s}\mathbb{E}\left[\mathbbm{1}\left(\operatorname{rk}(\mathbf{x}^{(p)}_{j}; \mathbf{X}_i, D_{1:s}) = 1\right) \varepsilon_i \mid l \in [s], \mathbf{Z}_l = Z\right]
+		\right)                                     \\
+		%
+		= & \inf_{P \in \mathbf{P}} \sup_{j \in[p]}
+		s^2 \cdot \operatorname{Var}\left(
+		\mathbb{E}\left[\mathbbm{1}\left(\operatorname{rk}(\mathbf{x}^{(p)}_{j}; \mathbf{X}_1, D_{1:s}) = 1\right) \varepsilon_1 \mid l \in [s], \mathbf{Z}_l = Z\right]
+		\right)
+		\gtrsim b^{-1}
 	\end{aligned}
 \end{equation}
 
 To verify these assumptions, recent theory developed in \citet{peng_rates_2022} is of great help.
-Their results on the asymptotics of generalized U-statistics apply to a far broader class of estimators than nearest neighbors.
-Specifically, their results on the asymptotics of generalized U-statistics and specific steps in their proofs will allow us to justify the necessary assumptions with small modifications.
+Specifically, the following Proposition and its proof are helpful in showing the desired uniform incrementality property.
 
-{\color{red} LOREM IPSUM}
+	{\color{red} LOREM IPSUM}
 
 \vspace{0.5cm}
 \begin{assumption}[Boundedness - Adapted from \citet{ritzwoller_uniform_2024}]
@@ -533,10 +571,18 @@ The boundedness assumption is
 % \end{equation}
 % {\color{red} LOREM IPSUM}
 
+\newpage
 \section{Simulations}\label{Simulations}
 \hrule
 
 Having developed theoretical results concerning uniform inference methods for the TDNN estimator, we will proceed by testing their properties in a number of simulation studies.
+
+\begin{figure}[H]
+	\includegraphics[width = \textwidth]{../Code/Simulations/Graphics/TDNN_DNN.pdf}
+	\caption{Comparison of the DNN (s = 20) and TDNN (s1 = 20, s2 = 50) Estimators for different sample sizes.
+		The dashed line indicates the value of the unknown regression function at the point of interest.
+		Simulation Setup replicates Setting 1 from \citet{demirkaya_optimal_2024} for 10000 Monte Carlo Replications.}
+\end{figure}
 
 {\color{red} LOREM IPSUM}
 
@@ -839,3 +885,40 @@ Having developed theoretical results concerning uniform inference methods for th
 
 
 \end{document}
+
+% \citet{peng_rates_2022}
+% {\color{red} Combine Theorem 1 and a variation of the argument for Proposition 1 to improve rate for point-wise inference.
+% 	Better rate of subsampling scale with sample size.}
+
+% \vspace{0.5cm}
+% \begin{theorem}[Theorem 1 - \citet{peng_rates_2022}]\label{PengThm1}
+% 	Let $\mathbf{Z}_1, \ldots, \mathbf{Z}_n$ be i.i.d. from $P$ and $U_{n, s, \omega}$ be a generalized complete $U$-statistic with kernel $h\left(\mathbf{Z}_1, \ldots, \mathbf{Z}_s ; \omega\right)$.
+% 	Let $\theta=\mathbb{E}[h], \zeta_{1, \omega}=\operatorname{Var}\left(\mathbb{E}\left[h \mid Z_1\right]\right)$ and $\zeta_s=\operatorname{var}(h)$.
+
+% 	If $\frac{s}{n} \frac{\zeta_s}{s \zeta_{1, \omega}} \rightarrow 0$, then
+% 	\begin{equation}
+% 		\frac{U_{n, s, \omega}-\theta}{\sqrt{s^2 \zeta_{1, \omega} / n}} \rightsquigarrow N(0,1) .
+% 	\end{equation}
+% \end{theorem}
+% In a remark to this Theorem, the authors state that when the variance ratio $\frac{\zeta_s}{s\zeta_{1,\omega}}$ is bounded, choosing $s = o(n)$ is sufficient to ensure that Theorem \ref{PengThm1} applies.
+% A more directly applicable result comes from Proposition 2 of the same paper.
+
+% \vspace{0.5cm}
+% \begin{theorem}[Proposition 2 - \citet{peng_rates_2022}]
+% 	Let $\mathbf{Z}_1, \ldots, \mathbf{Z}_s$ denote i.i.d. pairs of random variables $\left(\mathbf{X}_i, Y_i\right)$.
+% 	Suppose $Y_i=\mu\left(X_i\right)+\varepsilon_i$ where $\mu$ is bounded, $\varepsilon$ has mean 0 and variance $\sigma^2$, and $\mathbf{X}_i$ and $\varepsilon_i$ are independent.
+% 	Let $\varphi=\sum_{i=1}^s w(\mathbf{x}, \mathbf{X}_i, \mathfrak{X}) Y_i$ such that $\sum_{i=1}^s w(\mathbf{x}, \mathbf{X}_i, \mathfrak{X})=1$, where $\mathfrak{X}$ denotes $\left\{X_i\right\}_{i=1}^m$.
+% 	Then
+% 	\begin{equation}
+% 		\limsup _{s \rightarrow \infty} \frac{\zeta_s}{s^2 \zeta_1}
+% 		< \infty.
+% 	\end{equation}
+% \end{theorem}
+
+% Following from the representation of the WNN estimator as an L-statistic in \citet{steele_exact_2009}, both the DNN and TDNN estimators are of this form.
+% Thus, we can deduce the following.
+% \begin{equation}
+% 	\limsup _{s \rightarrow \infty} \frac{1}{s^2} \frac{\operatorname{Var}\left(h_{s}\left(\mathbf{x}; D_{\ell}\right)\right)}{\operatorname{Cov}\left(h_s\left(\mathbf{x}; D_{\ell}\right), h_s\left(\mathbf{x}; D_{\ell'}\right)\right)}
+% 	< \infty
+% \end{equation}
+% where $D_{\ell}$ and $D_{\ell'}$ only share exactly one observation, say $\mathbf{Z}_1$.
