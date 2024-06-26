@@ -112,7 +112,7 @@
 \vspace{0.3cm}
 \hrule
 \singlespacing
-{\small \tableofcontents}
+% {\small \tableofcontents}
 \thispagestyle{empty}
 
 \pagenumbering{arabic}
@@ -134,6 +134,11 @@ Section \ref{Subsampling_Improvements} uses recent theoretical developments to s
 Section \ref{UnifInf} extends results from \citet{ritzwoller_uniform_2024} to the TDNN estimator and thus introduces methods to construct uniform confidence bands for the TDNN estimator.
 Section \ref{Simulations} explores the performance of the developed uniform inference methods in a number of setups and Section \ref{Application} applies them to the context of {\color{red} LOREM IPSUM}.
 Section \ref{Conclusion} concludes.
+
+\subsection*{Notation}
+\begin{itemize}
+	\item $\rightsquigarrow$ denotes convegence in distribution
+\end{itemize}
 
 \newpage
 \section{Two-Scale Distributional Nearest Neighbor Estimator}\label{TDNN}
@@ -352,7 +357,11 @@ The corresponding expressions will be denoted analogous to the terms for the DNN
 	= \sum_{j = 1}^{s}\binom{s}{j}H_{n,s}^{j}\\
 	\quad \text{and} \quad
 	D_n^{s_1,s_2}\left(\mathbf{x}\right) - \mu(\mathbf{x})
-	= \sum_{j = 1}^{s_2}\binom{s}{j}H_{n,s_1, s_2}^{j}
+	= \sum_{j = 1}^{s_2}\binom{s_2}{j}H_{n,s_1, s_2}^{j}
+\end{equation}
+Furthermore, the corresponding Haj\'ek-Projections are as follows.
+\begin{equation}
+	{\color{red} LOREM IPSUM}
 \end{equation}
 These decompositions will be integral to the theoretical arguments made in the following.
 
@@ -364,12 +373,41 @@ However, as pointed out, their consistency results rely on a likely suboptimal r
 While Theorem \ref{demirkaya_Thm3} allows $s_2$ to be of the order $o(n)$, the variance estimators rely on the considerably stronger condition that $s_2 = o(n^{1/3})$.
 Establishing consistency for variance estimators under weaker assumptions on the subsampling rates could broaden the scope of the TDNN estimator for inferential purposes considerably.
 
-{\color{red}I ASSUME, we can improve on this condition by using \citet{ritzwoller_uniform_2024}.}
+	{\color{red}I ASSUME, we can improve on this condition by using \citet{ritzwoller_uniform_2024}.
+		Specifically, using the improved bounds for linear approximations of U-statistics from \citet{ritzwoller_uniform_2024} Section 4.}
+
+\vspace{0.5cm}
+\begin{theorem}[\citet{ritzwoller_uniform_2024} - Theorem 4.1]
+	For any sequence of kernel orders $b=b_n$, where
+	\begin{equation}
+		\frac{1}{n} \frac{\nu_j^2}{\sigma_{b, j}^2} \rightarrow 0
+		\quad \text{as} \quad
+		n \rightarrow \infty,
+	\end{equation}
+	we have that
+	\begin{equation}
+		\sqrt{\frac{n}{\sigma_{b, j}^2 b^2}} \frac{1}{N_b} \sum_{\mathbf{s} \in \mathbf{S}_{n, b}} u\left(x^{(j)} ; D_{\mathbf{s}}\right) \rightsquigarrow \mathcal{N}(0,1),
+		\quad \text{as} \quad
+		n \rightarrow \infty.
+	\end{equation}
+\end{theorem}
+
+\vspace{0.5cm}
+\begin{theorem}[\citet{ritzwoller_uniform_2024} - Theorem 4.2]
+
+\end{theorem}
+
+\vspace{0.5cm}
+\begin{theorem}[\citet{ritzwoller_uniform_2024} - Corollary 4.1]
+
+\end{theorem}
 
 \newpage
 \section{Uniform Inference for the TDNN Estimator}\label{UnifInf}
 \hrule
 Absent from \citet{demirkaya_optimal_2024} is a way to construct uniformly valid confidence bands around the TDNN estimator.
+Luckily, as a byproduct of considering the methods from \citet{ritzwoller_uniform_2024}, procedures for uniform inference can be developed relatively easily.
+
 To consider this problem we first introduce additional notation.
 Instead of a single point of interest, previously denoted by $\mathbf{x}$, we will consider a vector of $p$ points of interest denoted by $\mathbf{x}^{(p)} \in \left(\operatorname{supp}\left(\mathbf{X}\right)\right)^{p}$.
 Consequently, the $j$-th entry of $\mathbf{x}^{(p)}$ will be denoted by $\mathbf{x}^{(p)}_{j}$.
@@ -563,16 +601,6 @@ Clearly, the Lipschitz continuity part of this assumption translates directly in
 The boundedness assumption is
 	{\color{red} LOREM IPSUM}
 
-% \section{Approximation  as Incomplete IOUS}
-% \hrule
-
-% Due to the inherent complexity of evaluating a U-statistic on a large sample size, it is valuable to consider the approximation through an incomplete U-statistic.
-% Specifically, using the Bernoulli sampling scheme introduced in \citet{chen_randomized_2019} for a given computational budget $N$ we consider the incomplete IOUS of the following form.
-% \begin{equation}
-% 	{\color{red} LOREM IPSUM}
-% \end{equation}
-% {\color{red} LOREM IPSUM}
-
 \newpage
 \section{Simulations}\label{Simulations}
 \hrule
@@ -581,7 +609,7 @@ Having developed theoretical results concerning uniform inference methods for th
 
 \begin{figure}[H]
 	\includegraphics[width = \textwidth]{../Code/Simulations/Graphics/TDNN_DNN.pdf}
-	\caption{Comparison of the DNN (s = 20) and TDNN (s1 = 20, s2 = 50) Estimators for different sample sizes.
+	\caption{Comparison of the DNN ($s = 20$) and TDNN ($s_1 = 20, s_2 = 50$) Estimators for different sample sizes.
 		The dashed line indicates the value of the unknown regression function at the point of interest.
 		Simulation Setup replicates Setting 1 from \citet{demirkaya_optimal_2024} for 10000 Monte Carlo Replications.}
 \end{figure}
