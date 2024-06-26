@@ -1,4 +1,4 @@
-# Uniform Inference for the Two-Stage Distributional Nearest Neighbor Estimator
+# Pointwise and Uniform Inference for the Two-Stage Distributional Nearest Neighbor Estimator
 ---
 
 This GitHub repository contains the paper "Uniform Inference for the Two-Stage Distributional Nearest Neighbor Estimator" and the corresponding supplementary material. Among other things, this includes the R package "tdnnR" that implements the TDNN estimator and the inference methods presented in the paper.
