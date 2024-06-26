@@ -48,9 +48,13 @@
 
 \declaretheorem[style=mystyle, thmbox=M]{theorem}
 \numberwithin{theorem}{section}
-\declaretheorem[style=mystyle, thmbox=M, numberlike=theorem]{remark, lemma, proposition, corollary, definition, assumption}
-% \declaretheorem[style=mystyle, thmbox=M]{remark}
+\declaretheorem[style=mystyle, thmbox=M, numberlike=theorem]{lemma, proposition, corollary}
+\declaretheorem[style=mystyle, thmbox=M]{remark}
+\numberwithin{remark}{section}
+\declaretheorem[style=mystyle, thmbox=M]{definition}
+\declaretheorem[style=mystyle, thmbox=M]{assumption}
 \declaretheorem[style=mystyle, thmbox=M]{example}
+\numberwithin{example}{section}
 \declaretheorem[style=mystyle_pf, thmbox=M]{proof}
 
 
@@ -98,8 +102,7 @@
 	Recent advances in the literature on non-parametric regression and uniform inference for incomplete infinite-order U-statistics have enabled us to consider the problem of uniform inference for a broader class of estimators.
 	One class of such estimators are bagged nearest neighbor estimators and among them specifically the Two-Scale Distributional Nearest Neighbor Estimator (TDNN) of \citet{demirkaya_optimal_2024}.
 	In this paper, we develop uniform inference procedures based on recent work by \citet{ritzwoller_uniform_2024} for the TDNN estimator.
-	Furthermore, we consider the approximation of the TDNN estimator by an incomplete U-statistic and analyze the influence of this approximation on inference procedures.
-	As part of this work, we provide a complementary R package called \textit{tdnnR} that implements the presented methods including the DNN and TDNN estimators, and pointwise and uniform inference methods associated with these.
+	As part of this work, we provide a complementary R package called \textit{tdnnR} that implements the presented methods.
 \end{abstract}
 \vspace{0.3cm}
 \hrule
@@ -135,9 +138,13 @@ Section \ref{UnifInf} extends results from \citet{ritzwoller_uniform_2024} to th
 Section \ref{Simulations} explores the performance of the developed uniform inference methods in a number of setups and Section \ref{Application} applies them to the context of {\color{red} LOREM IPSUM}.
 Section \ref{Conclusion} concludes.
 
-\subsection*{Notation}
+\subsection{Notation}
 \begin{itemize}
 	\item $\rightsquigarrow$ denotes convegence in distribution
+	\item Orlicz-Norm
+	\item $[n] = \{1, \dotsc, n\}$
+	\item $L_{n,s} = \left\{\left(l_1, \dotsc, l_r\right) \in [n]^{s} \, : \, \text{entries of vector are distinct} \right\}$
+	\item $I_{n,s} = \left\{\left(i_1, \dotsc, i_r\right) \in L_{n,s} \, : \, i_1 < \dotsc < i_s \right\}$
 \end{itemize}
 
 \newpage
@@ -169,6 +176,7 @@ In practice, the non-parametric regression problem at hand can be approached by 
 In this equation, $K:\mathbb{R}^d \times \mathbb{R}^d \rightarrow \mathbb{R}$ is a data-dependent Kernel function measuring the ``distance'' between the point of interest and an observation.
 Notationally, this makes the local and data-dependent approach of this procedure explicit.
 
+\subsection{Distributional Nearest Neighbor Estimator}
 With a name coined by \citet{demirkaya_optimal_2024}, the Distributional Nearest Neighbor (DNN) Estimator is based on important work by \citet{steele_exact_2009} and \citet{biau_rate_2010}.
 While its practical properties are appealing in and of themselves, from a statistical perspective, its appeal comes in part from being easily represented as a U-statistic.
 Given a sample as described above and a fixed feature vector $\mathbf{x}$, consider the ordered sample $\{(\mathbf{X}_{(1)}, Y_{(1)}), \dotsc, (\mathbf{X}_{(n)}, Y_{(n)})\}$ defined by
@@ -186,12 +194,6 @@ Similarly, let $Y_{(1)}(\mathbf{x}; D)$ indicate the response value of the close
 	Since this is highly context-dependent, it is impossible to give general advice on when to standardize.
 	Thus, this decision is left to the practitioner.
 \end{remark}
-
-To simplify further expressions, let $[n] = \{1, \dotsc, n\}$ and define $L_{n,r}$ and $I_{n,r}$ as follows.
-\begin{align}
-	L_{n,s} & = \left\{\left(l_1, \dotsc, l_r\right) \in [n]^{s} \, : \, \text{entries of vector are distinct} \right\} \\
-	I_{n,s} & = \left\{\left(i_1, \dotsc, i_r\right) \in L_{n,s} \, : \, i_1 < \dotsc < i_s \right\}
-\end{align}
 Given a subsampling scale $s$ satisfying $1 \leq s \leq n$, a generic set of subsample indices $\ell \in L_{n,s}$ and a corresponding generic subset of our data $D_{\ell} = \{\mathbf{Z}_i \, | \, i \in \ell\}$, we can consider an analogous ordering of $D_{\ell}$.
 This enables us to define a data-driven kernel function $\kappa$ following the notation of \citet{ritzwoller_uniform_2024}.
 \begin{equation}
@@ -237,45 +239,13 @@ After rearranging the terms, it is given by the following U-statistic.
 	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} \frac{1}{s!} Y_{(1)}(\mathbf{x}; D_{\ell})
 	=: \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} h_{s}(\mathbf{x}; D_{\ell})
 \end{equation}
-As the majority of the theoretical results in the original paper rely on representations as a U-statistic, it is necessary to introduce additional notation.
-For any $1 \leq c \leq s$, let
-\begin{equation}
-	\zeta_{c,s}
-	= \operatorname{Cov}\left(\mathbf{x}; h_s\left(\mathbf{Z}_1, \ldots, \mathbf{Z}_c, \mathbf{Z}_{c+1}, \ldots, \mathbf{Z}_s\right),
-	h_s\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_c, \mathbf{Z}_{c+1}^{\prime}, \ldots, \mathbf{Z}_s^{\prime}\right)\right)
-\end{equation}
-where $\mathbf{Z}_{c+1}^{\prime}, \ldots, \mathbf{Z}_n^{\prime}$ are i.i.d. from $P$ and independent of $\mathbf{Z}_1, \ldots, \mathbf{Z}_n$ and thus
-$\zeta_{s,s} = \operatorname{Var}\left(\mathbf{x}; h_s\left(\mathbf{Z}_1, \ldots, \mathbf{Z}_s\right)\right).$
-Borrowing the notational conventions from \citet{lee_u-statistics_2019}, additionally, introduce the following notation.
-\begin{align}
-	\psi_{c}^{s}(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c})
-	 & = \mathbb{E}_{\mathbf{Z}}\left[h_{s}\left(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \mathbf{Z}_{c+1}, \dotsc, \mathbf{Z}_{s}\right)\right]                                    \\
-	%
-	h_{s}^{(1)}\left(\mathbf{x}; \mathbf{z}_{1}\right)
-	 & = \psi_{1}^{s}(\mathbf{x}; \mathbf{z}_{1}) - \mu(\mathbf{x})                                                                                                                            \\
-	%
-	h_{s}^{(c)}\left(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}\right)
-	 & = \psi_{c}^{s}(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}) - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{n,j}}h_{s}^{(j)}(\mathbf{x}; \mathbf{z}_{\ell})\right) - \mu(\mathbf{x})
-	\quad \text{for } c = 2, \dotsc, s
-\end{align}
-In contrast to the notational inspiration, the subsampling size $s$ is made explicit.
-Since we are dealing with an infinite-order U-statistic, $s$ will be diverging with $n$.
-In the usual fashion, these terms can be used to express the Hoeffding projections of different orders.
-\begin{equation}
-	H_{n,s}^{c}
-	= \binom{n}{c}^{-1} \sum_{\ell \in L_{n,c}} h^{(c)}_{s}(\mathbf{x}; \mathbf{z}_{\ell})
-\end{equation}
-Thus, we find the following representation of the DNN estimator using the Hoeffding decomposition.
-\begin{equation}
-	D_n^s\left(\mathbf{x}\right) - \mu(\mathbf{x})
-	= \sum_{j = 1}^{s}\binom{s}{j}H_{n,s}^{j}
-\end{equation}
 
-% From the empirical conditional moment equation, it becomes apparent that the DNN estimator is a Weighted Nearest Neighbor (WNN) estimator that automatically assigns suitable weights in a distributional fashion.
-% Weighted nearest neighbor estimators in their general form have been studied in detail by {\color{red} ADD REFERENCES}.
-% Among other properties, it has been shown that under smoothness assumptions and using a suitable weight vector their convergence rate is optimal with $O_p(n^{-\frac{2}{d+4}}).$
-% Furthermore, t
-% Through an equivalent representation as an L-statistic developed by \citet{steele_exact_2009}, the estimator has a computationally simple way to be evaluated compared to the usual U-statistic approach.
+From the empirical conditional moment equation, it becomes apparent that the DNN estimator is a Weighted Nearest Neighbor (WNN) estimator that automatically assigns suitable weights in a distributional fashion.
+Weighted nearest neighbor estimators in their general form have been studied in detail by {\color{red} ADD REFERENCES}.
+Among other properties, it has been shown that under smoothness assumptions and using a suitable weight vector their convergence rate is optimal with $O_p(n^{-\frac{2}{d+4}}).$
+Through an equivalent representation as an L-statistic developed by \citet{steele_exact_2009}, the estimator has a computationally simple way to be evaluated compared to the usual U-statistic approach.
+
+\subsection{Two-Scale Distributional Nearest Neighbor Esimator}
 Starting from this setup, \citet{demirkaya_optimal_2024} develop a novel bias-correction method for the DNN estimator that leads to appealing finite-sample properties of the resulting Two-Scale Distributional Nearest Neighbor (TDNN) estimator.
 Their method is based on an explicit formula for the first-order bias term of the DNN estimator, which in turn allows them to eliminate it through a clever combination of two DNN estimators.
 
@@ -341,6 +311,9 @@ Furthermore, the authors show that this construction improves on the quality of 
 		\end{cases}.
 	\end{equation*}
 \end{theorem}
+
+\subsection{Hoeffding Decompositions for the DNN and TDNN Estimators}
+As the majority of the theoretical results in the original paper rely on representations as a U-statistic, it is necessary to introduce additional notation.
 Recalling Equation \ref{U_stat}, the DNN and TDNN estimators can be expressed in the following U-statistic form.
 \begin{equation}
 	D_{n}^{s}(\mathbf{x})
@@ -349,15 +322,34 @@ Recalling Equation \ref{U_stat}, the DNN and TDNN estimators can be expressed in
 	D_{n}^{s_1, s_2}(\mathbf{x})
 	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s_2}} h_{s_1, s_2}(\mathbf{x}; D_{\ell})
 \end{equation}
-In contrast to the DNN estimator, the kernel under consideration is of order $s_2$.
+It is worth pointing out explicitly that in contrast to the DNN estimator, the kernel for the TDNN estimator is of order $s_2 > s_1$.
+Borrowing the notational conventions from \citet{lee_u-statistics_2019}, additionally, introduce the following notation.
+\begin{align}
+	\psi_{c}^{s}(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c})
+	 & = \mathbb{E}_{\mathbf{Z}}\left[h_{s}\left(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \mathbf{Z}_{c+1}, \dotsc, \mathbf{Z}_{s}\right)\right]                                    \\
+	%
+	h_{s}^{(1)}\left(\mathbf{x}; \mathbf{z}_{1}\right)
+	 & = \psi_{1}^{s}(\mathbf{x}; \mathbf{z}_{1}) - \mu(\mathbf{x})                                                                                                                            \\
+	%
+	h_{s}^{(c)}\left(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}\right)
+	 & = \psi_{c}^{s}(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}) - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{n,j}}h_{s}^{(j)}(\mathbf{x}; \mathbf{z}_{\ell})\right) - \mu(\mathbf{x})
+	\quad \text{for } c = 2, \dotsc, s
+\end{align}
+In contrast to the notational inspiration, the subsampling size $s$ is made explicit.
+Since we are dealing with an infinite-order U-statistic, $s$ will be diverging with $n$.
+In the usual fashion, these terms can be used to express the Hoeffding projections of different orders.
+\begin{equation}
+	H_{n,s}^{c}
+	= \binom{n}{c}^{-1} \sum_{\ell \in L_{n,c}} h^{(c)}_{s}(\mathbf{x}; \mathbf{z}_{\ell})
+\end{equation}
 In a completely analogous fashion to the DNN estimator, we can define the corresponding terms for the Hoeffding decomposition of the TDNN estimator.
 The corresponding expressions will be denoted analogous to the terms for the DNN estimator with ``$s_1, s_2$'' replacing ``$s$'' ultimately leading to the following Hoeffding decompositions.
 \begin{equation}
-	D_n^s\left(\mathbf{x}\right) - \mu(\mathbf{x})
-	= \sum_{j = 1}^{s}\binom{s}{j}H_{n,s}^{j}\\
+	D_n^s\left(\mathbf{x}\right)
+	= \mu(\mathbf{x}) + \sum_{j = 1}^{s}\binom{s}{j}H_{n,s}^{j}\\
 	\quad \text{and} \quad
-	D_n^{s_1,s_2}\left(\mathbf{x}\right) - \mu(\mathbf{x})
-	= \sum_{j = 1}^{s_2}\binom{s_2}{j}H_{n,s_1, s_2}^{j}
+	D_n^{s_1,s_2}\left(\mathbf{x}\right)
+	= \mu(\mathbf{x}) + \sum_{j = 1}^{s_2}\binom{s_2}{j}H_{n,s_1, s_2}^{j}
 \end{equation}
 Furthermore, the corresponding Haj\'ek-Projections are as follows.
 \begin{equation}
@@ -365,42 +357,46 @@ Furthermore, the corresponding Haj\'ek-Projections are as follows.
 \end{equation}
 These decompositions will be integral to the theoretical arguments made in the following.
 
+For any $1 \leq c \leq s$, let
+\begin{equation}
+	\zeta_{c,s}
+	= \operatorname{Cov}\left(\mathbf{x}; h_s\left(\mathbf{Z}_1, \ldots, \mathbf{Z}_c, \mathbf{Z}_{c+1}, \ldots, \mathbf{Z}_s\right),
+	h_s\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_c, \mathbf{Z}_{c+1}^{\prime}, \ldots, \mathbf{Z}_s^{\prime}\right)\right)
+\end{equation}
+where $\mathbf{Z}_{c+1}^{\prime}, \ldots, \mathbf{Z}_n^{\prime}$ are i.i.d. from $P$ and independent of $\mathbf{Z}_1, \ldots, \mathbf{Z}_n$ and thus
+$\zeta_{s,s} = \operatorname{Var}\left(\mathbf{x}; h_s\left(\mathbf{Z}_1, \ldots, \mathbf{Z}_s\right)\right).$
+
+
 \newpage
 \section{Subsampling Rate Improvements for Variance Estimation}\label{Subsampling_Improvements}
 \hrule
-To perform inference, the authors introduce variance estimators based on the Jackknife and Bootstrap (see Section 4 \citet{demirkaya_optimal_2024}).
-However, as pointed out, their consistency results rely on a likely suboptimal rate condition for the subsampling scale.
+To perform inference, the authors introduce variance estimators based on the Jackknife and Bootstrap.
+However, as they point out, their consistency results rely on a likely suboptimal rate condition for the subsampling scale.
 While Theorem \ref{demirkaya_Thm3} allows $s_2$ to be of the order $o(n)$, the variance estimators rely on the considerably stronger condition that $s_2 = o(n^{1/3})$.
 Establishing consistency for variance estimators under weaker assumptions on the subsampling rates could broaden the scope of the TDNN estimator for inferential purposes considerably.
+At a low level, this improvement will be based on a new order-explicit bound of the remainder in a linear approximation to U-statistics established in \citet{ritzwoller_uniform_2024}.
+Although these new results apply to high-dimensional U-statistics, for the purposes of pointwise inference, we will consider their application to a scalar argument.
+We will return to their high-dimensional nature in Section \ref{UnifInf} to construct procedures for uniform inference.
 
-	{\color{red}I ASSUME, we can improve on this condition by using \citet{ritzwoller_uniform_2024}.
+{\color{red}I ASSUME, we can improve on this condition by using \citet{ritzwoller_uniform_2024}.
 		Specifically, using the improved bounds for linear approximations of U-statistics from \citet{ritzwoller_uniform_2024} Section 4.}
 
+A direct Corollary of Theorem 4.1 from \citet{ritzwoller_uniform_2024} is the following.
 \vspace{0.5cm}
-\begin{theorem}[\citet{ritzwoller_uniform_2024} - Theorem 4.1]
-	For any sequence of kernel orders $b=b_n$, where
+\begin{corollary}
+	For any sequence of subsampling rates $s = s_n$, where
 	\begin{equation}
-		\frac{1}{n} \frac{\nu_j^2}{\sigma_{b, j}^2} \rightarrow 0
+		n^{-1} \, \frac{\nu^2}{\sigma_{s}^2} \rightarrow 0
 		\quad \text{as} \quad
 		n \rightarrow \infty,
 	\end{equation}
 	we have that
 	\begin{equation}
-		\sqrt{\frac{n}{\sigma_{b, j}^2 b^2}} \frac{1}{N_b} \sum_{\mathbf{s} \in \mathbf{S}_{n, b}} u\left(x^{(j)} ; D_{\mathbf{s}}\right) \rightsquigarrow \mathcal{N}(0,1),
+		\sqrt{\frac{n}{\sigma_{s}^2 s^2}} \binom{n}{s}^{-1} \sum_{\mathbf{s} \in \mathbf{S}_{n, b}} u\left(\mathbf{x} ; D_{\mathbf{s}}\right) \rightsquigarrow \mathcal{N}(0,1),
 		\quad \text{as} \quad
 		n \rightarrow \infty.
 	\end{equation}
-\end{theorem}
-
-\vspace{0.5cm}
-\begin{theorem}[\citet{ritzwoller_uniform_2024} - Theorem 4.2]
-
-\end{theorem}
-
-\vspace{0.5cm}
-\begin{theorem}[\citet{ritzwoller_uniform_2024} - Corollary 4.1]
-
-\end{theorem}
+\end{corollary}
 
 \newpage
 \section{Uniform Inference for the TDNN Estimator}\label{UnifInf}
@@ -408,7 +404,7 @@ Establishing consistency for variance estimators under weaker assumptions on the
 Absent from \citet{demirkaya_optimal_2024} is a way to construct uniformly valid confidence bands around the TDNN estimator.
 Luckily, as a byproduct of considering the methods from \citet{ritzwoller_uniform_2024}, procedures for uniform inference can be developed relatively easily.
 
-To consider this problem we first introduce additional notation.
+To consider this problem in detail we first introduce additional notation.
 Instead of a single point of interest, previously denoted by $\mathbf{x}$, we will consider a vector of $p$ points of interest denoted by $\mathbf{x}^{(p)} \in \left(\operatorname{supp}\left(\mathbf{X}\right)\right)^{p}$.
 Consequently, the $j$-th entry of $\mathbf{x}^{(p)}$ will be denoted by $\mathbf{x}^{(p)}_{j}$.
 In an abuse of notation, let functions (such as $\mu$ or the DNN/TDNN estimators) evaluated at $\mathbf{x}^{(p)}$ denote the vector of corresponding function values evaluated at the point, respectively.
@@ -431,6 +427,67 @@ To summarize the kind of object we want to construct, we define a uniform confid
 	for some sequence $r_{n,d}$, where $\mathbf{P}$ is some statistical family containing $P$.
 \end{definition}
 
+\subsection{Low-Level}
+In our pursuit of constructing uniform confidence regions for the TDNN estimator, we will return to the results from \citet{ritzwoller_uniform_2024} in their high-dimensional form.
+\vspace{0.5cm}
+\begin{theorem}[\citet{ritzwoller_uniform_2024} - Theorem 4.1]
+	For any sequence of kernel orders $b=b_n$, where
+	\begin{equation}
+		\frac{1}{n} \frac{\nu_j^2}{\sigma_{b, j}^2} \rightarrow 0
+		\quad \text{as} \quad
+		n \rightarrow \infty,
+	\end{equation}
+	we have that
+	\begin{equation}
+		\sqrt{\frac{n}{\sigma_{b, j}^2 b^2}} \binom{n}{b}^{-1} \sum_{\mathbf{s} \in \mathbf{S}_{n, b}} u\left(x^{(j)} ; D_{\mathbf{s}}\right) \rightsquigarrow \mathcal{N}(0,1),
+		\quad \text{as} \quad
+		n \rightarrow \infty.
+	\end{equation}
+\end{theorem}
+
+\vspace{0.5cm}
+\begin{theorem}[\citet{ritzwoller_uniform_2024} - Theorem 4.2]\label{ritzwoller_Thm4_2}
+	Define the terms
+	\begin{equation}
+		\bar{\psi}_b^2 = \max_{j \in[d]}\left\{\nu_j^2-b \sigma_{b, j}^2\right\}
+		\quad \text {and} \quad
+		\underline{\sigma}_b^2=\min_{j \in[d]} \sigma_{b, j}^2.
+	\end{equation}
+	If the kernel function $u\left(x^{(j)} ; D_{\mathrm{s}}\right)$ satisfies the bound
+	\begin{equation}
+		\left\|u\left(x^{(j)} ; D_{\mathrm{s}}\right)\right\|_{\psi_1} \leq \phi
+	\end{equation}
+	for each $j$ in $[d]$, then
+	\begin{equation}
+		\sqrt{\frac{n}{b^2 \sigma_b^2}}\left\|\bar{U}_{n, b}\left(\boldsymbol{x}^{(d)}\right)-\frac{b}{n} \sum_{i=1}^n u^{(1)}\left(\boldsymbol{x}^{(d)} ; D_i\right)\right\|_{\infty} \lesssim \xi_{n, b},
+		\quad \text {where}
+	\end{equation}
+	\begin{equation}
+		\xi_{n, b}=\left(\frac{C b \log (d n)}{n}\right)^{b / 2}\left(\left(\frac{n \bar{\psi}_b^2}{b^2 \sigma_b^2}\right)^{1 / 2}+\left(\frac{\phi^2 b \log ^4(d n)}{\sigma_b^2}\right)^{1 / 2}\right),
+	\end{equation}
+	with probability greater than $1-C / n$.
+\end{theorem}
+
+\vspace{0.5cm}
+\begin{theorem}[\citet{ritzwoller_uniform_2024} - Corollary 4.1]
+	Let $\Sigma$ be the diagonal matrix with components $\sigma_{b, j}^2$.
+	\begin{enumerate}
+		\item Under the same conditions as Theorem \ref{ritzwoller_Thm4_2}, we have that
+		\begin{equation}
+			\sqrt{\frac{n}{b^2}} \Sigma^{-1 / 2} \bar{U}_{n, b}\left(x^{(d)}\right) \lesssim \log ^{1 / 2}(d n)+\frac{\phi \log ^2(d n)}{\underline{\sigma}_b n^{1 / 2}}+\xi_{n, b}
+		\end{equation}
+		with probability greater than $1-C / n$.
+		\item Let $Z$ denote a centered Gaussian random vector with covariance matrix $\operatorname{Var}\left(\tilde{u}^{(1)}\left(\boldsymbol{x}^{(d)}, D_i\right)\right)$. 
+		Under the same conditions as Theorem \ref{ritzwoller_Thm4_2}, we have that
+		\begin{equation}
+			\sup _{\mathrm{R} \in \mathcal{R}}\left|P\left\{\sqrt{\frac{n}{b^2}} \Sigma^{-1 / 2} \bar{U}_{n, b}\left(\boldsymbol{x}^{(d)}\right) \in \mathrm{R}\right\}-P\left\{\Sigma^{-1 / 2} Z \in \mathrm{R}\right\}\right|
+			\lesssim\left(\frac{\phi^2 \log ^5(d n)}{\sigma_b^2 n}\right)^{1 / 4}+\xi_{n, b} \sqrt{\log (d)},
+		\end{equation}
+		where $\mathcal{R}$ denotes the set of hyper-rectangles in $\mathbb{R}^d$.
+	\end{enumerate}
+\end{theorem}
+
+\subsection{High-Level}
 Recent advances in the field of uniform inference for infinite-order U-statistics, specifically \citet{ritzwoller_uniform_2024}, and careful analysis of the Hoeffding projections of different orders will be the cornerstones in developing uniform inference methods.
 The authors' approach to constructing uniform confidence regions is based on the half-sample bootstrap root.
 
