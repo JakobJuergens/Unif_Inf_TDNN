@@ -141,7 +141,7 @@ Section \ref{Conclusion} concludes.
 \subsection{Notation}
 \begin{itemize}
 	\item $\rightsquigarrow$ denotes convegence in distribution
-	\item Orlicz-Norm
+	\item The norm $\| \cdot \|_{\psi_1}$ denotes the $\psi_1$-Orlicz norm
 	\item $[n] = \{1, \dotsc, n\}$
 	\item $L_{n,s} = \left\{\left(l_1, \dotsc, l_r\right) \in [n]^{s} \, : \, \text{entries of vector are distinct} \right\}$
 	\item $I_{n,s} = \left\{\left(i_1, \dotsc, i_r\right) \in L_{n,s} \, : \, i_1 < \dotsc < i_s \right\}$
@@ -353,9 +353,17 @@ The corresponding expressions will be denoted analogous to the terms for the DNN
 \end{equation}
 Furthermore, the corresponding Haj\'ek-Projections are as follows.
 \begin{equation}
-	{\color{red} LOREM IPSUM}
+	\begin{aligned}
+		D_n^s\left(\mathbf{x}\right)
+		 & = \mu(\mathbf{x}) + \frac{s}{n}\sum_{i = 1}^{n}h^{(1)}_{s}(\mathbf{x}; \mathbf{z}_{i})
+		+ \operatorname{HR}_{n, s}(\mathbf{x})                                                              \\
+		D_n^{s_1,s_2}\left(\mathbf{x}\right)
+		 & = \mu(\mathbf{x}) + \frac{s_2}{n}\sum_{i = 1}^{n} h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{z}_{i})
+		+ \operatorname{HR}_{n, s_1, s_2}(\mathbf{x})
+	\end{aligned}
 \end{equation}
-These decompositions will be integral to the theoretical arguments made in the following.
+Here $\operatorname{HR}$ stands for the Haj\'ek residual.
+Bounding this residual will be integral to the theoretical arguments made in the following.
 
 For any $1 \leq c \leq s$, let
 \begin{equation}
@@ -377,25 +385,35 @@ Establishing consistency for variance estimators under weaker assumptions on the
 At a low level, this improvement will be based on a new order-explicit bound of the remainder in a linear approximation to U-statistics established in \citet{ritzwoller_uniform_2024}.
 Although these new results apply to high-dimensional U-statistics, for the purposes of pointwise inference, we will consider their application to a scalar argument.
 We will return to their high-dimensional nature in Section \ref{UnifInf} to construct procedures for uniform inference.
+Going forward, all results will be stated for the TDNN estimator.
+However, due to the underlying similarities between the U-statistic representations of the two estimators, much of this will apply to the DNN estimator analogously.
 
-{\color{red}I ASSUME, we can improve on this condition by using \citet{ritzwoller_uniform_2024}.
-		Specifically, using the improved bounds for linear approximations of U-statistics from \citet{ritzwoller_uniform_2024} Section 4.}
-
-A direct Corollary of Theorem 4.1 from \citet{ritzwoller_uniform_2024} is the following.
+By restricting Theorem 4.2 from \citet{ritzwoller_uniform_2024} to the univariate case, i.e. considering only a single point of interest, we obtain the following corollary.
 \vspace{0.5cm}
 \begin{corollary}
-	For any sequence of subsampling rates $s = s_n$, where
+	Define the term
 	\begin{equation}
-		n^{-1} \, \frac{\nu^2}{\sigma_{s}^2} \rightarrow 0
-		\quad \text{as} \quad
-		n \rightarrow \infty,
+		\psi_{s_2}^2 = \nu^2 - s_2 \sigma_{s_2}^2
 	\end{equation}
-	we have that
+	If the kernel function $u\left(\mathbf{x} ; D_{\ell}\right)$ satisfies the bound
 	\begin{equation}
-		\sqrt{\frac{n}{\sigma_{s}^2 s^2}} \binom{n}{s}^{-1} \sum_{\mathbf{s} \in \mathbf{S}_{n, b}} u\left(\mathbf{x} ; D_{\mathbf{s}}\right) \rightsquigarrow \mathcal{N}(0,1),
-		\quad \text{as} \quad
-		n \rightarrow \infty.
+		\left\|h_{s_1, s_2}(\mathbf{x}; D_{\ell})\right\|_{\psi_1} \leq \phi,
 	\end{equation}
+	then
+	\begin{equation}
+		\sqrt{\frac{n}{{s_2}^2 \sigma_{s_2}^2}}
+		\left(D_{n}^{s_1, s_2}(\mathbf{x}) - \frac{b}{n} \sum_{i=1}^n h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{z}_{i})\right)
+		%
+		= \sqrt{\frac{n}{{s_2}^2 \sigma_{s_2}^2}} \operatorname{HR}_{n, s_1, s_2}(\mathbf{x})
+		%
+		\lesssim \xi_{n, s},
+		\quad \text {where}
+	\end{equation}
+	\begin{equation}
+		\xi_{n, s}
+		= \left(\frac{C s_2 \log(n)}{n}\right)^{s_2 / 2}\left(\left(\frac{n \psi_{s_2}^2}{{s_2}^2 \sigma_{s_2}^2}\right)^{1 / 2}+\left(\frac{\phi^2 s_2 \log ^4(n)}{\sigma_{s_2}^2}\right)^{1 / 2}\right),
+	\end{equation}
+	with probability greater than $1-C / n$.
 \end{corollary}
 
 \newpage
@@ -439,31 +457,41 @@ In our pursuit of constructing uniform confidence regions for the TDNN estimator
 	\end{equation}
 	we have that
 	\begin{equation}
-		\sqrt{\frac{n}{\sigma_{b, j}^2 b^2}} \binom{n}{b}^{-1} \sum_{\mathbf{s} \in \mathbf{S}_{n, b}} u\left(x^{(j)} ; D_{\mathbf{s}}\right) \rightsquigarrow \mathcal{N}(0,1),
+		\sqrt{\frac{n}{\sigma_{b, j}^2 b^2}} \binom{n}{b}^{-1} \sum_{\mathbf{s} \in \mathbf{S}_{n, b}} u\left(\mathbf{x}^{(p)}_{j} ; D_{\mathbf{s}}\right) \rightsquigarrow \mathcal{N}(0,1),
 		\quad \text{as} \quad
 		n \rightarrow \infty.
 	\end{equation}
 \end{theorem}
 
 \vspace{0.5cm}
-\begin{theorem}[\citet{ritzwoller_uniform_2024} - Theorem 4.2]\label{ritzwoller_Thm4_2}
+\begin{theorem}[Adapted from \citet{ritzwoller_uniform_2024} - Theorem 4.2]\label{ritzwoller_Thm4_2}
 	Define the terms
 	\begin{equation}
-		\bar{\psi}_b^2 = \max_{j \in[d]}\left\{\nu_j^2-b \sigma_{b, j}^2\right\}
+		\bar{\psi}_{s_2}^2 
+		= \max_{j \in[p]}\left\{\nu_j^2- s_2 \sigma_{s_2, j}^2\right\}
+		%
 		\quad \text {and} \quad
-		\underline{\sigma}_b^2=\min_{j \in[d]} \sigma_{b, j}^2.
+		%
+		\underline{\sigma}_{s_2}^2
+		= \min_{j \in[p]} \sigma_{s_2, j}^2.
 	\end{equation}
-	If the kernel function $u\left(x^{(j)} ; D_{\mathrm{s}}\right)$ satisfies the bound
+	If the kernel function $u\left(\mathbf{x} ; D_{\ell}\right)$ satisfies the bound
 	\begin{equation}
-		\left\|u\left(x^{(j)} ; D_{\mathrm{s}}\right)\right\|_{\psi_1} \leq \phi
+		\left\|u\left(\mathbf{x} ; D_{\ell}\right)\right\|_{\psi_1} \leq \phi
 	\end{equation}
 	for each $j$ in $[d]$, then
 	\begin{equation}
-		\sqrt{\frac{n}{b^2 \sigma_b^2}}\left\|\bar{U}_{n, b}\left(\boldsymbol{x}^{(d)}\right)-\frac{b}{n} \sum_{i=1}^n u^{(1)}\left(\boldsymbol{x}^{(d)} ; D_i\right)\right\|_{\infty} \lesssim \xi_{n, b},
+		\sqrt{\frac{n}{s_2^2 \underline{\sigma}_{s_2}^2}}
+		\left\|D_{n}^{s_1, s_2}(\mathbf{x}^{(p)}) - \frac{s_2}{n} \sum_{i=1}^n h^{(1)}_{s_1, s_2}(\mathbf{x}^{(p)}; \mathbf{z}_{i})\right\|_{\infty} 
+		%
+		= \sqrt{\frac{n}{s_2^2 \underline{\sigma}_{s_2}^2}} \left\|\operatorname{HR}_{n, s_1, s_2}(\mathbf{x}^{(p)})\right\|_{\infty}
+		%
+		\lesssim \xi_{n, s_2},
 		\quad \text {where}
 	\end{equation}
 	\begin{equation}
-		\xi_{n, b}=\left(\frac{C b \log (d n)}{n}\right)^{b / 2}\left(\left(\frac{n \bar{\psi}_b^2}{b^2 \sigma_b^2}\right)^{1 / 2}+\left(\frac{\phi^2 b \log ^4(d n)}{\sigma_b^2}\right)^{1 / 2}\right),
+		\xi_{n, b}
+		= \left(\frac{C s_2 \log(p n)}{n}\right)^{s_2 / 2}\left(\left(\frac{n \bar{\psi}_{s_2}^2}{{s_2}^2 \underline{\sigma}_{s_2}^2}\right)^{1 / 2}+\left(\frac{\phi^2 s_2 \log ^4(p n)}{\underline{\sigma}_{s_2}^2}\right)^{1 / 2}\right),
 	\end{equation}
 	with probability greater than $1-C / n$.
 \end{theorem}
@@ -473,17 +501,17 @@ In our pursuit of constructing uniform confidence regions for the TDNN estimator
 	Let $\Sigma$ be the diagonal matrix with components $\sigma_{b, j}^2$.
 	\begin{enumerate}
 		\item Under the same conditions as Theorem \ref{ritzwoller_Thm4_2}, we have that
-		\begin{equation}
-			\sqrt{\frac{n}{b^2}} \Sigma^{-1 / 2} \bar{U}_{n, b}\left(x^{(d)}\right) \lesssim \log ^{1 / 2}(d n)+\frac{\phi \log ^2(d n)}{\underline{\sigma}_b n^{1 / 2}}+\xi_{n, b}
-		\end{equation}
-		with probability greater than $1-C / n$.
-		\item Let $Z$ denote a centered Gaussian random vector with covariance matrix $\operatorname{Var}\left(\tilde{u}^{(1)}\left(\boldsymbol{x}^{(d)}, D_i\right)\right)$. 
-		Under the same conditions as Theorem \ref{ritzwoller_Thm4_2}, we have that
-		\begin{equation}
-			\sup _{\mathrm{R} \in \mathcal{R}}\left|P\left\{\sqrt{\frac{n}{b^2}} \Sigma^{-1 / 2} \bar{U}_{n, b}\left(\boldsymbol{x}^{(d)}\right) \in \mathrm{R}\right\}-P\left\{\Sigma^{-1 / 2} Z \in \mathrm{R}\right\}\right|
-			\lesssim\left(\frac{\phi^2 \log ^5(d n)}{\sigma_b^2 n}\right)^{1 / 4}+\xi_{n, b} \sqrt{\log (d)},
-		\end{equation}
-		where $\mathcal{R}$ denotes the set of hyper-rectangles in $\mathbb{R}^d$.
+		      \begin{equation}
+			      \sqrt{\frac{n}{b^2}} \Sigma^{-1 / 2} \bar{U}_{n, b}\left(\mathbf{x}^{(p)}\right) \lesssim \log ^{1 / 2}(d n)+\frac{\phi \log ^2(d n)}{\underline{\sigma}_b n^{1 / 2}}+\xi_{n, b}
+		      \end{equation}
+		      with probability greater than $1-C / n$.
+		\item Let $Z$ denote a centered Gaussian random vector with covariance matrix $\operatorname{Var}\left(\tilde{u}^{(1)}\left(\boldsymbol{x}^{(d)}, D_i\right)\right)$.
+		      Under the same conditions as Theorem \ref{ritzwoller_Thm4_2}, we have that
+		      \begin{equation}
+			      \sup _{\mathrm{R} \in \mathcal{R}}\left|P\left\{\sqrt{\frac{n}{b^2}} \Sigma^{-1 / 2} \bar{U}_{n, b}\left(\boldsymbol{x}^{(d)}\right) \in \mathrm{R}\right\}-P\left\{\Sigma^{-1 / 2} Z \in \mathrm{R}\right\}\right|
+			      \lesssim\left(\frac{\phi^2 \log ^5(d n)}{\sigma_b^2 n}\right)^{1 / 4}+\xi_{n, b} \sqrt{\log (d)},
+		      \end{equation}
+		      where $\mathcal{R}$ denotes the set of hyper-rectangles in $\mathbb{R}^d$.
 	\end{enumerate}
 \end{theorem}
 
