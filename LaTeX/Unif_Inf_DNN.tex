@@ -36,38 +36,16 @@
 
 \addbibresource{bibliography.bib}
 
-\declaretheoremstyle[
-    spaceabove=10pt, spacebelow=10pt,
-    postheadspace=\newline
-    ]{mystyle}
-\declaretheoremstyle[    
-    spaceabove=6pt, spacebelow=6pt,
-    postheadspace=\newline,
-    qed=\qedsymbol
-    ]{mystyle_pf}
-
-\declaretheorem[style=mystyle, thmbox=M]{theorem}
-\numberwithin{theorem}{section}
-\declaretheorem[style=mystyle, thmbox=M, numberlike=theorem]{lemma, proposition, corollary}
-\declaretheorem[style=mystyle, thmbox=M]{remark}
-\numberwithin{remark}{section}
-\declaretheorem[style=mystyle, thmbox=M]{definition}
-\declaretheorem[style=mystyle, thmbox=M]{assumption}
-\declaretheorem[style=mystyle, thmbox=M]{example}
-\numberwithin{example}{section}
-\declaretheorem[style=mystyle_pf, thmbox=M]{proof}
-
-
 % Other
 \newtheorem{thm}{Theorem}
-\newtheorem{lem}{Lemma}
+\numberwithin{thm}{section}
+\newtheorem{dfn}{Definition}
+% \newtheorem{lem}{Lemma}
+\newtheorem{rmk}{Remark}
 \newtheorem{cor}{Corollary}
-\newtheorem{prop}{Proposition}
+% \newtheorem{prop}{Proposition}
 \newtheorem{asm}{Assumption}
 \newcommand{\calC}{\mathcal{C}}
-\theoremstyle{definition}
-\newtheorem{rem}{Remark}
-\newtheorem{ex}{Example}
 \newcommand{\UT}{\mathbb{U}_T}
 
 \newcommand{\sumi}{\sum_{i=1}^n}
@@ -101,7 +79,7 @@
 \begin{abstract}
 	Recent advances in the literature on non-parametric regression and uniform inference for infinite-order U-statistics have enabled us to consider the problem of uniform inference for a broader class of estimators.
 	One class of such estimators are bagged nearest neighbor estimators and among them specifically the Two-Scale Distributional Nearest Neighbor Estimator (TDNN) of \citet{demirkaya_optimal_2024}.
-	In this paper, we develop uniform inference procedures based on recent work by \citet{ritzwoller_uniform_2024} for the TDNN estimator.
+	In this paper, we improve on existing results for pointwise inference using the TDNN estimator and develop uniform inference procedures based on recent work by \citet{ritzwoller_uniform_2024}.
 	As part of this work, we provide a complementary R package called \textit{tdnnR} that implements the presented methods.
 \end{abstract}
 \vspace{0.3cm}
@@ -189,11 +167,11 @@ By convention, let $\operatorname{rk}(\mathbf{x}; \mathbf{Z}_i, D) = \infty$ if 
 Similarly, let $Y_{(1)}(\mathbf{x}; D)$ indicate the response value of the closest neighbor in set $D$.
 
 \vspace{0.5cm}
-\begin{remark}[Standardization]
-	Depending on the underlying norm that is used to calculate the distances between observations, it can be advisable to standardize the feature space before applying nearest neighbor methods.
+\begin{rmk}[Standardization]
+	Depending on the underlying norm that is used to calculate the distances between observations, it can be advisable to standardize the feature space before applying nearest-neighbor methods.
 	Since this is highly context-dependent, it is impossible to give general advice on when to standardize.
 	Thus, this decision is left to the practitioner.
-\end{remark}
+\end{rmk}
 Given a subsampling scale $s$ satisfying $1 \leq s \leq n$, a generic set of subsample indices $\ell \in L_{n,s}$ and a corresponding generic subset of our data $D_{\ell} = \{\mathbf{Z}_i \, | \, i \in \ell\}$, we can consider an analogous ordering of $D_{\ell}$.
 This enables us to define a data-driven kernel function $\kappa$ following the notation of \citet{ritzwoller_uniform_2024}.
 \begin{equation}
@@ -206,7 +184,7 @@ Noteworthy properties of $\kappa$ are its permutational symmetry in $D_{\ell}$ a
 The latter immediately implies a property that has been called \textit{Honesty} by \citet{wager_estimation_2018}.
 
 \vspace{0.5cm}
-\begin{definition}[Symmetry and Honesty - Adapted from \citet{ritzwoller_uniform_2024}]\label{Symmetry_Honesty}
+\begin{dfn}[Symmetry and Honesty - Adapted from \citet{ritzwoller_uniform_2024}]\label{Symmetry_Honesty}
 	\begin{enumerate}
 		\item The kernel $\kappa\left(\cdot, \cdot, D_{\ell}\right)$ is Honest in the sense that
 		      $$\kappa\left(x, X_i, D_{\ell}\right) \indep m\left(Z_i ; \mu\right) \mid X_i, D_{\ell_{-i}},$$
@@ -215,7 +193,7 @@ The latter immediately implies a property that has been called \textit{Honesty} 
 		      $\sum_{i \in s} \kappa\left(\cdot, X_i, D_{\ell}\right)=1$ almost surely.
 		      Moreover, the kernel $\kappa\left(\cdot, X_i, D_{\ell}\right)$ is invariant to permutations of the data $D_{\ell}.$
 	\end{enumerate}
-\end{definition}
+\end{dfn}
 Using $\kappa$, it is straightforward to find an expression for the distance function $K$ in Equation \ref{EmpCondMomEq} corresponding to the DNN estimator.
 \begin{equation}
 	K(\mathbf{x}, \mathbf{X}_i)
@@ -250,7 +228,7 @@ Starting from this setup, \citet{demirkaya_optimal_2024} develop a novel bias-co
 Their method is based on an explicit formula for the first-order bias term of the DNN estimator, which in turn allows them to eliminate it through a clever combination of two DNN estimators.
 
 \vspace{0.5cm}
-\begin{theorem}[\citet{demirkaya_optimal_2024} - Theorem 1]\label{demirkaya_Thm1}
+\begin{thm}[\citet{demirkaya_optimal_2024} - Theorem 1]\label{demirkaya_Thm1}
 	Assume that the distribution of $\mathbf{X}$ has a density function $f(\cdot)$ with respect to the Lebesgue measure $\lambda$ on the Euclidean space $\mathbb{R}^d$.
 	Let $\mathbf{x} \in \operatorname{supp}(\mathbf{X})$ be a fixed feature vector.
 	If \dots
@@ -280,7 +258,7 @@ Their method is based on an explicit formula for the first-order bias term of th
 			\item $f^{\prime \prime}(\cdot)$ and $\mu^{\prime \prime}(\cdot)$ represent the $d \times d$ Hessian matrices of $f(\cdot)$ and $\mu(\cdot)$, respectively
 		\end{itemize}
 	\end{multicols*}
-\end{theorem}
+\end{thm}
 Choosing two subsampling scales $1 \leq s_1 < s_2 \leq n$ and two corresponding weights
 \begin{equation}
 	w_1^{*}(s_1, s_2) = \frac{1}{1-(s_1/s_2)^{-2/d}}
@@ -293,10 +271,10 @@ they define the corresponding TDNN estimator as follows.
 	= w_1^{*}(s_1, s_2)\tilde{\mu}_{s_1}\left(\mathbf{x}; \mathbf{D}_n\right) + w_2^{*}(s_1, s_2)\tilde{\mu}_{s_2}\left(\mathbf{x}; \mathbf{D}_n\right)
 \end{equation}
 As a direct consequence of Theorem \ref{demirkaya_Thm1}, this leads to the elimination of the first-order bias term leading to desirable finite-sample properties.
-Furthermore, the authors show that this construction improves on the quality of the normal approximation.
+Furthermore, the authors show that this construction improves the quality of the normal approximation.
 
 \vspace{0.5cm}
-\begin{theorem}[\citet{demirkaya_optimal_2024} - Theorem 3]\label{demirkaya_Thm3}
+\begin{thm}[\citet{demirkaya_optimal_2024} - Theorem 3]\label{demirkaya_Thm3}
 	Assume that Conditions (1) to (3) from Theorem \ref{demirkaya_Thm1} hold.
 	Furthermore, let $s_2 \rightarrow \infty$ with $s_2 = o(n)$ and $c_1 \leq s_1/s_2 \leq c_2$ for some constants $0 < c_1 < c_2 < 1$.
 	Then, for any fixed $\mathbf{x} \in \operatorname{supp}(\mathbf{X}) \subset \mathbb{R}^d,$ it holds that for some positive sequence $\sigma_n$ of order $(s_2/n)^{1/2}$,
@@ -310,7 +288,7 @@ Furthermore, the authors show that this construction improves on the quality of 
 			O\left(s_1^{-3} + s_2^{-3}\right)     & \text{for } d = 1    \\
 		\end{cases}.
 	\end{equation*}
-\end{theorem}
+\end{thm}
 
 \subsection{Hoeffding Decompositions for the DNN and TDNN Estimators}
 As the majority of the theoretical results in the original paper rely on representations as a U-statistic, it is necessary to introduce additional notation.
@@ -356,7 +334,7 @@ Furthermore, the corresponding Haj\'ek-Projections are as follows.
 	\begin{aligned}
 		\tilde{\mu}_{s}\left(\mathbf{x}; \mathbf{D}_n\right)
 		 & = \mu(\mathbf{x}) + \frac{s}{n}\sum_{i = 1}^{n}h^{(1)}_{s}(\mathbf{x}; \mathbf{z}_{i})
-		+ \operatorname{HR}_{s}(\mathbf{x}; \mathbf{D}_n)                                                              \\
+		+ \operatorname{HR}_{s}(\mathbf{x}; \mathbf{D}_n)                                                   \\
 		\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right)
 		 & = \mu(\mathbf{x}) + \frac{s_2}{n}\sum_{i = 1}^{n} h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{z}_{i})
 		+ \operatorname{HR}_{s_1, s_2}(\mathbf{x}; \mathbf{D}_n)
@@ -381,43 +359,83 @@ $\zeta_{s,s} = \operatorname{Var}\left(\mathbf{x}; h_s\left(\mathbf{Z}_1, \ldots
 To perform inference, the authors introduce variance estimators based on the Jackknife and Bootstrap.
 However, as they point out, their consistency results rely on a likely suboptimal rate condition for the subsampling scale.
 While Theorem \ref{demirkaya_Thm3} allows $s_2$ to be of the order $o(n)$, the variance estimators rely on the considerably stronger condition that $s_2 = o(n^{1/3})$.
-Consider as an example their bootstrap variance estimator.
-
-
-Establishing consistency for variance estimators under weaker assumptions on the subsampling rates could broaden the scope of the TDNN estimator for inferential purposes considerably.
+Establishing consistency for their variance estimators under weaker assumptions on the subsampling rates could broaden the scope of the TDNN estimator for inferential purposes considerably.
 At a low level, this improvement will be based on a new order-explicit bound of the remainder in a linear approximation to U-statistics established in \citet{ritzwoller_uniform_2024}.
-Although these new results apply to high-dimensional U-statistics, for the purposes of pointwise inference, we will consider their application to a scalar argument.
+Although these new results apply to high-dimensional U-statistics, for pointwise inference, we will consider their application to a scalar argument.
 We will return to their high-dimensional nature in Section \ref{UnifInf} to construct procedures for uniform inference.
 Going forward, all results will be stated for the TDNN estimator.
 However, due to the underlying similarities between the U-statistic representations of the two estimators, much of this will apply to the DNN estimator analogously.
 
+\subsection{Variance Estimators}
+Define the following variance we need to estimate to perform pointwise inference at a point of interest $\mathbf{x}$.
+\begin{equation}
+	\omega^{2}_{n}\left(\mathbf{x}\right)
+	= \operatorname{Var}_{D}\left(\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right)\right)
+\end{equation}
+We denote by $\mathbf{D}_{n, -i}$ the data set $\mathbf{D}_n$ after removing the $i$'th observation.
+Then, the proposed Jackknife variance estimator takes the following form.
+\begin{equation}
+	\hat{\omega}_{JK}^2\left(\mathbf{x}; \mathbf{D}_n\right)
+	= \frac{n-1}{n} \sum_{i = 1}^{n}\left(\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n, -i}\right) - \hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}\right)\right)^2
+\end{equation}
+Next, denote the chosen number of bootstrap samples by $B \geq 1$ and for all $1 \leq b \leq B$, let $\mathbf{D}^{(b)}_n$ denote a bootstrap sample drawn from $\mathbf{D}_n$ uniformly and with replacement.
+Then, their bootstrap variance estimator is defined as follows.
+\begin{equation}
+	\hat{\omega}_{BS}^2\left(\mathbf{x}; \mathbf{D}_n\right)
+	= \frac{1}{B - 1}\sum_{b = 1}^{B} \left(\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}^{(b)}\right) - \bar{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}\right)\right)^2
+\end{equation}
+Here, $\bar{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}\right)$ is defined in the fllowing way.
+\begin{equation}
+	\bar{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}\right)
+	= \frac{1}{B} \sum_{b = 1}^{B} \hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}^{(b)}\right)
+\end{equation}
+
+\subsection{Subsampling Rate Improvements}
+
 By restricting Theorem 4.2 from \citet{ritzwoller_uniform_2024} to the univariate case, i.e. considering only a single point of interest, we obtain the following corollary.
+
 \vspace{0.5cm}
-\begin{corollary}
-	Define the term
+\begin{cor}
+	Consider a generic order $s$ U-statistic
 	\begin{equation}
-		\psi_{s_2}^2 = \nu^2 - s_2 \sigma_{s_2}^2
+		U_{s}(\mathbf{x}; \mathbf{D}_n)
+		= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}}u(\mathbf{x}; D_{\ell})
+		\quad \text{with} \quad
+		U_{s}(\mathbf{x}; \mathbf{D}_n) = \theta(\mathbf{x})
+	\end{equation}
+	and the Kernel of its Haj\'ek projection
+	\begin{equation}
+		u^{(1)}\left(\mathbf{x}; \mathbf{z}\right)
+		= \mathbb{E}\left[u(\mathbf{x}; D_{[s]}) \, | \, \mathbf{Z}_1 = \mathbf{z}\right] - \theta(\mathbf{x}).
+	\end{equation}
+	Furthermore, define the following variances.
+	\begin{equation}
+		\nu^2 = \operatorname{Var}\left(u(\mathbf{x}; D_{[s]})\right), \quad
+		\sigma_{s}^2 = \operatorname{Var}\left(u^{(1)}(\mathbf{x}; \mathbf{Z})\right), \quad
+		\psi_{s}^2 = \nu^2 - s \sigma_{s}^2
 	\end{equation}
 	If the kernel function $u\left(\mathbf{x} ; D_{\ell}\right)$ satisfies the bound
-	\begin{equation}
-		\left\|h_{s_1, s_2}(\mathbf{x}; D_{\ell})\right\|_{\psi_1} \leq \phi,
-	\end{equation}
+	$\left\|u(\mathbf{x}; D_{\ell})\right\|_{\psi_1} \leq \phi,$
 	then
-	\begin{equation}
-		\sqrt{\frac{n}{{s_2}^2 \sigma_{s_2}^2}}
-		\left(\hat{\mu}_{s_1, s_2}(\mathbf{x}; \mathbf{D}_n) - \mu(\mathbf{x}) - \frac{b}{n} \sum_{i=1}^n h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{z}_{i})\right)
+	\begin{align}
+		\sqrt{\frac{n}{{s}^2 \sigma_{s}^2}}
+		\left(u(\mathbf{x}; \mathbf{D}_n) - \theta(\mathbf{x}) - \frac{b}{n} \sum_{i=1}^n u^{(1)}(\mathbf{x}; \mathbf{Z}_{i})\right)
 		%
-		= \sqrt{\frac{n}{{s_2}^2 \sigma_{s_2}^2}} \operatorname{HR}_{s_1, s_2}(\mathbf{x}; \mathbf{D}_n)
+		= \sqrt{\frac{n}{{s}^2 \sigma_{s}^2}} \operatorname{HR}(\mathbf{x}; \mathbf{D}_n)
 		%
 		\lesssim \xi_{n, s},
-		\quad \text {where}
-	\end{equation}
-	\begin{equation}
+		\quad \text {where} \\
 		\xi_{n, s}
-		= \left(\frac{C s_2 \log(n)}{n}\right)^{s_2 / 2}\left(\left(\frac{n \psi_{s_2}^2}{{s_2}^2 \sigma_{s_2}^2}\right)^{1 / 2}+\left(\frac{\phi^2 s_2 \log ^4(n)}{\sigma_{s_2}^2}\right)^{1 / 2}\right),
-	\end{equation}
+		= \left(\frac{C s \log(n)}{n}\right)^{s / 2}\left(\left(\frac{n \psi_{s}^2}{{s}^2 \sigma_{s}^2}\right)^{1 / 2}+\left(\frac{\phi^2 s \log ^4(n)}{\sigma_{s}^2}\right)^{1 / 2}\right),
+	\end{align}
 	with probability greater than $1-C / n$.
-\end{corollary}
+\end{cor}
+
+We want to use this bound to improve on the subsampling bounds derived in the proofs of Theorems 5 and 6 from \cite{demirkaya_optimal_2024}.
+These can be found in their Supplementary Material, parts D.5 and D.6.
+	{\color{red} In even greater detail, we want to improve on the relation shown in Equation (A.52) in the derivation of consistency of the Jackknife variance estimator.}
+
+
 
 \newpage
 \section{Uniform Inference for the TDNN Estimator}\label{UnifInf}
@@ -430,15 +448,15 @@ Instead of a single point of interest, previously denoted by $\mathbf{x}$, we wi
 Consequently, the $j$-th entry of $\mathbf{x}^{(p)}$ will be denoted by $\mathbf{x}^{(p)}_{j}$.
 In an abuse of notation, let functions (such as $\mu$ or the DNN/TDNN estimators) evaluated at $\mathbf{x}^{(p)}$ denote the vector of corresponding function values evaluated at the point, respectively.
 It should be pointed out that, due to the local definition of the kernel in the estimators, this does not translate to the evaluation of the same function at different points in the most immediate sense.
-Furthermore, going forward $\hat{\mu}\left(\mathbf{x}; D\right)$ can be taken as the DNN or TDNN estimator evaluated at $\mathbf{x}$ based on the (sub-)sample $D$, respectively.
+% Furthermore, going forward $\hat{\mu}\left(\mathbf{x}; D\right)$ can be taken as the DNN or TDNN estimator evaluated at $\mathbf{x}$ based on the (sub-)sample $D$, respectively.
 To summarize the kind of object we want to construct, we define a uniform confidence region for the TDNN estimator in the following way following closely the notation of \citet{ritzwoller_uniform_2024}.
 
 \vspace{0.5cm}
-\begin{definition}[Uniform Confidence Regions]
+\begin{dfn}[Uniform Confidence Regions]
 	A confidence region for the TDNN (or DNN) estimators that is uniformly valid at the rate $r_{n,d}$ is a family of random intervals
 	\begin{equation}
 		\hat{\mathcal{C}}\left(\mathbf{x}^{(p)}\right)
-		:= \left\{\hat{C}(\mathbf{x}^{(p)}_{j}) 
+		:= \left\{\hat{C}(\mathbf{x}^{(p)}_{j})
 		= \left[c_{L}(\mathbf{x}^{(p)}_{j}), c_{U}(\mathbf{x}^{(p)}_{j})\right]\, : \, j \in [p]\right\}
 	\end{equation}
 	based on the observed data, such that
@@ -447,12 +465,12 @@ To summarize the kind of object we want to construct, we define a uniform confid
 		\sup_{P \in \mathbf{P}} \left| P\left(\mu(\mathbf{x}^{(d)}) \in \hat{\mathcal{C}}\left(\mathbf{x}^{(d)}\right)\right) \right| \leq r_{n,d}
 	\end{equation}
 	for some sequence $r_{n,d}$, where $\mathbf{P}$ is some statistical family containing $P$.
-\end{definition}
+\end{dfn}
 
 \subsection{Low-Level}
 In our pursuit of constructing uniform confidence regions for the TDNN estimator, we return to the results from \citet{ritzwoller_uniform_2024} in their high-dimensional form.
 \vspace{0.5cm}
-\begin{theorem}[\citet{ritzwoller_uniform_2024} - Theorem 4.1]
+\begin{thm}[\citet{ritzwoller_uniform_2024} - Theorem 4.1]
 	For any sequence of kernel orders $b=b_n$, where
 	\begin{equation}
 		\frac{1}{n} \frac{\nu_j^2}{\sigma_{b, j}^2} \rightarrow 0
@@ -465,13 +483,13 @@ In our pursuit of constructing uniform confidence regions for the TDNN estimator
 		\quad \text{as} \quad
 		n \rightarrow \infty.
 	\end{equation}
-\end{theorem}
+\end{thm}
 
 \vspace{0.5cm}
-\begin{theorem}[Adapted from \citet{ritzwoller_uniform_2024} - Theorem 4.2]\label{ritzwoller_Thm4_2}
+\begin{thm}[Adapted from \citet{ritzwoller_uniform_2024} - Theorem 4.2]\label{ritzwoller_Thm4_2}
 	Define the terms
 	\begin{equation}
-		\bar{\psi}_{s_2}^2 
+		\bar{\psi}_{s_2}^2
 		= \max_{j \in[p]}\left\{\nu_j^2- s_2 \sigma_{s_2, j}^2\right\}
 		%
 		\quad \text {and} \quad
@@ -479,14 +497,14 @@ In our pursuit of constructing uniform confidence regions for the TDNN estimator
 		\underline{\sigma}_{s_2}^2
 		= \min_{j \in[p]} \sigma_{s_2, j}^2.
 	\end{equation}
-	If the kernel function $u\left(\mathbf{x} ; D_{\ell}\right)$ satisfies the bound
+	If the kernel function $h_{s_1, s_2}\left(\mathbf{x} ; D_{\ell}\right)$ satisfies the bound
 	\begin{equation}
-		\left\|u\left(\mathbf{x} ; D_{\ell}\right)\right\|_{\psi_1} \leq \phi
+		\left\|h_{s_1, s_2}\left(\mathbf{x} ; D_{\ell}\right)\right\|_{\psi_1} \leq \phi
 	\end{equation}
 	for each $j$ in $[d]$, then
 	\begin{equation}
 		\sqrt{\frac{n}{s_2^2 \underline{\sigma}_{s_2}^2}}
-		\left\|\hat{\mu}_{s_1, s_2}(\mathbf{x}^{(p)}; \mathbf{D}_n) - \mu(\mathbf{x}^{(p)}) - \frac{s_2}{n} \sum_{i=1}^n h^{(1)}_{s_1, s_2}(\mathbf{x}^{(p)}; \mathbf{z}_{i})\right\|_{\infty} 
+		\left\|\hat{\mu}_{s_1, s_2}(\mathbf{x}^{(p)}; \mathbf{D}_n) - \mu(\mathbf{x}^{(p)}) - \frac{s_2}{n} \sum_{i=1}^n h^{(1)}_{s_1, s_2}(\mathbf{x}^{(p)}; \mathbf{z}_{i})\right\|_{\infty}
 		%
 		= \sqrt{\frac{n}{s_2^2 \underline{\sigma}_{s_2}^2}} \left\|\operatorname{HR}_{s_1, s_2}(\mathbf{x}^{(p)}; \mathbf{D}_n)\right\|_{\infty}
 		%
@@ -494,37 +512,18 @@ In our pursuit of constructing uniform confidence regions for the TDNN estimator
 	\end{equation}
 	where
 	\begin{equation}
-		\xi_{n, b}
+		\xi_{n, s_2}
 		= \left(\frac{C s_2 \log(p n)}{n}\right)^{s_2 / 2}\left(\left(\frac{n \bar{\psi}_{s_2}^2}{{s_2}^2 \underline{\sigma}_{s_2}^2}\right)^{1 / 2}+\left(\frac{\phi^2 s_2 \log ^4(p n)}{\underline{\sigma}_{s_2}^2}\right)^{1 / 2}\right),
 	\end{equation}
 	with probability greater than $1-C / n$.
-\end{theorem}
-
-\vspace{0.5cm}
-\begin{theorem}[\citet{ritzwoller_uniform_2024} - Corollary 4.1]
-	Let $\Sigma$ be the diagonal matrix with components $\sigma_{b, j}^2$.
-	\begin{enumerate}
-		\item Under the same conditions as Theorem \ref{ritzwoller_Thm4_2}, we have that
-		      \begin{equation}
-			      \sqrt{\frac{n}{b^2}} \Sigma^{-1 / 2} \bar{U}_{n, b}\left(\mathbf{x}^{(p)}\right) \lesssim \log ^{1 / 2}(d n)+\frac{\phi \log ^2(d n)}{\underline{\sigma}_b n^{1 / 2}}+\xi_{n, b}
-		      \end{equation}
-		      with probability greater than $1-C / n$.
-		\item Let $Z$ denote a centered Gaussian random vector with covariance matrix $\operatorname{Var}\left(\tilde{u}^{(1)}\left(\boldsymbol{x}^{(d)}, D_i\right)\right)$.
-		      Under the same conditions as Theorem \ref{ritzwoller_Thm4_2}, we have that
-		      \begin{equation}
-			      \sup _{\mathrm{R} \in \mathcal{R}}\left|P\left\{\sqrt{\frac{n}{b^2}} \Sigma^{-1 / 2} \bar{U}_{n, b}\left(\boldsymbol{x}^{(d)}\right) \in \mathrm{R}\right\}-P\left\{\Sigma^{-1 / 2} Z \in \mathrm{R}\right\}\right|
-			      \lesssim\left(\frac{\phi^2 \log ^5(d n)}{\sigma_b^2 n}\right)^{1 / 4}+\xi_{n, b} \sqrt{\log (d)},
-		      \end{equation}
-		      where $\mathcal{R}$ denotes the set of hyper-rectangles in $\mathbb{R}^d$.
-	\end{enumerate}
-\end{theorem}
+\end{thm}
 
 \subsection{High-Level}
 Recent advances in the field of uniform inference for infinite-order U-statistics, specifically \citet{ritzwoller_uniform_2024}, and careful analysis of the Hoeffding projections of different orders will be the cornerstones in developing uniform inference methods.
 The authors' approach to constructing uniform confidence regions is based on the half-sample bootstrap root.
 
 \vspace{0.5cm}
-\begin{definition}[Half-Sample Bootstrap Root Approximation - \citet{ritzwoller_uniform_2024}]
+\begin{dfn}[Half-Sample Bootstrap Root Approximation - \citet{ritzwoller_uniform_2024}]
 	The Half-Sample Bootstrap Root Approximation of the sampling distribution of the root
 	\begin{equation}
 		R\left(\mathbf{x}^{(p)}; \mathbf{D}_n\right)
@@ -536,7 +535,7 @@ The authors' approach to constructing uniform confidence regions is based on the
 		:= \hat{\mu}\left(\mathbf{x}^{(p)}; D_l\right) - \hat{\mu}\left(\mathbf{x}^{(p)}; \mathbf{D}_n\right)
 	\end{equation}
 	where $l$ denotes a random element from $L_{n, n/2}$.
-\end{definition}
+\end{dfn}
 Next, to standardize the relevant quantities, we introduce a corresponding studentized process.
 \begin{equation}
 	\hat{\lambda}_{j}^{2}\left(\mathbf{x}^{(p)}; \mathbf{D}_n\right) = \operatorname{Var}\left(\sqrt{n} R^{*}(\mathbf{x}^{(p)}_{j}; \mathbf{D}_n) \, | \, \mathbf{D}_n\right)
@@ -552,7 +551,7 @@ As the authors point out specifically, and as indicated by the more explicit not
 Given this construction, the uniform confidence region developed in \citet{ritzwoller_uniform_2024} adapted to the TDNN estimator takes the following form.
 
 \vspace{0.5cm}
-\begin{theorem}[Uniform Confidence Region - \citet{ritzwoller_uniform_2024}]
+\begin{thm}[Uniform Confidence Region - \citet{ritzwoller_uniform_2024}]
 	Define the intervals
 	\begin{equation}
 		\hat{\mathcal{C}}\left(\mathbf{x}^{(p)}_j; \mathbf{D}_n\right)
@@ -560,14 +559,14 @@ Given this construction, the uniform confidence region developed in \citet{ritzw
 		n^{-1/2} \hat{\lambda}_{j}\left(\mathbf{x}^{(p)}; \mathbf{D}_n\right)\operatorname{cv}\left(\alpha; \mathbf{D}_n\right)
 	\end{equation}
 	The $\alpha$-level uniform confidence region for $\mu\left(\mathbf{x}^{(p)}\right)$ is given by $\hat{\mathcal{C}}\left(\mathbf{x}^{(p)}\right)$.
-\end{theorem}
+\end{thm}
 
 To justify the use of this uniform confidence region, it remains to be shown if and how the other conditions for the inner workings of this procedure apply to the TDNN estimator.
 This is substantially simplified due to the absence of a nuisance parameter.
 Thus, consider the following conditions from \cite{ritzwoller_uniform_2024} that are simplified to fit the problem at hand.
 
 \vspace{0.5cm}
-\begin{definition}[Shrinkage and Incrementality - Adapted from \citet{ritzwoller_uniform_2024}]
+\begin{dfn}[Shrinkage and Incrementality - Adapted from \citet{ritzwoller_uniform_2024}]
 	We say that the kernel $\kappa\left(\cdot, \cdot, D_{\ell}\right)$ has a uniform shrinkage rate $\epsilon_b$ if
 	\begin{equation}
 		\sup_{P \in \mathbf{P}} \sup_{j \in[p]}
@@ -581,7 +580,7 @@ Thus, consider the following conditions from \cite{ritzwoller_uniform_2024} that
 		\gtrsim b^{-1}
 	\end{equation}
 	where $Z$ is an independent random variable with distribution $P$.
-\end{definition}
+\end{dfn}
 
 Translating these properties to suit the TDNN regression problem, we obtain the following conditions that need to be verified.
 First, to verify uniform shrinkage at a rate $\epsilon_b$, the following remains to be shown.
@@ -623,7 +622,7 @@ Specifically, the following Proposition and its proof are helpful in showing the
 	{\color{red} LOREM IPSUM}
 
 \vspace{0.5cm}
-\begin{assumption}[Boundedness - Adapted from \citet{ritzwoller_uniform_2024}]
+\begin{asm}[Boundedness - Adapted from \citet{ritzwoller_uniform_2024}]
 	The absolute value of the function $m(\cdot; \mu)$ is bounded by the constant $(\theta+1) \phi$ almost surely.
 	\begin{equation}
 		|m(\mathbf{Z}_i ; \mu)|
@@ -632,16 +631,16 @@ Specifically, the following Proposition and its proof are helpful in showing the
 		\leq (\theta+1) \phi
 		\quad \text{a.s.}
 	\end{equation}
-\end{assumption}
+\end{asm}
 To follow the notational conventions, we will further define the two functions $m^{(1)}(\mathbf{Z}_i; \mu) = - \mu(\mathbf{X}_i)$ and $m^{(2)}(\mathbf{Z}_i) = Y_i$.
 As the authors point out, the boundedness condition can easily be replaced by a condition on the subexponential norm.
 This, being more in line with the assumptions of \citet{demirkaya_optimal_2024}, is a desirable substitution.
 Thus, we will instead consider the following assumption and fill in parts of the proofs that hinge on boundedness for ease of exposition in the original paper.
 
 \vspace{0.5cm}
-\begin{assumption}[Sub-Exponential Norm Bound]
+\begin{asm}[Sub-Exponential Norm Bound]
 
-\end{assumption}
+\end{asm}
 
 {\color{red} LOREM IPSUM}
 
@@ -653,7 +652,7 @@ Thus, we will instead consider the following assumption and fill in parts of the
 % {\color{red} LOREM IPSUM}
 
 \vspace{0.5cm}
-\begin{assumption}[Moment Smoothness - Adapted from \citet{ritzwoller_uniform_2024}]
+\begin{asm}[Moment Smoothness - Adapted from \citet{ritzwoller_uniform_2024}]
 	Define the moments
 	\begin{equation}
 		M^{(1)}(\mathbf{x} ; \mu)
@@ -684,9 +683,9 @@ Thus, we will instead consider the following assumption and fill in parts of the
 		= \inf_{P \in \mathbf{P}} \inf_{j \in [p]} \Big|\mu\left(\mathbf{x}^{(p)}_{j}\right) \Big| \geq c
 	\end{equation}
 	for some positive constant $c$.
-\end{assumption}
+\end{asm}
 
-Clearly, the Lipschitz continuity part of this assumption translates directly into a Lipschitz continuity assumption on the unknown nonparametric regression function.
+The Lipschitz continuity part of this assumption translates directly into a Lipschitz continuity assumption on the unknown nonparametric regression function.
 The boundedness assumption is
 	{\color{red} LOREM IPSUM}
 
@@ -694,7 +693,7 @@ The boundedness assumption is
 \section{Simulations}\label{Simulations}
 \hrule
 
-Having developed theoretical results concerning uniform inference methods for the TDNN estimator, we will proceed by testing their properties in a number of simulation studies.
+Having developed theoretical results concerning uniform inference methods for the TDNN estimator, we will proceed by testing their properties in several simulation studies.
 
 \begin{figure}[H]
 	\includegraphics[width = \textwidth]{../Code/Simulations/Graphics/TDNN_DNN.pdf}
@@ -718,289 +717,310 @@ Having developed theoretical results concerning uniform inference methods for th
 \appendix
 \section{Proofs}
 
-% \section{PNN Calculations}
-% \subsection{1-PNN Calculations}
+\section{PNN Calculations}
+\subsection{1-PNN Calculations}
 
-% Due to the inherent connections between random forests and the \textit{Potential Nearest Neighbor} (PNN) framework, it is helpful to consider the properties of the k-PNN method first.
-% Specifically, as we are considering large trees with a terminal node size of 1, we are interested in the properties of the 1-PNN framework.
-% In this context, let $P_i(x)$ be an indicator for whether observation $i$ is a 1-PNN of a point of interest $x \in \mathbb{R}^d$.
-% Furthermore, let $\operatorname{HR}(x,y)$ denote the hyperrectangle spanned by two points $x,y \in \mathbb{R}^d$ and by $x \prec y$ that $x \in \operatorname{HR}(\mathbf{0}, y)$ and by $x \not\prec y$ the complement of that event.
+Due to the inherent connections between random forests and the \textit{Potential Nearest Neighbor} (PNN) framework, it is helpful to consider the properties of the k-PNN method first.
+Specifically, as we are considering large trees with a terminal node size of 1, we are interested in the properties of the 1-PNN framework.
+In this context, let $P_i(x)$ be an indicator for whether observation $i$ is a 1-PNN of a point of interest $x \in \mathbb{R}^d$.
+Furthermore, let $\operatorname{HR}(x,y)$ denote the hyperrectangle spanned by two points $x,y \in \mathbb{R}^d$ and by $x \prec y$ that $x \in \operatorname{HR}(\mathbf{0}, y)$ and by $x \not\prec y$ the complement of that event.
 
-% Consider first the one-dimensional case and recall that given a subsample of indices $\mathcal{I}_S \subset \{1, \dotsc n\}$ with $i \in \mathcal{I}_S$ and $|\mathcal{I}_S| = s$, we have $P_i(x) = \mathbbm{1}(i = \argmin_{j \in \mathcal{I}_S} \|x - X_{j}\|)$.
-% For simplicity and due to a symmetry of arguments, focus on the case of uniformly distributed features on $[0,1]$ and $x = 0$ and without loss of generality consider $i = 1$.
-% This allows us to make the following observation
-% \begin{equation*}
-% 	\begin{aligned}
-% 		\E\left[P_1 \, | \, Z_1\right]
-% 		 & = \E\left[P_1 \, | \, X_1\right]
-% 		= \P\left(X_1 = \min_{j \in \mathcal{I}_S} X_j \, | \, X_1\right)
-% 		= \P(\forall j \in \mathcal{I}_S \backslash \{i\}: \, X_j > X_1 \, | \, X_1) \\
-% 		 & = \P(B(s-1, X_1) = 0)
-% 		= (1-X_1)^{s-1}.
-% 	\end{aligned}
-% \end{equation*}
-% Similarly, consider the following, concentrating without loss of generality on $X_1$ and $X_2$ for $\{1,2\} \subset \mathcal{I}_S$ for $s \geq 2$.
-% \begin{equation*}
-% 	\begin{aligned}
-% 		\E[P_1 \, | \, Z_1, Z_2]
-% 		 & = \E[P_1 \, | \, X_1, X_2]
-% 		= \P\left(X_1 = \min_{j \in \mathcal{I}_S} X_j \, \Big| \, X_1, X_2\right)                              \\
-% 		 & = \P\left(X_1 = \min_{j \in \mathcal{I}_S} X_j \, \Big| \, X_1, X_2\right) \mathbbm{1}(X_1 \geq X_2)
-% 		+ \P\left(X_1 = \min_{j \in \mathcal{I}_S} X_j \, \Big| \, X_1, X_2\right) \mathbbm{1}(X_1 < X_2)       \\
-% 		% & = \P\left(X_1 = \min_{j \in \mathcal{I}_S} X_j \, \Big| \, X_1, X_2\right) \mathbbm{1}(X_1 \geq X_2)\\
-% 		 & = \P\left(B(s-2, X_1) = 0\right) \mathbbm{1}(X_1 < X_2)
-% 		= (1 - X_1)^{s-2} \mathbbm{1}(X_1 < X_2)                                                                \\
-% 	\end{aligned}
-% \end{equation*}
-% Generalizing this idea, we can find that the following holds for the case of conditioning on $p \leq s $ observations, where wlog we consider $1, \dotsc, p \in \mathcal{I}_S$.
-% \begin{equation*}
-% 	\begin{aligned}
-% 		\E[P_1 \, | \, Z_1, \dotsc, Z_p]
-% 		 & = \E[P_1 \, | \, X_1, \dotsc, X_p]
-% 		= (1 - X_1)^{s-p} \mathbbm{1}(\forall j = 2, \dotsc, p: \, X_1 < X_j).
-% 	\end{aligned}
-% \end{equation*}
-% This is the first step to calculating the variances of the individual terms of the Hoeffding Decomposition of the weights for the 1-PNN method.
-% Furthermore, we can recognize that the expectation of any sum of these conditional expectations has expectation equal to zero.
-% For example, we can find the following
-% \begin{equation*}
-% 	\begin{aligned}
-% 		\E\Bigl[\E[P_1 \, | \, Z_1, Z_2] - \E[P1 \, | \, Z_1]\Bigr]
-% 		 & = \E\left[\E[P_1 \, | \, Z_1, Z_2]\right] - \E\left[\E[P1 \, | \, Z_1]\right]
-% 		= \E\left[P_1\right] - \E\left[P_1\right]
-% 		= 0.
-% 	\end{aligned}
-% \end{equation*}
-% This, however, applies more broadly to sums of these terms, which is of interest in the upcoming calculations concerning the variances.
-% Second, we need to consider the conditional expectations when conditioning on observations excluding i.
-% As an illustrating example consider first the following
-% \begin{equation*}
-% 	\begin{aligned}
-% 		\mathbb{E}[P_1 \, | \, Z_2]
-% 		 & = \mathbb{E}[P_1 \, | \, X_2]
-% 		= \mathbb{E}\left[\mathbb{E}[P_1 \, | \, X_1, X_2] \, | \, X_2\right]
-% 		= \mathbb{E}\left[(1 - X_1)^{s-2} \mathbbm{1}(X_1 < X_2) \, | \, X_2\right] \\
-% 		 & = \int_{0}^{X_2}(1 - x_1)^{s-2} \, dx_1
-% 		% = -\frac{(1-X_2)^s - (1-X_2)}{(s-1)(1 - X_2)}
-% 		= \frac{1 - (1-X_2)^{s-1}}{s-1}
-% 	\end{aligned}
-% \end{equation*}
-% Similarly, we can consider conditioning on an arbitrary set of observations excluding $i=1$ and make use of the law of iterated expectations in an analogous manner.
-% Without loss of generality, consider again $i = 1$ and conditioning on observations 2 to $p < s$ and to simplify the notation, let $\underline{X}_{2:p} = \min_{i = 2, \dotsc, p} X_i$.
-% \begin{equation*}
-% 	\begin{aligned}
-% 		\mathbb{E}[P_1 \, | \, Z_2, \dotsc, Z_p]
-% 		 & = \mathbb{E}[P_1 \, | \, X_2, \dotsc, X_p]
-% 		= \mathbb{E}\left[\mathbb{E}\left[P_1 \, | \, X_1, X_2, \dotsc, X_p\right] \, | \, X_2, \dotsc, X_p\right] \\
-% 		 & = \int_{0}^{\underline{X}_{2:p}}(1 - x_1)^{s-p} \, d x_1
-% 		= \frac{1 - (1 - \underline{X}_{2:p})^{s+1-p}}{s + 1 - p}
-% 	\end{aligned}
-% \end{equation*}
-% The next step is to consider the actual terms of the Hoeffding decomposition and evaluate their variance.
-% First among them, we can find the following
-% \begin{equation*}
-% 	\begin{aligned}
-% 		\Var(\E[P_1 \, | \, X_1])
-% 		 & = \Var\left((1-X_1)^{s-1}\right)
-% 		= \E\left[(1-X_1)^{2(s-1)}\right] - \E\left[(1-X_1)^{s-1}\right]^2                         \\
-% 		 & = \int_{0}^{1} (1-x_1)^{2(s-1)} d x_1 - \left(\int_{0}^{1} (1-x_1)^{s-1} d x_1\right)^2
-% 		= \frac{1}{2s - 1} - \frac{1}{s^2}                                                         \\
-% 		 & \sim s^{-1}.
-% 	\end{aligned}
-% \end{equation*}
-% To evaluate the variance of the second term, we can proceed by combining the expressions of the first and second conditional expectations.
-% \begin{equation*}
-% 	\begin{aligned}
-% 		\E[P_1 \, | \, Z_1, Z_2] - \E[P1 \, | \, Z_1]
-% 		 & = (1 - X_1)^{s-2} (\mathbbm{1}(X_1 < X_2) - (1 - X_1)) \\
-% 		 & = (1 - X_1)^{s-2} (X_1 - \mathbbm{1}(X_1 \geq X_2)).
-% 	\end{aligned}
-% \end{equation*}
-% Thus, to calculate the variance, observe that
-% \begin{equation*}
-% 	\begin{aligned}
-% 		\Big|\E[P_1 \, | \, Z_1, Z_2] - \E[P_1 \, | \, Z_1]\Big|^2
-% 		 & = \Big|(1 - X_1)^{s-2} (X_1 - \mathbbm{1}(X_1 \geq X_2)) \Big|^2            \\
-% 		 & = (1 - X_1)^{2s-4}\Big|X_1 - \mathbbm{1}(X_1 \geq X_2) \Big|^2              \\
-% 		 & = (1 - X_1)^{2s-4}\left(X_1^2 + \mathbbm{1}(X_1 \geq X_2)(1 - 2X_1)\right).
-% 	\end{aligned}
-% \end{equation*}
-% and thus
-% \begin{equation*}
-% 	\begin{aligned}
-% 		  & \Var(\E[P_1 \, | \, Z_1, Z_2] - \E[P1 \, | \, Z_1])
-% 		= \E\left[(1 - X_1)^{2s-4}\left(X_1^2 + \mathbbm{1}(X_1 \geq X_2)(1 - 2X_1)\right)\right]                                                          \\
-% 		= & \E\left[(1 - X_1)^{2s-4}X_1^2\right] + \E\left[(1 - X_1)^{2s-4}\mathbbm{1}(X_1 \geq X_2)(1 - 2X_1)\right]                                      \\
-% 		= & \int_{0}^{1} (1 - x_1)^{2s-4}x_1^2 \, d x_1 + \int_{0}^{1}\int_{0}^{1}(1 - x_1)^{2s-4}\mathbbm{1}(x_1 \geq x_2)(1 - 2x_1) \, d x_1 \, d x_2    \\
-% 		= & \int_{0}^{1} (1 - x_1)^{2s-4}x_1^2 \, d x_1 + \int_{0}^{1}\int_{x_2}^{1}(1 - x_1)^{2s-4}(1 - 2x_1) \, d x_1 \, d x_2                           \\
-% 		= & \frac{1}{4s^3 - 12s^2 + 11s - 3} + \int_{0}^{1}\left[\frac{(1-x_2)^{2s-3}}{2s - 3}\left(1 - \frac{(2s - 3)x_2 + 1}{s-1}\right)\right] \, d x_2 \\
-% 		= & \frac{1}{4s^3 - 12s^2 + 11s - 3} + \frac{5 - 2s}{-8s^3 + 24s^2 -22s + 6}
-% 		\sim s^{-2}
-% 	\end{aligned}
-% \end{equation*}
-% Furthermore, we can find that
-% \begin{equation*}
-% 	\begin{aligned}
-% 		\operatorname{Var}\left(\mathbb{E}[P_1 \, | \, Z_2]\right)
-% 		 & = \operatorname{Var}\left(\frac{1 - (1-X_2)^{s-1}}{s-1}\right)
-% 		= \frac{1}{(s-1)^2} \operatorname{Var}\left((1-X_2)^{s-1}\right)                                                    \\
-% 		 & = \frac{1}{(s-1)^2}\left(\mathbb{E}\left[(1-X_2)^{2(s-1)}\right] - \mathbb{E}\left[(1-X_2)^{s-1}\right]^2\right) \\
-% 		 & = \frac{1}{(s-1)^2}\left(\frac{1}{2s - 1} - \frac{1}{s^2}\right)
-% 		\sim s^{-3}
-% 	\end{aligned}
-% \end{equation*}
-% This, in turn, implies the following
-% \begin{equation*}
-% 	\begin{aligned}
-% 		\operatorname{Var}\left(\E[P_1 \, | \, Z_1, Z_2] - \E[P_1 \, | \, Z_1] + \E[P_2 \, | \, Z_1, Z_2] - \E[P_2 \, | \, Z_2]\right)
-% 		\sim s^{-2}.
-% 	\end{aligned}
-% \end{equation*}
+Consider first the one-dimensional case and recall that given a subsample of indices $\mathcal{I}_S \subset \{1, \dotsc n\}$ with $i \in \mathcal{I}_S$ and $|\mathcal{I}_S| = s$, we have $P_i(x) = \mathbbm{1}(i = \argmin_{j \in \mathcal{I}_S} \|x - X_{j}\|)$.
+For simplicity and due to a symmetry of arguments, focus on the case of uniformly distributed features on $[0,1]$ and $x = 0$ and without loss of generality consider $i = 1$.
+This allows us to make the following observation
+\begin{equation*}
+	\begin{aligned}
+		\E\left[P_1 \, | \, Z_1\right]
+		 & = \E\left[P_1 \, | \, X_1\right]
+		= \P\left(X_1 = \min_{j \in \mathcal{I}_S} X_j \, | \, X_1\right)
+		= \P(\forall j \in \mathcal{I}_S \backslash \{i\}: \, X_j > X_1 \, | \, X_1) \\
+		 & = \P(B(s-1, X_1) = 0)
+		= (1-X_1)^{s-1}.
+	\end{aligned}
+\end{equation*}
+Similarly, consider the following, concentrating without loss of generality on $X_1$ and $X_2$ for $\{1,2\} \subset \mathcal{I}_S$ for $s \geq 2$.
+\begin{equation*}
+	\begin{aligned}
+		\E[P_1 \, | \, Z_1, Z_2]
+		 & = \E[P_1 \, | \, X_1, X_2]
+		= \P\left(X_1 = \min_{j \in \mathcal{I}_S} X_j \, \Big| \, X_1, X_2\right)                              \\
+		 & = \P\left(X_1 = \min_{j \in \mathcal{I}_S} X_j \, \Big| \, X_1, X_2\right) \mathbbm{1}(X_1 \geq X_2)
+		+ \P\left(X_1 = \min_{j \in \mathcal{I}_S} X_j \, \Big| \, X_1, X_2\right) \mathbbm{1}(X_1 < X_2)       \\
+		% & = \P\left(X_1 = \min_{j \in \mathcal{I}_S} X_j \, \Big| \, X_1, X_2\right) \mathbbm{1}(X_1 \geq X_2)\\
+		 & = \P\left(B(s-2, X_1) = 0\right) \mathbbm{1}(X_1 < X_2)
+		= (1 - X_1)^{s-2} \mathbbm{1}(X_1 < X_2)                                                                \\
+	\end{aligned}
+\end{equation*}
+Generalizing this idea, we can find that the following holds for the case of conditioning on $p \leq s $ observations, where wlog we consider $1, \dotsc, p \in \mathcal{I}_S$.
+\begin{equation*}
+	\begin{aligned}
+		\E[P_1 \, | \, Z_1, \dotsc, Z_p]
+		 & = \E[P_1 \, | \, X_1, \dotsc, X_p]
+		= (1 - X_1)^{s-p} \mathbbm{1}(\forall j = 2, \dotsc, p: \, X_1 < X_j).
+	\end{aligned}
+\end{equation*}
+This is the first step to calculating the variances of the individual terms of the Hoeffding Decomposition of the weights for the 1-PNN method.
+Furthermore, we can recognize that the expectation of any sum of these conditional expectations has expectation equal to zero.
+For example, we can find the following
+\begin{equation*}
+	\begin{aligned}
+		\E\Bigl[\E[P_1 \, | \, Z_1, Z_2] - \E[P1 \, | \, Z_1]\Bigr]
+		 & = \E\left[\E[P_1 \, | \, Z_1, Z_2]\right] - \E\left[\E[P1 \, | \, Z_1]\right]
+		= \E\left[P_1\right] - \E\left[P_1\right]
+		= 0.
+	\end{aligned}
+\end{equation*}
+This, however, applies more broadly to sums of these terms, which is of interest in the upcoming calculations concerning the variances.
+Second, we need to consider the conditional expectations when conditioning on observations excluding i.
+As an illustrating example consider first the following
+\begin{equation*}
+	\begin{aligned}
+		\mathbb{E}[P_1 \, | \, Z_2]
+		 & = \mathbb{E}[P_1 \, | \, X_2]
+		= \mathbb{E}\left[\mathbb{E}[P_1 \, | \, X_1, X_2] \, | \, X_2\right]
+		= \mathbb{E}\left[(1 - X_1)^{s-2} \mathbbm{1}(X_1 < X_2) \, | \, X_2\right] \\
+		 & = \int_{0}^{X_2}(1 - x_1)^{s-2} \, dx_1
+		% = -\frac{(1-X_2)^s - (1-X_2)}{(s-1)(1 - X_2)}
+		= \frac{1 - (1-X_2)^{s-1}}{s-1}
+	\end{aligned}
+\end{equation*}
+Similarly, we can consider conditioning on an arbitrary set of observations excluding $i=1$ and make use of the law of iterated expectations analogously.
+Without loss of generality, consider again $i = 1$ and conditioning on observations 2 to $p < s$ and to simplify the notation, let $\underline{X}_{2:p} = \min_{i = 2, \dotsc, p} X_i$.
+\begin{equation*}
+	\begin{aligned}
+		\mathbb{E}[P_1 \, | \, Z_2, \dotsc, Z_p]
+		 & = \mathbb{E}[P_1 \, | \, X_2, \dotsc, X_p]
+		= \mathbb{E}\left[\mathbb{E}\left[P_1 \, | \, X_1, X_2, \dotsc, X_p\right] \, | \, X_2, \dotsc, X_p\right] \\
+		 & = \int_{0}^{\underline{X}_{2:p}}(1 - x_1)^{s-p} \, d x_1
+		= \frac{1 - (1 - \underline{X}_{2:p})^{s+1-p}}{s + 1 - p}
+	\end{aligned}
+\end{equation*}
+The next step is to consider the actual terms of the Hoeffding decomposition and evaluate their variance.
+First among them, we can find the following
+\begin{equation*}
+	\begin{aligned}
+		\Var(\E[P_1 \, | \, X_1])
+		 & = \Var\left((1-X_1)^{s-1}\right)
+		= \E\left[(1-X_1)^{2(s-1)}\right] - \E\left[(1-X_1)^{s-1}\right]^2                         \\
+		 & = \int_{0}^{1} (1-x_1)^{2(s-1)} d x_1 - \left(\int_{0}^{1} (1-x_1)^{s-1} d x_1\right)^2
+		= \frac{1}{2s - 1} - \frac{1}{s^2}                                                         \\
+		 & \sim s^{-1}.
+	\end{aligned}
+\end{equation*}
+To evaluate the variance of the second term, we can proceed by combining the expressions of the first and second conditional expectations.
+\begin{equation*}
+	\begin{aligned}
+		\E[P_1 \, | \, Z_1, Z_2] - \E[P1 \, | \, Z_1]
+		 & = (1 - X_1)^{s-2} (\mathbbm{1}(X_1 < X_2) - (1 - X_1)) \\
+		 & = (1 - X_1)^{s-2} (X_1 - \mathbbm{1}(X_1 \geq X_2)).
+	\end{aligned}
+\end{equation*}
+Thus, to calculate the variance, observe that
+\begin{equation*}
+	\begin{aligned}
+		\Big|\E[P_1 \, | \, Z_1, Z_2] - \E[P_1 \, | \, Z_1]\Big|^2
+		 & = \Big|(1 - X_1)^{s-2} (X_1 - \mathbbm{1}(X_1 \geq X_2)) \Big|^2            \\
+		 & = (1 - X_1)^{2s-4}\Big|X_1 - \mathbbm{1}(X_1 \geq X_2) \Big|^2              \\
+		 & = (1 - X_1)^{2s-4}\left(X_1^2 + \mathbbm{1}(X_1 \geq X_2)(1 - 2X_1)\right).
+	\end{aligned}
+\end{equation*}
+and thus
+\begin{equation*}
+	\begin{aligned}
+		  & \Var(\E[P_1 \, | \, Z_1, Z_2] - \E[P1 \, | \, Z_1])
+		= \E\left[(1 - X_1)^{2s-4}\left(X_1^2 + \mathbbm{1}(X_1 \geq X_2)(1 - 2X_1)\right)\right]                                                          \\
+		= & \E\left[(1 - X_1)^{2s-4}X_1^2\right] + \E\left[(1 - X_1)^{2s-4}\mathbbm{1}(X_1 \geq X_2)(1 - 2X_1)\right]                                      \\
+		= & \int_{0}^{1} (1 - x_1)^{2s-4}x_1^2 \, d x_1 + \int_{0}^{1}\int_{0}^{1}(1 - x_1)^{2s-4}\mathbbm{1}(x_1 \geq x_2)(1 - 2x_1) \, d x_1 \, d x_2    \\
+		= & \int_{0}^{1} (1 - x_1)^{2s-4}x_1^2 \, d x_1 + \int_{0}^{1}\int_{x_2}^{1}(1 - x_1)^{2s-4}(1 - 2x_1) \, d x_1 \, d x_2                           \\
+		= & \frac{1}{4s^3 - 12s^2 + 11s - 3} + \int_{0}^{1}\left[\frac{(1-x_2)^{2s-3}}{2s - 3}\left(1 - \frac{(2s - 3)x_2 + 1}{s-1}\right)\right] \, d x_2 \\
+		= & \frac{1}{4s^3 - 12s^2 + 11s - 3} + \frac{5 - 2s}{-8s^3 + 24s^2 -22s + 6}
+		\sim s^{-2}
+	\end{aligned}
+\end{equation*}
+Furthermore, we can find that
+\begin{equation*}
+	\begin{aligned}
+		\operatorname{Var}\left(\mathbb{E}[P_1 \, | \, Z_2]\right)
+		 & = \operatorname{Var}\left(\frac{1 - (1-X_2)^{s-1}}{s-1}\right)
+		= \frac{1}{(s-1)^2} \operatorname{Var}\left((1-X_2)^{s-1}\right)                                                    \\
+		 & = \frac{1}{(s-1)^2}\left(\mathbb{E}\left[(1-X_2)^{2(s-1)}\right] - \mathbb{E}\left[(1-X_2)^{s-1}\right]^2\right) \\
+		 & = \frac{1}{(s-1)^2}\left(\frac{1}{2s - 1} - \frac{1}{s^2}\right)
+		\sim s^{-3}
+	\end{aligned}
+\end{equation*}
+This, in turn, implies the following
+\begin{equation*}
+	\begin{aligned}
+		\operatorname{Var}\left(\E[P_1 \, | \, Z_1, Z_2] - \E[P_1 \, | \, Z_1] + \E[P_2 \, | \, Z_1, Z_2] - \E[P_2 \, | \, Z_2]\right)
+		\sim s^{-2}.
+	\end{aligned}
+\end{equation*}
 
-% To approach this problem more generally, it is imperative to find an expression for the variance of the c'th term of the Hoeffding decomposition.
-% Now, fixing $P_1$ as the weight of interest, recall in analogy to the beginning of this paper the following term:
-% \begin{equation*}
-% 	A_1^{(k)}
-% 	:= \sum_{E \in P_{s,k-1}^{\{1\}}} \left(-1\right)^{\mathbbm{1}\left(|E| \equiv (k-1) \mod 2\right)} \mathbb{E}\left[P_1 \, | \, X_1, X_e \, : \, e \in E\right].
-% \end{equation*}
-% As this term forms the core of the kernel of the relevant Hoeffding decomposition, it will allow us to gain a better understanding of the relevant variances at play.
-% First, by a simple application of the law of iterated expectations, we find that $\mathbb{E}[A_1^{(k)}] = 0$.
-% Thus, to understand its variance, we need to investigate $\mathbb{E}\left[|A_1^{(k)}|^2\right]$.
-% \begin{equation*}
-% 	\begin{aligned}
-% 		|A_1^{(k)}|^2
-% 		 & = \sum_{E, E' \in P_{s,k-1}^{\{1\}}}
-% 		(-1)^{\mathbbm{1}(|E| + | E'| \equiv 0 \mod 2)}
-% 		\left\{\mathbb{E}\left[P_1 \, | \, X_1, X_e \, : \, e \in E\right] \mathbb{E}\left[P_1 \, | \, X_1, X_{e'} \, : \, e' \in E'\right]\right\}
-% 	\end{aligned}
-% \end{equation*}
-% As this expression shows, we are interested in expressions of the following form
-% \begin{equation*}
-% 	\begin{aligned}
-% 		\mathbb{E}\Bigl[\mathbb{E}\left[P_1 \, | \, X_1, X_e \, : \, e \in E\right] \mathbb{E}\left[P_1 \, | \, X_1, X_{e'} \, : \, e' \in E'\right]\Bigr]
-% 	\end{aligned}
-% \end{equation*}
-% Now, fix $E, E' \in P_{s,k-1}^{\{1\}}$, and let $F = E \cap E'$.
-% Given this now fixed expression, we can continue our analysis in the following way.
-% \begin{equation*}
-% 	\begin{aligned}
-% 		A_{E, E'}
-% 		:= & \mathbb{E}\Bigl[\mathbb{E}\left[P_1 \, | \, X_1, X_e \, : \, e \in E\right] \mathbb{E}\left[P_1 \, | \, X_1, X_{e'} \, : \, e' \in E'\right]\Bigr]        \\
-% 		=  & \mathbb{E}\left[(1 - X_1)^{s-|E|-1} \mathbbm{1}(\forall j \in E: \, X_1 < X_j) \, (1 - X_1)^{s-|E'|-1} \mathbbm{1}(\forall j \in E': \, X_1 < X_j)\right] \\
-% 		=  & \mathbb{E}\left[(1-X_1)^{2s - |E| - |E'| - 2}\mathbbm{1}(\forall j \in E \cup E': \, X_1 < X_j)\right]                                                    \\
-% 		=  & \mathbb{E}\left[(1-X_1)^{2s - \mathcal{E} - \mathcal{E}' - 2}\mathbbm{1}(\forall j \in E \cup E': \, X_1 < X_j)\right]
-% 	\end{aligned}
-% \end{equation*}
-% Here, to simplify the notation, we let $\mathcal{E} = |E|,$ $\mathcal{E}' = |E'|$ and $\mathcal{F} = |F|$.
-% Recall that we are dealing with independent and identically uniformly distributed features, such that we can simplify this expectation by considering the density of the minimum of $\mathfrak{E} = \mathcal{E} + \mathcal{E}' - \mathcal{F}$ i.i.d. uniform random variables instead of the multivariate integral.
-% Specifically, realize that defining $W = \min_{e \in E \cup E'} X_e$, $W$ is distributed according to the following density function.
-% \begin{equation*}
-% 	\begin{aligned}
-% 		f_W(w) = \begin{cases}
-% 			         \mathfrak{E}\left(1-w\right)^{\mathfrak{E}- 1} & \text{if } w \in [0,1] \\
-% 			         0                                              & \text{otherwise}
-% 		         \end{cases}.
-% 	\end{aligned}
-% \end{equation*}
-% Using this expression, we find that
-% \begin{equation*}
-% 	\begin{aligned}
-% 		A_{E, E'}
-% 		 & = \int_{0}^{1}\left(\mathfrak{E}\left(1-w\right)^{\mathfrak{E}- 1}\int_{0}^{w} (1-x_1)^{2s - \mathcal{E} - \mathcal{E}' - 2} \, dx_1 \right) \, dw                                                     \\
-% 		 & = \int_{0}^{1}\left(\mathfrak{E}\left(1-w\right)^{\mathfrak{E}- 1} \frac{1}{2s - \mathcal{E} - \mathcal{E}' - 1}\left(1 - \left(1 - w\right)^{2s - \mathcal{E} - \mathcal{E}' - 1}\right)\right) \, dw \\
-% 		 & =  \frac{1}{2s - \mathcal{E} - \mathcal{E}' - 1}\left(1 -\int_{0}^{1} \mathfrak{E}\left(1-w\right)^{\mathfrak{E}- 1}\left(1 - w\right)^{2s - \mathcal{E} - \mathcal{E}' - 1} \, dw\right)              \\
-% 		 & =  \frac{1}{2s - \mathfrak{E} + \mathcal{F} - 1}\left(1 - \mathfrak{E}\int_{0}^{1} \left(1 - w\right)^{2s - \mathcal{F} - 2} \, dw\right)                                                              \\
-% 		 & = \frac{1}{2s - \mathfrak{E} + \mathcal{F} - 1}\left(1 - \frac{\mathfrak{E}}{2s - \mathcal{F} - 1}\right)
-% 		= \frac{2s -\mathfrak{E} - \mathcal{F} - 1 }{2s - \mathfrak{E} + \mathcal{F} - 1}\left(2s - \mathcal{F} - 1\right)^{-1}                                                                                   \\
-% 		 & \sim s^{-1}
-% 	\end{aligned}
-% \end{equation*}
-% Considering this notation, we can write the expression of interest in the following way to continue investigating its behavior.
-% \begin{equation*}
-% 	\begin{aligned}
-% 		|A_1^{(k)}|^2
-% 		= \sum_{E, E' \in P_{s,k-1}^{\{1\}}}(-1)^{\mathbbm{1}(|E| + | E'| \equiv 0 \mod 2)}A_{E, E'}
-% 	\end{aligned}
-% \end{equation*}
+To approach this problem more generally, it is imperative to find an expression for the variance of the $c$'th term of the Hoeffding decomposition.
+Now, fixing $P_1$ as the weight of interest, recall in analogy to the beginning of this paper the following term:
+\begin{equation*}
+	A_1^{(k)}
+	:= \sum_{E \in P_{s,k-1}^{\{1\}}} \left(-1\right)^{\mathbbm{1}\left(|E| \equiv (k-1) \mod 2\right)} \mathbb{E}\left[P_1 \, | \, X_1, X_e \, : \, e \in E\right].
+\end{equation*}
+As this term forms the core of the kernel of the relevant Hoeffding decomposition, it will allow us to gain a better understanding of the relevant variances at play.
+First, by a simple application of the law of iterated expectations, we find that $\mathbb{E}[A_1^{(k)}] = 0$.
+Thus, to understand its variance, we need to investigate $\mathbb{E}\left[|A_1^{(k)}|^2\right]$.
+\begin{equation*}
+	\begin{aligned}
+		|A_1^{(k)}|^2
+		 & = \sum_{E, E' \in P_{s,k-1}^{\{1\}}}
+		(-1)^{\mathbbm{1}(|E| + | E'| \equiv 0 \mod 2)}
+		\left\{\mathbb{E}\left[P_1 \, | \, X_1, X_e \, : \, e \in E\right] \mathbb{E}\left[P_1 \, | \, X_1, X_{e'} \, : \, e' \in E'\right]\right\}
+	\end{aligned}
+\end{equation*}
+As this expression shows, we are interested in expressions of the following form
+\begin{equation*}
+	\begin{aligned}
+		\mathbb{E}\Bigl[\mathbb{E}\left[P_1 \, | \, X_1, X_e \, : \, e \in E\right] \mathbb{E}\left[P_1 \, | \, X_1, X_{e'} \, : \, e' \in E'\right]\Bigr]
+	\end{aligned}
+\end{equation*}
+Now, fix $E, E' \in P_{s,k-1}^{\{1\}}$, and let $F = E \cap E'$.
+Given this now fixed expression, we can continue our analysis in the following way.
+\begin{equation*}
+	\begin{aligned}
+		A_{E, E'}
+		:= & \mathbb{E}\Bigl[\mathbb{E}\left[P_1 \, | \, X_1, X_e \, : \, e \in E\right] \mathbb{E}\left[P_1 \, | \, X_1, X_{e'} \, : \, e' \in E'\right]\Bigr]        \\
+		=  & \mathbb{E}\left[(1 - X_1)^{s-|E|-1} \mathbbm{1}(\forall j \in E: \, X_1 < X_j) \, (1 - X_1)^{s-|E'|-1} \mathbbm{1}(\forall j \in E': \, X_1 < X_j)\right] \\
+		=  & \mathbb{E}\left[(1-X_1)^{2s - |E| - |E'| - 2}\mathbbm{1}(\forall j \in E \cup E': \, X_1 < X_j)\right]                                                    \\
+		=  & \mathbb{E}\left[(1-X_1)^{2s - \mathcal{E} - \mathcal{E}' - 2}\mathbbm{1}(\forall j \in E \cup E': \, X_1 < X_j)\right]
+	\end{aligned}
+\end{equation*}
+Here, to simplify the notation, we let $\mathcal{E} = |E|,$ $\mathcal{E}' = |E'|$ and $\mathcal{F} = |F|$.
+Recall that we are dealing with independent and identically uniformly distributed features, such that we can simplify this expectation by considering the density of the minimum of $\mathfrak{E} = \mathcal{E} + \mathcal{E}' - \mathcal{F}$ i.i.d. uniform random variables instead of the multivariate integral.
+Specifically, realize that defining $W = \min_{e \in E \cup E'} X_e$, $W$ is distributed according to the following density function.
+\begin{equation*}
+	\begin{aligned}
+		f_W(w) = \begin{cases}
+			         \mathfrak{E}\left(1-w\right)^{\mathfrak{E}- 1} & \text{if } w \in [0,1] \\
+			         0                                              & \text{otherwise}
+		         \end{cases}.
+	\end{aligned}
+\end{equation*}
+Using this expression, we find that
+\begin{equation*}
+	\begin{aligned}
+		A_{E, E'}
+		 & = \int_{0}^{1}\left(\mathfrak{E}\left(1-w\right)^{\mathfrak{E}- 1}\int_{0}^{w} (1-x_1)^{2s - \mathcal{E} - \mathcal{E}' - 2} \, dx_1 \right) \, dw                                                     \\
+		 & = \int_{0}^{1}\left(\mathfrak{E}\left(1-w\right)^{\mathfrak{E}- 1} \frac{1}{2s - \mathcal{E} - \mathcal{E}' - 1}\left(1 - \left(1 - w\right)^{2s - \mathcal{E} - \mathcal{E}' - 1}\right)\right) \, dw \\
+		 & =  \frac{1}{2s - \mathcal{E} - \mathcal{E}' - 1}\left(1 -\int_{0}^{1} \mathfrak{E}\left(1-w\right)^{\mathfrak{E}- 1}\left(1 - w\right)^{2s - \mathcal{E} - \mathcal{E}' - 1} \, dw\right)              \\
+		 & =  \frac{1}{2s - \mathfrak{E} + \mathcal{F} - 1}\left(1 - \mathfrak{E}\int_{0}^{1} \left(1 - w\right)^{2s - \mathcal{F} - 2} \, dw\right)                                                              \\
+		 & = \frac{1}{2s - \mathfrak{E} + \mathcal{F} - 1}\left(1 - \frac{\mathfrak{E}}{2s - \mathcal{F} - 1}\right)
+		= \frac{2s -\mathfrak{E} - \mathcal{F} - 1 }{2s - \mathfrak{E} + \mathcal{F} - 1}\left(2s - \mathcal{F} - 1\right)^{-1}                                                                                   \\
+		 & \sim s^{-1}
+	\end{aligned}
+\end{equation*}
+Considering this notation, we can write the expression of interest in the following way to continue investigating its behavior.
+\begin{equation*}
+	\begin{aligned}
+		|A_1^{(k)}|^2
+		= \sum_{E, E' \in P_{s,k-1}^{\{1\}}}(-1)^{\mathbbm{1}(|E| + | E'| \equiv 0 \mod 2)}A_{E, E'}
+	\end{aligned}
+\end{equation*}
 
-% Considering the original test case of $k = 2$, we can check whether this approach gives us the same results.
-% \begin{equation*}
-% 	\begin{aligned}
-% 		|A_1^{(2)}|^2
-% 		 & = \sum_{E, E' \in P_{s,1}^{\{1\}}} (-1)^{\mathbbm{1}(|E| + | E'| \equiv 0 \mod 2)}A_{E, E'}                                        \\
-% 		 & = (s-1)A_{\{2\},\{2\}} + (s-1)(s-2)A_{\{2\},\{3\}} - 2(s-1)A_{\{2\}, \emptyset} + A_{\emptyset, \emptyset}                         \\
-% 		 & = \frac{(s-1)(2s - 4)}{(2s - 2)(2s - 2)} + \frac{(s-1)(s-2)(2s - 3)}{(2s - 1)(2s - 1)} - \frac{2(s-1)(2s - 2)}{(2s - 2)(2s - 1)} + \\
-% 		 & = \frac{s - 2}{2s - 2} + \frac{(s-1)(s-2)(2s - 3)}{(2s - 1)(2s - 1)} - \frac{2(s-1)}{2s - 1}                                       \\
-% 	\end{aligned}
-% \end{equation*}
-% {\color{red} LOREM IPSUM! I found a mistake. Will fix soon.}
+Considering the original test case of $k = 2$, we can check whether this approach gives us the same results.
+\begin{equation*}
+	\begin{aligned}
+		|A_1^{(2)}|^2
+		 & = \sum_{E, E' \in P_{s,1}^{\{1\}}} (-1)^{\mathbbm{1}(|E| + | E'| \equiv 0 \mod 2)}A_{E, E'}                                        \\
+		 & = (s-1)A_{\{2\},\{2\}} + (s-1)(s-2)A_{\{2\},\{3\}} - 2(s-1)A_{\{2\}, \emptyset} + A_{\emptyset, \emptyset}                         \\
+		 & = \frac{(s-1)(2s - 4)}{(2s - 2)(2s - 2)} + \frac{(s-1)(s-2)(2s - 3)}{(2s - 1)(2s - 1)} - \frac{2(s-1)(2s - 2)}{(2s - 2)(2s - 1)} + \\
+		 & = \frac{s - 2}{2s - 2} + \frac{(s-1)(s-2)(2s - 3)}{(2s - 1)(2s - 1)} - \frac{2(s-1)}{2s - 1}                                       \\
+	\end{aligned}
+\end{equation*}
+{\color{red} LOREM IPSUM! I found a mistake. Will fix soon.}
 
-% Thus, recall the following recursive Kernel definition that forms the basis to the Hoeffding decomposition.
-% \begin{align*}
-% 	h^{(1)}(x_1)
-% 	 & = \psi_1(x_1) - \theta                                                                                \\
-% 	h^{(c)}(x_1, x_2, \dotsc, x_c)
-% 	 & = \psi_c(x_1, \dotsc, x_c) - \sum_{j = 1}^{c-1}\sum_{(c,j)}h^{(j)}(x_{i_1}, \dotsc, x_{i_j}) - \theta
-% \end{align*}
-% To illustrate the connection to the problem at hand, fix first $P_1$ as the weight of interest.
-% Then, in an abuse of notation, consider $\psi_c(x_{i_1}, \dotsc, x_{i_j}) = \mathbb{E}\left[P_1 \, | \, X_{i_1} = x_{i_1}, \dotsc, X_{i_j} = x_{i_j}\right]$.
+Thus, recall the following recursive Kernel definition that forms the basis to the Hoeffding decomposition.
+\begin{align*}
+	h^{(1)}(x_1)
+	 & = \psi_1(x_1) - \theta                                                                                \\
+	h^{(c)}(x_1, x_2, \dotsc, x_c)
+	 & = \psi_c(x_1, \dotsc, x_c) - \sum_{j = 1}^{c-1}\sum_{(c,j)}h^{(j)}(x_{i_1}, \dotsc, x_{i_j}) - \theta
+\end{align*}
+To illustrate the connection to the problem at hand, fix first $P_1$ as the weight of interest.
+Then, in an abuse of notation, consider $\psi_c(x_{i_1}, \dotsc, x_{i_j}) = \mathbb{E}\left[P_1 \, | \, X_{i_1} = x_{i_1}, \dotsc, X_{i_j} = x_{i_j}\right]$.
 
-% \subsection{1-PNN in d Dimensions}
+\subsection{1-PNN in d Dimensions}
 
-% Next, consider the case of uniformly distributed features on $[0,1]^d$ with the point of interest at the origin, i.e. $x = \mathbf{0}$.
-% Similar to the one-dimensional case, the argument will extend to other points under consideration and other suitable distributions.
+Next, consider the case of uniformly distributed features on $[0,1]^d$ with the point of interest at the origin, i.e. $x = \mathbf{0}$.
+Similar to the one-dimensional case, the argument will extend to other points under consideration and other suitable distributions.
 
-% What this choice allows us to do is consider a simplified form of the probability of a point being a 1-PNN.
-% Thus, observe that the probability of a sample point $X_1$ being a 1-PNN of the origin, i.e. the expectation of $P_1$, can be expressed in the following form
-% \begin{equation*}
-% 	\begin{aligned}
-% 		\mathbb{E}[P_1 \, | \, X_1]
-% 		 & = \mathbb{P}(X_1 \text{ is a 1-PNN of } \mathbf{0} \, | \, X_1)                                            \\
-% 		 & = \mathbb{P}\left(\bigcap_{j = 2}^{s} \{X_j \not\in \operatorname{HR}(\mathbf{0}, X_1)\, | \, X_1\}\right)
-% 		= \mathbb{P}\left(\bigcap_{j = 2}^{s}\bigcap_{k = 1}^{d} \{X_{jk} \not\in [0, X_{1,k}]\, | \, X_1\}\right)    \\
-% 		 & = \mathbb{P}\left(B\left(s - 1, \prod_{k = 1}^{d} X_{1,k}\right) = 0\, | \, X_1\right)
-% 		= \mathbb{P}\left(B\left(s - 1, X_{1, \bullet}\right) = 0\, | \, X_1\right)                                   \\
-% 		 & = (1-X_{1, \bullet})^{s-1},
-% 	\end{aligned}
-% \end{equation*}
-% where we let $X_{i,\bullet}$ denote $\prod_{k = 1}^{d} X_{i,k}$.
-% To calculate the variance of the conditional expectation, consider the following rewriting
-% \begin{equation*}
-% 	\begin{aligned}
-% 		\operatorname{Var}\left(\mathbb{E}[P_1 \, | \, X_1]\right)
-% 		% & = \operatorname{Var}\left((1-X_{1, \bullet})^{s-1}\right) 
-% 		 & = \mathbb{E}[(1-X_{1, \bullet})^{2(s-1)}] - \left(\mathbb{E}[(1-X_{1, \bullet})^{s-1}]\right)^2.
-% 	\end{aligned}
-% \end{equation*}
-% Now, notice that $X_{1,\bullet}$ is distributed according to the density
-% \begin{equation*}
-% 	f_{1, \bullet}(x) = \begin{cases}
-% 		\frac{(-\log{(x)})^{d-1}}{(d-1)!} & \text{for } 0\leq x \leq 1 \\
-% 		0                                 & \text{otherwise}
-% 	\end{cases}.
-% \end{equation*}
-% Using this density, we can solve for the variance in the following way
-% \begin{equation*}
-% 	\begin{aligned}
-% 		\operatorname{Var}\left(\mathbb{E}[P_1 \, | \, X_1]\right)
-% 		 & = \int_{0}^{1} \frac{(-\log{(x)})^{d-1}}{(d-1)!} (1-x)^{2(s-1)} \, dx - \left(\int_{0}^{1} \frac{(-\log{(x)})^{d-1}}{(d-1)!}(1-x)^{s-1} \, dx\right)^2 \\
-% 		 & = {\color{red}\text{Tedious... but needs a good argument}}                                                                                             \\
-% 		 & \sim s^{-1} \quad {\color{red} \text{I assume...}}
-% 	\end{aligned}
-% \end{equation*}
+What this choice allows us to do is consider a simplified form of the probability of a point being a 1-PNN.
+Thus, observe that the probability of a sample point $X_1$ being a 1-PNN of the origin, i.e. the expectation of $P_1$, can be expressed in the following form
+\begin{equation*}
+	\begin{aligned}
+		\mathbb{E}[P_1 \, | \, X_1]
+		 & = \mathbb{P}(X_1 \text{ is a 1-PNN of } \mathbf{0} \, | \, X_1)                                            \\
+		 & = \mathbb{P}\left(\bigcap_{j = 2}^{s} \{X_j \not\in \operatorname{HR}(\mathbf{0}, X_1)\, | \, X_1\}\right)
+		= \mathbb{P}\left(\bigcap_{j = 2}^{s}\bigcap_{k = 1}^{d} \{X_{jk} \not\in [0, X_{1,k}]\, | \, X_1\}\right)    \\
+		 & = \mathbb{P}\left(B\left(s - 1, \prod_{k = 1}^{d} X_{1,k}\right) = 0\, | \, X_1\right)
+		= \mathbb{P}\left(B\left(s - 1, X_{1, \bullet}\right) = 0\, | \, X_1\right)                                   \\
+		 & = (1-X_{1, \bullet})^{s-1},
+	\end{aligned}
+\end{equation*}
+where we let $X_{i,\bullet}$ denote $\prod_{k = 1}^{d} X_{i,k}$.
+To calculate the variance of the conditional expectation, consider the following rewriting
+\begin{equation*}
+	\begin{aligned}
+		\operatorname{Var}\left(\mathbb{E}[P_1 \, | \, X_1]\right)
+		% & = \operatorname{Var}\left((1-X_{1, \bullet})^{s-1}\right) 
+		 & = \mathbb{E}[(1-X_{1, \bullet})^{2(s-1)}] - \left(\mathbb{E}[(1-X_{1, \bullet})^{s-1}]\right)^2.
+	\end{aligned}
+\end{equation*}
+Now, notice that $X_{1,\bullet}$ is distributed according to the density
+\begin{equation*}
+	f_{1, \bullet}(x) = \begin{cases}
+		\frac{(-\log{(x)})^{d-1}}{(d-1)!} & \text{for } 0\leq x \leq 1 \\
+		0                                 & \text{otherwise}
+	\end{cases}.
+\end{equation*}
+Using this density, we can solve for the variance in the following way
+\begin{equation*}
+	\begin{aligned}
+		\operatorname{Var}\left(\mathbb{E}[P_1 \, | \, X_1]\right)
+		 & = \int_{0}^{1} \frac{(-\log{(x)})^{d-1}}{(d-1)!} (1-x)^{2(s-1)} \, dx - \left(\int_{0}^{1} \frac{(-\log{(x)})^{d-1}}{(d-1)!}(1-x)^{s-1} \, dx\right)^2 \\
+		 & = {\color{red}\text{Tedious... but needs a good argument}}                                                                                             \\
+		 & \sim s^{-1} \quad {\color{red} \text{I assume...}}
+	\end{aligned}
+\end{equation*}
 
-% Proceeding as in the one-dimensional case, we consider next the conditional expectation of $P_1$ given $Z_1$ and $Z_2$, where these choices are again without loss of generality.
-% \begin{equation*}
-% 	\begin{aligned}
-% 		\mathbb{E}[P_1 \, | \, Z_1, Z_2]
-% 		 & = \mathbb{E}[P_1 \, | \, X_1, X_2]
-% 		= \mathbbm{1}_{(X_2 \prec X_1)}\mathbb{E}[P_1 \, | \, X_1, X_2, X_2 \prec X_1] + \mathbbm{1}_{(X_2 \not\prec X_1)}\mathbb{E}[P_1 \, | \, X_1, X_2, X_2 \not\prec X_1] \\
-% 		 & = \mathbbm{1}_{(X_2 \not\prec X_1)}\mathbb{E}[P_1 \, | \, X_1, X_2, X_2 \not\prec X_1]
-% 		= \mathbbm{1}_{(X_2 \not\prec X_1)} \mathbb{P}\left(B\left(s - 2, \prod_{k = 1}^{d} X_{1,k}\right) = 0\, | \, X_1\right)                                              \\
-% 		 & = \mathbbm{1}_{(X_2 \not\prec X_1)} (1- X_{1,\bullet})^{s-2}.
-% 	\end{aligned}
-% \end{equation*}
-% {\color{red} LOREM IPSUM}
+Proceeding as in the one-dimensional case, we consider next the conditional expectation of $P_1$ given $Z_1$ and $Z_2$, where these choices are again without loss of generality.
+\begin{equation*}
+	\begin{aligned}
+		\mathbb{E}[P_1 \, | \, Z_1, Z_2]
+		 & = \mathbb{E}[P_1 \, | \, X_1, X_2]
+		= \mathbbm{1}_{(X_2 \prec X_1)}\mathbb{E}[P_1 \, | \, X_1, X_2, X_2 \prec X_1] + \mathbbm{1}_{(X_2 \not\prec X_1)}\mathbb{E}[P_1 \, | \, X_1, X_2, X_2 \not\prec X_1] \\
+		 & = \mathbbm{1}_{(X_2 \not\prec X_1)}\mathbb{E}[P_1 \, | \, X_1, X_2, X_2 \not\prec X_1]
+		= \mathbbm{1}_{(X_2 \not\prec X_1)} \mathbb{P}\left(B\left(s - 2, \prod_{k = 1}^{d} X_{1,k}\right) = 0\, | \, X_1\right)                                              \\
+		 & = \mathbbm{1}_{(X_2 \not\prec X_1)} (1- X_{1,\bullet})^{s-2}.
+	\end{aligned}
+\end{equation*}
+{\color{red} LOREM IPSUM}
+
+\section{Stuff}
+
+\vspace{0.5cm}
+\begin{thm}[\citet{ritzwoller_uniform_2024} - Corollary 4.1]
+	Let $\Sigma$ be the diagonal matrix with components $\sigma_{b, j}^2$.
+	\begin{enumerate}
+		\item Under the same conditions as Theorem \ref{ritzwoller_Thm4_2}, we have that
+		      \begin{equation}
+			      \sqrt{\frac{n}{b^2}} \Sigma^{-1 / 2} \bar{U}_{n, b}\left(\mathbf{x}^{(p)}\right) \lesssim \log ^{1 / 2}(d n)+\frac{\phi \log ^2(d n)}{\underline{\sigma}_b n^{1 / 2}}+\xi_{n, b}
+		      \end{equation}
+		      with probability greater than $1-C / n$.
+		\item Let $Z$ denote a centered Gaussian random vector with covariance matrix $\operatorname{Var}\left(\tilde{u}^{(1)}\left(\boldsymbol{x}^{(d)}, D_i\right)\right)$.
+		      Under the same conditions as Theorem \ref{ritzwoller_Thm4_2}, we have that
+		      \begin{equation}
+			      \sup _{\mathrm{R} \in \mathcal{R}}\left|P\left\{\sqrt{\frac{n}{b^2}} \Sigma^{-1 / 2} \bar{U}_{n, b}\left(\boldsymbol{x}^{(d)}\right) \in \mathrm{R}\right\}-P\left\{\Sigma^{-1 / 2} Z \in \mathrm{R}\right\}\right|
+			      \lesssim\left(\frac{\phi^2 \log ^5(d n)}{\sigma_b^2 n}\right)^{1 / 4}+\xi_{n, b} \sqrt{\log (d)},
+		      \end{equation}
+		      where $\mathcal{R}$ denotes the set of hyper-rectangles in $\mathbb{R}^d$.
+	\end{enumerate}
+\end{thm}
 
 
 \end{document}
@@ -1010,7 +1030,7 @@ Having developed theoretical results concerning uniform inference methods for th
 % 	Better rate of subsampling scale with sample size.}
 
 % \vspace{0.5cm}
-% \begin{theorem}[Theorem 1 - \citet{peng_rates_2022}]\label{PengThm1}
+% \begin{thm}[Theorem 1 - \citet{peng_rates_2022}]\label{PengThm1}
 % 	Let $\mathbf{Z}_1, \ldots, \mathbf{Z}_n$ be i.i.d. from $P$ and $U_{n, s, \omega}$ be a generalized complete $U$-statistic with kernel $h\left(\mathbf{Z}_1, \ldots, \mathbf{Z}_s ; \omega\right)$.
 % 	Let $\theta=\mathbb{E}[h], \zeta_{1, \omega}=\operatorname{Var}\left(\mathbb{E}\left[h \mid Z_1\right]\right)$ and $\zeta_s=\operatorname{var}(h)$.
 
@@ -1018,12 +1038,12 @@ Having developed theoretical results concerning uniform inference methods for th
 % 	\begin{equation}
 % 		\frac{U_{n, s, \omega}-\theta}{\sqrt{s^2 \zeta_{1, \omega} / n}} \rightsquigarrow N(0,1) .
 % 	\end{equation}
-% \end{theorem}
+% \end{thm}
 % In a remark to this Theorem, the authors state that when the variance ratio $\frac{\zeta_s}{s\zeta_{1,\omega}}$ is bounded, choosing $s = o(n)$ is sufficient to ensure that Theorem \ref{PengThm1} applies.
 % A more directly applicable result comes from Proposition 2 of the same paper.
 
 % \vspace{0.5cm}
-% \begin{theorem}[Proposition 2 - \citet{peng_rates_2022}]
+% \begin{thm}[Proposition 2 - \citet{peng_rates_2022}]
 % 	Let $\mathbf{Z}_1, \ldots, \mathbf{Z}_s$ denote i.i.d. pairs of random variables $\left(\mathbf{X}_i, Y_i\right)$.
 % 	Suppose $Y_i=\mu\left(X_i\right)+\varepsilon_i$ where $\mu$ is bounded, $\varepsilon$ has mean 0 and variance $\sigma^2$, and $\mathbf{X}_i$ and $\varepsilon_i$ are independent.
 % 	Let $\varphi=\sum_{i=1}^s w(\mathbf{x}, \mathbf{X}_i, \mathfrak{X}) Y_i$ such that $\sum_{i=1}^s w(\mathbf{x}, \mathbf{X}_i, \mathfrak{X})=1$, where $\mathfrak{X}$ denotes $\left\{X_i\right\}_{i=1}^m$.
@@ -1032,7 +1052,7 @@ Having developed theoretical results concerning uniform inference methods for th
 % 		\limsup _{s \rightarrow \infty} \frac{\zeta_s}{s^2 \zeta_1}
 % 		< \infty.
 % 	\end{equation}
-% \end{theorem}
+% \end{thm}
 
 % Following from the representation of the WNN estimator as an L-statistic in \citet{steele_exact_2009}, both the DNN and TDNN estimators are of this form.
 % Thus, we can deduce the following.
