@@ -99,7 +99,7 @@
 \hrule
 \onehalfspacing
 \begin{abstract}
-	Recent advances in the literature on non-parametric regression and uniform inference for incomplete infinite-order U-statistics have enabled us to consider the problem of uniform inference for a broader class of estimators.
+	Recent advances in the literature on non-parametric regression and uniform inference for infinite-order U-statistics have enabled us to consider the problem of uniform inference for a broader class of estimators.
 	One class of such estimators are bagged nearest neighbor estimators and among them specifically the Two-Scale Distributional Nearest Neighbor Estimator (TDNN) of \citet{demirkaya_optimal_2024}.
 	In this paper, we develop uniform inference procedures based on recent work by \citet{ritzwoller_uniform_2024} for the TDNN estimator.
 	As part of this work, we provide a complementary R package called \textit{tdnnR} that implements the presented methods.
@@ -234,7 +234,7 @@ Inserting into Equation \ref{EmpCondMomEq}, this gives us the following empirica
 Solving this empirical conditional moment equation then yields the DNN estimator $D_{n}^{s}(\mathbf{x})$ with subsampling scale $s$ estimating the conditional expectation function $\mu(\mathbf{x}) = \mathbb{E}\left[Y \, | \, \mathbf{X} = \mathbf{x}\right]$.
 After rearranging the terms, it is given by the following U-statistic.
 \begin{equation}\label{U_stat}
-	D_{n}^{s}(\mathbf{x})
+	\tilde{\mu}_{s}(\mathbf{x}; \mathbf{D}_n)
 	%= \binom{n}{s}^{-1} \sum_{\iota \in I_{n,s}} h_{\mathbf{x}}(D_{\iota})
 	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} \frac{1}{s!} Y_{(1)}(\mathbf{x}; D_{\ell})
 	=: \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} h_{s}(\mathbf{x}; D_{\ell})
@@ -262,7 +262,7 @@ Their method is based on an explicit formula for the first-order bias term of th
 	\end{enumerate}
 	Then, for any fixed $\mathbf{x} \in$ $\operatorname{supp}(\mathbf{X}) \subset \mathbb{R}^d$, we have that as $s \rightarrow \infty$
 	\begin{equation}
-		\mathbb{E}\left[D_n^{s}(\mathbf{x})\right] = \mu(\mathbf{x})+B(s)
+		\mathbb{E}\left[\tilde{\mu}_{s}(\mathbf{x}; \mathbf{D}_n)\right] = \mu(\mathbf{x})+B(s)
 	\end{equation}
 	with
 	\begin{align*}
@@ -289,8 +289,8 @@ Choosing two subsampling scales $1 \leq s_1 < s_2 \leq n$ and two corresponding 
 \end{equation}
 they define the corresponding TDNN estimator as follows.
 \begin{equation}
-	D_n^{s_1, s_2}\left(\mathbf{x}\right)
-	= w_1^{*}(s_1, s_2)D_{n}^{s_1}\left(\mathbf{x}\right) + w_2^{*}(s_1, s_2)D_{n}^{s_2}\left(\mathbf{x}\right)
+	\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right)
+	= w_1^{*}(s_1, s_2)\tilde{\mu}_{s_1}\left(\mathbf{x}; \mathbf{D}_n\right) + w_2^{*}(s_1, s_2)\tilde{\mu}_{s_2}\left(\mathbf{x}; \mathbf{D}_n\right)
 \end{equation}
 As a direct consequence of Theorem \ref{demirkaya_Thm1}, this leads to the elimination of the first-order bias term leading to desirable finite-sample properties.
 Furthermore, the authors show that this construction improves on the quality of the normal approximation.
@@ -301,7 +301,7 @@ Furthermore, the authors show that this construction improves on the quality of 
 	Furthermore, let $s_2 \rightarrow \infty$ with $s_2 = o(n)$ and $c_1 \leq s_1/s_2 \leq c_2$ for some constants $0 < c_1 < c_2 < 1$.
 	Then, for any fixed $\mathbf{x} \in \operatorname{supp}(\mathbf{X}) \subset \mathbb{R}^d,$ it holds that for some positive sequence $\sigma_n$ of order $(s_2/n)^{1/2}$,
 	\begin{equation}
-		\sigma_n^{-1} \left(D_{n}^{s_1, s_2}\left(\mathbf{x}\right) - \mu(\mathbf{x}) - \Lambda\right) \rightsquigarrow \mathcal{N}(0,1)
+		\sigma_n^{-1} \left(\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right) - \mu(\mathbf{x}) - \Lambda\right) \rightsquigarrow \mathcal{N}(0,1)
 	\end{equation}
 	as $n \rightarrow \infty$, where
 	\begin{equation*}
@@ -316,10 +316,10 @@ Furthermore, the authors show that this construction improves on the quality of 
 As the majority of the theoretical results in the original paper rely on representations as a U-statistic, it is necessary to introduce additional notation.
 Recalling Equation \ref{U_stat}, the DNN and TDNN estimators can be expressed in the following U-statistic form.
 \begin{equation}
-	D_{n}^{s}(\mathbf{x})
+	\tilde{\mu}_{s}(\mathbf{x}; \mathbf{D}_n)
 	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} h_{s}(\mathbf{x}; D_{\ell})
 	\quad \text{and} \quad
-	D_{n}^{s_1, s_2}(\mathbf{x})
+	\hat{\mu}_{s_1, s_2}(\mathbf{x}; \mathbf{D}_n)
 	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s_2}} h_{s_1, s_2}(\mathbf{x}; D_{\ell})
 \end{equation}
 It is worth pointing out explicitly that in contrast to the DNN estimator, the kernel for the TDNN estimator is of order $s_2 > s_1$.
@@ -345,21 +345,21 @@ In the usual fashion, these terms can be used to express the Hoeffding projectio
 In a completely analogous fashion to the DNN estimator, we can define the corresponding terms for the Hoeffding decomposition of the TDNN estimator.
 The corresponding expressions will be denoted analogous to the terms for the DNN estimator with ``$s_1, s_2$'' replacing ``$s$'' ultimately leading to the following Hoeffding decompositions.
 \begin{equation}
-	D_n^s\left(\mathbf{x}\right)
+	\tilde{\mu}_{s}\left(\mathbf{x}; \mathbf{D}_n\right)
 	= \mu(\mathbf{x}) + \sum_{j = 1}^{s}\binom{s}{j}H_{n,s}^{j}\\
 	\quad \text{and} \quad
-	D_n^{s_1,s_2}\left(\mathbf{x}\right)
+	\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right)
 	= \mu(\mathbf{x}) + \sum_{j = 1}^{s_2}\binom{s_2}{j}H_{n,s_1, s_2}^{j}
 \end{equation}
 Furthermore, the corresponding Haj\'ek-Projections are as follows.
 \begin{equation}
 	\begin{aligned}
-		D_n^s\left(\mathbf{x}\right)
+		\tilde{\mu}_{s}\left(\mathbf{x}; \mathbf{D}_n\right)
 		 & = \mu(\mathbf{x}) + \frac{s}{n}\sum_{i = 1}^{n}h^{(1)}_{s}(\mathbf{x}; \mathbf{z}_{i})
-		+ \operatorname{HR}_{n, s}(\mathbf{x})                                                              \\
-		D_n^{s_1,s_2}\left(\mathbf{x}\right)
+		+ \operatorname{HR}_{s}(\mathbf{x}; \mathbf{D}_n)                                                              \\
+		\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right)
 		 & = \mu(\mathbf{x}) + \frac{s_2}{n}\sum_{i = 1}^{n} h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{z}_{i})
-		+ \operatorname{HR}_{n, s_1, s_2}(\mathbf{x})
+		+ \operatorname{HR}_{s_1, s_2}(\mathbf{x}; \mathbf{D}_n)
 	\end{aligned}
 \end{equation}
 Here $\operatorname{HR}$ stands for the Haj\'ek residual.
@@ -381,6 +381,9 @@ $\zeta_{s,s} = \operatorname{Var}\left(\mathbf{x}; h_s\left(\mathbf{Z}_1, \ldots
 To perform inference, the authors introduce variance estimators based on the Jackknife and Bootstrap.
 However, as they point out, their consistency results rely on a likely suboptimal rate condition for the subsampling scale.
 While Theorem \ref{demirkaya_Thm3} allows $s_2$ to be of the order $o(n)$, the variance estimators rely on the considerably stronger condition that $s_2 = o(n^{1/3})$.
+Consider as an example their bootstrap variance estimator.
+
+
 Establishing consistency for variance estimators under weaker assumptions on the subsampling rates could broaden the scope of the TDNN estimator for inferential purposes considerably.
 At a low level, this improvement will be based on a new order-explicit bound of the remainder in a linear approximation to U-statistics established in \citet{ritzwoller_uniform_2024}.
 Although these new results apply to high-dimensional U-statistics, for the purposes of pointwise inference, we will consider their application to a scalar argument.
@@ -402,9 +405,9 @@ By restricting Theorem 4.2 from \citet{ritzwoller_uniform_2024} to the univariat
 	then
 	\begin{equation}
 		\sqrt{\frac{n}{{s_2}^2 \sigma_{s_2}^2}}
-		\left(D_{n}^{s_1, s_2}(\mathbf{x}) - \frac{b}{n} \sum_{i=1}^n h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{z}_{i})\right)
+		\left(\hat{\mu}_{s_1, s_2}(\mathbf{x}; \mathbf{D}_n) - \mu(\mathbf{x}) - \frac{b}{n} \sum_{i=1}^n h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{z}_{i})\right)
 		%
-		= \sqrt{\frac{n}{{s_2}^2 \sigma_{s_2}^2}} \operatorname{HR}_{n, s_1, s_2}(\mathbf{x})
+		= \sqrt{\frac{n}{{s_2}^2 \sigma_{s_2}^2}} \operatorname{HR}_{s_1, s_2}(\mathbf{x}; \mathbf{D}_n)
 		%
 		\lesssim \xi_{n, s},
 		\quad \text {where}
@@ -435,7 +438,8 @@ To summarize the kind of object we want to construct, we define a uniform confid
 	A confidence region for the TDNN (or DNN) estimators that is uniformly valid at the rate $r_{n,d}$ is a family of random intervals
 	\begin{equation}
 		\hat{\mathcal{C}}\left(\mathbf{x}^{(p)}\right)
-		:= \left\{\hat{C}(\mathbf{x}^{(p)}_{j}) = \left[c_{L}(\mathbf{x}^{(p)}_{j}), c_{U}(\mathbf{x}^{(p)}_{j})\right]\, : \, j \in [p]\right\}
+		:= \left\{\hat{C}(\mathbf{x}^{(p)}_{j}) 
+		= \left[c_{L}(\mathbf{x}^{(p)}_{j}), c_{U}(\mathbf{x}^{(p)}_{j})\right]\, : \, j \in [p]\right\}
 	\end{equation}
 	based on the observed data, such that
 
@@ -446,7 +450,7 @@ To summarize the kind of object we want to construct, we define a uniform confid
 \end{definition}
 
 \subsection{Low-Level}
-In our pursuit of constructing uniform confidence regions for the TDNN estimator, we will return to the results from \citet{ritzwoller_uniform_2024} in their high-dimensional form.
+In our pursuit of constructing uniform confidence regions for the TDNN estimator, we return to the results from \citet{ritzwoller_uniform_2024} in their high-dimensional form.
 \vspace{0.5cm}
 \begin{theorem}[\citet{ritzwoller_uniform_2024} - Theorem 4.1]
 	For any sequence of kernel orders $b=b_n$, where
@@ -482,13 +486,13 @@ In our pursuit of constructing uniform confidence regions for the TDNN estimator
 	for each $j$ in $[d]$, then
 	\begin{equation}
 		\sqrt{\frac{n}{s_2^2 \underline{\sigma}_{s_2}^2}}
-		\left\|D_{n}^{s_1, s_2}(\mathbf{x}^{(p)}) - \frac{s_2}{n} \sum_{i=1}^n h^{(1)}_{s_1, s_2}(\mathbf{x}^{(p)}; \mathbf{z}_{i})\right\|_{\infty} 
+		\left\|\hat{\mu}_{s_1, s_2}(\mathbf{x}^{(p)}; \mathbf{D}_n) - \mu(\mathbf{x}^{(p)}) - \frac{s_2}{n} \sum_{i=1}^n h^{(1)}_{s_1, s_2}(\mathbf{x}^{(p)}; \mathbf{z}_{i})\right\|_{\infty} 
 		%
-		= \sqrt{\frac{n}{s_2^2 \underline{\sigma}_{s_2}^2}} \left\|\operatorname{HR}_{n, s_1, s_2}(\mathbf{x}^{(p)})\right\|_{\infty}
+		= \sqrt{\frac{n}{s_2^2 \underline{\sigma}_{s_2}^2}} \left\|\operatorname{HR}_{s_1, s_2}(\mathbf{x}^{(p)}; \mathbf{D}_n)\right\|_{\infty}
 		%
 		\lesssim \xi_{n, s_2},
-		\quad \text {where}
 	\end{equation}
+	where
 	\begin{equation}
 		\xi_{n, b}
 		= \left(\frac{C s_2 \log(p n)}{n}\right)^{s_2 / 2}\left(\left(\frac{n \bar{\psi}_{s_2}^2}{{s_2}^2 \underline{\sigma}_{s_2}^2}\right)^{1 / 2}+\left(\frac{\phi^2 s_2 \log ^4(p n)}{\underline{\sigma}_{s_2}^2}\right)^{1 / 2}\right),
