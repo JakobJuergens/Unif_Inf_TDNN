@@ -166,7 +166,7 @@ Let $\operatorname{rk}(\mathbf{x}; \mathbf{Z}_i, D)$ denote the \textit{rank} th
 By convention, let $\operatorname{rk}(\mathbf{x}; \mathbf{Z}_i, D) = \infty$ if $\mathbf{Z}_i \not\in D$.
 Similarly, let $Y_{(1)}(\mathbf{x}; D)$ indicate the response value of the closest neighbor in set $D$.
 
-\vspace{0.5cm}
+
 \begin{rmk}[Standardization]
 	Depending on the underlying norm that is used to calculate the distances between observations, it can be advisable to standardize the feature space before applying nearest-neighbor methods.
 	Since this is highly context-dependent, it is impossible to give general advice on when to standardize.
@@ -183,7 +183,7 @@ As the DNN estimator does not incorporate such additional randomness, the term i
 Noteworthy properties of $\kappa$ are its permutational symmetry in $D_{\ell}$ and that $\kappa$ does not consider the response variable when assigning weights to the observations under consideration.
 The latter immediately implies a property that has been called \textit{Honesty} by \citet{wager_estimation_2018}.
 
-\vspace{0.5cm}
+
 \begin{dfn}[Symmetry and Honesty - Adapted from \citet{ritzwoller_uniform_2024}]\label{Symmetry_Honesty}
 	\begin{enumerate}
 		\item The kernel $\kappa\left(\cdot, \cdot, D_{\ell}\right)$ is Honest in the sense that
@@ -227,7 +227,7 @@ Through an equivalent representation as an L-statistic developed by \citet{steel
 Starting from this setup, \citet{demirkaya_optimal_2024} develop a novel bias-correction method for the DNN estimator that leads to appealing finite-sample properties of the resulting Two-Scale Distributional Nearest Neighbor (TDNN) estimator.
 Their method is based on an explicit formula for the first-order bias term of the DNN estimator, which in turn allows them to eliminate it through a clever combination of two DNN estimators.
 
-\vspace{0.5cm}
+
 \begin{thm}[\citet{demirkaya_optimal_2024} - Theorem 1]\label{demirkaya_Thm1}
 	Assume that the distribution of $\mathbf{X}$ has a density function $f(\cdot)$ with respect to the Lebesgue measure $\lambda$ on the Euclidean space $\mathbb{R}^d$.
 	Let $\mathbf{x} \in \operatorname{supp}(\mathbf{X})$ be a fixed feature vector.
@@ -273,7 +273,7 @@ they define the corresponding TDNN estimator as follows.
 As a direct consequence of Theorem \ref{demirkaya_Thm1}, this leads to the elimination of the first-order bias term leading to desirable finite-sample properties.
 Furthermore, the authors show that this construction improves the quality of the normal approximation.
 
-\vspace{0.5cm}
+
 \begin{thm}[\citet{demirkaya_optimal_2024} - Theorem 3]\label{demirkaya_Thm3}
 	Assume that Conditions (1) to (3) from Theorem \ref{demirkaya_Thm1} hold.
 	Furthermore, let $s_2 \rightarrow \infty$ with $s_2 = o(n)$ and $c_1 \leq s_1/s_2 \leq c_2$ for some constants $0 < c_1 < c_2 < 1$.
@@ -378,6 +378,8 @@ Then, the proposed Jackknife variance estimator takes the following form.
 	\hat{\omega}_{JK}^2\left(\mathbf{x}; \mathbf{D}_n\right)
 	= \frac{n-1}{n} \sum_{i = 1}^{n}\left(\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n, -i}\right) - \hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}\right)\right)^2
 \end{equation}
+
+
 Next, denote the chosen number of bootstrap samples by $B \geq 1$ and for all $1 \leq b \leq B$, let $\mathbf{D}^{(b)}_n$ denote a bootstrap sample drawn from $\mathbf{D}_n$ uniformly and with replacement.
 Then, their bootstrap variance estimator is defined as follows.
 \begin{equation}
@@ -389,12 +391,14 @@ Here, $\bar{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}\right)$ is defined i
 	\bar{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}\right)
 	= \frac{1}{B} \sum_{b = 1}^{B} \hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}^{(b)}\right)
 \end{equation}
+In their resulting analysis, the authors show that under some mild assumptions and in the regime $s_2 = o(n^{1/3})$, these estimators are ratio consistent.
+In this section, we will loosen that restrictive condition to make use of the attractive performance of U-statistics with large subsampling rates.
 
 \subsection{Subsampling Rate Improvements}
 
 By restricting Theorem 4.2 from \citet{ritzwoller_uniform_2024} to the univariate case, i.e. considering only a single point of interest, we obtain the following corollary.
 
-\vspace{0.5cm}
+
 \begin{cor}
 	Consider a generic order $s$ U-statistic
 	\begin{equation}
@@ -435,7 +439,15 @@ We want to use this bound to improve on the subsampling bounds derived in the pr
 These can be found in their Supplementary Material, parts D.5 and D.6.
 	{\color{red} In even greater detail, we want to improve on the relation shown in Equation (A.52) in the derivation of consistency of the Jackknife variance estimator.}
 
+{\color{red}
+	\begin{thm}[Jackknife Variance Estimator Consistency]\label{JK_Cons}
+		LOREM IPSUM
+	\end{thm}
 
+	\begin{thm}[Bootstrap Variance Estimator Consistency]\label{BS_Cons}
+		LOREM IPSUM
+	\end{thm}
+}
 
 \newpage
 \section{Uniform Inference for the TDNN Estimator}\label{UnifInf}
@@ -451,7 +463,7 @@ It should be pointed out that, due to the local definition of the kernel in the 
 % Furthermore, going forward $\hat{\mu}\left(\mathbf{x}; D\right)$ can be taken as the DNN or TDNN estimator evaluated at $\mathbf{x}$ based on the (sub-)sample $D$, respectively.
 To summarize the kind of object we want to construct, we define a uniform confidence region for the TDNN estimator in the following way following closely the notation of \citet{ritzwoller_uniform_2024}.
 
-\vspace{0.5cm}
+
 \begin{dfn}[Uniform Confidence Regions]
 	A confidence region for the TDNN (or DNN) estimators that is uniformly valid at the rate $r_{n,d}$ is a family of random intervals
 	\begin{equation}
@@ -469,7 +481,7 @@ To summarize the kind of object we want to construct, we define a uniform confid
 
 \subsection{Low-Level}
 In our pursuit of constructing uniform confidence regions for the TDNN estimator, we return to the results from \citet{ritzwoller_uniform_2024} in their high-dimensional form.
-\vspace{0.5cm}
+
 \begin{thm}[\citet{ritzwoller_uniform_2024} - Theorem 4.1]
 	For any sequence of kernel orders $b=b_n$, where
 	\begin{equation}
@@ -485,7 +497,7 @@ In our pursuit of constructing uniform confidence regions for the TDNN estimator
 	\end{equation}
 \end{thm}
 
-\vspace{0.5cm}
+
 \begin{thm}[Adapted from \citet{ritzwoller_uniform_2024} - Theorem 4.2]\label{ritzwoller_Thm4_2}
 	Define the terms
 	\begin{equation}
@@ -522,7 +534,7 @@ In our pursuit of constructing uniform confidence regions for the TDNN estimator
 Recent advances in the field of uniform inference for infinite-order U-statistics, specifically \citet{ritzwoller_uniform_2024}, and careful analysis of the Hoeffding projections of different orders will be the cornerstones in developing uniform inference methods.
 The authors' approach to constructing uniform confidence regions is based on the half-sample bootstrap root.
 
-\vspace{0.5cm}
+
 \begin{dfn}[Half-Sample Bootstrap Root Approximation - \citet{ritzwoller_uniform_2024}]
 	The Half-Sample Bootstrap Root Approximation of the sampling distribution of the root
 	\begin{equation}
@@ -550,7 +562,7 @@ Let $\operatorname{cv}\left(\alpha; \mathbf{D}_n\right)$ denote the $1-\alpha$ q
 As the authors point out specifically, and as indicated by the more explicit notation chosen in this presentation, this is a quantile of the conditional distribution given the data $\mathbf{D}_n$.
 Given this construction, the uniform confidence region developed in \citet{ritzwoller_uniform_2024} adapted to the TDNN estimator takes the following form.
 
-\vspace{0.5cm}
+
 \begin{thm}[Uniform Confidence Region - \citet{ritzwoller_uniform_2024}]
 	Define the intervals
 	\begin{equation}
@@ -565,7 +577,7 @@ To justify the use of this uniform confidence region, it remains to be shown if 
 This is substantially simplified due to the absence of a nuisance parameter.
 Thus, consider the following conditions from \cite{ritzwoller_uniform_2024} that are simplified to fit the problem at hand.
 
-\vspace{0.5cm}
+
 \begin{dfn}[Shrinkage and Incrementality - Adapted from \citet{ritzwoller_uniform_2024}]
 	We say that the kernel $\kappa\left(\cdot, \cdot, D_{\ell}\right)$ has a uniform shrinkage rate $\epsilon_b$ if
 	\begin{equation}
@@ -621,7 +633,7 @@ Specifically, the following Proposition and its proof are helpful in showing the
 
 	{\color{red} LOREM IPSUM}
 
-\vspace{0.5cm}
+
 \begin{asm}[Boundedness - Adapted from \citet{ritzwoller_uniform_2024}]
 	The absolute value of the function $m(\cdot; \mu)$ is bounded by the constant $(\theta+1) \phi$ almost surely.
 	\begin{equation}
@@ -637,21 +649,21 @@ As the authors point out, the boundedness condition can easily be replaced by a 
 This, being more in line with the assumptions of \citet{demirkaya_optimal_2024}, is a desirable substitution.
 Thus, we will instead consider the following assumption and fill in parts of the proofs that hinge on boundedness for ease of exposition in the original paper.
 
-\vspace{0.5cm}
+
 \begin{asm}[Sub-Exponential Norm Bound]
 
 \end{asm}
 
 {\color{red} LOREM IPSUM}
 
-% \vspace{0.5cm}
+% 
 % \begin{assumption}[Consistency]
 
 % \end{assumption}
 
 % {\color{red} LOREM IPSUM}
 
-\vspace{0.5cm}
+
 \begin{asm}[Moment Smoothness - Adapted from \citet{ritzwoller_uniform_2024}]
 	Define the moments
 	\begin{equation}
@@ -715,7 +727,11 @@ Having developed theoretical results concerning uniform inference methods for th
 \printbibliography
 
 \appendix
-\section{Proofs}
+\section{Proofs for Results in Section \ref{Subsampling_Improvements}}
+\hrule
+
+\section{Proofs for Results in Section \ref{UnifInf}}
+\hrule
 
 \section{PNN Calculations}
 \subsection{1-PNN Calculations}
@@ -1003,7 +1019,7 @@ Proceeding as in the one-dimensional case, we consider next the conditional expe
 
 \section{Stuff}
 
-\vspace{0.5cm}
+
 \begin{thm}[\citet{ritzwoller_uniform_2024} - Corollary 4.1]
 	Let $\Sigma$ be the diagonal matrix with components $\sigma_{b, j}^2$.
 	\begin{enumerate}
@@ -1029,7 +1045,7 @@ Proceeding as in the one-dimensional case, we consider next the conditional expe
 % {\color{red} Combine Theorem 1 and a variation of the argument for Proposition 1 to improve rate for point-wise inference.
 % 	Better rate of subsampling scale with sample size.}
 
-% \vspace{0.5cm}
+% 
 % \begin{thm}[Theorem 1 - \citet{peng_rates_2022}]\label{PengThm1}
 % 	Let $\mathbf{Z}_1, \ldots, \mathbf{Z}_n$ be i.i.d. from $P$ and $U_{n, s, \omega}$ be a generalized complete $U$-statistic with kernel $h\left(\mathbf{Z}_1, \ldots, \mathbf{Z}_s ; \omega\right)$.
 % 	Let $\theta=\mathbb{E}[h], \zeta_{1, \omega}=\operatorname{Var}\left(\mathbb{E}\left[h \mid Z_1\right]\right)$ and $\zeta_s=\operatorname{var}(h)$.
@@ -1042,7 +1058,7 @@ Proceeding as in the one-dimensional case, we consider next the conditional expe
 % In a remark to this Theorem, the authors state that when the variance ratio $\frac{\zeta_s}{s\zeta_{1,\omega}}$ is bounded, choosing $s = o(n)$ is sufficient to ensure that Theorem \ref{PengThm1} applies.
 % A more directly applicable result comes from Proposition 2 of the same paper.
 
-% \vspace{0.5cm}
+% 
 % \begin{thm}[Proposition 2 - \citet{peng_rates_2022}]
 % 	Let $\mathbf{Z}_1, \ldots, \mathbf{Z}_s$ denote i.i.d. pairs of random variables $\left(\mathbf{X}_i, Y_i\right)$.
 % 	Suppose $Y_i=\mu\left(X_i\right)+\varepsilon_i$ where $\mu$ is bounded, $\varepsilon$ has mean 0 and variance $\sigma^2$, and $\mathbf{X}_i$ and $\varepsilon_i$ are independent.
