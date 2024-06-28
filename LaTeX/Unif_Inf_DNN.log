@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.3.14)  27 JUN 2024 14:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.3.14)  28 JUN 2024 15:06
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -679,32 +679,33 @@ Package: blx-case-expl3 2022/02/02 v3.17 expl3 case changing code for biblatex
 ))
 \c@thm=\count436
 \c@dfn=\count437
-\c@rmk=\count438
-\c@cor=\count439
-\c@asm=\count440
+\c@lem=\count438
+\c@rmk=\count439
+\c@cor=\count440
+\c@asm=\count441
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
  (./Unif_Inf_DNN.aux)
 \openout1 = `Unif_Inf_DNN.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -740,7 +741,7 @@ LaTeX Font Info:    ... okay on input line 71.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring OFF on input line 71.
+Package hyperref Info: Link coloring OFF on input line 73.
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
  (/usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty
@@ -748,27 +749,27 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ) (/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count441
+\c@section@level=\count442
 )
-LaTeX Info: Redefining \ref on input line 71.
-LaTeX Info: Redefining \pageref on input line 71.
-LaTeX Info: Redefining \nameref on input line 71.
+LaTeX Info: Redefining \ref on input line 73.
+LaTeX Info: Redefining \pageref on input line 73.
+LaTeX Info: Redefining \nameref on input line 73.
  (./Unif_Inf_DNN.out) (./Unif_Inf_DNN.out)
 \@outlinefile=\write4
 \openout4 = `Unif_Inf_DNN.out'.
 
  (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count442
+\scratchcounter=\count443
 \scratchdimen=\dimen184
 \scratchbox=\box102
-\nofMPsegments=\count443
-\nofMParguments=\count444
+\nofMPsegments=\count444
+\nofMParguments=\count445
 \everyMPshowfont=\toks37
-\MPscratchCnt=\count445
+\MPscratchCnt=\count446
 \MPscratchDim=\dimen185
-\MPnumerator=\count446
-\makeMPintoPDFobject=\count447
+\MPnumerator=\count447
+\makeMPintoPDFobject=\count448
 \everyMPtoPDFconversion=\toks38
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -789,88 +790,108 @@ Package biblatex Info: Automatic encoding selection.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'Unif_Inf_DNN.bbl' found.
  (./Unif_Inf_DNN.bbl)
-Package biblatex Info: Reference section=0 on input line 71.
-Package biblatex Info: Reference segment=0 on input line 71.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 77.
+Package biblatex Info: Reference section=0 on input line 73.
+Package biblatex Info: Reference segment=0 on input line 73.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 79.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 77.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 79.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 91.
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 93.
  (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 ) [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
-Package hyperref Info: bookmark level for unknown rmk defaults to 0 on input line 170.
-LaTeX Font Info:    Trying to load font information for U+bbm on input line 179.
+LaTeX Font Info:    Trying to load font information for U+bbm on input line 187.
  (/usr/share/texlive/texmf-dist/tex/latex/bbm-macros/ubbm.fd
 File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
 ) [3]
-Package hyperref Info: bookmark level for unknown dfn defaults to 0 on input line 187.
+Package hyperref Info: bookmark level for unknown dfn defaults to 0 on input line 194.
  [4]
-Package hyperref Info: bookmark level for unknown thm defaults to 0 on input line 231.
+Package hyperref Info: bookmark level for unknown thm defaults to 0 on input line 238.
  [5] [6] [7] [8]
-Package hyperref Info: bookmark level for unknown cor defaults to 0 on input line 403.
+Package hyperref Info: bookmark level for unknown cor defaults to 0 on input line 406.
 pdfTeX warning (ext4): destination with the same identifier (name{thm.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.444 		L
-         OREM IPSUMpdfTeX warning (ext4): destination with the same identifier (name{thm.2}) has been already used, duplicate ignored
+l.447 ...imator Consistency]\label{JK_Cons}\mbox{}
+                                                  \\*pdfTeX warning (ext4): destination with the same identifier (name{thm.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.448 		L
-         OREM IPSUM [9]pdfTeX warning (ext4): destination with the same identifier (name{thm.1}) has been already used, duplicate ignored
+l.451 ...imator Consistency]\label{BS_Cons}\mbox{}
+                                                  \\* [9]pdfTeX warning (ext4): destination with the same identifier (name{thm.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.486 	F
-        or any sequence of kernel orders $b=b_n$, wherepdfTeX warning (ext4): destination with the same identifier (name{thm.2}) has been already used, duplicate ignored
+l.493 ...oller_uniform_2024} - Theorem 4.1]\mbox{}
+                                                  \\*pdfTeX warning (ext4): destination with the same identifier (name{thm.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.502 	D
-        efine the terms [10] [11]
-Package hyperref Info: bookmark level for unknown asm defaults to 0 on input line 637.
- [12] [13]
-<../Code/Simulations/Graphics/TDNN_DNN.pdf, id=320, 722.7pt x 361.35pt>
+l.509 ...orem 4.2]\label{ritzwoller_Thm4_2}\mbox{}
+                                                  \\* [10]pdfTeX warning (ext4): destination with the same identifier (name{thm.3}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.574 ...- \citet{ritzwoller_uniform_2024}]\mbox{}
+                                                  \\* [11]
+Package hyperref Info: bookmark level for unknown asm defaults to 0 on input line 645.
+ [12]
+Underfull \hbox (badness 10000) in paragraph at lines 661--662
+
+ []
+
+[13]
+<../Code/Simulations/Graphics/TDNN_DNN.pdf, id=337, 722.7pt x 361.35pt>
 File: ../Code/Simulations/Graphics/TDNN_DNN.pdf Graphic file (type pdf)
 <use ../Code/Simulations/Graphics/TDNN_DNN.pdf>
-Package pdftex.def Info: ../Code/Simulations/Graphics/TDNN_DNN.pdf  used on input line 711.
+Package pdftex.def Info: ../Code/Simulations/Graphics/TDNN_DNN.pdf  used on input line 719.
 (pdftex.def)             Requested size: 511.86491pt x 255.93173pt.
  [14pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.726 \newpage
-               <../Code/Simulations/Graphics/TDNN_DNN.pdf>] [15] [16] [17]
-LaTeX Font Info:    Trying to load font information for U+euf on input line 910.
+l.734 \newpage
+               <../Code/Simulations/Graphics/TDNN_DNN.pdf>]
+Package hyperref Info: bookmark level for unknown lem defaults to 0 on input line 742.
+ [15] [16]
+Underfull \hbox (badness 10000) in paragraph at lines 898--899
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 903--904
+
+ []
+
+[17] [18] [19]
+LaTeX Font Info:    Trying to load font information for U+euf on input line 1084.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/ueuf.fd
 File: ueuf.fd 2013/01/14 v3.01 Euler Fraktur
-) [18] [19]pdfTeX warning (ext4): destination with the same identifier (name{thm.1}) has been already used, duplicate ignored
+) [20] [21]pdfTeX warning (ext4): destination with the same identifier (name{thm.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.1024 	L
-         et $\Sigma$ be the diagonal matrix with components $\sigma_{b, j}^2$. [20] [21] (./Unif_Inf_DNN.aux)
+l.1198 	L
+         et $\Sigma$ be the diagonal matrix with components $\sigma_{b, j}^2$. [22] [23] (./Unif_Inf_DNN.aux)
 Package rerunfilecheck Info: File `Unif_Inf_DNN.out' has not changed.
-(rerunfilecheck)             Checksum: E4A59D5582E63CC24ED8C8C2FB14322B;3859.
+(rerunfilecheck)             Checksum: FBEF40A3A334B30F0AE37F5FBD0F2FD3;4435.
 Package logreq Info: Writing requests to 'Unif_Inf_DNN.run.xml'.
 \openout1 = `Unif_Inf_DNN.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 21625 strings out of 478287
- 375350 string characters out of 5849289
- 1117314 words of memory out of 5000000
- 39354 multiletter control sequences out of 15000+600000
+ 21686 strings out of 478287
+ 376237 string characters out of 5849289
+ 1120965 words of memory out of 5000000
+ 39386 multiletter control sequences out of 15000+600000
  493853 words of font info for 94 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  60i,15n,68p,1401b,1731s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/jjuergens/.texlive2021/texmf-var/fonts/pk/ljfour/public/bbm/bbm7.600pk>{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc} </home/jjuergens/.texlive2021/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.600pk>{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/euler/eufm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/euler/eufm7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfcc1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0700.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on Unif_Inf_DNN.pdf (21 pages, 578619 bytes).
+ </home/jjuergens/.texlive2021/texmf-var/fonts/pk/ljfour/public/bbm/bbm7.600pk>{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc} </home/jjuergens/.texlive2021/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/euler/eufm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/euler/eufm7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfcc1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0700.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1000.pfb>
+Output written on Unif_Inf_DNN.pdf (23 pages, 594411 bytes).
 PDF statistics:
- 562 PDF objects out of 1000 (max. 8388607)
- 465 compressed objects within 5 object streams
- 142 named destinations out of 1000 (max. 500000)
- 174 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 635 PDF objects out of 1000 (max. 8388607)
+ 533 compressed objects within 6 object streams
+ 171 named destinations out of 1000 (max. 500000)
+ 206 words of extra memory for PDF output out of 10000 (max. 10000000)
 
