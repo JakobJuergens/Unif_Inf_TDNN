@@ -285,6 +285,50 @@
       \verb 10.1214/21-EJS1958
       \endverb
     \endentry
+    \entry{peng_bias_2021}{misc}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=0ffbf7da53582dbc0a920a400eddc057}{%
+           family={Peng},
+           familyi={P\bibinitperiod},
+           given={Wei},
+           giveni={W\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d3570b0ad408f1718fc65049b825ec7b}{%
+           family={Mentch},
+           familyi={M\bibinitperiod},
+           given={Lucas},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=e28015179b1409753c01e4f32825becd}{%
+           family={Stefanski},
+           familyi={S\bibinitperiod},
+           given={Leonard},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{dd598c44c68b01a6d858f3abd17526d5}
+      \strng{fullhash}{dd598c44c68b01a6d858f3abd17526d5}
+      \strng{bibnamehash}{dd598c44c68b01a6d858f3abd17526d5}
+      \strng{authorbibnamehash}{dd598c44c68b01a6d858f3abd17526d5}
+      \strng{authornamehash}{dd598c44c68b01a6d858f3abd17526d5}
+      \strng{authorfullhash}{dd598c44c68b01a6d858f3abd17526d5}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{6}
+      \field{note}{arXiv:2106.05918 [math, stat]}
+      \field{title}{Bias, {Consistency}, and {Alternative} {Perspectives} of the {Infinitesimal} {Jackknife}}
+      \field{year}{2021}
+      \verb{doi}
+      \verb 10.48550/arXiv.2106.05918
+      \endverb
+    \endentry
     \entry{ritzwoller_uniform_2024}{misc}{}
       \name{author}{2}{}{%
         {{un=0,uniquepart=base,hash=4d6a912596e242b0cc13cd623ebb5e3f}{%
