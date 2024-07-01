@@ -299,19 +299,19 @@ Furthermore, the authors show that this construction improves the quality of the
 
 \subsection{Hoeffding Decompositions for the DNN and TDNN Estimators}
 As the majority of the theoretical results in the original paper rely on representations as a U-statistic, it is necessary to introduce additional concepts and notation.
-First, as introduced by \citet{peng_rates_2022}, the concept of generalized U-statistics.
-\begin{dfn}[Generalized U-Statistic]\label{Gen_UStat}\mbox{}\\*
-	Suppose $Z_1, \ldots, Z_n$ are i.i.d. samples from $F_Z$ and let $h$ denote a (possibly randomized) real-valued function utilizing $s$ of these samples that is permutation symmetric in those $s$ arguments. A generalized $U$-statistic with kernel $h$ of order (rank) s refers to any estimator of the form
-	\begin{equation}
-		U_{n, s, N, \omega}=\frac{1}{\hat{N}} \sum_{(n, s)} \rho h\left(Z_{i 1}, \ldots, Z_{i s} ; \omega\right)
-	\end{equation}
-	where $\omega$ denotes i.i.d. randomness, independent of the original data.
-	The $\rho$ denotes i.i.d. Bernoulli random variables determining which subsamples are selected and $\operatorname{Pr}(\rho=1)=N /\binom{n}{s}$.
-	The actual number of subsamples selected is given by $\hat{N}=\sum \rho$ where $\mathbb{E}[\hat{N}]=N$.
-	When $N=\binom{n}{s}$, the estimator in Eq. (2.4) is a generalized complete $U$-statistic and is denoted as $U_{n, s, \omega}$.
-	When $N<\binom{n}{s}$, these estimators are generalized incomplete $U$-statistics.
-\end{dfn}
-Recalling Equation \ref{U_stat}, the DNN and TDNN estimators can be expressed in the following U-statistic form and are thus a type of generalized complete U-statistic.
+% First, as introduced by \citet{peng_rates_2022}, the concept of generalized U-statistics.
+% \begin{dfn}[Generalized U-Statistic]\label{Gen_UStat}\mbox{}\\*
+% 	Suppose $Z_1, \ldots, Z_n$ are i.i.d. samples from $F_Z$ and let $h$ denote a (possibly randomized) real-valued function utilizing $s$ of these samples that is permutation symmetric in those $s$ arguments. A generalized $U$-statistic with kernel $h$ of order (rank) s refers to any estimator of the form
+% 	\begin{equation}
+% 		U_{n, s, N, \omega}=\frac{1}{\hat{N}} \sum_{(n, s)} \rho h\left(Z_{i 1}, \ldots, Z_{i s} ; \omega\right)
+% 	\end{equation}
+% 	where $\omega$ denotes i.i.d. randomness, independent of the original data.
+% 	The $\rho$ denotes i.i.d. Bernoulli random variables determining which subsamples are selected and $\operatorname{Pr}(\rho=1)=N /\binom{n}{s}$.
+% 	The actual number of subsamples selected is given by $\hat{N}=\sum \rho$ where $\mathbb{E}[\hat{N}]=N$.
+% 	When $N=\binom{n}{s}$, the estimator in Eq. (2.4) is a generalized complete $U$-statistic and is denoted as $U_{n, s, \omega}$.
+% 	When $N<\binom{n}{s}$, these estimators are generalized incomplete $U$-statistics.
+% \end{dfn}
+Recalling Equation \ref{U_stat}, the DNN and TDNN estimators can be expressed in the following U-statistic form and are thus a type of generalized complete U-statistic as introduced by \citet{peng_rates_2022}.
 \begin{equation}
 	\tilde{\mu}_{s}(\mathbf{x}; \mathbf{D}_n)
 	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} h_{s}(\mathbf{x}; D_{\ell})
@@ -319,7 +319,13 @@ Recalling Equation \ref{U_stat}, the DNN and TDNN estimators can be expressed in
 	\hat{\mu}_{s_1, s_2}(\mathbf{x}; \mathbf{D}_n)
 	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s_2}} h_{s_1, s_2}(\mathbf{x}; D_{\ell})
 \end{equation}
-It is worth pointing out explicitly that in contrast to the DNN estimator, the kernel for the TDNN estimator is of order $s_2 > s_1$.
+It is worth pointing out that in contrast to the DNN estimator, the kernel for the TDNN estimator is of order $s_2 > s_1$.
+The authors derive an explicit formula for the kernel that shows the connection between th DNN and TDNN estimators.
+This connection will prove useful going forwards.
+\begin{lem}[Kernel of TDNN Estimator - Adapted from Lemma 8 of \citet{demirkaya_optimal_2024}]\label{TDNN_kernel}\mbox{}\\*
+	{\color{red} LOREM IPSUM}
+\end{lem}
+
 Borrowing the notational conventions from \citet{lee_u-statistics_2019}, additionally, introduce the following notation.
 \begin{align}
 	\psi_{c}^{s}(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c})
@@ -348,37 +354,43 @@ The corresponding expressions will be denoted analogous to the terms for the DNN
 	\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right)
 	= \mu(\mathbf{x}) + \sum_{j = 1}^{s_2}\binom{s_2}{j}H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_n\right)
 \end{equation}
-Furthermore, the corresponding Haj\'ek-Projections are as follows.
+% Furthermore, the corresponding Haj\'ek-Projections are as follows.
+% \begin{equation}
+% 	\begin{aligned}
+% 		\tilde{\mu}_{s}\left(\mathbf{x}; \mathbf{D}_n\right)
+% 		 & = \mu(\mathbf{x}) + \frac{s}{n}\sum_{i = 1}^{n}h^{(1)}_{s}(\mathbf{x}; \mathbf{z}_{i})
+% 		+ \operatorname{HR}_{s}(\mathbf{x}; \mathbf{D}_n)                                                   \\
+% 		\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right)
+% 		 & = \mu(\mathbf{x}) + \frac{s_2}{n}\sum_{i = 1}^{n} h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{z}_{i})
+% 		+ \operatorname{HR}_{s_1, s_2}(\mathbf{x}; \mathbf{D}_n)
+% 	\end{aligned}
+% \end{equation}
+% Here $\operatorname{HR}$ stands for the Haj\'ek residual.
+% Bounding this residual will be integral to the theoretical arguments made in the following.
+For the DNN estimator and any $1 \leq c \leq s$, define 
 \begin{equation}
-	\begin{aligned}
-		\tilde{\mu}_{s}\left(\mathbf{x}; \mathbf{D}_n\right)
-		 & = \mu(\mathbf{x}) + \frac{s}{n}\sum_{i = 1}^{n}h^{(1)}_{s}(\mathbf{x}; \mathbf{z}_{i})
-		+ \operatorname{HR}_{s}(\mathbf{x}; \mathbf{D}_n)                                                   \\
-		\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right)
-		 & = \mu(\mathbf{x}) + \frac{s_2}{n}\sum_{i = 1}^{n} h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{z}_{i})
-		+ \operatorname{HR}_{s_1, s_2}(\mathbf{x}; \mathbf{D}_n)
-	\end{aligned}
-\end{equation}
-Here $\operatorname{HR}$ stands for the Haj\'ek residual.
-Bounding this residual will be integral to the theoretical arguments made in the following.
-For any $1 \leq c \leq s$, let
-\begin{equation}
-	\zeta_{c,s}
-	= \operatorname{Cov}\left(h_s\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_c, \mathbf{Z}_{c+1}, \ldots, \mathbf{Z}_s\right),
-	h_s\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_c, \mathbf{Z}_{c+1}^{\prime}, \ldots, \mathbf{Z}_s^{\prime}\right)\right)
+	\xi_{c,s}\left(\mathbf{x}\right)
+	= \operatorname{Cov}\left(h_{s}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_c, \mathbf{Z}_{c+1}, \ldots, \mathbf{Z}_s\right),
+	h_{s}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_c, \mathbf{Z}_{c+1}^{\prime}, \ldots, \mathbf{Z}_s^{\prime}\right)\right)
 \end{equation}
 where $\mathbf{Z}_{c+1}^{\prime}, \ldots, \mathbf{Z}_n^{\prime}$ are i.i.d. from $P$ and independent of $\mathbf{Z}_1, \ldots, \mathbf{Z}_n$ and thus
-$\zeta_{s,s} = \operatorname{Var}\left(\mathbf{x}; h_s\left(\mathbf{Z}_1, \ldots, \mathbf{Z}_s\right)\right).$
-the following Lemma establishes an asymptotic relationship between two of these terms that will be important going forward.
+$\xi_{s,s}\left(\mathbf{x}\right) = \operatorname{Var}\left(h_s\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_s\right)\right).$
+Then, we have the following result from the original paper.
+\begin{lem}[\citet{demirkaya_optimal_2024} - Lemma 7]\label{Cov_TDNN_k}\mbox{}\\*
+	For any fixed $\mathbf{x}$ we have the following as $s \rightarrow \infty$ and $s = o(n)$
+	\begin{equation}
+		\lim_{n \rightarrow \infty} n^{-1}\frac{\xi_{s,s}\left(\mathbf{x}\right)}{\xi_{1,s}\left(\mathbf{x}\right)}
+		= 0.
+	\end{equation}
+\end{lem}
+Similarly, for the TDNN estimator and any $1 \leq c \leq s_2$, let
+\begin{equation}
+	\zeta_{c,s_2}\left(\mathbf{x}\right)
+	= \operatorname{Cov}\left(h_{s_1, s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_c, \mathbf{Z}_{c+1}, \ldots, \mathbf{Z}_{s_2}\right),
+	h_{s_1, s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_c, \mathbf{Z}_{c+1}^{\prime}, \ldots, \mathbf{Z}_{s_2}^{\prime}\right)\right)
+\end{equation}
+with an analogous definition of $\mathbf{Z}'$.
 
-	{\color{red}
-		\begin{lem}[\citet{demirkaya_optimal_2024} - Lemma 7]\label{Cov_TDNN_k}\mbox{}\\*
-			For any fixed $\mathbf{x}$ we have the following as $s \rightarrow \infty$ and $s = o(n)$
-			\begin{equation}
-				LOREM IPSUM
-			\end{equation}
-		\end{lem}
-	}
 
 \newpage
 \section{Pointwise Inference for the TDNN Estimator}\label{PW_Inf}
@@ -410,7 +422,7 @@ Then, their bootstrap variance estimator is defined as follows.
 	\hat{\omega}_{BS}^2\left(\mathbf{x}; \mathbf{D}_n\right)
 	= \frac{1}{B - 1}\sum_{b = 1}^{B} \left(\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}^{(b)}\right) - \bar{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}\right)\right)^2
 \end{equation}
-Here, $\bar{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}\right)$ is defined in the fllowing way.
+Here, $\bar{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}\right)$ is defined in the following way.
 \begin{equation}
 	\bar{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}\right)
 	= \frac{1}{B} \sum_{b = 1}^{B} \hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}^{(b)}\right)
@@ -419,8 +431,10 @@ In their resulting analysis, the authors show that under some mild assumptions a
 In this section, we will loosen that restrictive condition to make use of the attractive performance of U-statistics with large subsampling rates.
 The PIJK variance estimator applied to the TDNN estimator is as follows.
 \begin{equation}
-	\hat{\omega}_{PI}^2
-	=
+	\hat{\omega}_{PI}^2\left(\mathbf{x}; \mathbf{D}_n\right)
+	= \frac{s^2}{n^2}\sum_{i = 1}^{n}\left[\left(
+		\binom{n-1}{s-1}^{-1} \sum_{\ell \in L_{s_2-1}([n]\backslash\{i\})} h_{s_1, s_2}\left(\mathbf{x}; D_{\ell \cup \{i\}}\right)\right)
+		- \hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right)\right]^2
 \end{equation}
 
 {\color{red} LOREM IPSUM}
