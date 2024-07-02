@@ -1,15 +1,15 @@
 [0] Config.pm:307> INFO - This is Biber 2.17
 [0] Config.pm:310> INFO - Logfile is 'Unif_Inf_DNN.blg'
-[46] biber:340> INFO - === Mon Jul  1, 2024, 10:50:02
-[55] Biber.pm:418> INFO - Reading 'Unif_Inf_DNN.bcf'
-[102] Biber.pm:972> INFO - Found 10 citekeys in bib section 0
-[111] Biber.pm:4383> INFO - Processing section 0
-[122] Biber.pm:4574> INFO - Looking for bibtex file 'bibliography.bib' for section 0
-[123] bibtex.pm:1713> INFO - LaTeX decoding ...
-[136] bibtex.pm:1518> INFO - Found BibTeX data source 'bibliography.bib'
-[232] UCollate.pm:68> INFO - Overriding locale 'en_US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[232] UCollate.pm:68> INFO - Overriding locale 'en_US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[233] Biber.pm:4203> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'en_US'
-[233] Biber.pm:4209> INFO - No sort tailoring available for locale 'en_US'
-[239] bbl.pm:654> INFO - Writing 'Unif_Inf_DNN.bbl' with encoding 'UTF-8'
-[244] bbl.pm:757> INFO - Output to Unif_Inf_DNN.bbl
+[45] biber:340> INFO - === Tue Jul  2, 2024, 11:25:31
+[54] Biber.pm:418> INFO - Reading 'Unif_Inf_DNN.bcf'
+[100] Biber.pm:972> INFO - Found 10 citekeys in bib section 0
+[109] Biber.pm:4383> INFO - Processing section 0
+[116] Biber.pm:4574> INFO - Looking for bibtex file 'bibliography.bib' for section 0
+[117] bibtex.pm:1713> INFO - LaTeX decoding ...
+[126] bibtex.pm:1518> INFO - Found BibTeX data source 'bibliography.bib'
+[191] UCollate.pm:68> INFO - Overriding locale 'en_US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[191] UCollate.pm:68> INFO - Overriding locale 'en_US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[191] Biber.pm:4203> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'en_US'
+[191] Biber.pm:4209> INFO - No sort tailoring available for locale 'en_US'
+[197] bbl.pm:654> INFO - Writing 'Unif_Inf_DNN.bbl' with encoding 'UTF-8'
+[202] bbl.pm:757> INFO - Output to Unif_Inf_DNN.bbl
