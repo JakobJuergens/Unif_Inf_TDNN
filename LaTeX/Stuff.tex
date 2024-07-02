@@ -1,0 +1,100 @@
+\section{Stuff}
+
+\begin{thm}[\citet{ritzwoller_uniform_2024} - Corollary 4.1]
+	Let $\Sigma$ be the diagonal matrix with components $\sigma_{b, j}^2$.
+	\begin{enumerate}
+		\item Under the same conditions as Theorem \ref{ritzwoller_Thm4_2}, we have that
+		      \begin{equation}
+			      \sqrt{\frac{n}{b^2}} \Sigma^{-1 / 2} \bar{U}_{n, b}\left(\mathbf{x}^{(p)}\right) \lesssim \log ^{1 / 2}(d n)+\frac{\phi \log ^2(d n)}{\underline{\sigma}_b n^{1 / 2}}+\xi_{n, b}
+		      \end{equation}
+		      with probability greater than $1-C / n$.
+		\item Let $Z$ denote a centered Gaussian random vector with covariance matrix $\Var\left(\tilde{u}^{(1)}\left(\boldsymbol{x}^{(d)}, D_i\right)\right)$.
+		      Under the same conditions as Theorem \ref{ritzwoller_Thm4_2}, we have that
+		      \begin{equation}
+			      \sup _{\mathrm{R} \in \mathcal{R}}\left|P\left\{\sqrt{\frac{n}{b^2}} \Sigma^{-1 / 2} \bar{U}_{n, b}\left(\boldsymbol{x}^{(d)}\right) \in \mathrm{R}\right\}-P\left\{\Sigma^{-1 / 2} Z \in \mathrm{R}\right\}\right|
+			      \lesssim\left(\frac{\phi^2 \log ^5(d n)}{\sigma_b^2 n}\right)^{1 / 4}+\xi_{n, b} \sqrt{\log (d)},
+		      \end{equation}
+		      where $\mathcal{R}$ denotes the set of hyper-rectangles in $\mathbb{R}^d$.
+	\end{enumerate}
+\end{thm}
+
+\citet{peng_rates_2022}
+{\color{red} Combine Theorem 1 and a variation of the argument for Proposition 1 to improve rate for point-wise inference.
+	Better rate of subsampling scale with sample size.}
+
+
+\begin{thm}[Theorem 1 - \citet{peng_rates_2022}]\label{PengThm1}
+	Let $\mathbf{Z}_1, \ldots, \mathbf{Z}_n$ be i.i.d. from $P$ and $U_{n, s, \omega}$ be a generalized complete $U$-statistic with kernel $h\left(\mathbf{Z}_1, \ldots, \mathbf{Z}_s ; \omega\right)$.
+	Let $\theta=\E[h], \zeta_{1, \omega}=\Var\left(\E\left[h \mid Z_1\right]\right)$ and $\zeta_s=\operatorname{var}(h)$.
+
+	If $\frac{s}{n} \frac{\zeta_s}{s \zeta_{1, \omega}} \rightarrow 0$, then
+	\begin{equation}
+		\frac{U_{n, s, \omega}-\theta}{\sqrt{s^2 \zeta_{1, \omega} / n}} \rightsquigarrow N(0,1) .
+	\end{equation}
+\end{thm}
+In a remark to this Theorem, the authors state that when the variance ratio $\frac{\zeta_s}{s\zeta_{1,\omega}}$ is bounded, choosing $s = o(n)$ is sufficient to ensure that Theorem \ref{PengThm1} applies.
+A more directly applicable result comes from Proposition 2 of the same paper.
+
+
+\begin{thm}[Proposition 2 - \citet{peng_rates_2022}]
+	Let $\mathbf{Z}_1, \ldots, \mathbf{Z}_s$ denote i.i.d. pairs of random variables $\left(\mathbf{X}_i, Y_i\right)$.
+	Suppose $Y_i=\mu\left(X_i\right)+\varepsilon_i$ where $\mu$ is bounded, $\varepsilon$ has mean 0 and variance $\sigma^2$, and $\mathbf{X}_i$ and $\varepsilon_i$ are independent.
+	Let $\varphi=\sum_{i=1}^s w(\mathbf{x}, \mathbf{X}_i, \mathfrak{X}) Y_i$ such that $\sum_{i=1}^s w(\mathbf{x}, \mathbf{X}_i, \mathfrak{X})=1$, where $\mathfrak{X}$ denotes $\left\{X_i\right\}_{i=1}^m$.
+	Then
+	\begin{equation}
+		\limsup _{s \rightarrow \infty} \frac{\zeta_s}{s^2 \zeta_1}
+		< \infty.
+	\end{equation}
+\end{thm}
+
+Following from the representation of the WNN estimator as an L-statistic in \citet{steele_exact_2009}, both the DNN and TDNN estimators are of this form.
+Thus, we can deduce the following.
+\begin{equation}
+	\limsup _{s \rightarrow \infty} \frac{1}{s^2} \frac{\Var\left(h_{s}\left(\mathbf{x}; D_{\ell}\right)\right)}{\Cov\left(h_s\left(\mathbf{x}; D_{\ell}\right), h_s\left(\mathbf{x}; D_{\ell'}\right)\right)}
+	< \infty
+\end{equation}
+where $D_{\ell}$ and $D_{\ell'}$ only share exactly one observation, say $\mathbf{Z}_1$.
+
+\section{Hoeffding-Decompositions}
+
+Borrowing the notational conventions from \citet{lee_u-statistics_2019}, additionally, introduce the following notation.
+\begin{align}
+	\psi_{c}^{s}(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c})
+	 & = \E_{\mathbf{Z}}\left[h_{s}\left(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \mathbf{Z}_{c+1}, \dotsc, \mathbf{Z}_{s}\right)\right]                                            \\
+	%
+	h_{s}^{(1)}\left(\mathbf{x}; \mathbf{z}_{1}\right)
+	 & = \psi_{1}^{s}(\mathbf{x}; \mathbf{z}_{1}) - \mu(\mathbf{x})                                                                                                                            \\
+	%
+	h_{s}^{(c)}\left(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}\right)
+	 & = \psi_{c}^{s}(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}) - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{n,j}}h_{s}^{(j)}(\mathbf{x}; \mathbf{z}_{\ell})\right) - \mu(\mathbf{x})
+	\quad \text{for } c = 2, \dotsc, s
+\end{align}
+In contrast to the notational inspiration, the subsampling size $s$ is made explicit.
+Since we are dealing with an infinite-order U-statistic, $s$ will be diverging with $n$.
+In the usual fashion, these terms can be used to express the Hoeffding projections of different orders.
+\begin{equation}
+	H_{s}^{c}\left(\mathbf{x}; \mathbf{D}_n\right)
+	= \binom{n}{c}^{-1} \sum_{\ell \in L_{n,c}} h^{(c)}_{s}(\mathbf{x}; D_{\ell})
+\end{equation}
+In a completely analogous fashion to the DNN estimator, we can define the corresponding terms for the Hoeffding decomposition of the TDNN estimator.
+The corresponding expressions will be denoted analogous to the terms for the DNN estimator with ``$s_1, s_2$'' replacing ``$s$'' ultimately leading to the following Hoeffding decompositions.
+\begin{equation}
+	\tilde{\mu}_{s}\left(\mathbf{x}; \mathbf{D}_n\right)
+	= \mu(\mathbf{x}) + \sum_{j = 1}^{s}\binom{s}{j}H_{s}^{j}\left(\mathbf{x}; \mathbf{D}_n\right)\\
+	\quad \text{and} \quad
+	\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right)
+	= \mu(\mathbf{x}) + \sum_{j = 1}^{s_2}\binom{s_2}{j}H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_n\right)
+\end{equation}
+Furthermore, the corresponding Haj\'ek-Projections are as follows.
+\begin{equation}
+	\begin{aligned}
+		\tilde{\mu}_{s}\left(\mathbf{x}; \mathbf{D}_n\right)
+		 & = \mu(\mathbf{x}) + \frac{s}{n}\sum_{i = 1}^{n}h^{(1)}_{s}(\mathbf{x}; \mathbf{z}_{i})
+		+ \operatorname{HR}_{s}(\mathbf{x}; \mathbf{D}_n)                                                   \\
+		\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right)
+		 & = \mu(\mathbf{x}) + \frac{s_2}{n}\sum_{i = 1}^{n} h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{z}_{i})
+		+ \operatorname{HR}_{s_1, s_2}(\mathbf{x}; \mathbf{D}_n)
+	\end{aligned}
+\end{equation}
+Here $\operatorname{HR}$ stands for the Haj\'ek residual.
+Bounding this residual will be integral to the theoretical arguments made in the following.
