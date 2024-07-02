@@ -1,0 +1,283 @@
+\section{PNN Calculations}
+\subsection{1-PNN Calculations}
+
+Due to the inherent connections between random forests and the \textit{Potential Nearest Neighbor} (PNN) framework, it is helpful to consider the properties of the k-PNN method first.
+Specifically, as we are considering large trees with a terminal node size of 1, we are interested in the properties of the 1-PNN framework.
+In this context, let $P_i(x)$ be an indicator for whether observation $i$ is a 1-PNN of a point of interest $x \in \mathbb{R}^d$.
+Furthermore, let $\operatorname{HR}(x,y)$ denote the hyperrectangle spanned by two points $x,y \in \mathbb{R}^d$ and by $x \prec y$ that $x \in \operatorname{HR}(\mathbf{0}, y)$ and by $x \not\prec y$ the complement of that event.
+
+Consider first the one-dimensional case and recall that given a subsample of indices $\mathcal{I}_S \subset \{1, \dotsc n\}$ with $i \in \mathcal{I}_S$ and $|\mathcal{I}_S| = s$, we have $P_i(x) = \1(i = \argmin_{j \in \mathcal{I}_S} \|x - X_{j}\|)$.
+For simplicity and due to a symmetry of arguments, focus on the case of uniformly distributed features on $[0,1]$ and $x = 0$ and without loss of generality consider $i = 1$.
+This allows us to make the following observation
+\begin{equation*}
+	\begin{aligned}
+		\E\left[P_1 \, | \, Z_1\right]
+		 & = \E\left[P_1 \, | \, X_1\right]
+		= \P\left(X_1 = \min_{j \in \mathcal{I}_S} X_j \, | \, X_1\right)
+		= \P(\forall j \in \mathcal{I}_S \backslash \{i\}: \, X_j > X_1 \, | \, X_1) \\
+		 & = \P(B(s-1, X_1) = 0)
+		= (1-X_1)^{s-1}.
+	\end{aligned}
+\end{equation*}
+Similarly, consider the following, concentrating without loss of generality on $X_1$ and $X_2$ for $\{1,2\} \subset \mathcal{I}_S$ for $s \geq 2$.
+\begin{equation*}
+	\begin{aligned}
+		\E[P_1 \, | \, Z_1, Z_2]
+		 & = \E[P_1 \, | \, X_1, X_2]
+		= \P\left(X_1 = \min_{j \in \mathcal{I}_S} X_j \, \Big| \, X_1, X_2\right)                     \\
+		 & = \P\left(X_1 = \min_{j \in \mathcal{I}_S} X_j \, \Big| \, X_1, X_2\right) \1(X_1 \geq X_2)
+		+ \P\left(X_1 = \min_{j \in \mathcal{I}_S} X_j \, \Big| \, X_1, X_2\right) \1(X_1 < X_2)       \\
+		% & = \P\left(X_1 = \min_{j \in \mathcal{I}_S} X_j \, \Big| \, X_1, X_2\right) \1(X_1 \geq X_2)\\
+		 & = \P\left(B(s-2, X_1) = 0\right) \1(X_1 < X_2)
+		= (1 - X_1)^{s-2} \1(X_1 < X_2)                                                                \\
+	\end{aligned}
+\end{equation*}
+Generalizing this idea, we can find that the following holds for the case of conditioning on $p \leq s $ observations, where wlog we consider $1, \dotsc, p \in \mathcal{I}_S$.
+\begin{equation*}
+	\begin{aligned}
+		\E[P_1 \, | \, Z_1, \dotsc, Z_p]
+		 & = \E[P_1 \, | \, X_1, \dotsc, X_p]
+		= (1 - X_1)^{s-p} \1(\forall j = 2, \dotsc, p: \, X_1 < X_j).
+	\end{aligned}
+\end{equation*}
+This is the first step to calculating the variances of the individual terms of the Hoeffding Decomposition of the weights for the 1-PNN method.
+Furthermore, we can recognize that the expectation of any sum of these conditional expectations has expectation equal to zero.
+For example, we can find the following
+\begin{equation*}
+	\begin{aligned}
+		\E\Bigl[\E[P_1 \, | \, Z_1, Z_2] - \E[P1 \, | \, Z_1]\Bigr]
+		 & = \E\left[\E[P_1 \, | \, Z_1, Z_2]\right] - \E\left[\E[P1 \, | \, Z_1]\right]
+		= \E\left[P_1\right] - \E\left[P_1\right]
+		= 0.
+	\end{aligned}
+\end{equation*}
+This, however, applies more broadly to sums of these terms, which is of interest in the upcoming calculations concerning the variances.
+Second, we need to consider the conditional expectations when conditioning on observations excluding i.
+As an illustrating example consider first the following
+\begin{equation*}
+	\begin{aligned}
+		\E[P_1 \, | \, Z_2]
+		 & = \E[P_1 \, | \, X_2]
+		= \E\left[\E[P_1 \, | \, X_1, X_2] \, | \, X_2\right]
+		= \E\left[(1 - X_1)^{s-2} \1(X_1 < X_2) \, | \, X_2\right] \\
+		 & = \int_{0}^{X_2}(1 - x_1)^{s-2} \, dx_1
+		% = -\frac{(1-X_2)^s - (1-X_2)}{(s-1)(1 - X_2)}
+		= \frac{1 - (1-X_2)^{s-1}}{s-1}
+	\end{aligned}
+\end{equation*}
+Similarly, we can consider conditioning on an arbitrary set of observations excluding $i=1$ and make use of the law of iterated expectations analogously.
+Without loss of generality, consider again $i = 1$ and conditioning on observations 2 to $p < s$ and to simplify the notation, let $\underline{X}_{2:p} = \min_{i = 2, \dotsc, p} X_i$.
+\begin{equation*}
+	\begin{aligned}
+		\E[P_1 \, | \, Z_2, \dotsc, Z_p]
+		 & = \E[P_1 \, | \, X_2, \dotsc, X_p]
+		= \E\left[\E\left[P_1 \, | \, X_1, X_2, \dotsc, X_p\right] \, | \, X_2, \dotsc, X_p\right] \\
+		 & = \int_{0}^{\underline{X}_{2:p}}(1 - x_1)^{s-p} \, d x_1
+		= \frac{1 - (1 - \underline{X}_{2:p})^{s+1-p}}{s + 1 - p}
+	\end{aligned}
+\end{equation*}
+The next step is to consider the actual terms of the Hoeffding decomposition and evaluate their variance.
+First among them, we can find the following
+\begin{equation*}
+	\begin{aligned}
+		\Var(\E[P_1 \, | \, X_1])
+		 & = \Var\left((1-X_1)^{s-1}\right)
+		= \E\left[(1-X_1)^{2(s-1)}\right] - \E\left[(1-X_1)^{s-1}\right]^2                         \\
+		 & = \int_{0}^{1} (1-x_1)^{2(s-1)} d x_1 - \left(\int_{0}^{1} (1-x_1)^{s-1} d x_1\right)^2
+		= \frac{1}{2s - 1} - \frac{1}{s^2}                                                         \\
+		 & \sim s^{-1}.
+	\end{aligned}
+\end{equation*}
+To evaluate the variance of the second term, we can proceed by combining the expressions of the first and second conditional expectations.
+\begin{equation*}
+	\begin{aligned}
+		\E[P_1 \, | \, Z_1, Z_2] - \E[P1 \, | \, Z_1]
+		 & = (1 - X_1)^{s-2} (\1(X_1 < X_2) - (1 - X_1)) \\
+		 & = (1 - X_1)^{s-2} (X_1 - \1(X_1 \geq X_2)).
+	\end{aligned}
+\end{equation*}
+Thus, to calculate the variance, observe that
+\begin{equation*}
+	\begin{aligned}
+		\Big|\E[P_1 \, | \, Z_1, Z_2] - \E[P_1 \, | \, Z_1]\Big|^2
+		 & = \Big|(1 - X_1)^{s-2} (X_1 - \1(X_1 \geq X_2)) \Big|^2            \\
+		 & = (1 - X_1)^{2s-4}\Big|X_1 - \1(X_1 \geq X_2) \Big|^2              \\
+		 & = (1 - X_1)^{2s-4}\left(X_1^2 + \1(X_1 \geq X_2)(1 - 2X_1)\right).
+	\end{aligned}
+\end{equation*}
+and thus
+\begin{equation*}
+	\begin{aligned}
+		  & \Var(\E[P_1 \, | \, Z_1, Z_2] - \E[P1 \, | \, Z_1])
+		= \E\left[(1 - X_1)^{2s-4}\left(X_1^2 + \1(X_1 \geq X_2)(1 - 2X_1)\right)\right]                                                                   \\
+		= & \E\left[(1 - X_1)^{2s-4}X_1^2\right] + \E\left[(1 - X_1)^{2s-4}\1(X_1 \geq X_2)(1 - 2X_1)\right]                                               \\
+		= & \int_{0}^{1} (1 - x_1)^{2s-4}x_1^2 \, d x_1 + \int_{0}^{1}\int_{0}^{1}(1 - x_1)^{2s-4}\1(x_1 \geq x_2)(1 - 2x_1) \, d x_1 \, d x_2             \\
+		= & \int_{0}^{1} (1 - x_1)^{2s-4}x_1^2 \, d x_1 + \int_{0}^{1}\int_{x_2}^{1}(1 - x_1)^{2s-4}(1 - 2x_1) \, d x_1 \, d x_2                           \\
+		= & \frac{1}{4s^3 - 12s^2 + 11s - 3} + \int_{0}^{1}\left[\frac{(1-x_2)^{2s-3}}{2s - 3}\left(1 - \frac{(2s - 3)x_2 + 1}{s-1}\right)\right] \, d x_2 \\
+		= & \frac{1}{4s^3 - 12s^2 + 11s - 3} + \frac{5 - 2s}{-8s^3 + 24s^2 -22s + 6}
+		\sim s^{-2}
+	\end{aligned}
+\end{equation*}
+Furthermore, we can find that
+\begin{equation*}
+	\begin{aligned}
+		\Var\left(\E[P_1 \, | \, Z_2]\right)
+		 & = \Var\left(\frac{1 - (1-X_2)^{s-1}}{s-1}\right)
+		= \frac{1}{(s-1)^2} \Var\left((1-X_2)^{s-1}\right)                                                  \\
+		 & = \frac{1}{(s-1)^2}\left(\E\left[(1-X_2)^{2(s-1)}\right] - \E\left[(1-X_2)^{s-1}\right]^2\right) \\
+		 & = \frac{1}{(s-1)^2}\left(\frac{1}{2s - 1} - \frac{1}{s^2}\right)
+		\sim s^{-3}
+	\end{aligned}
+\end{equation*}
+This, in turn, implies the following
+\begin{equation*}
+	\begin{aligned}
+		\Var\left(\E[P_1 \, | \, Z_1, Z_2] - \E[P_1 \, | \, Z_1] + \E[P_2 \, | \, Z_1, Z_2] - \E[P_2 \, | \, Z_2]\right)
+		\sim s^{-2}.
+	\end{aligned}
+\end{equation*}
+
+To approach this problem more generally, it is imperative to find an expression for the variance of the $c$'th term of the Hoeffding decomposition.
+Now, fixing $P_1$ as the weight of interest, recall in analogy to the beginning of this paper the following term:
+\begin{equation*}
+	A_1^{(k)}
+	:= \sum_{E \in P_{s,k-1}^{\{1\}}} \left(-1\right)^{\1\left(|E| \equiv (k-1) \mod 2\right)} \E\left[P_1 \, | \, X_1, X_e \, : \, e \in E\right].
+\end{equation*}
+As this term forms the core of the kernel of the relevant Hoeffding decomposition, it will allow us to gain a better understanding of the relevant variances at play.
+First, by a simple application of the law of iterated expectations, we find that $\E[A_1^{(k)}] = 0$.
+Thus, to understand its variance, we need to investigate $\E\left[|A_1^{(k)}|^2\right]$.
+\begin{equation*}
+	\begin{aligned}
+		|A_1^{(k)}|^2
+		 & = \sum_{E, E' \in P_{s,k-1}^{\{1\}}}
+		(-1)^{\1(|E| + | E'| \equiv 0 \mod 2)}
+		\left\{\E\left[P_1 \, | \, X_1, X_e \, : \, e \in E\right] \E\left[P_1 \, | \, X_1, X_{e'} \, : \, e' \in E'\right]\right\}
+	\end{aligned}
+\end{equation*}
+As this expression shows, we are interested in expressions of the following form
+\begin{equation*}
+	\begin{aligned}
+		\E\Bigl[\E\left[P_1 \, | \, X_1, X_e \, : \, e \in E\right] \E\left[P_1 \, | \, X_1, X_{e'} \, : \, e' \in E'\right]\Bigr]
+	\end{aligned}
+\end{equation*}
+Now, fix $E, E' \in P_{s,k-1}^{\{1\}}$, and let $F = E \cap E'$.
+Given this now fixed expression, we can continue our analysis in the following way.
+\begin{equation*}
+	\begin{aligned}
+		A_{E, E'}
+		:= & \E\Bigl[\E\left[P_1 \, | \, X_1, X_e \, : \, e \in E\right] \E\left[P_1 \, | \, X_1, X_{e'} \, : \, e' \in E'\right]\Bigr]      \\
+		=  & \E\left[(1 - X_1)^{s-|E|-1} \1(\forall j \in E: \, X_1 < X_j) \, (1 - X_1)^{s-|E'|-1} \1(\forall j \in E': \, X_1 < X_j)\right] \\
+		=  & \E\left[(1-X_1)^{2s - |E| - |E'| - 2}\1(\forall j \in E \cup E': \, X_1 < X_j)\right]                                           \\
+		=  & \E\left[(1-X_1)^{2s - \mathcal{E} - \mathcal{E}' - 2}\1(\forall j \in E \cup E': \, X_1 < X_j)\right]
+	\end{aligned}
+\end{equation*}
+Here, to simplify the notation, we let $\mathcal{E} = |E|,$ $\mathcal{E}' = |E'|$ and $\mathcal{F} = |F|$.
+Recall that we are dealing with independent and identically uniformly distributed features, such that we can simplify this expectation by considering the density of the minimum of $\mathfrak{E} = \mathcal{E} + \mathcal{E}' - \mathcal{F}$ i.i.d. uniform random variables instead of the multivariate integral.
+Specifically, realize that defining $W = \min_{e \in E \cup E'} X_e$, $W$ is distributed according to the following density function.
+\begin{equation*}
+	\begin{aligned}
+		f_W(w) = \begin{cases}
+			         \mathfrak{E}\left(1-w\right)^{\mathfrak{E}- 1} & \text{if } w \in [0,1] \\
+			         0                                              & \text{otherwise}
+		         \end{cases}.
+	\end{aligned}
+\end{equation*}
+Using this expression, we find that
+\begin{equation*}
+	\begin{aligned}
+		A_{E, E'}
+		 & = \int_{0}^{1}\left(\mathfrak{E}\left(1-w\right)^{\mathfrak{E}- 1}\int_{0}^{w} (1-x_1)^{2s - \mathcal{E} - \mathcal{E}' - 2} \, dx_1 \right) \, dw                                                     \\
+		 & = \int_{0}^{1}\left(\mathfrak{E}\left(1-w\right)^{\mathfrak{E}- 1} \frac{1}{2s - \mathcal{E} - \mathcal{E}' - 1}\left(1 - \left(1 - w\right)^{2s - \mathcal{E} - \mathcal{E}' - 1}\right)\right) \, dw \\
+		 & =  \frac{1}{2s - \mathcal{E} - \mathcal{E}' - 1}\left(1 -\int_{0}^{1} \mathfrak{E}\left(1-w\right)^{\mathfrak{E}- 1}\left(1 - w\right)^{2s - \mathcal{E} - \mathcal{E}' - 1} \, dw\right)              \\
+		 & =  \frac{1}{2s - \mathfrak{E} + \mathcal{F} - 1}\left(1 - \mathfrak{E}\int_{0}^{1} \left(1 - w\right)^{2s - \mathcal{F} - 2} \, dw\right)                                                              \\
+		 & = \frac{1}{2s - \mathfrak{E} + \mathcal{F} - 1}\left(1 - \frac{\mathfrak{E}}{2s - \mathcal{F} - 1}\right)
+		= \frac{2s -\mathfrak{E} - \mathcal{F} - 1 }{2s - \mathfrak{E} + \mathcal{F} - 1}\left(2s - \mathcal{F} - 1\right)^{-1}                                                                                   \\
+		 & \sim s^{-1}
+	\end{aligned}
+\end{equation*}
+Considering this notation, we can write the expression of interest in the following way to continue investigating its behavior.
+\begin{equation*}
+	\begin{aligned}
+		|A_1^{(k)}|^2
+		= \sum_{E, E' \in P_{s,k-1}^{\{1\}}}(-1)^{\1(|E| + | E'| \equiv 0 \mod 2)}A_{E, E'}
+	\end{aligned}
+\end{equation*}
+
+Considering the original test case of $k = 2$, we can check whether this approach gives us the same results.
+\begin{equation*}
+	\begin{aligned}
+		|A_1^{(2)}|^2
+		 & = \sum_{E, E' \in P_{s,1}^{\{1\}}} (-1)^{\1(|E| + | E'| \equiv 0 \mod 2)}A_{E, E'}                                                 \\
+		 & = (s-1)A_{\{2\},\{2\}} + (s-1)(s-2)A_{\{2\},\{3\}} - 2(s-1)A_{\{2\}, \emptyset} + A_{\emptyset, \emptyset}                         \\
+		 & = \frac{(s-1)(2s - 4)}{(2s - 2)(2s - 2)} + \frac{(s-1)(s-2)(2s - 3)}{(2s - 1)(2s - 1)} - \frac{2(s-1)(2s - 2)}{(2s - 2)(2s - 1)} + \\
+		 & = \frac{s - 2}{2s - 2} + \frac{(s-1)(s-2)(2s - 3)}{(2s - 1)(2s - 1)} - \frac{2(s-1)}{2s - 1}                                       \\
+	\end{aligned}
+\end{equation*}
+{\color{red} LOREM IPSUM! I found a mistake. Will fix soon.}
+
+Thus, recall the following recursive Kernel definition that forms the basis to the Hoeffding decomposition.
+\begin{align*}
+	h^{(1)}(x_1)
+	 & = \psi_1(x_1) - \theta                                                                                \\
+	h^{(c)}(x_1, x_2, \dotsc, x_c)
+	 & = \psi_c(x_1, \dotsc, x_c) - \sum_{j = 1}^{c-1}\sum_{(c,j)}h^{(j)}(x_{i_1}, \dotsc, x_{i_j}) - \theta
+\end{align*}
+To illustrate the connection to the problem at hand, fix first $P_1$ as the weight of interest.
+Then, in an abuse of notation, consider $\psi_c(x_{i_1}, \dotsc, x_{i_j}) = \E\left[P_1 \, | \, X_{i_1} = x_{i_1}, \dotsc, X_{i_j} = x_{i_j}\right]$.
+
+\subsection{1-PNN in d Dimensions}
+
+Next, consider the case of uniformly distributed features on $[0,1]^d$ with the point of interest at the origin, i.e. $x = \mathbf{0}$.
+Similar to the one-dimensional case, the argument will extend to other points under consideration and other suitable distributions.
+
+What this choice allows us to do is consider a simplified form of the probability of a point being a 1-PNN.
+Thus, observe that the probability of a sample point $X_1$ being a 1-PNN of the origin, i.e. the expectation of $P_1$, can be expressed in the following form
+\begin{equation*}
+	\begin{aligned}
+		\E[P_1 \, | \, X_1]
+		 & = \mathbb{P}(X_1 \text{ is a 1-PNN of } \mathbf{0} \, | \, X_1)                                            \\
+		 & = \mathbb{P}\left(\bigcap_{j = 2}^{s} \{X_j \not\in \operatorname{HR}(\mathbf{0}, X_1)\, | \, X_1\}\right)
+		= \mathbb{P}\left(\bigcap_{j = 2}^{s}\bigcap_{k = 1}^{d} \{X_{jk} \not\in [0, X_{1,k}]\, | \, X_1\}\right)    \\
+		 & = \mathbb{P}\left(B\left(s - 1, \prod_{k = 1}^{d} X_{1,k}\right) = 0\, | \, X_1\right)
+		= \mathbb{P}\left(B\left(s - 1, X_{1, \bullet}\right) = 0\, | \, X_1\right)                                   \\
+		 & = (1-X_{1, \bullet})^{s-1},
+	\end{aligned}
+\end{equation*}
+where we let $X_{i,\bullet}$ denote $\prod_{k = 1}^{d} X_{i,k}$.
+To calculate the variance of the conditional expectation, consider the following rewriting
+\begin{equation*}
+	\begin{aligned}
+		\Var\left(\E[P_1 \, | \, X_1]\right)
+		% & = \Var\left((1-X_{1, \bullet})^{s-1}\right) 
+		 & = \E[(1-X_{1, \bullet})^{2(s-1)}] - \left(\E[(1-X_{1, \bullet})^{s-1}]\right)^2.
+	\end{aligned}
+\end{equation*}
+Now, notice that $X_{1,\bullet}$ is distributed according to the density
+\begin{equation*}
+	f_{1, \bullet}(x) = \begin{cases}
+		\frac{(-\log{(x)})^{d-1}}{(d-1)!} & \text{for } 0\leq x \leq 1 \\
+		0                                 & \text{otherwise}
+	\end{cases}.
+\end{equation*}
+Using this density, we can solve for the variance in the following way
+\begin{equation*}
+	\begin{aligned}
+		\Var\left(\E[P_1 \, | \, X_1]\right)
+		 & = \int_{0}^{1} \frac{(-\log{(x)})^{d-1}}{(d-1)!} (1-x)^{2(s-1)} \, dx - \left(\int_{0}^{1} \frac{(-\log{(x)})^{d-1}}{(d-1)!}(1-x)^{s-1} \, dx\right)^2 \\
+		 & = {\color{red}\text{Tedious... but needs a good argument}}                                                                                             \\
+		 & \sim s^{-1} \quad {\color{red} \text{I assume...}}
+	\end{aligned}
+\end{equation*}
+
+Proceeding as in the one-dimensional case, we consider next the conditional expectation of $P_1$ given $Z_1$ and $Z_2$, where these choices are again without loss of generality.
+\begin{equation*}
+	\begin{aligned}
+		\E[P_1 \, | \, Z_1, Z_2]
+		 & = \E[P_1 \, | \, X_1, X_2]
+		= \1_{(X_2 \prec X_1)}\E[P_1 \, | \, X_1, X_2, X_2 \prec X_1] + \1_{(X_2 \not\prec X_1)}\E[P_1 \, | \, X_1, X_2, X_2 \not\prec X_1] \\
+		 & = \1_{(X_2 \not\prec X_1)}\E[P_1 \, | \, X_1, X_2, X_2 \not\prec X_1]
+		= \1_{(X_2 \not\prec X_1)} \mathbb{P}\left(B\left(s - 2, \prod_{k = 1}^{d} X_{1,k}\right) = 0\, | \, X_1\right)                     \\
+		 & = \1_{(X_2 \not\prec X_1)} (1- X_{1,\bullet})^{s-2}.
+	\end{aligned}
+\end{equation*}
+{\color{red} LOREM IPSUM}

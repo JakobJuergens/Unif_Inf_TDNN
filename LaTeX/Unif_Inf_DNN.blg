@@ -1,15 +1,15 @@
 [0] Config.pm:307> INFO - This is Biber 2.17
 [0] Config.pm:310> INFO - Logfile is 'Unif_Inf_DNN.blg'
-[45] biber:340> INFO - === Tue Jul  2, 2024, 11:25:31
+[45] biber:340> INFO - === Tue Jul  2, 2024, 13:09:09
 [54] Biber.pm:418> INFO - Reading 'Unif_Inf_DNN.bcf'
-[100] Biber.pm:972> INFO - Found 10 citekeys in bib section 0
-[109] Biber.pm:4383> INFO - Processing section 0
-[116] Biber.pm:4574> INFO - Looking for bibtex file 'bibliography.bib' for section 0
-[117] bibtex.pm:1713> INFO - LaTeX decoding ...
-[126] bibtex.pm:1518> INFO - Found BibTeX data source 'bibliography.bib'
-[191] UCollate.pm:68> INFO - Overriding locale 'en_US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[191] UCollate.pm:68> INFO - Overriding locale 'en_US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[191] Biber.pm:4203> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'en_US'
-[191] Biber.pm:4209> INFO - No sort tailoring available for locale 'en_US'
-[197] bbl.pm:654> INFO - Writing 'Unif_Inf_DNN.bbl' with encoding 'UTF-8'
-[202] bbl.pm:757> INFO - Output to Unif_Inf_DNN.bbl
+[99] Biber.pm:972> INFO - Found 10 citekeys in bib section 0
+[108] Biber.pm:4383> INFO - Processing section 0
+[115] Biber.pm:4574> INFO - Looking for bibtex file 'bibliography.bib' for section 0
+[116] bibtex.pm:1713> INFO - LaTeX decoding ...
+[124] bibtex.pm:1518> INFO - Found BibTeX data source 'bibliography.bib'
+[187] UCollate.pm:68> INFO - Overriding locale 'en_US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[187] UCollate.pm:68> INFO - Overriding locale 'en_US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[187] Biber.pm:4203> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'en_US'
+[187] Biber.pm:4209> INFO - No sort tailoring available for locale 'en_US'
+[193] bbl.pm:654> INFO - Writing 'Unif_Inf_DNN.bbl' with encoding 'UTF-8'
+[198] bbl.pm:757> INFO - Output to Unif_Inf_DNN.bbl
