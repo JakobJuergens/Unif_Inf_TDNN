@@ -147,7 +147,7 @@ $\varepsilon$ is the unobservable model error on which we impose the following c
 \begin{equation}
 	\varepsilon \indep \mathbf{X}, \quad
 	\E\left[\varepsilon\right] = 0, \quad
-	\Var\left(\varepsilon\right) = 1
+	\Var\left(\varepsilon\right) = \sigma_{\varepsilon}^2
 \end{equation}
 We will denote the distribution induced by this model by $P$ and thus $\mathbf{Z}_i \overset{\text{iid}}{\sim} P$.
 As we will embed the corresponding estimation problem in the context of subsampled conditional moment regression, note that this implies a conditional moment equation of the form
@@ -909,13 +909,50 @@ Having developed theoretical results concerning uniform inference methods for th
 \subsection{Kernel Variances \& Covariances}
 \hrule 
 
+\begin{lem}[{\color{red} From Demirkaya - Proof of Lemma 7}]\mbox{}\\*
+	Let $D = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{s}\}$ be a vector of i.i.d. random variables drawn from $P$.
+	Furthermore, let
+	\begin{equation}
+		\Omega_{s}
+		= \E\left[h_{s}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,  \mathbf{Z}_{s}\right) \cdot
+		h_{s}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{s}\right)\right].
+	\end{equation}
+	Then,
+	\begin{equation}
+		\Omega_{s}
+		= \E_1\left[\mu^2\left(\mathbf{X}_1\right) s \E_{2:s}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1, D\right)\right]\right] + \sigma_{\varepsilon}^2
+		\lesssim \mu(\mathbf{x})^2 + \sigma_{\varepsilon}^2 + o(1) 
+		\quad \text{as} \quad s \rightarrow \infty.
+	\end{equation}
+\end{lem}
+
+\hrule 
+
+\begin{lem}\mbox{}\\*
+	Let $D = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{s}\}$ be a vector of i.i.d. random variables drawn from $P$.
+	Let $D^{\prime} = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{c}, \mathbf{Z}_{c+1}^{\prime}, \dotsc,  \mathbf{Z}_{s}^{\prime}\}$ where $\mathbf{Z}_{c+1}^{\prime}, \dotsc,  \mathbf{Z}_{s}^{\prime}$ are i.i.d. draws from $P$ that are independent of $D$.
+	Furthermore, let
+	\begin{equation}
+		\Omega_{s}^{c}
+		= \E\left[h_{s}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_{c}, \mathbf{Z}_{c+1}, \ldots, \mathbf{Z}_{s}\right) \cdot
+		h_{s}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{c}, \mathbf{Z}_{c+1}^{\prime}, \ldots, \mathbf{Z}_{s}^{\prime}\right)\right].
+	\end{equation}
+	Then,
+	\begin{equation}
+		\Omega_{s}^{c}
+		= 
+	\end{equation}
+\end{lem}
+
+\hrule 
+
 \begin{lem}\mbox{}\\*
 	Let $D = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{s_2}\}$ be a vector of i.i.d. random variables drawn from $P$ for $s_2 > s_1$.
 	Furthermore, let
 	\begin{equation}
 		\Upsilon_{s_1, s_2}
-		= \Cov\left(h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,  \mathbf{Z}_{s_1}\right),
-		h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{s_1}, \ldots, \mathbf{Z}_{s_2}\right)\right).
+		= \E\left[h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,  \mathbf{Z}_{s_1}\right) \cdot
+		h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{s_1}, \ldots, \mathbf{Z}_{s_2}\right)\right].
 	\end{equation}
 	Then,
 	\begin{equation}
@@ -928,26 +965,28 @@ Define the following random variable $R(\mathbf{x}, m, D) = \1\left(\exists i \i
 \begin{equation}
 	\begin{aligned}
 		\Upsilon_{s_1, s_2}
-		 & = \Cov\left(h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,  \mathbf{Z}_{s_1}\right),
-		h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{s_1}, \ldots, \mathbf{Z}_{s_2}\right)\right)                                              \\
+		 & = \E\left[h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,  \mathbf{Z}_{s_1}\right) \cdot
+		h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{s_1}, \ldots, \mathbf{Z}_{s_2}\right)\right]                                              \\
 		%
-		 & = \E\left[\Cov\left(h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,  \mathbf{Z}_{s_1}\right),
-		h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{s_1}, \ldots, \mathbf{Z}_{s_2}\right) \, \Big| \, R(\mathbf{x}, s_1, D)\right)\right]     \\
-		 & \quad + \Cov\left(
-		\E\left[h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,  \mathbf{Z}_{s_1}\right) \, \Big| \, R(\mathbf{x}, s_1, D)\right],
-		\E\left[h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{s_1}, \ldots, \mathbf{Z}_{s_2}\right) \, \Big| \, R(\mathbf{x}, s_1, D)\right]
-		\right)                                                                                                                                             \\
-		%
-		 & = \frac{s_1}{s_2} \E\left[\Cov\left(h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,  \mathbf{Z}_{s_1}\right),
-		h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{s_1}, \ldots, \mathbf{Z}_{s_2}\right) \, \Big| \, R(\mathbf{x}, s_1, D) = 1\right)\right] \\
-		 & \quad + \frac{s_2 - s_1}{s_2} \E\left[\Cov\left(h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,  \mathbf{Z}_{s_1}\right),
-		h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{s_1}, \ldots, \mathbf{Z}_{s_2}\right) \, \Big| \, R(\mathbf{x}, s_1, D) = 0\right)\right] \\
-		 & \quad + \Cov\left(
-		\E\left[h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,  \mathbf{Z}_{s_1}\right) \, \Big| \, R(\mathbf{x}, s_1, D)\right],
-		\E\left[h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{s_1}, \ldots, \mathbf{Z}_{s_2}\right) \, \Big| \, R(\mathbf{x}, s_1, D)\right]
-		\right)                                                                                                                                             \\
+		%  & = \E\left[\Cov\left(h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,  \mathbf{Z}_{s_1}\right),
+		% h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{s_1}, \ldots, \mathbf{Z}_{s_2}\right) \, \Big| \, R(\mathbf{x}, s_1, D)\right)\right]     \\
+		%  & \quad + \Cov\left(
+		% \E\left[h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,  \mathbf{Z}_{s_1}\right) \, \Big| \, R(\mathbf{x}, s_1, D)\right],
+		% \E\left[h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{s_1}, \ldots, \mathbf{Z}_{s_2}\right) \, \Big| \, R(\mathbf{x}, s_1, D)\right]
+		% \right)                                                                                                                                             \\
+		% %
+		%  & = \frac{s_1}{s_2} \E\left[\Cov\left(h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,  \mathbf{Z}_{s_1}\right),
+		% h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{s_1}, \ldots, \mathbf{Z}_{s_2}\right) \, \Big| \, R(\mathbf{x}, s_1, D) = 1\right)\right] \\
+		%  & \quad + \frac{s_2 - s_1}{s_2} \E\left[\Cov\left(h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,  \mathbf{Z}_{s_1}\right),
+		% h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{s_1}, \ldots, \mathbf{Z}_{s_2}\right) \, \Big| \, R(\mathbf{x}, s_1, D) = 0\right)\right] \\
+		%  & \quad + \Cov\left(
+		% \E\left[h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,  \mathbf{Z}_{s_1}\right) \, \Big| \, R(\mathbf{x}, s_1, D)\right],
+		% \E\left[h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{s_1}, \ldots, \mathbf{Z}_{s_2}\right) \, \Big| \, R(\mathbf{x}, s_1, D)\right]
+		% \right)                                                                                                                                             \\
 	\end{aligned}
 \end{equation}
+
+\hrule 
 
 \begin{lem}\mbox{}\\*
 	Let $D = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{s_2}\}$ be a vector of i.i.d. random variables drawn from $P$ for $s_2 > s_1$.
@@ -955,8 +994,8 @@ Define the following random variable $R(\mathbf{x}, m, D) = \1\left(\exists i \i
 	Furthermore, let
 	\begin{equation}
 		\Upsilon_{s_1, s_2}^{c}
-		= \Cov\left(h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_c, \mathbf{Z}^{\prime}_{c+1}, \ldots,  \mathbf{Z}^{\prime}_{s_1}\right),
-		h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_{s_2}\right)\right).
+		= \E\left[h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_c, \mathbf{Z}^{\prime}_{c+1}, \ldots,  \mathbf{Z}^{\prime}_{s_1}\right) \cdot
+		h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_{s_2}\right)\right].
 	\end{equation}
 	Then,
 	\begin{equation}
@@ -968,11 +1007,13 @@ Define the following random variable $R(\mathbf{x}, m, D) = \1\left(\exists i \i
 \begin{equation}
 	\begin{aligned}
 		\Upsilon_{s_1, s_2}^{c}
-		 & = \Cov\left(h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_c, \mathbf{Z}^{\prime}_{c+1}, \ldots,  \mathbf{Z}^{\prime}_{s_1}\right),
-		h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_{s_2}\right)\right)                                                                     \\
+		 & = \E\left[h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_c, \mathbf{Z}^{\prime}_{c+1}, \ldots,  \mathbf{Z}^{\prime}_{s_1}\right) \cdot
+		h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_{s_2}\right)\right]                                                                     \\
 		 & =
 	\end{aligned}
 \end{equation}
+
+\hrule 
 
 \begin{lem}[Kernel Covariances of the TDNN Kernel]\label{Cov_TDNN}
 
@@ -1036,20 +1077,35 @@ Define the following random variable $R(\mathbf{x}, m, D) = \1\left(\exists i \i
 		%
 		 & = \left(w_{1}^{*}\right)^2\E_{D}\left[\tilde{\mu}_{s_1}^{2}\left(\mathbf{x}; D\right)\right] 
 		 + 2 w_{1}^{*}w_{2}^{*} \E_{D}\left[\tilde{\mu}_{s_1}\left(\mathbf{x}; D\right) h_{s_2}\left(\mathbf{x}; D\right)\right]
-		 + \left(w_{2}^{*}\right)^2\E_{D}\left[h_{s_2}^{2}\left(\mathbf{x}; D\right)\right]\\
-		 %
-		 & = {\color{red} Lorem IPSUM}
+		 + \left(w_{2}^{*}\right)^2\Omega_{s_2}
 	\end{aligned}
 \end{equation}
-
-\hrule
-
-Recall that Lemma \ref{Cov_DNN_k} gives us the following result on the kernel of the DNN estimator.
+Starting from this decomposition, we can make the following observations.
+{\color{red} Demirkaya - Proof of Lemma 7}
 \begin{equation}
-	\lim_{n \rightarrow \infty} n^{-1}\frac{\xi_{s,s}\left(\mathbf{x}\right)}{\xi_{1,s}\left(\mathbf{x}\right)}
-	= 0.
+	\begin{aligned}
+		\E_{D}\left[h_{s_2}^{2}\left(\mathbf{x}; D\right)\right]
+		= \E_1\left[\mu^2\left(\mathbf{X}_1\right) s \E_{2:s}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1, D\right)\right]\right] + \sigma_{\varepsilon}^2
+		\lesssim \mu(\mathbf{x})^2 + \sigma_{\varepsilon}^2 + o(1) 
+		\quad \text{as} \quad n \rightarrow \infty
+	\end{aligned}
 \end{equation}
-Due to the explicit formula for the TDNN kernel shown in Lemma \ref{TDNN_kernel}, we can use this
+Furthermore, observe the following.
+\begin{equation}
+	\begin{aligned}
+		\E_{D}\left[\tilde{\mu}_{s_1}^{2}\left(\mathbf{x}; D\right)\right]
+		& = \E_D\left[\left(\binom{s_2}{s_1}^{-1}\sum_{\ell \in L_{s_2, s_1}} h_{s_1}\left(\mathbf{x}; D_{\ell}\right)\right)^2\right] 
+		= \binom{s_2}{s_1}^{-2} \E_{D}\left[\sum_{\iota, \iota' \in L_{s_2, s_1}}h_{s_1}\left(\mathbf{x}; D_{\iota}\right)h_{s_1}\left(\mathbf{x}; D_{\iota'}\right)\right] \\
+		%
+		& = 
+	\end{aligned}
+\end{equation}
+Lastly, consider the following.
+\begin{equation}
+	\begin{aligned}
+		\E_{D}\left[\tilde{\mu}_{s_1}\left(\mathbf{x}; D\right) h_{s_2}\left(\mathbf{x}; D\right)\right]
+	\end{aligned}
+\end{equation}
 
 \subsection{Proof of Theorem \ref{JK_Cons}}
 \hrule 
