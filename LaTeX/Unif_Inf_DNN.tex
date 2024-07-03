@@ -905,6 +905,8 @@ Having developed theoretical results concerning uniform inference methods for th
 	Thus showing that the Jackknife variance estimator is a U-statistic of order $2s$.
 \end{proof}
 
+
+\subsection{Kernel Variances \& Covariances}
 \hrule
 
 \begin{lem}[\citet{demirkaya_optimal_2024} - Lemma 12]\label{dem_lem12}\mbox{}\\*
@@ -920,10 +922,9 @@ Having developed theoretical results concerning uniform inference methods for th
 	Furthermore, $\varphi$ denotes the probability measure on $\mathbb{R}^{d}$ induced by the random vector $\mathbf{X}$.
 \end{lem}
 
-\subsection{Kernel Variances \& Covariances}
 \hrule
 
-\begin{lem}[{\color{red} From Demirkaya - Proof of Lemma 7}]\mbox{}\\*
+\begin{lem}[{\color{red} From Demirkaya - Proof of Lemma 7}]\label{lem_omega_s}\mbox{}\\*
 	Let $D = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{s}\}$ be a vector of i.i.d. random variables drawn from $P$.
 	Furthermore, let
 	\begin{equation}
@@ -1000,17 +1001,28 @@ Having developed theoretical results concerning uniform inference methods for th
 	Similarly, we can find that:
 	\begin{equation}
 		\begin{aligned}
-			{\color{red} LOREM IPSUM}
+			& \E_{D, D'}\left[c(s-c) \kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}^{\prime}, D^{\prime}\right)Y_{1}Y_{c+1}^{\prime}\right] \\
+			%
+			& \quad = \E_{D, D'}\left[\mu(\mathbf{X}_1)\mu(\mathbf{X}_{c+1}^{\prime}) \, c(s-c) \, \kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}^{\prime}, D^{\prime}\right)\right]\\
+			% 
+			&{\color{red} LOREM IPSUM}
+		\end{aligned}
+	\end{equation}
+	Following analogous steps, we find the same result for the third term.
+	\begin{equation}
+		\begin{aligned}
+			& \E_{D, D'}\left[c(s-c) \kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D^{\prime}\right)Y_{c+1}Y_{1}\right] \\
+			%
+			& \quad \lesssim {\color{red} SEE ABOVE}
 		\end{aligned}
 	\end{equation}
 	\begin{equation}
 		\begin{aligned}
-			{\color{red} LOREM IPSUM}
-		\end{aligned}
-	\end{equation}
-	\begin{equation}
-		\begin{aligned}
-			{\color{red} LOREM IPSUM}
+			& \E_{D, D'}\left[(s-c)^2 \kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}^{\prime}, D^{\prime}\right)Y_{c+1}Y_{c+1}^{\prime}\right]\\
+			%
+			& \quad = \E_{D, D'}\left[\mu(\mathbf{X}_{c+1})\mu(\mathbf{X}_{c+1}^{\prime})\, (s-c)^2 \, \kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}^{\prime}, D^{\prime}\right)\right]\\
+			%
+			& {\color{red} LOREM IPSUM}
 		\end{aligned}
 	\end{equation}
 \end{proof}
@@ -1151,11 +1163,12 @@ Define the following random variable $R(\mathbf{x}, m, D) = \1\left(\exists i \i
 		+ \left(w_{2}^{*}\right)^2\Omega_{s_2}
 	\end{aligned}
 \end{equation}
-Starting from this decomposition, we can make the following observations.
-	{\color{red} Demirkaya - Proof of Lemma 7}
+
+\begin{proof}
+	Recall that by Lemma \ref{lem_omega_s}, we have the following.
 \begin{equation}
 	\begin{aligned}
-		\E_{D}\left[h_{s_2}^{2}\left(\mathbf{x}; D\right)\right]
+		\Omega_{s_2}
 		= \E_1\left[\mu^2\left(\mathbf{X}_1\right) s \E_{2:s}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1, D\right)\right]\right] + \sigma_{\varepsilon}^2
 		\lesssim \mu(\mathbf{x})^2 + \sigma_{\varepsilon}^2 + o(1)
 		\quad \text{as} \quad n \rightarrow \infty
@@ -1177,6 +1190,7 @@ Lastly, consider the following.
 		\E_{D}\left[\tilde{\mu}_{s_1}\left(\mathbf{x}; D\right) h_{s_2}\left(\mathbf{x}; D\right)\right]
 	\end{aligned}
 \end{equation}
+\end{proof}
 
 \subsection{Proof of Theorem \ref{JK_Cons}}
 \hrule
