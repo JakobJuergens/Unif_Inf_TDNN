@@ -109,8 +109,8 @@ Due to the inherent connection of the Potential Nearest Neighbors (PNN) framewor
 
 The remainder of this paper is organized as follows.
 Section \ref{TDNN} introduces the TDNN estimator as developed by \citet{demirkaya_optimal_2024} and presents some of the results this paper is based on.
-Section \ref{PW_Inf} uses recent theoretical developments to show that the distributional approximations provided by \citet{demirkaya_optimal_2024} can be justified under weaker assumptions on the chosen subsampling scales.
-Section \ref{UnifInf} extends results from \citet{ritzwoller_uniform_2024} to the TDNN estimator and thus introduces methods to construct uniform confidence bands for the TDNN estimator.
+Section \ref{pw_inf} uses recent theoretical developments to show that the distributional approximations provided by \citet{demirkaya_optimal_2024} can be justified under weaker assumptions on the chosen subsampling scales.
+Section \ref{unif_inf} extends results from \citet{ritzwoller_uniform_2024} to the TDNN estimator and thus introduces methods to construct uniform confidence bands for the TDNN estimator.
 Section \ref{Simulations} explores the performance of the developed uniform inference methods in a number of setups and Section \ref{Application} applies them to the context of {\color{red} LOREM IPSUM}.
 Section \ref{Conclusion} concludes.
 
@@ -236,8 +236,7 @@ Through an equivalent representation as an L-statistic developed by \citet{steel
 Starting from this setup, \citet{demirkaya_optimal_2024} develop a novel bias-correction method for the DNN estimator that leads to appealing finite-sample properties of the resulting Two-Scale Distributional Nearest Neighbor (TDNN) estimator.
 Their method is based on an explicit formula for the first-order bias term of the DNN estimator, which in turn allows them to eliminate it through a clever combination of two DNN estimators.
 
-
-\begin{thm}[\citet{demirkaya_optimal_2024} - Theorem 1]\label{demirkaya_Thm1}\mbox{}\\*
+\begin{thm}[\citet{demirkaya_optimal_2024} - Theorem 1]\label{dem_thm1}\mbox{}\\*
 	Assume that the distribution of $\mathbf{X}$ has a density function $f(\cdot)$ with respect to the Lebesgue measure $\lambda$ on the Euclidean space $\mathbb{R}^d$.
 	Let $\mathbf{x} \in \operatorname{supp}(\mathbf{X})$ be a fixed feature vector.
 	If \dots
@@ -279,12 +278,12 @@ they define the corresponding TDNN estimator as follows.
 	\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right)
 	= w_1^{*}(s_1, s_2)\tilde{\mu}_{s_1}\left(\mathbf{x}; \mathbf{D}_n\right) + w_2^{*}(s_1, s_2)\tilde{\mu}_{s_2}\left(\mathbf{x}; \mathbf{D}_n\right)
 \end{equation}
-As a direct consequence of Theorem \ref{demirkaya_Thm1}, this leads to the elimination of the first-order bias term leading to desirable finite-sample properties.
+As a direct consequence of Theorem \ref{dem_thm1}, this leads to the elimination of the first-order bias term leading to desirable finite-sample properties.
 Furthermore, the authors show that this construction improves the quality of the normal approximation.
 
 
-\begin{thm}[\citet{demirkaya_optimal_2024} - Theorem 3]\label{demirkaya_Thm3}\mbox{}\\*
-	Assume that Conditions (1) to (3) from Theorem \ref{demirkaya_Thm1} hold.
+\begin{thm}[\citet{demirkaya_optimal_2024} - Theorem 3]\label{dem_thm3}\mbox{}\\*
+	Assume that Conditions (1) to (3) from Theorem \ref{dem_thm1} hold.
 	Furthermore, let $s_2 \rightarrow \infty$ with $s_2 = o(n)$ and $c_1 \leq s_1/s_2 \leq c_2$ for some constants $0 < c_1 < c_2 < 1$.
 	Then, for any fixed $\mathbf{x} \in \operatorname{supp}(\mathbf{X}) \subset \mathbb{R}^d,$ it holds that for some positive sequence $\sigma_n$ of order $(s_2/n)^{1/2}$,
 	\begin{equation}
@@ -365,11 +364,11 @@ with an analogous definition of $\mathbf{Z}'$.
 
 
 \newpage
-\section{Pointwise Inference for the TDNN Estimator}\label{PW_Inf}
+\section{Pointwise Inference for the TDNN Estimator}\label{pw_inf}
 \hrule
 To perform inference, the authors introduce variance estimators based on the Jackknife and Bootstrap.
 However, as they point out, their consistency results rely on a likely suboptimal rate condition for the subsampling scale.
-While Theorem \ref{demirkaya_Thm3} allows $s_2$ to be of the order $o(n)$, the variance estimators rely on the considerably stronger condition that $s_2 = o(n^{1/3})$.
+While Theorem \ref{dem_thm3} allows $s_2$ to be of the order $o(n)$, the variance estimators rely on the considerably stronger condition that $s_2 = o(n^{1/3})$.
 Establishing consistency for their variance estimators under weaker assumptions on the subsampling rates could broaden the scope of the TDNN estimator for inferential purposes considerably.
 Another variance that is of particular interest in this context is the Pseudo-Infinitesimal Jackknife (PIJK) Variance Estimator for Generalized U-Statistics of \citet{peng_bias_2021}.
 Going forward, all results will be stated for the TDNN estimator.
@@ -487,13 +486,13 @@ These can be found in their Supplementary Material, parts D.5 and D.6.
 			LOREM IPSUM
 		\end{thm}
 
-		\begin{thm}[Pointwise Inference with the TDNN Estimator]\label{PW_Inf_TDNN}\mbox{}\\*
+		\begin{thm}[Pointwise Inference with the TDNN Estimator]\label{pw_inf_TDNN}\mbox{}\\*
 			LOREM IPSUM
 		\end{thm}
 	}
 
 \newpage
-\section{Uniform Inference for the TDNN Estimator}\label{UnifInf}
+\section{Uniform Inference for the TDNN Estimator}\label{unif_inf}
 \hrule
 Absent from \citet{demirkaya_optimal_2024} is a way to construct uniformly valid confidence bands around the TDNN estimator.
 Luckily, as a byproduct of considering the methods from \citet{ritzwoller_uniform_2024}, procedures for uniform inference can be developed relatively easily.
@@ -525,7 +524,7 @@ To summarize the kind of object we want to construct, we define a uniform confid
 \subsection{Low-Level}
 In our pursuit of constructing uniform confidence regions for the TDNN estimator, we return to the results from \citet{ritzwoller_uniform_2024} in their high-dimensional form.
 
-\begin{thm}[\citet{ritzwoller_uniform_2024} - Theorem 4.1]\mbox{}\\*
+\begin{thm}[\citet{ritzwoller_uniform_2024} - Theorem 4.1]\label{rit_thm4_1}\mbox{}\\*
 	For any sequence of kernel orders $b=b_n$, where
 	\begin{equation}
 		\frac{1}{n} \frac{\nu_j^2}{\sigma_{b, j}^2} \rightarrow 0
@@ -541,7 +540,7 @@ In our pursuit of constructing uniform confidence regions for the TDNN estimator
 \end{thm}
 
 
-\begin{thm}[Adapted from \citet{ritzwoller_uniform_2024} - Theorem 4.2]\label{ritzwoller_Thm4_2}\mbox{}\\*
+\begin{thm}[Adapted from \citet{ritzwoller_uniform_2024} - Theorem 4.2]\label{rit_thm4_2}\mbox{}\\*
 	Define the terms
 	\begin{equation}
 		\bar{\psi}_{s_2}^2
@@ -775,11 +774,11 @@ Having developed theoretical results concerning uniform inference methods for th
 \hrule
 
 
-\section{Proofs for Results in Section \ref{PW_Inf}}
+\section{Proofs for Results in Section \ref{pw_inf}}
 \hrule
 
 \subsection{Useful Lemmas}
-\hrule 
+\hrule
 
 \begin{lem}[\citet{lee_u-statistics_2019} - Chapter 5, Theorem 1]\mbox{}\\*\label{Lee_ch5thm1}
 	Let $U_n$ be a U-statistic of degree $s$ based on a kernel $\psi_s$.
@@ -906,27 +905,41 @@ Having developed theoretical results concerning uniform inference methods for th
 	Thus showing that the Jackknife variance estimator is a U-statistic of order $2s$.
 \end{proof}
 
+\hrule
+
+\begin{lem}[\citet{demirkaya_optimal_2024} - Lemma 12]\label{dem_lem12}\mbox{}\\*
+	Let $D = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_s\}$ an i.i.d. sample drawn from $P$.
+	The indicator functions $\kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right)$ satisfy the following properties.
+	\begin{enumerate}
+		\item For any $i \neq j$, we have $\kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right) \kappa\left(\mathbf{x}; \mathbf{Z}_j, D\right)=0$ with probability one;
+		\item $\sum_{i=1}^{|D|} \kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right)=1$;
+		\item $\forall i \in [s]: \quad \mathbb{E}_{1:s}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right)\right]=s^{-1}$
+		\item $\mathbb{E}_{2: s}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1, D\right)\right]=\left\{1-\varphi\left(B\left(\mathbf{x},\left\|\mathbf{X}_1-\mathbf{x}\right\|\right)\right)\right\}^{s-1}$
+	\end{enumerate}
+	Here $\mathbb{E}_{i: s}$ denotes the expectation with respect to $\left\{\mathbf{Z}_i, \mathbf{Z}_{i+1}, \cdots, \mathbf{Z}_s\right\}$.
+	Furthermore, $\varphi$ denotes the probability measure on $\mathbb{R}^{d}$ induced by the random vector $\mathbf{X}$.
+\end{lem}
+
 \subsection{Kernel Variances \& Covariances}
-\hrule 
+\hrule
 
 \begin{lem}[{\color{red} From Demirkaya - Proof of Lemma 7}]\mbox{}\\*
 	Let $D = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{s}\}$ be a vector of i.i.d. random variables drawn from $P$.
 	Furthermore, let
 	\begin{equation}
 		\Omega_{s}
-		= \E\left[h_{s}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,  \mathbf{Z}_{s}\right) \cdot
-		h_{s}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{s}\right)\right].
+		= \E\left[h_{s}^{2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,  \mathbf{Z}_{s}\right)\right].
 	\end{equation}
 	Then,
 	\begin{equation}
 		\Omega_{s}
 		= \E_1\left[\mu^2\left(\mathbf{X}_1\right) s \E_{2:s}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1, D\right)\right]\right] + \sigma_{\varepsilon}^2
-		\lesssim \mu(\mathbf{x})^2 + \sigma_{\varepsilon}^2 + o(1) 
+		\lesssim \mu^2(\mathbf{x}) + \sigma_{\varepsilon}^2 + o(1)
 		\quad \text{as} \quad s \rightarrow \infty.
 	\end{equation}
 \end{lem}
 
-\hrule 
+\hrule
 
 \begin{lem}\mbox{}\\*
 	Let $D = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{s}\}$ be a vector of i.i.d. random variables drawn from $P$.
@@ -935,16 +948,74 @@ Having developed theoretical results concerning uniform inference methods for th
 	\begin{equation}
 		\Omega_{s}^{c}
 		= \E\left[h_{s}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_{c}, \mathbf{Z}_{c+1}, \ldots, \mathbf{Z}_{s}\right) \cdot
-		h_{s}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{c}, \mathbf{Z}_{c+1}^{\prime}, \ldots, \mathbf{Z}_{s}^{\prime}\right)\right].
+			h_{s}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{c}, \mathbf{Z}_{c+1}^{\prime}, \ldots, \mathbf{Z}_{s}^{\prime}\right)\right].
 	\end{equation}
 	Then,
 	\begin{equation}
 		\Omega_{s}^{c}
-		= 
+		=
 	\end{equation}
 \end{lem}
 
-\hrule 
+\begin{proof}
+	\begin{equation}
+		\begin{aligned}
+			\Omega_{s}^{c}
+			 & = \E\left[h_{s}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_{c}, \mathbf{Z}_{c+1}, \ldots, \mathbf{Z}_{s}\right) \cdot
+			h_{s}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{c}, \mathbf{Z}_{c+1}^{\prime}, \ldots, \mathbf{Z}_{s}^{\prime}\right)\right]                                                                \\
+			%
+			 & = \E_{D, D'}\left[
+				\left(\sum_{i = 1}^{s}\kappa\left(\mathbf{x}; \mathbf{Z}_{i}, D\right)Y_{i}\right)
+				\left(\sum_{j = 1}^{c}\kappa\left(\mathbf{x}; \mathbf{Z}_{j}, D^{\prime}\right)Y_{j}
+				+ \sum_{j = c+1}^{s}\kappa\left(\mathbf{x}; \mathbf{Z}_{j}^{\prime}, D^{\prime}\right)Y_{j}^{\prime}\right)
+			\right]                                                                                                                                                                                             \\
+			%
+			 & = \E_{D, D'}\left[\sum_{i = 1}^{c}\sum_{j = 1}^{c}\kappa\left(\mathbf{x}; \mathbf{Z}_{i}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{j}, D^{\prime}\right)Y_{i}Y_{j}\right]
+			+  \E_{D, D'}\left[\sum_{i = 1}^{c}\sum_{j = c+1}^{s}\kappa\left(\mathbf{x}; \mathbf{Z}_{i}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{j}^{\prime}, D^{\prime}\right)Y_{i}Y_{j}^{\prime}\right]   \\
+			 & \quad + \E_{D, D'}\left[\sum_{i = c+1}^{s}\sum_{j = 1}^{c}\kappa\left(\mathbf{x}; \mathbf{Z}_{i}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{j}, D^{\prime}\right)Y_{i}Y_{j}\right]
+			+  \E_{D, D'}\left[\sum_{i = c+1}^{s}\sum_{j = c+1}^{s}\kappa\left(\mathbf{x}; \mathbf{Z}_{i}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{j}^{\prime}, D^{\prime}\right)Y_{i}Y_{j}^{\prime}\right] \\
+			%
+			 & = \E_{D, D'}\left[c \kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D^{\prime}\right)Y_{1}^{2}\right]
+			 + \E_{D, D'}\left[c(s-c) \kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}^{\prime}, D^{\prime}\right)Y_{1}Y_{c+1}^{\prime}\right] \\
+			 & \quad + \E_{D, D'}\left[c(s-c) \kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D^{\prime}\right)Y_{c+1}Y_{1}\right] \\
+			 & \quad + \E_{D, D'}\left[(s-c)^2 \kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}^{\prime}, D^{\prime}\right)Y_{c+1}Y_{c+1}^{\prime}\right]
+		\end{aligned}
+	\end{equation}
+		Starting from this decomposition, we will analyze the terms one by one.
+		First, by honesty and an application of Lemma \ref{dem_lem12}, we find the following.
+	\begin{equation}
+		\begin{aligned}
+			\E_{D, D'}\left[c\kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D^{\prime}\right)Y_{1}^{2}\right]
+			 & = \E_{D, D'}\left[c\kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D^{\prime}\right)\left(\mu^2(\mathbf{X}_1) + \sigma_{\varepsilon}^{2}\right)\right]\\
+			 %
+			 & = \E_{1}\left[\left(\mu^2(\mathbf{X}_1) + \sigma_{\varepsilon}^{2}\right) c\E_{2:s}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D^{\prime}\right)\right]\right]\\
+			 %
+			 & = \E_{1}\left[\left(\mu^2(\mathbf{X}_1) + \sigma_{\varepsilon}^{2}\right) c\left\{1 - \varphi\left(B\left(\mathbf{x}, \|\mathbf{X}_1 - \mathbf{x}\|\right)\right)\right\}^{2s-c-1}\right]\\ 
+			 %
+			 & \leq \E_{1}\left[\left(\mu^2(\mathbf{X}_1) + \sigma_{\varepsilon}^{2}\right) s\left\{1 - \varphi\left(B\left(\mathbf{x}, \|\mathbf{X}_1 - \mathbf{x}\|\right)\right)\right\}^{s-1}\right]\\ 
+			 %
+			 & \lesssim \mu^2(\mathbf{x}) + \sigma_{\varepsilon}^{2} + o(1)
+		\end{aligned}
+	\end{equation}
+	Similarly, we can find that:
+	\begin{equation}
+		\begin{aligned}
+			{\color{red} LOREM IPSUM}
+		\end{aligned}
+	\end{equation}
+	\begin{equation}
+		\begin{aligned}
+			{\color{red} LOREM IPSUM}
+		\end{aligned}
+	\end{equation}
+	\begin{equation}
+		\begin{aligned}
+			{\color{red} LOREM IPSUM}
+		\end{aligned}
+	\end{equation}
+\end{proof}
+
+\hrule
 
 \begin{lem}\mbox{}\\*
 	Let $D = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{s_2}\}$ be a vector of i.i.d. random variables drawn from $P$ for $s_2 > s_1$.
@@ -952,7 +1023,7 @@ Having developed theoretical results concerning uniform inference methods for th
 	\begin{equation}
 		\Upsilon_{s_1, s_2}
 		= \E\left[h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,  \mathbf{Z}_{s_1}\right) \cdot
-		h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{s_1}, \ldots, \mathbf{Z}_{s_2}\right)\right].
+			h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{s_1}, \ldots, \mathbf{Z}_{s_2}\right)\right].
 	\end{equation}
 	Then,
 	\begin{equation}
@@ -966,7 +1037,7 @@ Define the following random variable $R(\mathbf{x}, m, D) = \1\left(\exists i \i
 	\begin{aligned}
 		\Upsilon_{s_1, s_2}
 		 & = \E\left[h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,  \mathbf{Z}_{s_1}\right) \cdot
-		h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{s_1}, \ldots, \mathbf{Z}_{s_2}\right)\right]                                              \\
+		h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{s_1}, \ldots, \mathbf{Z}_{s_2}\right)\right] \\
 		%
 		%  & = \E\left[\Cov\left(h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,  \mathbf{Z}_{s_1}\right),
 		% h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{s_1}, \ldots, \mathbf{Z}_{s_2}\right) \, \Big| \, R(\mathbf{x}, s_1, D)\right)\right]     \\
@@ -986,7 +1057,7 @@ Define the following random variable $R(\mathbf{x}, m, D) = \1\left(\exists i \i
 	\end{aligned}
 \end{equation}
 
-\hrule 
+\hrule
 
 \begin{lem}\mbox{}\\*
 	Let $D = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{s_2}\}$ be a vector of i.i.d. random variables drawn from $P$ for $s_2 > s_1$.
@@ -995,7 +1066,7 @@ Define the following random variable $R(\mathbf{x}, m, D) = \1\left(\exists i \i
 	\begin{equation}
 		\Upsilon_{s_1, s_2}^{c}
 		= \E\left[h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_c, \mathbf{Z}^{\prime}_{c+1}, \ldots,  \mathbf{Z}^{\prime}_{s_1}\right) \cdot
-		h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_{s_2}\right)\right].
+			h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_{s_2}\right)\right].
 	\end{equation}
 	Then,
 	\begin{equation}
@@ -1008,12 +1079,12 @@ Define the following random variable $R(\mathbf{x}, m, D) = \1\left(\exists i \i
 	\begin{aligned}
 		\Upsilon_{s_1, s_2}^{c}
 		 & = \E\left[h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_c, \mathbf{Z}^{\prime}_{c+1}, \ldots,  \mathbf{Z}^{\prime}_{s_1}\right) \cdot
-		h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_{s_2}\right)\right]                                                                     \\
+		h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_{s_2}\right)\right]                                                                        \\
 		 & =
 	\end{aligned}
 \end{equation}
 
-\hrule 
+\hrule
 
 \begin{lem}[Kernel Covariances of the TDNN Kernel]\label{Cov_TDNN}
 
@@ -1075,18 +1146,18 @@ Define the following random variable $R(\mathbf{x}, m, D) = \1\left(\exists i \i
 			\left(w_{1}^{*}\tilde{\mu}_{s_1}\left(\mathbf{x}; D\right) + w_{2}^{*} h_{s_2}\left(\mathbf{x}; D\right)\right)^2
 		\right]                                                                                           \\
 		%
-		 & = \left(w_{1}^{*}\right)^2\E_{D}\left[\tilde{\mu}_{s_1}^{2}\left(\mathbf{x}; D\right)\right] 
-		 + 2 w_{1}^{*}w_{2}^{*} \E_{D}\left[\tilde{\mu}_{s_1}\left(\mathbf{x}; D\right) h_{s_2}\left(\mathbf{x}; D\right)\right]
-		 + \left(w_{2}^{*}\right)^2\Omega_{s_2}
+		 & = \left(w_{1}^{*}\right)^2\E_{D}\left[\tilde{\mu}_{s_1}^{2}\left(\mathbf{x}; D\right)\right]
+		+ 2 w_{1}^{*}w_{2}^{*} \E_{D}\left[\tilde{\mu}_{s_1}\left(\mathbf{x}; D\right) h_{s_2}\left(\mathbf{x}; D\right)\right]
+		+ \left(w_{2}^{*}\right)^2\Omega_{s_2}
 	\end{aligned}
 \end{equation}
 Starting from this decomposition, we can make the following observations.
-{\color{red} Demirkaya - Proof of Lemma 7}
+	{\color{red} Demirkaya - Proof of Lemma 7}
 \begin{equation}
 	\begin{aligned}
 		\E_{D}\left[h_{s_2}^{2}\left(\mathbf{x}; D\right)\right]
 		= \E_1\left[\mu^2\left(\mathbf{X}_1\right) s \E_{2:s}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1, D\right)\right]\right] + \sigma_{\varepsilon}^2
-		\lesssim \mu(\mathbf{x})^2 + \sigma_{\varepsilon}^2 + o(1) 
+		\lesssim \mu(\mathbf{x})^2 + \sigma_{\varepsilon}^2 + o(1)
 		\quad \text{as} \quad n \rightarrow \infty
 	\end{aligned}
 \end{equation}
@@ -1094,10 +1165,10 @@ Furthermore, observe the following.
 \begin{equation}
 	\begin{aligned}
 		\E_{D}\left[\tilde{\mu}_{s_1}^{2}\left(\mathbf{x}; D\right)\right]
-		& = \E_D\left[\left(\binom{s_2}{s_1}^{-1}\sum_{\ell \in L_{s_2, s_1}} h_{s_1}\left(\mathbf{x}; D_{\ell}\right)\right)^2\right] 
+		 & = \E_D\left[\left(\binom{s_2}{s_1}^{-1}\sum_{\ell \in L_{s_2, s_1}} h_{s_1}\left(\mathbf{x}; D_{\ell}\right)\right)^2\right]
 		= \binom{s_2}{s_1}^{-2} \E_{D}\left[\sum_{\iota, \iota' \in L_{s_2, s_1}}h_{s_1}\left(\mathbf{x}; D_{\iota}\right)h_{s_1}\left(\mathbf{x}; D_{\iota'}\right)\right] \\
 		%
-		& = 
+		 & =
 	\end{aligned}
 \end{equation}
 Lastly, consider the following.
@@ -1108,27 +1179,27 @@ Lastly, consider the following.
 \end{equation}
 
 \subsection{Proof of Theorem \ref{JK_Cons}}
-\hrule 
+\hrule
 
 \begin{proof}[Proof of Theorem \ref{JK_Cons}]\mbox{}\\*
 
 \end{proof}
 
 \subsection{Proof of Theorem \ref{BS_Cons}}
-\hrule 
+\hrule
 
 \begin{proof}[Proof of Theorem \ref{BS_Cons}]\mbox{}\\*
 
 \end{proof}
 
-\subsection{Proof of Theorem \ref{PW_Inf_TDNN}}
-\hrule 
+\subsection{Proof of Theorem \ref{pw_inf_TDNN}}
+\hrule
 
-\begin{proof}[Proof of Theorem \ref{PW_Inf_TDNN}]\mbox{}\\*
+\begin{proof}[Proof of Theorem \ref{pw_inf_TDNN}]\mbox{}\\*
 
 \end{proof}
 
-\section{Proofs for Results in Section \ref{UnifInf}}
+\section{Proofs for Results in Section \ref{unif_inf}}
 \hrule
 
 
