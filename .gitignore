@@ -1,5 +1,5 @@
 /Literature
-/LaTeX/*
+/LaTeX/**
 !/LaTeX/*.tex
 !/LaTeX/*.pdf
 !/LaTeX/*.bib
