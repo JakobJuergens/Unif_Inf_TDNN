@@ -958,7 +958,8 @@ Having developed theoretical results concerning uniform inference methods for th
 	Then,
 	\begin{equation}
 		\Omega_{s}^{c}
-		\lesssim 4 \mu^2\left(\mathbf{x}\right) + \sigma^2_{\varepsilon} + o(1).
+		\lesssim 4 \mu^2\left(\mathbf{x}\right) + \sigma^2_{\varepsilon} + o(1)
+		\quad \text{as} \quad s \rightarrow \infty.
 	\end{equation}
 \end{lem}
 
@@ -1045,7 +1046,7 @@ Having developed theoretical results concerning uniform inference methods for th
 
 \hrule
 
-\begin{lem}\mbox{}\\*
+\begin{lem}\label{lem_upsilon_s}\mbox{}\\*
 	Let $D = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{s_2}\}$ be a vector of i.i.d. random variables drawn from $P$ for $s_2 > s_1$.
 	Furthermore, let
 	\begin{equation}
@@ -1056,38 +1057,46 @@ Having developed theoretical results concerning uniform inference methods for th
 	Then,
 	\begin{equation}
 		\Upsilon_{s_1, s_2}
-		= .
+		\lesssim 2 \mu^{2}\left(\mathbf{x}\right) + \sigma^2_{\varepsilon} + o(1) 
+		\quad \text{as} \quad s_1, s_2 \rightarrow \infty
+		\quad \text{with} \quad 
+		0 < c_1 \leq s_1 / s_2 \leq c_2 < 1.
 	\end{equation}
 \end{lem}
 
-Define the following random variable $R(\mathbf{x}, m, D) = \1\left(\exists i \in [m] \text{ s.t. } \rk(\mathbf{x}, \mathbf{Z}_i, D) = 1 \right)$.
-\begin{equation}
-	\begin{aligned}
-		\Upsilon_{s_1, s_2}
-		 & = \E\left[h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,  \mathbf{Z}_{s_1}\right) \cdot
-		h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{s_1}, \ldots, \mathbf{Z}_{s_2}\right)\right] \\
-		%
-		%  & = \E\left[\Cov\left(h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,  \mathbf{Z}_{s_1}\right),
-		% h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{s_1}, \ldots, \mathbf{Z}_{s_2}\right) \, \Big| \, R(\mathbf{x}, s_1, D)\right)\right]     \\
-		%  & \quad + \Cov\left(
-		% \E\left[h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,  \mathbf{Z}_{s_1}\right) \, \Big| \, R(\mathbf{x}, s_1, D)\right],
-		% \E\left[h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{s_1}, \ldots, \mathbf{Z}_{s_2}\right) \, \Big| \, R(\mathbf{x}, s_1, D)\right]
-		% \right)                                                                                                                                             \\
-		% %
-		%  & = \frac{s_1}{s_2} \E\left[\Cov\left(h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,  \mathbf{Z}_{s_1}\right),
-		% h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{s_1}, \ldots, \mathbf{Z}_{s_2}\right) \, \Big| \, R(\mathbf{x}, s_1, D) = 1\right)\right] \\
-		%  & \quad + \frac{s_2 - s_1}{s_2} \E\left[\Cov\left(h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,  \mathbf{Z}_{s_1}\right),
-		% h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{s_1}, \ldots, \mathbf{Z}_{s_2}\right) \, \Big| \, R(\mathbf{x}, s_1, D) = 0\right)\right] \\
-		%  & \quad + \Cov\left(
-		% \E\left[h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,  \mathbf{Z}_{s_1}\right) \, \Big| \, R(\mathbf{x}, s_1, D)\right],
-		% \E\left[h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{s_1}, \ldots, \mathbf{Z}_{s_2}\right) \, \Big| \, R(\mathbf{x}, s_1, D)\right]
-		% \right)                                                                                                                                             \\
-	\end{aligned}
-\end{equation}
+\begin{proof}[Proof of Lemma \ref{lem_upsilon_s}]
+	\begin{equation}
+		\begin{aligned}
+			\Upsilon_{s_1, s_2}
+			 & = \E\left[h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,  \mathbf{Z}_{s_1}\right) \cdot
+			h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{s_1}, \ldots, \mathbf{Z}_{s_2}\right)\right] \\
+			%
+			 & = \E_{D}\left[
+				\left(\sum_{i = 1}^{s_1} \kappa(\mathbf{x}; \mathbf{Z}_i, D_{[s_1]})Y_i\right)
+				\left(\sum_{j = 1}^{s_1}\kappa(\mathbf{x}; \mathbf{Z}_j, D)Y_j + \sum_{j = s_1 + 1}^{s_2}\kappa(\mathbf{x}; \mathbf{Z}_j, D)Y_j\right)
+			\right]                                                                                                \\
+			%
+			 & = \E_{D}\left[\sum_{i = 1}^{s_1} \kappa(\mathbf{x}; \mathbf{Z}_i, D) Y_i^2\right]
+			 + \E_{D}\left[\sum_{i = 1}^{s_1}\sum_{j = s_1 + 1}^{s_2}\kappa(\mathbf{x}; \mathbf{Z}_i, D_{[s_1]})\kappa(\mathbf{x}; \mathbf{Z}_j, D) Y_i Y_j\right]\\
+			 %
+			 & = \E_{D}\left[Y_1^2 \, s_1 \, \kappa(\mathbf{x}; \mathbf{Z}_1, D)\right]
+			 + \E_{D}\left[Y_{1} Y_{s_2} \, s_1 (s_2 - s_1) \, \kappa(\mathbf{x}; \mathbf{Z}_1, D_{[s_1]})\kappa(\mathbf{x}; \mathbf{Z}_{s_2}, D)\right]\\
+			 %
+			 & = \E_{D}\left[\left(\mu^2(\mathbf{X}_1) + \sigma^2_{\varepsilon}\right) \, s_1 \, \kappa(\mathbf{x}; \mathbf{Z}_1, D)\right]
+			 + \E_{D}\left[\mu(\mathbf{X}_1) \mu(\mathbf{X}_{s_2}) \, s_1 (s_2 - s_1) \, \kappa(\mathbf{x}; \mathbf{Z}_1, D_{[s_1]})\kappa(\mathbf{x}; \mathbf{Z}_{s_2}, D)\right]\\
+			 %
+			 & \leq \E_{D}\left[\left(\mu^2(\mathbf{X}_1) + \sigma^2_{\varepsilon}\right) \, s_2 \, \kappa(\mathbf{x}; \mathbf{Z}_1, D)\right]
+			 + \E_{D}\left[|\mu(\mathbf{X}_1)| \, s_1 \, \kappa(\mathbf{x}; \mathbf{Z}_1, D_{[s_1]})\right]
+			 \E_{D}\left[|\mu(\mathbf{X}_{s_2})| \, s_2 \, \kappa(\mathbf{x}; \mathbf{Z}_{s_2}, D)\right]\\
+			 %
+			 & \lesssim 2 \mu^{2}\left(\mathbf{x}\right) + \sigma^2_{\varepsilon} + o(1).
+		\end{aligned}
+	\end{equation}
+\end{proof}
 
 \hrule
 
-\begin{lem}\mbox{}\\*
+\begin{lem}\label{lem_upsilon_sc}\mbox{}\\*
 	Let $D = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{s_2}\}$ be a vector of i.i.d. random variables drawn from $P$ for $s_2 > s_1$.
 	Let $D^{\prime} = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{c}, \mathbf{Z}_{c+1}^{\prime}, \dotsc,  \mathbf{Z}_{s_1}^{\prime}\}$ where $\mathbf{Z}_{c+1}^{\prime}, \dotsc,  \mathbf{Z}_{s_1}^{\prime}$ are i.i.d. draws from $P$ that are independent of $D$.
 	Furthermore, let
@@ -1103,14 +1112,17 @@ Define the following random variable $R(\mathbf{x}, m, D) = \1\left(\exists i \i
 	\end{equation}
 \end{lem}
 
-\begin{equation}
-	\begin{aligned}
-		\Upsilon_{s_1, s_2}^{c}
-		 & = \E\left[h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_c, \mathbf{Z}^{\prime}_{c+1}, \ldots,  \mathbf{Z}^{\prime}_{s_1}\right) \cdot
-		h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_{s_2}\right)\right]                                                                        \\
-		 & =
-	\end{aligned}
-\end{equation}
+\begin{proof}[Proof of Lemma \ref{lem_upsilon_sc}]
+	\begin{equation}
+		\begin{aligned}
+			\Upsilon_{s_1, s_2}^{c}
+			 & = \E\left[h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_c, \mathbf{Z}^{\prime}_{c+1}, \ldots,  \mathbf{Z}^{\prime}_{s_1}\right) \cdot
+			h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_{s_2}\right)\right]   \\
+			%                                                                     
+			 & =
+		\end{aligned}
+	\end{equation}
+\end{proof}
 
 \hrule
 
