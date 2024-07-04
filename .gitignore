@@ -1,2 +1,8 @@
 /Literature
+/LaTeX/*
+!/LaTeX/*.tex
+!/LaTeX/*.pdf
+!/LaTeX/*.bib
+!/LaTeX/*.bbl
+!/LaTeX/*.thm
 .Rproj.user

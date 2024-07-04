@@ -1144,7 +1144,8 @@ Having developed theoretical results concerning uniform inference methods for th
 			 & = \E_{D, D'}\left[\sum_{i = 1}^{c}\sum_{j = 1}^{c} \kappa(\mathbf{x}; \mathbf{Z}_i, D^{\prime})\kappa(\mathbf{x}; \mathbf{Z}_j, D)Y_i Y_j\right]
 			+ \E_{D, D'}\left[\left(\sum_{i = 1}^{c}\kappa(\mathbf{x}; \mathbf{Z}_i, D^{\prime}) Y_i\right) \left(\sum_{j = c+1}^{s_2} \kappa(\mathbf{x}; \mathbf{Z}_j, D) Y_j\right)\right] \\
 			 & \quad + \E_{D, D'}\left[\sum_{i = c+1}^{s_1}\sum_{j = 1}^{c} \kappa(\mathbf{x}; \mathbf{Z}_i^{\prime}, D^{\prime})\kappa(\mathbf{x}; \mathbf{Z}_j, D)Y_i^{\prime} Y_j\right]
-			+ \E_{D, D'}\left[\sum_{i = c+1}^{s_1}\sum_{j = c+1}^{s_2} \kappa(\mathbf{x}; \mathbf{Z}_i^{\prime}, D^{\prime})\kappa(\mathbf{x}; \mathbf{Z}_j, D)Y_i^{\prime} Y_j\right]
+			+ \E_{D, D'}\left[\left(\sum_{i = c+1}^{s_1}\kappa(\mathbf{x}; \mathbf{Z}_i^{\prime}, D^{\prime}) Y_i^{\prime}\right)
+				\left(\sum_{j = c+1}^{s_2} \kappa(\mathbf{x}; \mathbf{Z}_j, D) Y_j\right)\right]
 		\end{aligned}
 	\end{equation}
 	Again, we have four terms to analyze individually.
@@ -1163,50 +1164,54 @@ Having developed theoretical results concerning uniform inference methods for th
 			= O(c/s_1)
 		\end{aligned}
 	\end{equation}
-	Considering the second term, we first split up one of the sums and deal with the resulting terms separately.
+	Considering the second term, we find the following.
 	\begin{equation}
 		\begin{aligned}
 			 & \E_{D, D'}\left[\left(\sum_{i = 1}^{c}\kappa(\mathbf{x}; \mathbf{Z}_i, D^{\prime}) Y_i\right)
-			\left(\sum_{j = c+1}^{s_2} \kappa(\mathbf{x}; \mathbf{Z}_j, D) Y_j\right)\right]                                                                                                  \\
+			\left(\sum_{j = c+1}^{s_2} \kappa(\mathbf{x}; \mathbf{Z}_j, D) Y_j\right)\right]                                                                                          \\                                                                                                                                                                         \\
 			%
-			 & \quad = \E_{D, D'}\left[\left(\sum_{i = 1}^{c}\kappa(\mathbf{x}; \mathbf{Z}_i, D^{\prime}) Y_i\right)
-				\left(\sum_{j = c+1}^{s_1} \kappa(\mathbf{x}; \mathbf{Z}_j, D) Y_j
-				+ \sum_{j = s_1+1}^{s_2} \kappa(\mathbf{x}; \mathbf{Z}_j, D) Y_j\right)
-			\right]                                                                                                                                                                           \\
+			 & \quad = \E_{D, D'}\left[\sum_{i = 1}^{c}\sum_{j = c+1}^{s_2}Y_i Y_j \kappa(\mathbf{x}; \mathbf{Z}_i, D^{\prime})\kappa(\mathbf{x}; \mathbf{Z}_j, D)\right]             \\
 			%
-			 & \quad = \E_{D, D'}\left[\sum_{i = 1}^{c}\sum_{j = c+1}^{s_1}Y_i Y_j \kappa(\mathbf{x}; \mathbf{Z}_i, D^{\prime})\kappa(\mathbf{x}; \mathbf{Z}_j, D)\right]
-			+ \E_{D, D'}\left[\sum_{i = 1}^{c}\sum_{j = s_1+1}^{s_2}Y_i Y_j \kappa(\mathbf{x}; \mathbf{Z}_i, D^{\prime})\kappa(\mathbf{x}; \mathbf{Z}_j, D)\right]                            \\
+			 & \quad = \E_{D, D'}\left[c(s_2 - c) \, Y_1 Y_{s_1} \kappa(\mathbf{x}; \mathbf{Z}_1, D^{\prime})\kappa(\mathbf{x}; \mathbf{Z}_{s_2}, D)\right]                           \\
 			%
-			 & \quad = \E_{D, D'}\left[c(s_1 - c) \, Y_1 Y_{s_1} \kappa(\mathbf{x}; \mathbf{Z}_1, D^{\prime})\kappa(\mathbf{x}; \mathbf{Z}_{s_1}, D)\right]
-			+ \E_{D, D'}\left[c (s_2 - s_1) Y_1 Y_{s_2} \kappa(\mathbf{x}; \mathbf{Z}_1, D^{\prime})\kappa(\mathbf{x}; \mathbf{Z}_{s_2}, D)\right]                                            \\
+			 & \quad = \frac{c (s_2 - c)}{s_1 s_2}\E_{D, D'}\left[Y_1 Y_{s_2} \, s_1 s_2 \,\kappa(\mathbf{x}; \mathbf{Z}_1, D^{\prime})\kappa(\mathbf{x}; \mathbf{Z}_{s_2}, D)\right] \\
 			%
-			 & \quad = \frac{c (s_1 - c)}{s_1 s_2}\E_{D, D'}\left[Y_1 Y_{s_1} \, s_1 s_2 \,\kappa(\mathbf{x}; \mathbf{Z}_1, D^{\prime})\kappa(\mathbf{x}; \mathbf{Z}_{s_1}, D)\right]         \\
-			 & \quad \quad + \frac{c (s_2 - s_1)}{s_1 s_2}\E_{D, D'}\left[ Y_1 Y_{s_2}\, s_1 s_2 \,\kappa(\mathbf{x}; \mathbf{Z}_1, D^{\prime})\kappa(\mathbf{x}; \mathbf{Z}_{s_2}, D)\right] \\
-			%
-			 & \quad \leq \frac{c (s_1 - c)}{s_1 s_2}
+			 & \quad \leq \frac{c (s_2 - c)}{s_1 s_2}
 			\E_{D'}\left[|\mu(\mathbf{X}_1)| \, s_1  \,\kappa(\mathbf{x}; \mathbf{Z}_1, D^{\prime})\right]
-			\E_{D'}\left[|\mu(\mathbf{X}_{s_1})| \, s_2  \,\kappa(\mathbf{x}; \mathbf{Z}_{s_1}, D)\right]                                                                                     \\
-			 & \quad \quad + \frac{c (s_2 - s_1)}{s_1 s_2}\E_{D'}\left[|\mu(\mathbf{X}_1)| \, s_1  \,\kappa(\mathbf{x}; \mathbf{Z}_1, D^{\prime})\right]
-			\E_{D'}\left[|\mu(\mathbf{X}_{s_2})| \, s_2  \,\kappa(\mathbf{x}; \mathbf{Z}_{s_2}, D)\right]
+			\E_{D}\left[|\mu(\mathbf{X}_{s_2})| \, s_2  \,\kappa(\mathbf{x}; \mathbf{Z}_{s_2}, D)\right]
 			= O\left(\frac{c(s_2 - c)}{s_1 s_2}\right)
 		\end{aligned}
 	\end{equation}
 	Similarly, by simplifying the third term, we find the following.
 	\begin{equation}
 		\begin{aligned}
-			 & \E_{D, D'}\left[\sum_{i = c+1}^{s_1}\sum_{j = 1}^{c} \kappa(\mathbf{x}; \mathbf{Z}_i^{\prime}, D^{\prime})\kappa(\mathbf{x}; \mathbf{Z}_j, D)Y_i^{\prime} Y_j\right] \\
+			 & \E_{D, D'}\left[\sum_{i = c+1}^{s_1}\sum_{j = 1}^{c} \kappa(\mathbf{x}; \mathbf{Z}_i^{\prime}, D^{\prime})\kappa(\mathbf{x}; \mathbf{Z}_j, D)Y_i^{\prime} Y_j\right]                                                \\
 			%
-			 & \quad =
-			{\color{red} LOREM IPSUM}
+			 & \quad = \E_{D, D'}\left[Y_{s_1}^{\prime} Y_{1} \, (s_1 - c)c \, \kappa(\mathbf{x}; \mathbf{Z}_{s_1}^{\prime}, D^{\prime})\kappa(\mathbf{x}; \mathbf{Z}_1, D)\right]                                                 \\
+			% 
+			 & \quad = \frac{(s_1 - c)c}{s_1 s_2}\E_{D, D'}\left[\mu(\mathbf{X}_{s_1}^{\prime})\mu(\mathbf{X}_1) \, s_1 s_2 \, \kappa(\mathbf{x}; \mathbf{Z}_{s_1}^{\prime}, D^{\prime})\kappa(\mathbf{x}; \mathbf{Z}_1, D)\right] \\
+			%
+			 & \quad \leq \frac{(s_1 - c)c}{s_1 s_2}
+			\E_{D}\left[|\mu(\mathbf{X}_{s_1}^{\prime})| \, s_1 \, \kappa(\mathbf{x}; \mathbf{Z}_{s_1}^{\prime}, D^{\prime})\right]
+			\E_{D}\left[|\mu(\mathbf{X}_1)| \, s_2 \, \kappa(\mathbf{x}; \mathbf{Z}_1, D)\right]
+			= O\left(\frac{(s_1 - c)c}{s_1 s_2}\right)
 		\end{aligned}
 	\end{equation}
-	Lastly, concerning the fourth term, we find the following.
+	Lastly, concerning the fourth term, we proceed by splitting up one of the sums to deal with the resulting terms separately.
 	\begin{equation}
 		\begin{aligned}
-			 & \E_{D, D'}\left[\sum_{i = c+1}^{s_1}\sum_{j = c+1}^{s_2} \kappa(\mathbf{x}; \mathbf{Z}_i^{\prime}, D^{\prime})\kappa(\mathbf{x}; \mathbf{Z}_j, D)Y_i^{\prime} Y_j\right] \\
+			 & \E_{D, D'}\left[\left(\sum_{i = c+1}^{s_1}\kappa(\mathbf{x}; \mathbf{Z}_i^{\prime}, D^{\prime}) Y_i^{\prime}\right)
+			\left(\sum_{j = c+1}^{s_2} \kappa(\mathbf{x}; \mathbf{Z}_j, D) Y_j\right)\right]                                                                  \\
 			%
 			 & \quad =
-			{\color{red} LOREM IPSUM}
+			\E_{D, D'}\left[\left(\sum_{i = c+1}^{s_1}\kappa(\mathbf{x}; \mathbf{Z}_i^{\prime}, D^{\prime}) Y_i^{\prime}\right)
+			\left(\sum_{j = c+1}^{s_1} \kappa(\mathbf{x}; \mathbf{Z}_j, D) Y_j 
+			+ \sum_{j = s_1+1}^{s_2} \kappa(\mathbf{x}; \mathbf{Z}_j, D) Y_j\right)\right] \\
+			%
+			& \quad = \E_{D, D'}\left[\sum_{i = c+1}^{s_1}\sum_{j = c+1}^{s_1}\right]
+			+ \E_{D, D'}\left[\sum_{i = c+1}^{s_1}\sum_{j = s_1+1}^{s_2}\right]\\
+			%
+			 & {\color{red} LOREM IPSUM}
 		\end{aligned}
 	\end{equation}
 \end{proof}
