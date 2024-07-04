@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.3.14)  3 JUL 2024 19:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.3.14)  3 JUL 2024 19:13
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -806,45 +806,45 @@ File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 ) [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
-LaTeX Font Info:    Trying to load font information for U+bbm on input line 189.
+LaTeX Font Info:    Trying to load font information for U+bbm on input line 193.
  (/usr/share/texlive/texmf-dist/tex/latex/bbm-macros/ubbm.fd
 File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
 )
-Package hyperref Info: bookmark level for unknown dfn defaults to 0 on input line 196.
+Package hyperref Info: bookmark level for unknown dfn defaults to 0 on input line 200.
  [4]
-Package hyperref Info: bookmark level for unknown thm defaults to 0 on input line 239.
+Package hyperref Info: bookmark level for unknown thm defaults to 0 on input line 243.
  [5]
-Package hyperref Info: bookmark level for unknown lem defaults to 0 on input line 326.
+Package hyperref Info: bookmark level for unknown lem defaults to 0 on input line 330.
  [6] [7] [8]pdfTeX warning (ext4): destination with the same identifier (name{lem.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.421 ...citet{peng_bias_2021} - Theorem 6]\mbox{}
+l.425 ...citet{peng_bias_2021} - Theorem 6]\mbox{}
                                                   \\*
-Package hyperref Info: bookmark level for unknown cor defaults to 0 on input line 436.
+Package hyperref Info: bookmark level for unknown cor defaults to 0 on input line 440.
  [9]pdfTeX warning (ext4): destination with the same identifier (name{thm.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.477 ...tor Consistency]\label{PI_JK_Cons}\mbox{}
+l.481 ...tor Consistency]\label{PI_JK_Cons}\mbox{}
                                                   \\*pdfTeX warning (ext4): destination with the same identifier (name{thm.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.481 ...imator Consistency]\label{JK_Cons}\mbox{}
+l.485 ...imator Consistency]\label{JK_Cons}\mbox{}
                                                   \\* [10]pdfTeX warning (ext4): destination with the same identifier (name{thm.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.527 ...} - Theorem 4.1]\label{rit_thm4_1}\mbox{}
+l.531 ...} - Theorem 4.1]\label{rit_thm4_1}\mbox{}
                                                   \\*pdfTeX warning (ext4): destination with the same identifier (name{thm.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.543 ...} - Theorem 4.2]\label{rit_thm4_2}\mbox{}
+l.547 ...} - Theorem 4.2]\label{rit_thm4_2}\mbox{}
                                                   \\* [11]pdfTeX warning (ext4): destination with the same identifier (name{thm.3}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.608 ...- \citet{ritzwoller_uniform_2024}]\mbox{}
+l.612 ...- \citet{ritzwoller_uniform_2024}]\mbox{}
                                                   \\* [12]
-Package hyperref Info: bookmark level for unknown asm defaults to 0 on input line 679.
+Package hyperref Info: bookmark level for unknown asm defaults to 0 on input line 683.
  [13]
-Underfull \hbox (badness 10000) in paragraph at lines 695--696
+Underfull \hbox (badness 10000) in paragraph at lines 699--700
 
  []
 
@@ -852,37 +852,37 @@ Underfull \hbox (badness 10000) in paragraph at lines 695--696
 <../Code/Simulations/Graphics/TDNN_DNN.pdf, id=345, 722.7pt x 361.35pt>
 File: ../Code/Simulations/Graphics/TDNN_DNN.pdf Graphic file (type pdf)
 <use ../Code/Simulations/Graphics/TDNN_DNN.pdf>
-Package pdftex.def Info: ../Code/Simulations/Graphics/TDNN_DNN.pdf  used on input line 753.
+Package pdftex.def Info: ../Code/Simulations/Graphics/TDNN_DNN.pdf  used on input line 757.
 (pdftex.def)             Requested size: 511.86491pt x 255.93173pt.
  [15pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.768 \newpage
+l.772 \newpage
                <../Code/Simulations/Graphics/TDNN_DNN.pdf>]pdfTeX warning (ext4): destination with the same identifier (name{lem.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.783 ...tics_2019} - Chapter 5, Theorem 1]\mbox{}
+l.787 ...tics_2019} - Chapter 5, Theorem 1]\mbox{}
                                                   \\*\label{Lee_ch5thm1}pdfTeX warning (ext4): destination with the same identifier (name{lem.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.798 ...s U-Statistic]\label{JK_as_U_Stat}\mbox{}
+l.802 ...s U-Statistic]\label{JK_as_U_Stat}\mbox{}
                                                   \\* [16] [17] [18] [19]
-Overfull \hbox (20.99454pt too wide) in paragraph at lines 1081--1085
+Overfull \hbox (20.99454pt too wide) in paragraph at lines 1090--1094
 \T1/cmr/m/it/10 Let $\OML/cmm/m/it/10 D \OT1/cmr/m/n/10 = \OMS/cmsy/m/n/10 f\OT1/cmr/bx/n/10 Z[]\OML/cmm/m/it/10 ; [] ; \OT1/cmr/bx/n/10 Z[]\OMS/cmsy/m/n/10 g$ \T1/cmr/m/it/10 be a vec-tor of i.i.d. ran-dom vari-ables drawn from $\OML/cmm/m/it/10 P$ \T1/cmr/m/it/10 for $\OML/cmm/m/it/10 s[] > s[]$\T1/cmr/m/it/10 . Let $\OML/cmm/m/it/10 D[] \OT1/cmr/m/n/10 = \OMS/cmsy/m/n/10 f\OT1/cmr/bx/n/10 Z[]\OML/cmm/m/it/10 ; [] ; \OT1/cmr/bx/n/10 Z[]\OML/cmm/m/it/10 ; \OT1/cmr/bx/n/10 Z[]\OML/cmm/m/it/10 ; [] ; \OT1/cmr/bx/n/10 Z[]\OMS/cmsy/m/n/10 g$
  []
 
 [20]
-Underfull \hbox (badness 10000) in paragraph at lines 1205--1206
+Underfull \hbox (badness 10000) in paragraph at lines 1214--1215
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1212--1213
+Underfull \hbox (badness 10000) in paragraph at lines 1221--1222
 
  []
 
 [21]
-Underfull \hbox (badness 10000) in paragraph at lines 1219--1220
+Underfull \hbox (badness 10000) in paragraph at lines 1228--1229
 
  []
 
@@ -894,18 +894,18 @@ Package logreq Info: Writing requests to 'Unif_Inf_DNN.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 21700 strings out of 478287
- 376841 string characters out of 5849289
- 1126471 words of memory out of 5000000
- 39385 multiletter control sequences out of 15000+600000
+ 21702 strings out of 478287
+ 376865 string characters out of 5849289
+ 1126496 words of memory out of 5000000
+ 39387 multiletter control sequences out of 15000+600000
  491315 words of font info for 85 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  60i,15n,68p,1401b,1731s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc} </home/jjuergens/.texlive2021/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfcc1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0700.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on Unif_Inf_DNN.pdf (22 pages, 564203 bytes).
+{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc} </home/jjuergens/.texlive2021/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.600pk>{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfcc1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0700.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1000.pfb>
+Output written on Unif_Inf_DNN.pdf (22 pages, 564637 bytes).
 PDF statistics:
- 640 PDF objects out of 1000 (max. 8388607)
- 547 compressed objects within 6 object streams
+ 643 PDF objects out of 1000 (max. 8388607)
+ 550 compressed objects within 6 object streams
  198 named destinations out of 1000 (max. 500000)
  190 words of extra memory for PDF output out of 10000 (max. 10000000)
 

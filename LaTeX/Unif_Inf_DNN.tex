@@ -131,6 +131,10 @@ Similarly, given a finite index set $\mathcal{I} \subset \mathbb{N}$, define the
 	\quad \text{and} \quad
 	I_{s}(\mathcal{I}) = \left\{\left(i_1, \dotsc, i_s\right) \in L_{s}(\mathcal{I}) \, : \, i_1 < \dotsc < i_s \right\}
 \end{equation}
+{\color{red} TO-DO:}
+\begin{itemize}
+	\item $\lesssim$ needs an explanation
+\end{itemize}
 
 
 \newpage
@@ -914,7 +918,7 @@ Having developed theoretical results concerning uniform inference methods for th
 	The indicator functions $\kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right)$ satisfy the following properties.
 	\begin{enumerate}
 		\item For any $i \neq j$, we have $\kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right) \kappa\left(\mathbf{x}; \mathbf{Z}_j, D\right)=0$ with probability one;
-		\item $\sum_{i=1}^{|D|} \kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right)=1$;
+		\item $\sum_{i=1}^{s} \kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right)=1$;
 		\item $\forall i \in [s]: \quad \mathbb{E}_{1:s}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right)\right]=s^{-1}$
 		\item $\mathbb{E}_{2: s}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1, D\right)\right]=\left\{1-\varphi\left(B\left(\mathbf{x},\left\|\mathbf{X}_1-\mathbf{x}\right\|\right)\right)\right\}^{s-1}$
 	\end{enumerate}
@@ -924,7 +928,7 @@ Having developed theoretical results concerning uniform inference methods for th
 
 \hrule
 
-\begin{lem}[{\color{red} From Demirkaya - Proof of Lemma 7}]\label{lem_omega_s}\mbox{}\\*
+\begin{lem}[Adapted from \citet{demirkaya_optimal_2024}]\label{lem_omega_s}\mbox{}\\*
 	Let $D = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{s}\}$ be a vector of i.i.d. random variables drawn from $P$.
 	Furthermore, let
 	\begin{equation}
@@ -942,7 +946,7 @@ Having developed theoretical results concerning uniform inference methods for th
 
 \hrule
 
-\begin{lem}\mbox{}\\*
+\begin{lem}\label{lem_omega_sc}\mbox{}\\*
 	Let $D = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{s}\}$ be a vector of i.i.d. random variables drawn from $P$.
 	Let $D^{\prime} = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{c}, \mathbf{Z}_{c+1}^{\prime}, \dotsc,  \mathbf{Z}_{s}^{\prime}\}$ where $\mathbf{Z}_{c+1}^{\prime}, \dotsc,  \mathbf{Z}_{s}^{\prime}$ are i.i.d. draws from $P$ that are independent of $D$.
 	Furthermore, let
@@ -954,11 +958,11 @@ Having developed theoretical results concerning uniform inference methods for th
 	Then,
 	\begin{equation}
 		\Omega_{s}^{c}
-		\lesssim {\color{red} LOREM IPSUM}
+		\lesssim 4 \mu^2\left(\mathbf{x}\right) + \sigma^2_{\varepsilon} + o(1).
 	\end{equation}
 \end{lem}
 
-\begin{proof}
+\begin{proof}[Proof of Lemma \ref{lem_omega_sc}]
 	\begin{equation}
 		\begin{aligned}
 			\Omega_{s}^{c}
@@ -977,61 +981,66 @@ Having developed theoretical results concerning uniform inference methods for th
 			+  \E_{D, D'}\left[\sum_{i = c+1}^{s}\sum_{j = c+1}^{s}\kappa\left(\mathbf{x}; \mathbf{Z}_{i}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{j}^{\prime}, D^{\prime}\right)Y_{i}Y_{j}^{\prime}\right] \\
 			%
 			 & = \E_{D, D'}\left[c \kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D^{\prime}\right)Y_{1}^{2}\right]
-			 + \E_{D, D'}\left[c(s-c) \kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}^{\prime}, D^{\prime}\right)Y_{1}Y_{c+1}^{\prime}\right] \\
-			 & \quad + \E_{D, D'}\left[c(s-c) \kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D^{\prime}\right)Y_{c+1}Y_{1}\right] \\
+			+ \E_{D, D'}\left[c(s-c) \kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}^{\prime}, D^{\prime}\right)Y_{1}Y_{c+1}^{\prime}\right]                           \\
+			 & \quad + \E_{D, D'}\left[c(s-c) \kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D^{\prime}\right)Y_{c+1}Y_{1}\right]                                    \\
 			 & \quad + \E_{D, D'}\left[(s-c)^2 \kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}^{\prime}, D^{\prime}\right)Y_{c+1}Y_{c+1}^{\prime}\right]
 		\end{aligned}
 	\end{equation}
-		Starting from this decomposition, we will analyze the terms one by one.
-		First, by honesty and an application of Lemma \ref{dem_lem12}, we find the following.
+	Starting from this decomposition, we will analyze the terms one by one.
+	First, by honesty and an application of Lemma \ref{dem_lem12}, we find the following.
 	\begin{equation}
 		\begin{aligned}
 			\E_{D, D'}\left[c\kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D^{\prime}\right)Y_{1}^{2}\right]
-			 & = \E_{D, D'}\left[c\kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D^{\prime}\right)\left(\mu^2(\mathbf{X}_1) + \sigma_{\varepsilon}^{2}\right)\right]\\
-			 %
-			 & = \E_{1}\left[\left(\mu^2(\mathbf{X}_1) + \sigma_{\varepsilon}^{2}\right) c\E_{2:s}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D^{\prime}\right)\right]\right]\\
-			 %
-			 & = \E_{1}\left[\left(\mu^2(\mathbf{X}_1) + \sigma_{\varepsilon}^{2}\right) c\left\{1 - \varphi\left(B\left(\mathbf{x}, \|\mathbf{X}_1 - \mathbf{x}\|\right)\right)\right\}^{2s-c-1}\right]\\ 
-			 %
-			 & \leq \E_{1}\left[\left(\mu^2(\mathbf{X}_1) + \sigma_{\varepsilon}^{2}\right) s\left\{1 - \varphi\left(B\left(\mathbf{x}, \|\mathbf{X}_1 - \mathbf{x}\|\right)\right)\right\}^{s-1}\right]\\ 
-			 %
+			 & = \E_{D, D'}\left[c\kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D^{\prime}\right)\left(\mu^2(\mathbf{X}_1) + \sigma_{\varepsilon}^{2}\right)\right]                   \\
+			%
+			 & = \E_{1}\left[\left(\mu^2(\mathbf{X}_1) + \sigma_{\varepsilon}^{2}\right) c\E_{2:s}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D^{\prime}\right)\right]\right] \\
+			%
+			 & = \E_{1}\left[\left(\mu^2(\mathbf{X}_1) + \sigma_{\varepsilon}^{2}\right) c\left\{1 - \varphi\left(B\left(\mathbf{x}, \|\mathbf{X}_1 - \mathbf{x}\|\right)\right)\right\}^{2s-c-1}\right]                        \\
+			%
+			 & \leq \E_{1}\left[\left(\mu^2(\mathbf{X}_1) + \sigma_{\varepsilon}^{2}\right) s\left\{1 - \varphi\left(B\left(\mathbf{x}, \|\mathbf{X}_1 - \mathbf{x}\|\right)\right)\right\}^{s-1}\right]                        \\
+			%
 			 & \lesssim \mu^2(\mathbf{x}) + \sigma_{\varepsilon}^{2} + o(1)
 		\end{aligned}
 	\end{equation}
 	Similarly, we can find that:
 	\begin{equation}
 		\begin{aligned}
-			& \E_{D, D'}\left[c(s-c) \kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}^{\prime}, D^{\prime}\right)Y_{1}Y_{c+1}^{\prime}\right] \\
+			 & \E_{D, D'}\left[c(s-c) \kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}^{\prime}, D^{\prime}\right)Y_{1}Y_{c+1}^{\prime}\right]                                          \\
 			%
-			& \quad = \E_{D, D'}\left[\mu(\mathbf{X}_1)\mu(\mathbf{X}_{c+1}^{\prime}) \, c(s-c) \, \kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}^{\prime}, D^{\prime}\right)\right]\\
+			 & \quad = \E_{D, D'}\left[\mu(\mathbf{X}_1)\mu(\mathbf{X}_{c+1}^{\prime}) \, c(s-c) \, \kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}^{\prime}, D^{\prime}\right)\right] \\
 			%
-			& \quad \leq \E_{D}\left[|\mu(\mathbf{X}_1)| \, c \, \kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D\right)\right]
-			\E_{D'}\left[|\mu(\mathbf{X}_{c+1}^{\prime})| \, (s-c) \, \kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}^{\prime}, D^{\prime}\right)\right]\\
+			 & \quad \leq \E_{D}\left[|\mu(\mathbf{X}_1)| \, c \, \kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D\right)\right]
+			\E_{D'}\left[|\mu(\mathbf{X}_{c+1}^{\prime})| \, (s-c) \, \kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}^{\prime}, D^{\prime}\right)\right]                                                                               \\
 			% 
-			& \quad \leq \left(\E_{D}\left[|\mu(\mathbf{X}_1)| \, s \, \kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D\right)\right]\right)^2\\
+			 & \quad \leq \left(\E_{D}\left[|\mu(\mathbf{X}_1)| \, s \, \kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D\right)\right]\right)^2                                                                                        \\
 			% 
-			& \quad = \left(\E_{1}\left[|\mu(\mathbf{X}_1)| s\left\{1 - \varphi\left(B\left(\mathbf{x}, \|\mathbf{X}_1 - \mathbf{x}\|\right)\right)\right\}^{s-1}\right]\right)^2 \\
+			 & \quad = \left(\E_{1}\left[|\mu(\mathbf{X}_1)| s\left\{1 - \varphi\left(B\left(\mathbf{x}, \|\mathbf{X}_1 - \mathbf{x}\|\right)\right)\right\}^{s-1}\right]\right)^2                                              \\
 			%
-			& \quad \lesssim \mu^2(\mathbf{x}) + o(1)
+			 & \quad \lesssim \mu^2(\mathbf{x}) + o(1)
 		\end{aligned}
 	\end{equation}
 	Following analogous steps, we find the same result for the third term.
 	\begin{equation}
 		\begin{aligned}
 			\E_{D, D'}\left[c(s-c) \kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D^{\prime}\right)Y_{c+1}Y_{1}\right]
-			 \lesssim \mu^2(\mathbf{x}) + o(1)
+			\lesssim \mu^2(\mathbf{x}) + o(1)
 		\end{aligned}
 	\end{equation}
 	The fourth term can be asymptotically bounded in the following way.
 	\begin{equation}
 		\begin{aligned}
-			& \E_{D, D'}\left[(s-c)^2 \kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}^{\prime}, D^{\prime}\right)Y_{c+1}Y_{c+1}^{\prime}\right]\\
+			 & \E_{D, D'}\left[(s-c)^2 \kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}^{\prime}, D^{\prime}\right)Y_{c+1}Y_{c+1}^{\prime}\right]                                           \\
 			%
-			& \quad = \E_{D, D'}\left[\mu(\mathbf{X}_{c+1})\mu(\mathbf{X}_{c+1}^{\prime})\, (s-c)^2 \, \kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}^{\prime}, D^{\prime}\right)\right]\\
+			 & \quad = \E_{D, D'}\left[\mu(\mathbf{X}_{c+1})\mu(\mathbf{X}_{c+1}^{\prime})\, (s-c)^2 \, \kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}^{\prime}, D^{\prime}\right)\right] \\
 			%
-			& {\color{red} LOREM IPSUM}
+			 & \quad \leq \E_{D}\left[|\mu(\mathbf{X}_{c+1})|\, (s-c) \, \kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}, D\right)\right]
+			\E_{D'}\left[|\mu(\mathbf{X}_{c+1}^{\prime})|\, (s-c) \, \kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}^{\prime}, D^{\prime}\right)\right]                                                                                      \\
+			%
+			 & \quad \leq \left(\E_{D}\left[|\mu(\mathbf{X}_{c+1})|\, s \, \kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}, D\right)\right]\right)^2
+			\lesssim \mu^2(\mathbf{x}) + o(1)
 		\end{aligned}
 	\end{equation}
+	The result of Lemma \ref{lem_omega_sc} follows immediately.
 \end{proof}
 
 \hrule
@@ -1173,30 +1182,30 @@ Define the following random variable $R(\mathbf{x}, m, D) = \1\left(\exists i \i
 
 \begin{proof}
 	Recall that by Lemma \ref{lem_omega_s}, we have the following.
-\begin{equation}
-	\begin{aligned}
-		\Omega_{s_2}
-		= \E_1\left[\mu^2\left(\mathbf{X}_1\right) s \E_{2:s}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1, D\right)\right]\right] + \sigma_{\varepsilon}^2
-		\lesssim \mu(\mathbf{x})^2 + \sigma_{\varepsilon}^2 + o(1)
-		\quad \text{as} \quad n \rightarrow \infty
-	\end{aligned}
-\end{equation}
-Furthermore, observe the following.
-\begin{equation}
-	\begin{aligned}
-		\E_{D}\left[\tilde{\mu}_{s_1}^{2}\left(\mathbf{x}; D\right)\right]
-		 & = \E_D\left[\left(\binom{s_2}{s_1}^{-1}\sum_{\ell \in L_{s_2, s_1}} h_{s_1}\left(\mathbf{x}; D_{\ell}\right)\right)^2\right]
-		= \binom{s_2}{s_1}^{-2} \E_{D}\left[\sum_{\iota, \iota' \in L_{s_2, s_1}}h_{s_1}\left(\mathbf{x}; D_{\iota}\right)h_{s_1}\left(\mathbf{x}; D_{\iota'}\right)\right] \\
-		%
-		 & =
-	\end{aligned}
-\end{equation}
-Lastly, consider the following.
-\begin{equation}
-	\begin{aligned}
-		\E_{D}\left[\tilde{\mu}_{s_1}\left(\mathbf{x}; D\right) h_{s_2}\left(\mathbf{x}; D\right)\right]
-	\end{aligned}
-\end{equation}
+	\begin{equation}
+		\begin{aligned}
+			\Omega_{s_2}
+			= \E_1\left[\mu^2\left(\mathbf{X}_1\right) s \E_{2:s}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1, D\right)\right]\right] + \sigma_{\varepsilon}^2
+			\lesssim \mu(\mathbf{x})^2 + \sigma_{\varepsilon}^2 + o(1)
+			\quad \text{as} \quad n \rightarrow \infty
+		\end{aligned}
+	\end{equation}
+	Furthermore, observe the following.
+	\begin{equation}
+		\begin{aligned}
+			\E_{D}\left[\tilde{\mu}_{s_1}^{2}\left(\mathbf{x}; D\right)\right]
+			 & = \E_D\left[\left(\binom{s_2}{s_1}^{-1}\sum_{\ell \in L_{s_2, s_1}} h_{s_1}\left(\mathbf{x}; D_{\ell}\right)\right)^2\right]
+			= \binom{s_2}{s_1}^{-2} \E_{D}\left[\sum_{\iota, \iota' \in L_{s_2, s_1}}h_{s_1}\left(\mathbf{x}; D_{\iota}\right)h_{s_1}\left(\mathbf{x}; D_{\iota'}\right)\right] \\
+			%
+			 & =
+		\end{aligned}
+	\end{equation}
+	Lastly, consider the following.
+	\begin{equation}
+		\begin{aligned}
+			\E_{D}\left[\tilde{\mu}_{s_1}\left(\mathbf{x}; D\right) h_{s_2}\left(\mathbf{x}; D\right)\right]
+		\end{aligned}
+	\end{equation}
 \end{proof}
 
 \subsection{Proof of Theorem \ref{JK_Cons}}
