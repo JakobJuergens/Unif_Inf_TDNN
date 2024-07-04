@@ -1007,7 +1007,7 @@ Having developed theoretical results concerning uniform inference methods for th
 			%
 			 & = \E_{1}\left[\left(\mu^2(\mathbf{X}_1) + \sigma_{\varepsilon}^{2}\right) c\left\{1 - \varphi\left(B\left(\mathbf{x}, \|\mathbf{X}_1 - \mathbf{x}\|\right)\right)\right\}^{2s-c-1}\right]                        \\
 			%
-			 & \leq \frac{c}{s} \E_{1}\left[\left(\mu^2(\mathbf{X}_1) + \sigma_{\varepsilon}^{2}\right) s\left\{1 - \varphi\left(B\left(\mathbf{x}, \|\mathbf{X}_1 - \mathbf{x}\|\right)\right)\right\}^{s-1}\right]                        \\
+			 & \leq \frac{c}{s} \E_{1}\left[\left(\mu^2(\mathbf{X}_1) + \sigma_{\varepsilon}^{2}\right) s\left\{1 - \varphi\left(B\left(\mathbf{x}, \|\mathbf{X}_1 - \mathbf{x}\|\right)\right)\right\}^{s-1}\right]            \\
 			%
 			 & = O(c/s)
 		\end{aligned}
@@ -1022,13 +1022,13 @@ Having developed theoretical results concerning uniform inference methods for th
 			 & \quad \leq \E_{D}\left[|\mu(\mathbf{X}_1)| \, c \, \kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D\right)\right]
 			\E_{D'}\left[|\mu(\mathbf{X}_{c+1}^{\prime})| \, (s-c) \, \kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}^{\prime}, D^{\prime}\right)\right]                                                                               \\
 			% 
-			& \quad = \frac{c (s-c)}{s^2} \leq \E_{D}\left[|\mu(\mathbf{X}_1)| \, s \, \kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D\right)\right]
-			\E_{D'}\left[|\mu(\mathbf{X}_{c+1}^{\prime})| \, s \, \kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}^{\prime}, D^{\prime}\right)\right]                                                                               \\
+			 & \quad = \frac{c (s-c)}{s^2} \leq \E_{D}\left[|\mu(\mathbf{X}_1)| \, s \, \kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D\right)\right]
+			\E_{D'}\left[|\mu(\mathbf{X}_{c+1}^{\prime})| \, s \, \kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}^{\prime}, D^{\prime}\right)\right]                                                                                   \\
 			%
-			 & \quad = \frac{c (s-c)}{s^2} \left(\E_{D}\left[|\mu(\mathbf{X}_1)| \, s \, \kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D\right)\right]\right)^2                                                                                        \\
+			 & \quad = \frac{c (s-c)}{s^2} \left(\E_{D}\left[|\mu(\mathbf{X}_1)| \, s \, \kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D\right)\right]\right)^2                                                                       \\
 			% 
-			 & \quad = \frac{c (s-c)}{s^2} \left(\E_{1}\left[|\mu(\mathbf{X}_1)| s\left\{1 - \varphi\left(B\left(\mathbf{x}, \|\mathbf{X}_1 - \mathbf{x}\|\right)\right)\right\}^{s-1}\right]\right)^2                                       
-			 = O\left(\frac{c(s-c)}{s^2}\right)
+			 & \quad = \frac{c (s-c)}{s^2} \left(\E_{1}\left[|\mu(\mathbf{X}_1)| s\left\{1 - \varphi\left(B\left(\mathbf{x}, \|\mathbf{X}_1 - \mathbf{x}\|\right)\right)\right\}^{s-1}\right]\right)^2
+			= O\left(\frac{c(s-c)}{s^2}\right)
 		\end{aligned}
 	\end{equation}
 	Following analogous steps, we find the same result for the third term.
@@ -1048,8 +1048,8 @@ Having developed theoretical results concerning uniform inference methods for th
 			 & \quad \leq \E_{D}\left[|\mu(\mathbf{X}_{c+1})|\, (s-c) \, \kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}, D\right)\right]
 			\E_{D'}\left[|\mu(\mathbf{X}_{c+1}^{\prime})|\, (s-c) \, \kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}^{\prime}, D^{\prime}\right)\right]                                                                                      \\
 			%
-			& \quad = \frac{(s-c)^2}{s^2} \E_{D}\left[|\mu(\mathbf{X}_{c+1})|\, s \, \kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}, D\right)\right]
-			\E_{D'}\left[|\mu(\mathbf{X}_{c+1}^{\prime})|\, s \, \kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}^{\prime}, D^{\prime}\right)\right]                                                                                      \\
+			 & \quad = \frac{(s-c)^2}{s^2} \E_{D}\left[|\mu(\mathbf{X}_{c+1})|\, s \, \kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}, D\right)\right]
+			\E_{D'}\left[|\mu(\mathbf{X}_{c+1}^{\prime})|\, s \, \kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}^{\prime}, D^{\prime}\right)\right]                                                                                          \\
 			%
 			 & \quad = \frac{(s-c)^2}{s^2} \left(\E_{D}\left[|\mu(\mathbf{X}_{c+1})|\, s \, \kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}, D\right)\right]\right)^2
 			= O\left(\frac{(s-c)^2}{s^2}\right)
@@ -1083,28 +1083,28 @@ Having developed theoretical results concerning uniform inference methods for th
 		\begin{aligned}
 			\Upsilon_{s_1, s_2}
 			 & = \E\left[h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,  \mathbf{Z}_{s_1}\right) \cdot
-			h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{s_1}, \ldots, \mathbf{Z}_{s_2}\right)\right]                                                                \\
+			h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{s_1}, \ldots, \mathbf{Z}_{s_2}\right)\right]                                                                             \\
 			%
 			 & = \E_{D}\left[
 				\left(\sum_{i = 1}^{s_1} \kappa(\mathbf{x}; \mathbf{Z}_i, D_{[s_1]})Y_i\right)
 				\left(\sum_{j = 1}^{s_1}\kappa(\mathbf{x}; \mathbf{Z}_j, D)Y_j + \sum_{j = s_1 + 1}^{s_2}\kappa(\mathbf{x}; \mathbf{Z}_j, D)Y_j\right)
-			\right]                                                                                                                                                               \\
+			\right]                                                                                                                                                                            \\
 			%
 			 & = \E_{D}\left[\sum_{i = 1}^{s_1} \kappa(\mathbf{x}; \mathbf{Z}_i, D) Y_i^2\right]
-			+ \E_{D}\left[\sum_{i = 1}^{s_1}\sum_{j = s_1 + 1}^{s_2}\kappa(\mathbf{x}; \mathbf{Z}_i, D_{[s_1]})\kappa(\mathbf{x}; \mathbf{Z}_j, D) Y_i Y_j\right]                 \\
+			+ \E_{D}\left[\sum_{i = 1}^{s_1}\sum_{j = s_1 + 1}^{s_2}\kappa(\mathbf{x}; \mathbf{Z}_i, D_{[s_1]})\kappa(\mathbf{x}; \mathbf{Z}_j, D) Y_i Y_j\right]                              \\
 			%
 			 & = \E_{D}\left[Y_1^2 \, s_1 \, \kappa(\mathbf{x}; \mathbf{Z}_1, D)\right]
-			+ \E_{D}\left[Y_{1} Y_{s_2} \, s_1 (s_2 - s_1) \, \kappa(\mathbf{x}; \mathbf{Z}_1, D_{[s_1]})\kappa(\mathbf{x}; \mathbf{Z}_{s_2}, D)\right]                           \\
+			+ \E_{D}\left[Y_{1} Y_{s_2} \, s_1 (s_2 - s_1) \, \kappa(\mathbf{x}; \mathbf{Z}_1, D_{[s_1]})\kappa(\mathbf{x}; \mathbf{Z}_{s_2}, D)\right]                                        \\
 			%
 			 & = \E_{D}\left[\left(\mu^2(\mathbf{X}_1) + \sigma^2_{\varepsilon}\right) \, s_1 \, \kappa(\mathbf{x}; \mathbf{Z}_1, D)\right]
-			+ \E_{D}\left[\mu(\mathbf{X}_1) \mu(\mathbf{X}_{s_2}) \, s_1 (s_2 - s_1) \, \kappa(\mathbf{x}; \mathbf{Z}_1, D_{[s_1]})\kappa(\mathbf{x}; \mathbf{Z}_{s_2}, D)\right] \\
+			+ \E_{D}\left[\mu(\mathbf{X}_1) \mu(\mathbf{X}_{s_2}) \, s_1 (s_2 - s_1) \, \kappa(\mathbf{x}; \mathbf{Z}_1, D_{[s_1]})\kappa(\mathbf{x}; \mathbf{Z}_{s_2}, D)\right]              \\
 			%
-			& = \frac{s_1}{s_2}\E_{D}\left[\left(\mu^2(\mathbf{X}_1) + \sigma^2_{\varepsilon}\right) \, s_1 \, \kappa(\mathbf{x}; \mathbf{Z}_1, D)\right]
+			 & = \frac{s_1}{s_2}\E_{D}\left[\left(\mu^2(\mathbf{X}_1) + \sigma^2_{\varepsilon}\right) \, s_1 \, \kappa(\mathbf{x}; \mathbf{Z}_1, D)\right]
 			+ \frac{s_2 - s_1}{s_2}\E_{D}\left[\mu(\mathbf{X}_1) \mu(\mathbf{X}_{s_2}) \, s_1 s_2 \, \kappa(\mathbf{x}; \mathbf{Z}_1, D_{[s_1]})\kappa(\mathbf{x}; \mathbf{Z}_{s_2}, D)\right] \\
 			%
-			 & \leq \frac{s_1}{s_2} \E_{D}\left[\left(\mu^2(\mathbf{X}_1) + \sigma^2_{\varepsilon}\right) \, s_2 \, \kappa(\mathbf{x}; \mathbf{Z}_1, D)\right]\\
-			& \quad \quad + \frac{s_2 - s_1}{s_2}\E_{D}\left[|\mu(\mathbf{X}_1)| \, s_1 \, \kappa(\mathbf{x}; \mathbf{Z}_1, D_{[s_1]})\right]
-			\E_{D}\left[|\mu(\mathbf{X}_{s_2})| \, s_2 \, \kappa(\mathbf{x}; \mathbf{Z}_{s_2}, D)\right]                                                                          \\
+			 & \leq \frac{s_1}{s_2} \E_{D}\left[\left(\mu^2(\mathbf{X}_1) + \sigma^2_{\varepsilon}\right) \, s_2 \, \kappa(\mathbf{x}; \mathbf{Z}_1, D)\right]                                 \\
+			 & \quad \quad + \frac{s_2 - s_1}{s_2}\E_{D}\left[|\mu(\mathbf{X}_1)| \, s_1 \, \kappa(\mathbf{x}; \mathbf{Z}_1, D_{[s_1]})\right]
+			\E_{D}\left[|\mu(\mathbf{X}_{s_2})| \, s_2 \, \kappa(\mathbf{x}; \mathbf{Z}_{s_2}, D)\right]                                                                                       \\
 			%
 			 & \lesssim \mu^{2}\left(\mathbf{x}\right) + \sigma^2_{\varepsilon} + o(1).
 		\end{aligned}
@@ -1167,22 +1167,45 @@ Having developed theoretical results concerning uniform inference methods for th
 	\begin{equation}
 		\begin{aligned}
 			 & \E_{D, D'}\left[\left(\sum_{i = 1}^{c}\kappa(\mathbf{x}; \mathbf{Z}_i, D^{\prime}) Y_i\right)
-			\left(\sum_{j = c+1}^{s_2} \kappa(\mathbf{x}; \mathbf{Z}_j, D) Y_j\right)\right]                                                                \\
+			\left(\sum_{j = c+1}^{s_2} \kappa(\mathbf{x}; \mathbf{Z}_j, D) Y_j\right)\right]                                                                                                  \\
 			%
 			 & \quad = \E_{D, D'}\left[\left(\sum_{i = 1}^{c}\kappa(\mathbf{x}; \mathbf{Z}_i, D^{\prime}) Y_i\right)
-			\left(\sum_{j = c+1}^{s_1} \kappa(\mathbf{x}; \mathbf{Z}_j, D) Y_j \sum_{j = s_1+1}^{s_2} \kappa(\mathbf{x}; \mathbf{Z}_j, D) Y_j\right)\right] \\
+				\left(\sum_{j = c+1}^{s_1} \kappa(\mathbf{x}; \mathbf{Z}_j, D) Y_j
+				+ \sum_{j = s_1+1}^{s_2} \kappa(\mathbf{x}; \mathbf{Z}_j, D) Y_j\right)
+			\right]                                                                                                                                                                           \\
+			%
+			 & \quad = \E_{D, D'}\left[\sum_{i = 1}^{c}\sum_{j = c+1}^{s_1}Y_i Y_j \kappa(\mathbf{x}; \mathbf{Z}_i, D^{\prime})\kappa(\mathbf{x}; \mathbf{Z}_j, D)\right]
+			+ \E_{D, D'}\left[\sum_{i = 1}^{c}\sum_{j = s_1+1}^{s_2}Y_i Y_j \kappa(\mathbf{x}; \mathbf{Z}_i, D^{\prime})\kappa(\mathbf{x}; \mathbf{Z}_j, D)\right]                            \\
+			%
+			 & \quad = \E_{D, D'}\left[c(s_1 - c) \, Y_1 Y_{s_1} \kappa(\mathbf{x}; \mathbf{Z}_1, D^{\prime})\kappa(\mathbf{x}; \mathbf{Z}_{s_1}, D)\right]
+			+ \E_{D, D'}\left[c (s_2 - s_1) Y_1 Y_{s_2} \kappa(\mathbf{x}; \mathbf{Z}_1, D^{\prime})\kappa(\mathbf{x}; \mathbf{Z}_{s_2}, D)\right]                                            \\
+			%
+			 & \quad = \frac{c (s_1 - c)}{s_1 s_2}\E_{D, D'}\left[Y_1 Y_{s_1} \, s_1 s_2 \,\kappa(\mathbf{x}; \mathbf{Z}_1, D^{\prime})\kappa(\mathbf{x}; \mathbf{Z}_{s_1}, D)\right]         \\
+			 & \quad \quad + \frac{c (s_2 - s_1)}{s_1 s_2}\E_{D, D'}\left[ Y_1 Y_{s_2}\, s_1 s_2 \,\kappa(\mathbf{x}; \mathbf{Z}_1, D^{\prime})\kappa(\mathbf{x}; \mathbf{Z}_{s_2}, D)\right] \\
+			%
+			 & \quad \leq \frac{c (s_1 - c)}{s_1 s_2}
+			\E_{D'}\left[|\mu(\mathbf{X}_1)| \, s_1  \,\kappa(\mathbf{x}; \mathbf{Z}_1, D^{\prime})\right]
+			\E_{D'}\left[|\mu(\mathbf{X}_{s_1})| \, s_2  \,\kappa(\mathbf{x}; \mathbf{Z}_{s_1}, D)\right]                                                                                     \\
+			 & \quad \quad + \frac{c (s_2 - s_1)}{s_1 s_2}\E_{D'}\left[|\mu(\mathbf{X}_1)| \, s_1  \,\kappa(\mathbf{x}; \mathbf{Z}_1, D^{\prime})\right]
+			\E_{D'}\left[|\mu(\mathbf{X}_{s_2})| \, s_2  \,\kappa(\mathbf{x}; \mathbf{Z}_{s_2}, D)\right]
+			= O\left(\frac{c(s_2 - c)}{s_1 s_2}\right)
+		\end{aligned}
+	\end{equation}
+	Similarly, by simplifying the third term, we find the following.
+	\begin{equation}
+		\begin{aligned}
+			 & \E_{D, D'}\left[\sum_{i = c+1}^{s_1}\sum_{j = 1}^{c} \kappa(\mathbf{x}; \mathbf{Z}_i^{\prime}, D^{\prime})\kappa(\mathbf{x}; \mathbf{Z}_j, D)Y_i^{\prime} Y_j\right] \\
 			%
 			 & \quad =
 			{\color{red} LOREM IPSUM}
 		\end{aligned}
 	\end{equation}
+	Lastly, concerning the fourth term, we find the following.
 	\begin{equation}
 		\begin{aligned}
-			{\color{red} LOREM IPSUM}
-		\end{aligned}
-	\end{equation}
-	\begin{equation}
-		\begin{aligned}
+			 & \E_{D, D'}\left[\sum_{i = c+1}^{s_1}\sum_{j = c+1}^{s_2} \kappa(\mathbf{x}; \mathbf{Z}_i^{\prime}, D^{\prime})\kappa(\mathbf{x}; \mathbf{Z}_j, D)Y_i^{\prime} Y_j\right] \\
+			%
+			 & \quad =
 			{\color{red} LOREM IPSUM}
 		\end{aligned}
 	\end{equation}
