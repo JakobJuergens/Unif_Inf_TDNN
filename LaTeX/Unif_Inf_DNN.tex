@@ -968,7 +968,14 @@ Having developed theoretical results concerning uniform inference methods for th
 	Then,
 	\begin{equation}
 		\Omega_{s}^{c}
-		\quad {\color{red} \text{goes to zero at a rate}}
+		\lesssim \frac{cs + 2 c(s-c) + (s-c)^2}{s^2} \mu^2(\mathbf{x}) + (c/s) \sigma_{\varepsilon}^2 + o(1)
+		\quad \text{as} \quad s \rightarrow \infty
+	\end{equation}
+	and thus
+	\begin{equation}
+		\Omega_{s}^{c}
+		\rightarrow 0
+		\quad \text{as} \quad s \rightarrow \infty.
 	\end{equation}
 \end{lem}
 
@@ -1007,9 +1014,9 @@ Having developed theoretical results concerning uniform inference methods for th
 			%
 			 & = \E_{1}\left[\left(\mu^2(\mathbf{X}_1) + \sigma_{\varepsilon}^{2}\right) c\left\{1 - \varphi\left(B\left(\mathbf{x}, \|\mathbf{X}_1 - \mathbf{x}\|\right)\right)\right\}^{2s-c-1}\right]                        \\
 			%
-			 & \leq \frac{c}{s} \E_{1}\left[\left(\mu^2(\mathbf{X}_1) + \sigma_{\varepsilon}^{2}\right) s\left\{1 - \varphi\left(B\left(\mathbf{x}, \|\mathbf{X}_1 - \mathbf{x}\|\right)\right)\right\}^{s-1}\right]            \\
+			 & \leq (c/s) \E_{1}\left[\left(\mu^2(\mathbf{X}_1) + \sigma_{\varepsilon}^{2}\right) s\left\{1 - \varphi\left(B\left(\mathbf{x}, \|\mathbf{X}_1 - \mathbf{x}\|\right)\right)\right\}^{s-1}\right]            \\
 			%
-			 & = O(c/s)
+			 & \lesssim (c/s)\left(\mu^2(\mathbf{x}) + \sigma_{\varepsilon}\right) + o(1)
 		\end{aligned}
 	\end{equation}
 	Similarly, we can find that:
@@ -1027,15 +1034,16 @@ Having developed theoretical results concerning uniform inference methods for th
 			%
 			 & \quad = \frac{c (s-c)}{s^2} \left(\E_{D}\left[|\mu(\mathbf{X}_1)| \, s \, \kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D\right)\right]\right)^2                                                                       \\
 			% 
-			 & \quad = \frac{c (s-c)}{s^2} \left(\E_{1}\left[|\mu(\mathbf{X}_1)| s\left\{1 - \varphi\left(B\left(\mathbf{x}, \|\mathbf{X}_1 - \mathbf{x}\|\right)\right)\right\}^{s-1}\right]\right)^2
-			= O\left(\frac{c(s-c)}{s^2}\right)
+			 & \quad = \frac{c (s-c)}{s^2} \left(\E_{1}\left[|\mu(\mathbf{X}_1)| s\left\{1 - \varphi\left(B\left(\mathbf{x}, \|\mathbf{X}_1 - \mathbf{x}\|\right)\right)\right\}^{s-1}\right]\right)^2\\
+			%
+			& \quad \lesssim \frac{c(s-c)}{s^2}\mu^2(\mathbf{x}) + o(1)
 		\end{aligned}
 	\end{equation}
 	Following analogous steps, we find the same result for the third term.
 	\begin{equation}
 		\begin{aligned}
 			\E_{D, D'}\left[c(s-c) \kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D^{\prime}\right)Y_{c+1}Y_{1}\right]
-			= O\left(\frac{c(s-c)}{s^2}\right)
+			\lesssim \frac{c(s-c)}{s^2}\mu^2(\mathbf{x}) + o(1)
 		\end{aligned}
 	\end{equation}
 	The fourth term can be asymptotically bounded in the following way.
@@ -1051,8 +1059,9 @@ Having developed theoretical results concerning uniform inference methods for th
 			 & \quad = \frac{(s-c)^2}{s^2} \E_{D}\left[|\mu(\mathbf{X}_{c+1})|\, s \, \kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}, D\right)\right]
 			\E_{D'}\left[|\mu(\mathbf{X}_{c+1}^{\prime})|\, s \, \kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}^{\prime}, D^{\prime}\right)\right]                                                                                          \\
 			%
-			 & \quad = \frac{(s-c)^2}{s^2} \left(\E_{D}\left[|\mu(\mathbf{X}_{c+1})|\, s \, \kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}, D\right)\right]\right)^2
-			= O\left(\frac{(s-c)^2}{s^2}\right)
+			 & \quad = \frac{(s-c)^2}{s^2} \left(\E_{D}\left[|\mu(\mathbf{X}_{c+1})|\, s \, \kappa\left(\mathbf{x}; \mathbf{Z}_{c+1}, D\right)\right]\right)^2\\
+			 %
+			& \quad \lesssim \frac{(s-c)^2}{s^2}\mu^2(\mathbf{x}) + o(1)
 		\end{aligned}
 	\end{equation}
 	The result of Lemma \ref{lem_omega_sc} follows immediately.
@@ -1160,8 +1169,9 @@ Having developed theoretical results concerning uniform inference methods for th
 			%
 			 & = \E_{D}\left[\left(\mu^2(\mathbf{X}_{1}) + \sigma^2_{\varepsilon}\right) \, c \, \kappa(\mathbf{x}; \mathbf{Z}_1, D)\right]                                                                 \\
 			%
-			 & = \frac{c}{s_1} \E_{D}\left[\left(\mu^2(\mathbf{X}_{1}) + \sigma^2_{\varepsilon}\right) \, s_1 \, \kappa(\mathbf{x}; \mathbf{Z}_1, D)\right]
-			= O(c/s_1)
+			 & = \frac{c}{s_1} \E_{D}\left[\left(\mu^2(\mathbf{X}_{1}) + \sigma^2_{\varepsilon}\right) \, s_1 \, \kappa(\mathbf{x}; \mathbf{Z}_1, D)\right]\\
+			 %
+			 & \lesssim (c/s_1)(\mu^2(\mathbf{x}) + \sigma^2_{\varepsilon}) + o(1)
 		\end{aligned}
 	\end{equation}
 	Considering the second term, we find the following.
@@ -1178,8 +1188,9 @@ Having developed theoretical results concerning uniform inference methods for th
 			%
 			 & \quad \leq \frac{c (s_2 - c)}{s_1 s_2}
 			\E_{D'}\left[|\mu(\mathbf{X}_1)| \, s_1  \,\kappa(\mathbf{x}; \mathbf{Z}_1, D^{\prime})\right]
-			\E_{D}\left[|\mu(\mathbf{X}_{s_2})| \, s_2  \,\kappa(\mathbf{x}; \mathbf{Z}_{s_2}, D)\right]
-			= O\left(\frac{c(s_2 - c)}{s_1 s_2}\right)
+			\E_{D}\left[|\mu(\mathbf{X}_{s_2})| \, s_2  \,\kappa(\mathbf{x}; \mathbf{Z}_{s_2}, D)\right]\\
+			%
+			& \quad \lesssim \frac{c(s_2 - c)}{s_1 s_2} \mu^2(\mathbf{x}) + o(1)
 		\end{aligned}
 	\end{equation}
 	Similarly, by simplifying the third term, we find the following.
@@ -1193,8 +1204,9 @@ Having developed theoretical results concerning uniform inference methods for th
 			%
 			 & \quad \leq \frac{(s_1 - c)c}{s_1 s_2}
 			\E_{D}\left[|\mu(\mathbf{X}_{s_1}^{\prime})| \, s_1 \, \kappa(\mathbf{x}; \mathbf{Z}_{s_1}^{\prime}, D^{\prime})\right]
-			\E_{D}\left[|\mu(\mathbf{X}_1)| \, s_2 \, \kappa(\mathbf{x}; \mathbf{Z}_1, D)\right]
-			= O\left(\frac{(s_1 - c)c}{s_1 s_2}\right)
+			\E_{D}\left[|\mu(\mathbf{X}_1)| \, s_2 \, \kappa(\mathbf{x}; \mathbf{Z}_1, D)\right]\\
+			%
+			& \quad \lesssim \frac{(s_1 - c)c}{s_1 s_2} \mu^2(\mathbf{x}) + o(1)
 		\end{aligned}
 	\end{equation}
 	Lastly, concerning the fourth term, observe the following.
@@ -1211,8 +1223,9 @@ Having developed theoretical results concerning uniform inference methods for th
 			%
 			& \quad \leq \frac{(s_1 - c)(s_2 -c)}{s_1 s_2}
 			\E_{D'}\left[|\mu(\mathbf{X}_{s_1}^{\prime})| \, s_1 \,\kappa(\mathbf{x}; \mathbf{Z}_{s_1}^{\prime}, D^{\prime})   \right]                                                                                                                                                                        
-			\E_{D}\left[ |\mu(\mathbf{X}_{s_2})| \, s_2 \, \kappa(\mathbf{x}; \mathbf{Z}_{s_2}, D)  \right]                                                                                                                                                                      
-			= O\left(\frac{(s_1 - c)(s_2 -c)}{s_1 s_2}\right)
+			\E_{D}\left[ |\mu(\mathbf{X}_{s_2})| \, s_2 \, \kappa(\mathbf{x}; \mathbf{Z}_{s_2}, D)  \right]                                                                                                                                                                      \\
+			%
+			& \quad \lesssim \frac{(s_1 - c)(s_2 -c)}{s_1 s_2}\mu^2(\mathbf{x}) + o(1)
 		\end{aligned}
 	\end{equation}
 \end{proof}
