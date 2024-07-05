@@ -19,6 +19,39 @@
 
 \refsection{0}
   \datalist[entry]{nyt/global//global/global}
+    \entry{arvesen_jackknifing_1969}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=a56dda22b4e07fb27fdaba6723c3a3b7}{%
+           family={Arvesen},
+           familyi={A\bibinitperiod},
+           given={James\bibnamedelima N.},
+           giveni={J\bibinitperiod\bibinitdelim N\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{a56dda22b4e07fb27fdaba6723c3a3b7}
+      \strng{fullhash}{a56dda22b4e07fb27fdaba6723c3a3b7}
+      \strng{bibnamehash}{a56dda22b4e07fb27fdaba6723c3a3b7}
+      \strng{authorbibnamehash}{a56dda22b4e07fb27fdaba6723c3a3b7}
+      \strng{authornamehash}{a56dda22b4e07fb27fdaba6723c3a3b7}
+      \strng{authorfullhash}{a56dda22b4e07fb27fdaba6723c3a3b7}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The Annals of Mathematical Statistics}
+      \field{month}{12}
+      \field{number}{6}
+      \field{title}{Jackknifing {U}-{Statistics}}
+      \field{volume}{40}
+      \field{year}{1969}
+      \field{pages}{2076\bibrangedash 2100}
+      \range{pages}{25}
+      \verb{doi}
+      \verb 10.1214/aoms/1177697287
+      \endverb
+    \endentry
     \entry{biau_rate_2010}{article}{}
       \name{author}{2}{}{%
         {{un=0,uniquepart=base,hash=d905131276d4431aea7b505a2b27db2f}{%

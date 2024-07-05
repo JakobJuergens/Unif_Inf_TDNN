@@ -98,3 +98,47 @@ Furthermore, the corresponding Haj\'ek-Projections are as follows.
 \end{equation}
 Here $\operatorname{HR}$ stands for the Haj\'ek residual.
 Bounding this residual will be integral to the theoretical arguments made in the following.
+
+\hrule
+
+{\color{red} Idea 2:}
+
+By restricting Theorem 4.2 from \citet{ritzwoller_uniform_2024} to the univariate case, i.e. considering only a single point of interest, we obtain the following corollary.
+\begin{cor}\mbox{}\\*
+	Consider a generic order $s$ U-statistic
+	\begin{equation}
+		U_{s}(\mathbf{x}; \mathbf{D}_n)
+		= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}}u(\mathbf{x}; D_{\ell})
+		\quad \text{with} \quad
+		U_{s}(\mathbf{x}; \mathbf{D}_n) = \theta(\mathbf{x})
+	\end{equation}
+	and the Kernel of its Haj\'ek projection
+	\begin{equation}
+		u^{(1)}\left(\mathbf{x}; \mathbf{z}\right)
+		= \E\left[u(\mathbf{x}; D_{[s]}) \, | \, \mathbf{Z}_1 = \mathbf{z}\right] - \theta(\mathbf{x}).
+	\end{equation}
+	Furthermore, define the following variances.
+	\begin{equation}
+		\nu^2 = \Var\left(u(\mathbf{x}; D_{[s]})\right), \quad
+		\sigma_{s}^2 = \Var\left(u^{(1)}(\mathbf{x}; \mathbf{Z})\right), \quad
+		\psi_{s}^2 = \nu^2 - s \sigma_{s}^2
+	\end{equation}
+	If the kernel function $u\left(\mathbf{x} ; D_{\ell}\right)$ satisfies the bound
+	$\left\|u(\mathbf{x}; D_{\ell})\right\|_{\psi_1} \leq \phi,$
+	then
+	\begin{align}
+		\sqrt{\frac{n}{{s}^2 \sigma_{s}^2}}
+		\left(u(\mathbf{x}; \mathbf{D}_n) - \theta(\mathbf{x}) - \frac{b}{n} \sum_{i=1}^n u^{(1)}(\mathbf{x}; \mathbf{Z}_{i})\right)
+		%
+		= \sqrt{\frac{n}{{s}^2 \sigma_{s}^2}} \operatorname{HR}(\mathbf{x}; \mathbf{D}_n)
+		%
+		\lesssim \xi_{n, s},
+		\quad \text {where} \\
+		\xi_{n, s}
+		= \left(\frac{C s \log(n)}{n}\right)^{s / 2}\left(\left(\frac{n \psi_{s}^2}{{s}^2 \sigma_{s}^2}\right)^{1 / 2}+\left(\frac{\phi^2 s \log ^4(n)}{\sigma_{s}^2}\right)^{1 / 2}\right),
+	\end{align}
+	with probability greater than $1-C / n$.
+\end{cor}
+
+We want to use this bound to improve on the subsampling bounds derived in the proofs of Theorems 5 and 6 from \cite{demirkaya_optimal_2024}.
+These can be found in their Supplementary Material, parts D.5 and D.6.
