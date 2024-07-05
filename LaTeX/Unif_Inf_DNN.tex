@@ -102,8 +102,7 @@
 \hrule
 Nearest Neighbor Estimators and their derivatives form a flexible class of estimators for a variety of purposes including nonparametric regression.
 Although widely used in practice for the latter purpose, some of their properties are still elusive when it comes to performing inference.
-This paper contributes to improving our understanding by establishing an asymptotically valid method to construct uniform confidence bands when using the Two-Scale Distributional Nearest Neighbor (TDNN) method of \citet{demirkaya_optimal_2024}.
-To achieve this goal, we use novel results on uniform inference for infinite-order U-statistics (IOUS) developed in \citet{ritzwoller_uniform_2024}.
+	{\color{red} LOREM IPSUM}
 Due to the inherent connection of the Potential Nearest Neighbors (PNN) framework to Random Forests (RF), this work also contributes to contextualizing recent advances in inference techniques for random forests.
 	{\color{red} LOREM IPSUM}
 
@@ -1263,13 +1262,85 @@ Having developed theoretical results concerning uniform inference methods for th
 				w_{1}^{*} \E_{2:s_2}\left[\tilde{\mu}_{s_1}\left(\mathbf{x}; D\right)\, \Big| \, D_1 = \mathbf{Z}_1\right]
 				+ w_{2}^{*} \E_{2:s_2}\left[h_{s_2}\left(\mathbf{x}; D\right)\, \Big| \, D_1 = \mathbf{Z}_1\right]
 				\right)^{2}
-			\right]                                                  \\
-			%
-			 & = \E_{1}\left[
 				\right]
 		\end{aligned}
 	\end{equation}
-	This gives us three terms to analyze individually.
+	This gives us two conditional expectations to analyze individually.
+	\begin{equation}
+		\begin{aligned}
+			 & \E_{2:s_2}\left[\tilde{\mu}_{s_1}\left(\mathbf{x}; D\right)\, \Big| \, D_1 = \mathbf{Z}_1\right]                                         \\
+			 & \quad = \E_{2:s_2}\left[
+			\binom{s_2}{s_1}^{-1}\sum_{\ell \in L_{s_2, s_1}}h_{s_1}\left(\mathbf{x}; D_{\ell}\right)\, \Big| \, D_1 = \mathbf{Z}_1
+			\right]                                                                                                                                     \\
+			%
+			 & \quad = \binom{s_2}{s_1}^{-1}\left(\E_{2:s_2}\left[
+				\sum_{\ell \in L_{s_1}\left([s_2] \backslash \{1\}\right)}h_{s_1}\left(\mathbf{x}; D_{\ell}\right)\right]
+			+ \E_{2:s_2}\left[
+				\sum_{\ell \in L_{s_1 - 1}\left([s_2] \backslash \{1\}\right)}h_{s_1}\left(\mathbf{x}; D_{\ell \cap 1}\right)\, \Big| \, D_1 = \mathbf{Z}_1\right]
+			\right)                                                                                                                                     \\
+			%
+			 & \quad = \binom{s_2}{s_1}^{-1}\left(
+			\binom{s_2 - 1}{s_1}\E_{2:(s_1 + 1)}\left[h_{s_1}\left(\mathbf{x}; D_{2:(s_1 + 1)}\right)\right]
+			+ \binom{s_2 - 1}{s_1 - 1}\E_{2:s_1}\left[h_{s_1}\left(\mathbf{x}; D_{[s_1]}\right)\, \Big| \, D_1 = \mathbf{Z}_1\right]
+			\right)                                                                                                                                     \\
+			%
+			 & \quad = \binom{s_2}{s_1}^{-1}\left(
+			\binom{s_2 - 1}{s_1}\E_{2:(s_1 + 1)}\left[\sum_{i = 2}^{s_1 + 1}\kappa(\mathbf{x}; \mathbf{Z}_i, D_{2:(s_1 + 1)}) Y_i\right]
+			+ \binom{s_2 - 1}{s_1 - 1}\E_{2:s_1}\left[\sum_{i = 1}^{s_1}\kappa(\mathbf{x}; \mathbf{Z}_i, D_{[s_1]}) Y_i\, \Big| \, D_1 = \mathbf{Z}_1\right]
+			\right)                                                                                                                                     \\
+			%
+			 & \quad = \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1} s_1 \E_{2:(s_1 + 1)}\left[\kappa(\mathbf{x}; \mathbf{Z}_2, D_{2:(s_1 + 1)}) Y_2\right] \\
+			 & \quad \quad + \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1 - 1}\left(
+			(s_1 - 1)\E_{2:s_1}\left[\kappa(\mathbf{x}; \mathbf{Z}_2, D_{[s_1]}) Y_2\, \Big| \, D_1 = \mathbf{Z}_1\right]
+			+ \mu(\mathbf{X}_1)\E_{2:s_1}\left[\kappa(\mathbf{x}; \mathbf{Z}_1, D_{[s_1]})\, \Big| \, D_1 = \mathbf{Z}_1\right]
+			\right)                                                                                                                                     \\
+			%
+			 & \quad = \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1}
+			 \E_{2}\left[\mu(\mathbf{X}_2) \, s_1 \, \E_{3:(s_1+1)}\left[\kappa(\mathbf{x}; \mathbf{Z}_2, D_{2:(s_1 + 1)}) \, | \, \mathbf{Z}_2\right]\right]                                        \\
+			 & \quad \quad + \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1 - 1}
+			\E_{2}\left[\mu(\mathbf{X}_2) \, (s_1 - 1) \, \E_{3:s_1}\left[\kappa(\mathbf{x}; \mathbf{Z}_2, D_{[s_1]}) \, | \, \mathbf{Z}_2\right] \, \Big| \, D_1 = \mathbf{Z}_1\right]                                        \\
+			 & \quad \quad + \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1 - 1}\mu(\mathbf{X}_1)
+			\left(1 - \varphi\left(B\left(\mathbf{X}, \| \mathbf{X}_1 - \mathbf{x} \|\right)\right)\right)^{s_1 - 1}                                    \\
+			%
+			& \quad = \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1}
+			\E_{2}\left[\mu(\mathbf{X}_2) \, s_1 \, \left(1 - \varphi\left(B\left(\mathbf{X}, \| \mathbf{X}_2 - \mathbf{x} \|\right)\right)\right)^{s_1 - 1}\right]                                        \\
+			& \quad \quad + \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1 - 1}
+		   \E_{2}\left[\mu(\mathbf{X}_2) \, (s_1 - 1) \, 
+		   \1\left(\|\mathbf{X}_2 - \mathbf{x}\| < \|\mathbf{X}_1 - \mathbf{x}\|\right)
+		   \left(1 - \varphi\left(B\left(\mathbf{X}, \| \mathbf{X}_2 - \mathbf{x} \|\right)\right)\right)^{s_1 - 2} \, \Big| \, D_1 = \mathbf{Z}_1\right]                                        \\
+			& \quad \quad + \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1 - 1}\mu(\mathbf{X}_1)
+		   \left(1 - \varphi\left(B\left(\mathbf{X}, \| \mathbf{X}_1 - \mathbf{x} \|\right)\right)\right)^{s_1 - 1}                                    \\
+		   %
+			 & {\color{red} LOREM IPSUM}
+		\end{aligned}
+	\end{equation}
+	\begin{equation}
+		\begin{aligned}
+			 & \E_{2:s_2}\left[h_{s_2}\left(\mathbf{x}; D\right)\, \Big| \, D_1 = \mathbf{Z}_1\right]                                             \\
+			%
+			 & \quad = \E_{2:s_2}\left[\sum_{i = 1}^{s_2} \kappa(\mathbf{x}; \mathbf{Z}_i, D) Y_i \, \Big| \, D_1 = \mathbf{Z}_1\right]           \\
+			%
+			 & \quad = \E_{2:s_2}\left[\kappa(\mathbf{x}; \mathbf{Z}_1, D) Y_1 \, \Big| \, D_1 = \mathbf{Z}_1\right]
+			+ \E_{2:s_2}\left[\sum_{i = 2}^{s_2} \kappa(\mathbf{x}; \mathbf{Z}_i, D) Y_i \, \Big| \, D_1 = \mathbf{Z}_1\right]                    \\
+			%
+			 & \quad = \mu(\mathbf{X}_1) \left(1 - \varphi\left(B\left(\mathbf{X}, \| \mathbf{X}_1 - \mathbf{x} \|\right)\right)\right)^{s_2 - 1}
+			+ (s_2 - 1)\E_{2:s_2}\left[\kappa(\mathbf{x}; \mathbf{Z}_2, D) Y_2 \, \Big| \, D_1 = \mathbf{Z}_1\right]                              \\
+			%
+			& \quad = \mu(\mathbf{X}_1) \left(1 - \varphi\left(B\left(\mathbf{X}, \| \mathbf{X}_1 - \mathbf{x} \|\right)\right)\right)^{s_2 - 1}
+			+ \E_{2}\left[
+				\mu(\mathbf{X}_2) \, (s_2 - 1) \, \E_{3:s_2}\left[\kappa(\mathbf{x}; \mathbf{Z}_2, D)\, | \, \mathbf{Z}_2\right] 
+				\, \Big| \, D_1 = \mathbf{Z}_1\right]                              \\
+			%
+			& \quad = \mu(\mathbf{X}_1) \left(1 - \varphi\left(B\left(\mathbf{X}, \| \mathbf{X}_1 - \mathbf{x} \|\right)\right)\right)^{s_2 - 1}\\
+			& \quad \quad + \E_{2}\left[
+				\mu(\mathbf{X}_2)\, (s_2 - 1) \, 
+				\1\left(\|\mathbf{X}_2 - \mathbf{x}\| < \|\mathbf{X}_1 - \mathbf{x}\|\right)
+				\left(1 - \varphi\left(B\left(\mathbf{X}, \| \mathbf{X}_2 - \mathbf{x} \|\right)\right)\right)^{s_2 - 2} 
+				\, \Big| \, D_1 = \mathbf{Z}_1\right]                              \\
+			%
+			 & {\color{red} LOREM IPSUM}
+		\end{aligned}
+	\end{equation}
 \end{proof}
 
 \subsection{Proof of Theorem \ref{JK_Cons}}
