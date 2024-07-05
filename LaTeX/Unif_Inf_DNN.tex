@@ -339,28 +339,27 @@ This connection will prove useful going forward.
 	{\color{red} LOREM IPSUM}
 \end{lem}
 
-
 For the DNN estimator and any $1 \leq c \leq s$, define
 \begin{equation}
-	\xi_{c,s}\left(\mathbf{x}\right)
+	\xi_{s}^{c}\left(\mathbf{x}\right)
 	= \Cov\left(h_{s}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_c, \mathbf{Z}_{c+1}, \ldots, \mathbf{Z}_s\right),
 	h_{s}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_c, \mathbf{Z}_{c+1}^{\prime}, \ldots, \mathbf{Z}_s^{\prime}\right)\right)
 \end{equation}
 where $\mathbf{Z}_{c+1}^{\prime}, \ldots, \mathbf{Z}_n^{\prime}$ are i.i.d. from $P$ and independent of $\mathbf{Z}_1, \ldots, \mathbf{Z}_n$ and thus
-$\xi_{s,s}\left(\mathbf{x}\right) = \Var\left(h_s\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_s\right)\right).$
+$\xi_{s}^{s}\left(\mathbf{x}\right) = \Var\left(h_s\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_s\right)\right).$
 Then, we have the following result from the original paper.
 
 \begin{lem}[\citet{demirkaya_optimal_2024} - Lemma 7]\label{lem_dem7}\mbox{}\\*
 	For any fixed $\mathbf{x}$ we have the following as $s \rightarrow \infty$ and $s = o(n)$
 	\begin{equation}
-		\lim_{n \rightarrow \infty} n^{-1}\frac{\xi_{s,s}\left(\mathbf{x}\right)}{\xi_{1,s}\left(\mathbf{x}\right)}
+		\lim_{n \rightarrow \infty} n^{-1}\frac{\xi_{s}^{s}\left(\mathbf{x}\right)}{\xi_{s}^{1}\left(\mathbf{x}\right)}
 		= 0.
 	\end{equation}
 \end{lem}
 
 Similarly, for the TDNN estimator and any $1 \leq c \leq s_2$, let
 \begin{equation}
-	\zeta_{c,s_2}\left(\mathbf{x}\right)
+	\zeta_{s_1, s_2}^{c}\left(\mathbf{x}\right)
 	= \Cov\left(h_{s_1, s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_c, \mathbf{Z}_{c+1}, \ldots, \mathbf{Z}_{s_2}\right),
 	h_{s_1, s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_c, \mathbf{Z}_{c+1}^{\prime}, \ldots, \mathbf{Z}_{s_2}^{\prime}\right)\right)
 \end{equation}
@@ -424,7 +423,7 @@ Specifically, we are interested in applying the following theorem.
 
 \begin{lem}[\citet{peng_bias_2021} - Theorem 6]\label{thm_peng21_6}\mbox{}\\*
 	Let $X_1, \ldots, X_n$ be i.i.d. from $\mathrm{P}$ and $\mathrm{U}_{n, k, \omega}$ be a generalized complete $U$ statistic with kernel $s\left(X_1, \ldots, X_k ; \omega\right)$.
-	
+
 	Let $\theta=\E[s], \zeta_{1, \omega}=\Var\left(\E\left[s \mid X_1\right]\right)$ and $\zeta_k=\Var(s)$.
 	If $\frac{k}{n}\left(\frac{\zeta_k}{k \zeta 1, \omega}-1\right) \rightarrow 0$, then
 	\begin{equation}
@@ -782,7 +781,7 @@ Having developed theoretical results concerning uniform inference methods for th
 \section{Proofs for Results in Section \ref{pw_inf}}
 \hrule
 
-\subsection{Useful Lemmas}
+\subsection{Useful Lemmas for Proofs for Results in Section \ref{pw_inf}}
 \hrule
 
 \begin{lem}[\citet{lee_u-statistics_2019} - Chapter 5, Theorem 1]\mbox{}\\*\label{Lee_ch5thm1}
@@ -799,117 +798,6 @@ Having developed theoretical results concerning uniform inference methods for th
 		\psi_{s}(D_{\iota})\psi_{s}(D_{\iota'}).
 	\end{equation}
 \end{lem}
-
-\begin{lem}[Jackknife Variance Estimator as U-Statistic]\label{JK_as_U_Stat}\mbox{}\\*
-	The Jackknife Variance Estimator as described in Lemma \ref{Lee_ch5thm1} can be expressed as a U-statistic of order $2s$.
-	\begin{equation}
-		\hat{\omega}^{2}_{JK}\left(\mathbf{x}; \mathbf{D}_n\right)
-		= \binom{n}{2s}^{-1} \sum_{\ell \in L_{n, 2 s}}J_{s}\left(\mathbf{x}; n, D_\ell\right)
-	\end{equation}
-	with
-	\begin{equation}
-		J_{s}\left(\mathbf{x}; n, D\right)
-		:= A(n, s)
-		\sum_{c = 0}^{s} \frac{cn - s^2}{B(n, s, c)}
-		\sum_{\varkappa \in L_{2 s, c}}
-		\sum_{\substack{\varsigma, \varpi \in L_{s - c}([2 s] \backslash \varkappa),\\
-				\varsigma \cap \varpi = \emptyset}}
-		j_{s}\left(\mathbf{x}; \varkappa, \varsigma, \varpi, D\right)
-	\end{equation}
-	where
-	\begin{equation}
-		j_{s}\left(\mathbf{x}; \varkappa, \varsigma, \varpi, D\right) =
-		h_{s}(\mathbf{x}; D_{\varkappa \cup \varsigma}) \cdot
-		h_{s}(\mathbf{x};D_{\varkappa \cup \varpi})
-	\end{equation}
-	and
-	\begin{equation}
-		A(n, s) := \frac{n-1}{n^2} \binom{n}{2s} \binom{n-1}{s}^{-2}
-		\quad \text{and} \quad
-		B(n, s, c) := \binom{n-2s+c}{2s - c}{\color{red} \text{???}}
-	\end{equation}
-\end{lem}
-
-\begin{proof}[Proof of Lemma \ref{JK_as_U_Stat}]
-	Taking Lemma \ref{Lee_ch5thm1} as given, we find that the Jackknife variance estimator for the TDNN estimator can be expressed in the following form.
-	\begin{equation}
-		\hat{\omega}^{2}_{JK}
-		= \frac{n-1}{n^2}\binom{n-1}{s}^{-2}
-		\left(\sum_{c = 0}^{s}\left(cn - s^2\right)
-		\sum_{\substack{\ell, \iota \in L_{n,s}, \\ \, |\ell \cap \iota| = c}} h_{s}(\mathbf{x}; D_{\ell})h_{s}(\mathbf{x};D_{\iota})\right)
-	\end{equation}
-	Taking now the kernel as described in Lemma \ref{JK_as_U_Stat}, we can make the following observation.
-	\begin{equation}
-		\begin{aligned}
-			\hat{\omega}^{2}_{JK}
-			%
-			 & = \frac{n-1}{n^2}\binom{n-1}{s}^{-2}
-			\left(\sum_{c = 0}^{s}\left(cn - s^2\right)
-			\sum_{\substack{\iota, \iota' \in L_{n,s},                                                              \\ \, |\iota' \cap \iota| = c}} h_{s}(\mathbf{x}; D_{\iota})h_{s}(\mathbf{x};D_{\iota'})\right) \\
-			%
-			 & = \binom{n}{2 s}^{-1} A(n, s)
-			\left(
-			\sum_{\iota', \iota \in L_{n,s}}
-			\left(|\iota' \cap \iota|n - s^2\right) h_{s}(\mathbf{x}; D_{\iota})h_{s}(\mathbf{x};D_{\iota'})\right) \\
-			%
-			 & = \binom{n}{2 s}^{-1} A(n, s)
-			\left(
-			\sum_{\iota', \iota \in L_{n,s}}
-			\frac{
-			\sum_{\ell \in L_{n, 2s}}
-			\1\left(\iota, \iota' \subseteq \ell\right)
-			\left(|\iota' \cap \iota|n - s^2\right) h_{s}(\mathbf{x}; D_{\iota})h_{s}(\mathbf{x};D_{\iota'})}
-			{\sum_{\ell \in L_{n, 2s_2}}\1\left(\iota, \iota' \subseteq \ell\right)}\right)                         \\
-			%
-			 & = \binom{n}{2 s}^{-1} A(n, s)
-			\left(
-			\sum_{\ell \in L_{n, 2s}}
-			\sum_{\iota', \iota \in L_{n,s}}
-			\frac{\1\left(\iota, \iota' \subseteq \ell\right)}{B(n,s,|\iota \cap \iota'|)}
-			\left(|\iota' \cap \iota|n - s^2\right) h_{s}(\mathbf{x}; D_{\iota})h_{s}(\mathbf{x};D_{\iota'})
-			\right)                                                                                                 \\
-			%
-			 & = \binom{n}{2 s}^{-1} A(n, s)
-			\left(
-			\sum_{\ell \in L_{n, 2s}}
-			\sum_{\iota', \iota \in L_{s}(\ell)}
-			\left(|\iota' \cap \iota|n - s^2\right)
-			\frac{h_{s}(\mathbf{x}; D_{\iota})h_{s}(\mathbf{x};D_{\iota'})}
-			{B(n,s,|\iota \cap \iota'|)}
-			\right)                                                                                                 \\
-			%
-			 & = \binom{n}{2 s}^{-1} A(n, s)
-			\left(
-			\sum_{c = 0}^{s}\frac{cn - s^2}{B(n,s,c)}
-			\sum_{\ell \in L_{n, 2s}}
-			\sum_{\substack{\iota', \iota \in L_{s}(\ell),                                                          \\ |\iota \cap \iota'| = c}}
-			h_{s}(\mathbf{x}; D_{\iota})h_{s}(\mathbf{x};D_{\iota'})
-			\right)                                                                                                 \\
-			%
-			 & = \binom{n}{2 s}^{-1}
-			\sum_{\ell \in L_{n, 2s}} \left(A(n, s)
-			\sum_{c = 0}^{s}\frac{cn - s^2}{B(n,s,c)}
-			\sum_{\substack{\iota', \iota \in L_{s}(\ell),                                                          \\ |\iota \cap \iota'| = c}}
-			h_{s}(\mathbf{x}; D_{\iota})h_{s}(\mathbf{x};D_{\iota'})
-			\right)                                                                                                 \\
-			%
-			 & = \binom{n}{2 s}^{-1}
-			\sum_{\ell \in L_{n, 2s}}\left(
-			A(n, s)
-			\sum_{c = 0}^{s} \frac{cn - s^2}{B(n, s, c)}
-			\sum_{\varkappa \in L_{2 s, c}}
-			\sum_{\substack{\varsigma, \varpi \in L_{s - c}([2 s] \backslash \varkappa),                            \\
-					\varsigma \cap \varpi = \emptyset}}
-			j_{s}\left(\mathbf{x}; \varkappa, \varsigma, \varpi, D_{\ell}\right)\right)                             \\
-			%
-			 & = \binom{n}{2 s}^{-1}
-			\sum_{\ell \in L_{n, 2s}}
-			J_{s}\left(\mathbf{x}; n, D_{\ell}\right)
-		\end{aligned}
-	\end{equation}
-	Thus showing that the Jackknife variance estimator is a U-statistic of order $2s$.
-\end{proof}
-
 
 \subsection{Kernel Variances \& Covariances}
 \hrule
@@ -1250,7 +1138,7 @@ Having developed theoretical results concerning uniform inference methods for th
 \begin{lem}[Kernel Variance of the TDNN Kernel]\label{Var_TDNN_k}
 	For the kernel of the TDNN estimator with subsampling scales $s_1$ and $s_2$, it holds that
 	\begin{equation}
-		\zeta_{s_2, s_2}\left(\mathbf{x}\right)
+		\zeta_{s_1, s_2}^{s_2}\left(\mathbf{x}\right)
 		\lesssim \mu^2(\mathbf{x}) + \sigma_{\varepsilon} + o(1)
 		\quad \text{as} \quad s_1, s_2 \rightarrow \infty
 		\quad \text{with} \quad
@@ -1262,7 +1150,7 @@ Having developed theoretical results concerning uniform inference methods for th
 	Consider first the following decomposition.
 	\begin{equation}
 		\begin{aligned}
-			\zeta_{s_2, s_2}\left(\mathbf{x}\right)
+			\zeta_{s_1, s_2}^{s_2}\left(\mathbf{x}\right)
 			 & = \Var\left(h_{s_1, s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_{s_2}\right)\right)
 			= \Var_{D}\left(h_{s_1, s_2}\left(\mathbf{x}; D\right)\right)                                     \\
 			%
@@ -1332,31 +1220,57 @@ Having developed theoretical results concerning uniform inference methods for th
 \begin{lem}[Kernel Covariances of the TDNN Kernel]\label{Cov_TDNN_k}
 	For the kernel of the TDNN estimator with subsampling scales $s_1$ and $s_2$, it holds that
 	\begin{equation}
-		{\color{red} LOREM IPSUM}
+		\zeta_{s_1, s_2}^{1}\left(\mathbf{x}\right)
+		\sim s_2^{-1}
+		{\color{red} ???}
 	\end{equation}
 \end{lem}
 
-\begin{proof}
+\begin{proof}[Proof of Lemma \ref{Cov_TDNN_k}]
+	Following the idea of the proof of Lemma 7 in \citet{demirkaya_optimal_2024}, we want to find an upper and lower asymptotic bound for $\zeta_{s_1, s_2}^{1}$ to pin down its asymptotic order.
+	Thus, consider first the following.
 	\begin{equation}
 		\begin{aligned}
-			\zeta_{1,s_2}\left(\mathbf{x}\right)
+			\zeta_{s_1, s_2}^{1}\left(\mathbf{x}\right)
 			 & = \Cov\left(
 			h_{s_1, s_2}\left(\mathbf{x}; \mathbf{Z}_1, \mathbf{Z}_2, \ldots, \mathbf{Z}_{s_2}\right),
 			h_{s_1, s_2}\left(\mathbf{x}; \mathbf{Z}_1, \mathbf{Z}_{2}^{\prime}, \ldots, \mathbf{Z}_{s_2}^{\prime}\right)
-			\right)                      \\
+			\right)                                                  \\
 			%
-			 & = \E_{\mathbf{Z}_1}\left[
-				\Cov_{D, D^\prime}\left(
+			 & = \E_{1}\left[\Cov_{(2:s_2), (2:s_2)^{\prime}}\left(
 				h_{s_1, s_2}\left(\mathbf{x}; D\right),
 				h_{s_1, s_2}\left(\mathbf{x}; D^{\prime}\right)
-				\, | \, D_1 = D_{1}^{\prime} = \mathbf{Z}_1
-				\right)
+				\, \Big| \, D_1 = D_{1}^{\prime} = \mathbf{Z}_1\right)
+			\right]                                                  \\
+			%
+			 & \leq \E_{1}\left[\E_{(2:s_2), (2:s_2)^{\prime}}\left[
+			|h_{s_1, s_2}\left(\mathbf{x}; D\right)| \cdot
+			|h_{s_1, s_2}\left(\mathbf{x}; D^{\prime}\right)|
+			\, \Big| \, D_1 = D_{1}^{\prime} = \mathbf{Z}_1\right]
+			\right]                                                  \\
+			%
+			 & = \E_{1}\left[\left(\E_{2:s_2}\left[
+					h_{s_1, s_2}\left(\mathbf{x}; D\right)
+					\, \Big| \, D_1 = \mathbf{Z}_1\right]\right)^{2}
+			\right]                                                  \\
+			%
+			 & = \E_{1}\left[\left(\E_{2:s_2}\left[
+					w_{1}^{*} \tilde{\mu}_{s_1}\left(\mathbf{x}; D\right) + w_{2}^{*} h_{s_2}\left(\mathbf{x}; D\right)
+					\, \Big| \, D_1 = \mathbf{Z}_1\right]\right)^{2}
+			\right]                                                  \\
+			%
+			 & = \E_{1}\left[\left(
+				w_{1}^{*} \E_{2:s_2}\left[\tilde{\mu}_{s_1}\left(\mathbf{x}; D\right)\, \Big| \, D_1 = \mathbf{Z}_1\right]
+				+ w_{2}^{*} \E_{2:s_2}\left[h_{s_2}\left(\mathbf{x}; D\right)\, \Big| \, D_1 = \mathbf{Z}_1\right]
+				\right)^{2}
+			\right]                                                  \\
+			%
+			 & = \E_{1}\left[
 				\right]
 		\end{aligned}
 	\end{equation}
+	This gives us three terms to analyze individually.
 \end{proof}
-
-\hrule
 
 \subsection{Proof of Theorem \ref{JK_Cons}}
 \hrule
@@ -1381,6 +1295,116 @@ Having developed theoretical results concerning uniform inference methods for th
 
 \section{Proofs for Results in Section \ref{unif_inf}}
 \hrule
+\subsection{Useful Lemmas for Proofs for Results in Section \ref{unif_inf}}
 
+\begin{lem}[Jackknife Variance Estimator as U-Statistic]\label{JK_as_U_Stat}\mbox{}\\*
+	The Jackknife Variance Estimator as described in Lemma \ref{Lee_ch5thm1} can be expressed as a U-statistic of order $2s$.
+	\begin{equation}
+		\hat{\omega}^{2}_{JK}\left(\mathbf{x}; \mathbf{D}_n\right)
+		= \binom{n}{2s}^{-1} \sum_{\ell \in L_{n, 2 s}}J_{s}\left(\mathbf{x}; n, D_\ell\right)
+	\end{equation}
+	with
+	\begin{equation}
+		J_{s}\left(\mathbf{x}; n, D\right)
+		:= A(n, s)
+		\sum_{c = 0}^{s} \frac{cn - s^2}{B(n, s, c)}
+		\sum_{\varkappa \in L_{2 s, c}}
+		\sum_{\substack{\varsigma, \varpi \in L_{s - c}([2 s] \backslash \varkappa),\\
+				\varsigma \cap \varpi = \emptyset}}
+		j_{s}\left(\mathbf{x}; \varkappa, \varsigma, \varpi, D\right)
+	\end{equation}
+	where
+	\begin{equation}
+		j_{s}\left(\mathbf{x}; \varkappa, \varsigma, \varpi, D\right) =
+		h_{s}(\mathbf{x}; D_{\varkappa \cup \varsigma}) \cdot
+		h_{s}(\mathbf{x};D_{\varkappa \cup \varpi})
+	\end{equation}
+	and
+	\begin{equation}
+		A(n, s) := \frac{n-1}{n^2} \binom{n}{2s} \binom{n-1}{s}^{-2}
+		\quad \text{and} \quad
+		B(n, s, c) := \binom{n-2s+c}{2s - c}{\color{red} \text{???}}
+	\end{equation}
+\end{lem}
+
+\begin{proof}[Proof of Lemma \ref{JK_as_U_Stat}]
+	Taking Lemma \ref{Lee_ch5thm1} as given, we find that the Jackknife variance estimator for the TDNN estimator can be expressed in the following form.
+	\begin{equation}
+		\hat{\omega}^{2}_{JK}
+		= \frac{n-1}{n^2}\binom{n-1}{s}^{-2}
+		\left(\sum_{c = 0}^{s}\left(cn - s^2\right)
+		\sum_{\substack{\ell, \iota \in L_{n,s}, \\ \, |\ell \cap \iota| = c}} h_{s}(\mathbf{x}; D_{\ell})h_{s}(\mathbf{x};D_{\iota})\right)
+	\end{equation}
+	Taking now the kernel as described in Lemma \ref{JK_as_U_Stat}, we can make the following observation.
+	\begin{equation}
+		\begin{aligned}
+			\hat{\omega}^{2}_{JK}
+			%
+			 & = \frac{n-1}{n^2}\binom{n-1}{s}^{-2}
+			\left(\sum_{c = 0}^{s}\left(cn - s^2\right)
+			\sum_{\substack{\iota, \iota' \in L_{n,s},                                                              \\ \, |\iota' \cap \iota| = c}} h_{s}(\mathbf{x}; D_{\iota})h_{s}(\mathbf{x};D_{\iota'})\right) \\
+			%
+			 & = \binom{n}{2 s}^{-1} A(n, s)
+			\left(
+			\sum_{\iota', \iota \in L_{n,s}}
+			\left(|\iota' \cap \iota|n - s^2\right) h_{s}(\mathbf{x}; D_{\iota})h_{s}(\mathbf{x};D_{\iota'})\right) \\
+			%
+			 & = \binom{n}{2 s}^{-1} A(n, s)
+			\left(
+			\sum_{\iota', \iota \in L_{n,s}}
+			\frac{
+			\sum_{\ell \in L_{n, 2s}}
+			\1\left(\iota, \iota' \subseteq \ell\right)
+			\left(|\iota' \cap \iota|n - s^2\right) h_{s}(\mathbf{x}; D_{\iota})h_{s}(\mathbf{x};D_{\iota'})}
+			{\sum_{\ell \in L_{n, 2s_2}}\1\left(\iota, \iota' \subseteq \ell\right)}\right)                         \\
+			%
+			 & = \binom{n}{2 s}^{-1} A(n, s)
+			\left(
+			\sum_{\ell \in L_{n, 2s}}
+			\sum_{\iota', \iota \in L_{n,s}}
+			\frac{\1\left(\iota, \iota' \subseteq \ell\right)}{B(n,s,|\iota \cap \iota'|)}
+			\left(|\iota' \cap \iota|n - s^2\right) h_{s}(\mathbf{x}; D_{\iota})h_{s}(\mathbf{x};D_{\iota'})
+			\right)                                                                                                 \\
+			%
+			 & = \binom{n}{2 s}^{-1} A(n, s)
+			\left(
+			\sum_{\ell \in L_{n, 2s}}
+			\sum_{\iota', \iota \in L_{s}(\ell)}
+			\left(|\iota' \cap \iota|n - s^2\right)
+			\frac{h_{s}(\mathbf{x}; D_{\iota})h_{s}(\mathbf{x};D_{\iota'})}
+			{B(n,s,|\iota \cap \iota'|)}
+			\right)                                                                                                 \\
+			%
+			 & = \binom{n}{2 s}^{-1} A(n, s)
+			\left(
+			\sum_{c = 0}^{s}\frac{cn - s^2}{B(n,s,c)}
+			\sum_{\ell \in L_{n, 2s}}
+			\sum_{\substack{\iota', \iota \in L_{s}(\ell),                                                          \\ |\iota \cap \iota'| = c}}
+			h_{s}(\mathbf{x}; D_{\iota})h_{s}(\mathbf{x};D_{\iota'})
+			\right)                                                                                                 \\
+			%
+			 & = \binom{n}{2 s}^{-1}
+			\sum_{\ell \in L_{n, 2s}} \left(A(n, s)
+			\sum_{c = 0}^{s}\frac{cn - s^2}{B(n,s,c)}
+			\sum_{\substack{\iota', \iota \in L_{s}(\ell),                                                          \\ |\iota \cap \iota'| = c}}
+			h_{s}(\mathbf{x}; D_{\iota})h_{s}(\mathbf{x};D_{\iota'})
+			\right)                                                                                                 \\
+			%
+			 & = \binom{n}{2 s}^{-1}
+			\sum_{\ell \in L_{n, 2s}}\left(
+			A(n, s)
+			\sum_{c = 0}^{s} \frac{cn - s^2}{B(n, s, c)}
+			\sum_{\varkappa \in L_{2 s, c}}
+			\sum_{\substack{\varsigma, \varpi \in L_{s - c}([2 s] \backslash \varkappa),                            \\
+					\varsigma \cap \varpi = \emptyset}}
+			j_{s}\left(\mathbf{x}; \varkappa, \varsigma, \varpi, D_{\ell}\right)\right)                             \\
+			%
+			 & = \binom{n}{2 s}^{-1}
+			\sum_{\ell \in L_{n, 2s}}
+			J_{s}\left(\mathbf{x}; n, D_{\ell}\right)
+		\end{aligned}
+	\end{equation}
+	Thus showing that the Jackknife variance estimator is a U-statistic of order $2s$.
+\end{proof}
 
 \end{document}
