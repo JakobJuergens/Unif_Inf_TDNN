@@ -240,7 +240,7 @@ Through an equivalent representation as an L-statistic developed by \citet{steel
 Starting from this setup, \citet{demirkaya_optimal_2024} develop a novel bias-correction method for the DNN estimator that leads to appealing finite-sample properties of the resulting Two-Scale Distributional Nearest Neighbor (TDNN) estimator.
 Their method is based on an explicit formula for the first-order bias term of the DNN estimator, which in turn allows them to eliminate it through a clever combination of two DNN estimators.
 
-\begin{thm}[\citet{demirkaya_optimal_2024} - Theorem 1]\label{dem_thm1}\mbox{}\\*
+\begin{thm}[\citet{demirkaya_optimal_2024} - Theorem 1]\label{thm_dem1}\mbox{}\\*
 	Assume that the distribution of $\mathbf{X}$ has a density function $f(\cdot)$ with respect to the Lebesgue measure $\lambda$ on the Euclidean space $\mathbb{R}^d$.
 	Let $\mathbf{x} \in \operatorname{supp}(\mathbf{X})$ be a fixed feature vector.
 	If \dots
@@ -282,12 +282,12 @@ they define the corresponding TDNN estimator as follows.
 	\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right)
 	= w_1^{*}(s_1, s_2)\tilde{\mu}_{s_1}\left(\mathbf{x}; \mathbf{D}_n\right) + w_2^{*}(s_1, s_2)\tilde{\mu}_{s_2}\left(\mathbf{x}; \mathbf{D}_n\right)
 \end{equation}
-As a direct consequence of Theorem \ref{dem_thm1}, this leads to the elimination of the first-order bias term leading to desirable finite-sample properties.
+As a direct consequence of Theorem \ref{thm_dem1}, this leads to the elimination of the first-order bias term leading to desirable finite-sample properties.
 Furthermore, the authors show that this construction improves the quality of the normal approximation.
 
 
-\begin{thm}[\citet{demirkaya_optimal_2024} - Theorem 3]\label{dem_thm3}\mbox{}\\*
-	Assume that Conditions (1) to (3) from Theorem \ref{dem_thm1} hold.
+\begin{thm}[\citet{demirkaya_optimal_2024} - Theorem 3]\label{thm_dem3}\mbox{}\\*
+	Assume that Conditions (1) to (3) from Theorem \ref{thm_dem1} hold.
 	Furthermore, let $s_2 \rightarrow \infty$ with $s_2 = o(n)$ and $c_1 \leq s_1/s_2 \leq c_2$ for some constants $0 < c_1 < c_2 < 1$.
 	Then, for any fixed $\mathbf{x} \in \operatorname{supp}(\mathbf{X}) \subset \mathbb{R}^d,$ it holds that for some positive sequence $\sigma_n$ of order $(s_2/n)^{1/2}$,
 	\begin{equation}
@@ -325,9 +325,9 @@ Recalling Equation \ref{U_stat}, the DNN and TDNN estimators can be expressed in
 	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s_2}} h_{s_1, s_2}(\mathbf{x}; D_{\ell})
 \end{equation}
 It is worth pointing out that in contrast to the DNN estimator, the kernel for the TDNN estimator is of order $s_2 > s_1$.
-The authors derive an explicit formula for the kernel that shows the connection between th DNN and TDNN estimators.
+The authors derive an explicit formula for the kernel that shows the connection between the DNN and TDNN estimators.
 This connection will prove useful going forward.
-\begin{lem}[Kernel of TDNN Estimator - Adapted from Lemma 8 of \citet{demirkaya_optimal_2024}]\label{TDNN_kernel}\mbox{}\\*
+\begin{lem}[Kernel of TDNN Estimator - Adapted from Lemma 8 of \citet{demirkaya_optimal_2024}]\label{lem_dem8}\mbox{}\\*
 	The kernel of the TDNN estimator takes the following form.
 	\begin{equation}
 		\begin{aligned}
@@ -350,7 +350,7 @@ where $\mathbf{Z}_{c+1}^{\prime}, \ldots, \mathbf{Z}_n^{\prime}$ are i.i.d. from
 $\xi_{s,s}\left(\mathbf{x}\right) = \Var\left(h_s\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_s\right)\right).$
 Then, we have the following result from the original paper.
 
-\begin{lem}[\citet{demirkaya_optimal_2024} - Lemma 7]\label{Cov_DNN_k}\mbox{}\\*
+\begin{lem}[\citet{demirkaya_optimal_2024} - Lemma 7]\label{lem_dem7}\mbox{}\\*
 	For any fixed $\mathbf{x}$ we have the following as $s \rightarrow \infty$ and $s = o(n)$
 	\begin{equation}
 		\lim_{n \rightarrow \infty} n^{-1}\frac{\xi_{s,s}\left(\mathbf{x}\right)}{\xi_{1,s}\left(\mathbf{x}\right)}
@@ -372,7 +372,7 @@ with an analogous definition of $\mathbf{Z}'$.
 \hrule
 To perform inference, the authors introduce variance estimators based on the Jackknife and Bootstrap.
 However, as they point out, their consistency results rely on a likely suboptimal rate condition for the subsampling scale.
-While Theorem \ref{dem_thm3} allows $s_2$ to be of the order $o(n)$, the variance estimators rely on the considerably stronger condition that $s_2 = o(n^{1/3})$.
+While Theorem \ref{thm_dem3} allows $s_2$ to be of the order $o(n)$, the variance estimators rely on the considerably stronger condition that $s_2 = o(n^{1/3})$.
 Establishing consistency for their variance estimators under weaker assumptions on the subsampling rates could broaden the scope of the TDNN estimator for inferential purposes considerably.
 Another variance that is of particular interest in this context is the Pseudo-Infinitesimal Jackknife (PIJK) Variance Estimator for Generalized U-Statistics of \citet{peng_bias_2021}.
 Going forward, all results will be stated for the TDNN estimator.
@@ -404,7 +404,7 @@ Here, $\bar{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}\right)$ is defined i
 	= \frac{1}{B} \sum_{b = 1}^{B} \hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}^{(b)}\right)
 \end{equation}
 In their resulting analysis, the authors show that under some mild assumptions and in the regime $s_2 = o(n^{1/3})$, these estimators are ratio consistent.
-In this section, we will loosen that restrictive condition to make use of the attractive performance of U-statistics with large subsampling rates.
+In this section, we will loosen that restrictive condition to make use of the attractive performance of U-statistics with large subsampling rates in the context of inference.
 The PIJK variance estimator applied to the TDNN estimator is as follows.
 \begin{equation}
 	\hat{\omega}_{PI}^2\left(\mathbf{x}; \mathbf{D}_n\right)
@@ -422,17 +422,18 @@ The PIJK variance estimator applied to the TDNN estimator is as follows.
 Having introduced the PIJK variance estimator, we can consider whether the results from \citet{peng_bias_2021} apply to the TDNN estimator.
 Specifically, we are interested in applying the following theorem.
 
-\begin{lem}[\citet{peng_bias_2021} - Theorem 6]\mbox{}\\*
+\begin{lem}[\citet{peng_bias_2021} - Theorem 6]\label{thm_peng21_6}\mbox{}\\*
 	Let $X_1, \ldots, X_n$ be i.i.d. from $\mathrm{P}$ and $\mathrm{U}_{n, k, \omega}$ be a generalized complete $U$ statistic with kernel $s\left(X_1, \ldots, X_k ; \omega\right)$.
+	
 	Let $\theta=\E[s], \zeta_{1, \omega}=\Var\left(\E\left[s \mid X_1\right]\right)$ and $\zeta_k=\Var(s)$.
-	If $\frac{k}{n}\left(\frac{C_k}{k \zeta 1, \omega}-1\right) \rightarrow 0$, then
+	If $\frac{k}{n}\left(\frac{\zeta_k}{k \zeta 1, \omega}-1\right) \rightarrow 0$, then
 	\begin{equation}
 		\frac{\mathrm{ps-IJ}_{U}^\omega}{\Var\left(\mathrm{U}_{n, k, \omega}\right)}
 		\longrightarrow_{p} 1 .
 	\end{equation}
 \end{lem}
 
-Thus, we need to show an analog of Lemma \ref{Cov_DNN_k} for the TDNN kernel.
+Thus, we need to show an analog of Lemma \ref{lem_dem7} for the TDNN kernel.
 
 	{\color{red} Idea 2:}
 
@@ -528,7 +529,7 @@ To summarize the kind of object we want to construct, we define a uniform confid
 \subsection{Low-Level}
 In our pursuit of constructing uniform confidence regions for the TDNN estimator, we return to the results from \citet{ritzwoller_uniform_2024} in their high-dimensional form.
 
-\begin{thm}[\citet{ritzwoller_uniform_2024} - Theorem 4.1]\label{rit_thm4_1}\mbox{}\\*
+\begin{thm}[\citet{ritzwoller_uniform_2024} - Theorem 4.1]\label{thm_rit4_1}\mbox{}\\*
 	For any sequence of kernel orders $b=b_n$, where
 	\begin{equation}
 		\frac{1}{n} \frac{\nu_j^2}{\sigma_{b, j}^2} \rightarrow 0
@@ -544,7 +545,7 @@ In our pursuit of constructing uniform confidence regions for the TDNN estimator
 \end{thm}
 
 
-\begin{thm}[Adapted from \citet{ritzwoller_uniform_2024} - Theorem 4.2]\label{rit_thm4_2}\mbox{}\\*
+\begin{thm}[Adapted from \citet{ritzwoller_uniform_2024} - Theorem 4.2]\label{thm_rit4_2}\mbox{}\\*
 	Define the terms
 	\begin{equation}
 		\bar{\psi}_{s_2}^2
@@ -1246,99 +1247,116 @@ Having developed theoretical results concerning uniform inference methods for th
 
 \hrule
 
-\begin{lem}[Kernel Covariances of the TDNN Kernel]\label{Cov_TDNN}
-
-\end{lem}
-
-\begin{equation}
-	\begin{aligned}
-		\zeta_{1,s_2}\left(\mathbf{x}\right)
-		 & = \Cov\left(
-		h_{s_1, s_2}\left(\mathbf{x}; \mathbf{Z}_1, \mathbf{Z}_2, \ldots, \mathbf{Z}_{s_2}\right),
-		h_{s_1, s_2}\left(\mathbf{x}; \mathbf{Z}_1, \mathbf{Z}_{2}^{\prime}, \ldots, \mathbf{Z}_{s_2}^{\prime}\right)
-		\right)                      \\
-		%
-		%  & = \Cov\left(
-		% h_{s_1, s_2}\left(\mathbf{x}; \mathbf{Z}_1, D_{-1}\right),
-		% h_{s_1, s_2}\left(\mathbf{x}; \mathbf{Z}_1, D_{-1}^{\prime}\right)
-		% \right)                                                                                                                                                                                                                  \\
-		% %
-		 & = \E_{\mathbf{Z}_1}\left[
-			\Cov_{D, D^\prime}\left(
-			h_{s_1, s_2}\left(\mathbf{x}; D\right),
-			h_{s_1, s_2}\left(\mathbf{x}; D^{\prime}\right)
-			\, | \, D_1 = D_{1}^{\prime} = \mathbf{Z}_1
-			\right)
-			\right]
-		%  \Cov\left(
-		% w_{1}^{*}\left[\binom{s_2}{s_1}^{-1}\sum_{\ell \in L_{s_2, s_1}} h_{s_1}\left(\mathbf{x}; D_{\ell}\right)\right] + w_{2}^{*} h_{s_2}\left(\mathbf{x}; D\right),
-		% w_{1}^{*}\left[\binom{s_2}{s_1}^{-1}\sum_{\ell \in L_{s_2, s_1}} h_{s_1}\left(\mathbf{x}; D_{1, \ell}^{\prime}\right)\right] + w_{2}^{*} h_{s_2}\left(\mathbf{x}; D_{1}\right)
-		% \right)                                                                                                                                                                                                                  \\
-		% %
-		%  & = \left(w_{1}^{*}\binom{s_2}{s_1}^{-1}\right)^2 \Cov\left(
-		% \sum_{\ell \in L_{s_2, s_1}} h_{s_1}\left(\mathbf{x}; D_{\ell}\right),
-		% \sum_{\ell \in L_{s_2, s_1}} h_{s_1}\left(\mathbf{x}; D_{1, \ell}^{\prime}\right)
-		% \right)                                                                                                                                                                                                                  \\
-		%  & \quad + w_{1}^{*}w_{2}^{*}\binom{s_2}{s_1}^{-1}\left[
-		% 	\Cov\left(\sum_{\ell \in L_{s_2, s_1}} h_{s_1}\left(\mathbf{x}; D_{\ell}\right), h_{s_2}\left(\mathbf{x}; D_{1}^{\prime}\right)\right) +
-		% 	\Cov\left(\sum_{\ell \in L_{s_2, s_1}} h_{s_1}\left(\mathbf{x}; D_{1, \ell}^{\prime}\right), h_{s_2}\left(\mathbf{x}; D\right)\right)
-		% \right]                                                                                                                                                                                                                  \\
-		%  & \quad	+ \left(w_{2}^{*}\right)^2 \xi_{1,s_2}                                                                                                                                                                           \\
-		% %
-		%  & =
-	\end{aligned}
-\end{equation}
-
-\hrule
-
 \begin{lem}[Kernel Variance of the TDNN Kernel]\label{Var_TDNN_k}
-
+	For the kernel of the TDNN estimator with subsampling scales $s_1$ and $s_2$, it holds that
+	\begin{equation}
+		\zeta_{s_2, s_2}\left(\mathbf{x}\right)
+		\lesssim \mu^2(\mathbf{x}) + \sigma_{\varepsilon} + o(1)
+		\quad \text{as} \quad s_1, s_2 \rightarrow \infty
+		\quad \text{with} \quad
+		0 < c_1 \leq s_1 / s_2 \leq c_2 < 1.
+	\end{equation}
 \end{lem}
 
-\begin{equation}
-	\begin{aligned}
-		\zeta_{s_2, s_2}\left(\mathbf{x}\right)
-		 & = \Var\left(h_{s_1, s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_{s_2}\right)\right)
-		= \Var_{D}\left(h_{s_1, s_2}\left(\mathbf{x}; D\right)\right)                                     \\
-		%
-		 & \leq \E_{D}\left[h_{s_1, s_2}^{2}\left(\mathbf{x}; D\right)\right]
-		= \E_{D}\left[
-			\left(w_{1}^{*}\tilde{\mu}_{s_1}\left(\mathbf{x}; D\right) + w_{2}^{*} h_{s_2}\left(\mathbf{x}; D\right)\right)^2
-		\right]                                                                                           \\
-		%
-		 & = \left(w_{1}^{*}\right)^2\E_{D}\left[\tilde{\mu}_{s_1}^{2}\left(\mathbf{x}; D\right)\right]
-		+ 2 w_{1}^{*}w_{2}^{*} \E_{D}\left[\tilde{\mu}_{s_1}\left(\mathbf{x}; D\right) h_{s_2}\left(\mathbf{x}; D\right)\right]
-		+ \left(w_{2}^{*}\right)^2\Omega_{s_2}
-	\end{aligned}
-\end{equation}
-
-\begin{proof}
-	Recall that by Lemma \ref{lem_omega_s}, we have the following.
+\begin{proof}[Proof of Lemma \ref{Var_TDNN_k}]
+	Consider first the following decomposition.
 	\begin{equation}
 		\begin{aligned}
-			\Omega_{s_2}
-			= \E_1\left[\mu^2\left(\mathbf{X}_1\right) s \E_{2:s}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1, D\right)\right]\right] + \sigma_{\varepsilon}^2
-			\lesssim \mu(\mathbf{x})^2 + \sigma_{\varepsilon}^2 + o(1)
-			\quad \text{as} \quad n \rightarrow \infty
+			\zeta_{s_2, s_2}\left(\mathbf{x}\right)
+			 & = \Var\left(h_{s_1, s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_{s_2}\right)\right)
+			= \Var_{D}\left(h_{s_1, s_2}\left(\mathbf{x}; D\right)\right)                                     \\
+			%
+			 & \leq \E_{D}\left[h_{s_1, s_2}^{2}\left(\mathbf{x}; D\right)\right]
+			= \E_{D}\left[
+				\left(w_{1}^{*}\tilde{\mu}_{s_1}\left(\mathbf{x}; D\right) + w_{2}^{*} h_{s_2}\left(\mathbf{x}; D\right)\right)^2
+			\right]                                                                                           \\
+			%
+			 & = \left(w_{1}^{*}\right)^2\E_{D}\left[\tilde{\mu}_{s_1}^{2}\left(\mathbf{x}; D\right)\right]
+			+ 2 w_{1}^{*}w_{2}^{*} \E_{D}\left[\tilde{\mu}_{s_1}\left(\mathbf{x}; D\right) h_{s_2}\left(\mathbf{x}; D\right)\right]
+			+ \left(w_{2}^{*}\right)^2\Omega_{s_2}
 		\end{aligned}
 	\end{equation}
-	Furthermore, observe the following.
+
+	Then, observe the following.
 	\begin{equation}
 		\begin{aligned}
 			\E_{D}\left[\tilde{\mu}_{s_1}^{2}\left(\mathbf{x}; D\right)\right]
 			 & = \E_D\left[\left(\binom{s_2}{s_1}^{-1}\sum_{\ell \in L_{s_2, s_1}} h_{s_1}\left(\mathbf{x}; D_{\ell}\right)\right)^2\right]
 			= \binom{s_2}{s_1}^{-2} \E_{D}\left[\sum_{\iota, \iota' \in L_{s_2, s_1}}h_{s_1}\left(\mathbf{x}; D_{\iota}\right)h_{s_1}\left(\mathbf{x}; D_{\iota'}\right)\right] \\
 			%
-			 & =
+			 & = \binom{s_2}{s_1}^{-2} \sum_{c = 0}^{s_1} \binom{s_2}{s_1}\binom{s_1}{c}\binom{s_2 - s_1}{s_1 - c} \Omega_{s_1}^{c}
+			= \binom{s_2}{s_1}^{-1} \sum_{c = 0}^{s_1} \binom{s_1}{c}\binom{s_2 - s_1}{s_1 - c} \Omega_{s_1}^{c}                                                                \\
+			%
+			 & \lesssim \Omega_{s_1}
+			\lesssim \mu(\mathbf{x})^2 + \sigma_{\varepsilon}^2 + o(1)
+			\quad \text{as} \quad s \rightarrow \infty
 		\end{aligned}
 	\end{equation}
+
+	Recall that by Lemma \ref{lem_omega_s}, we have the following.
+	\begin{equation}
+		\begin{aligned}
+			\Omega_{s_2}
+			\lesssim \mu(\mathbf{x})^2 + \sigma_{\varepsilon}^2 + o(1)
+			\quad \text{as} \quad s \rightarrow \infty
+		\end{aligned}
+	\end{equation}
+
 	Lastly, consider the following.
 	\begin{equation}
 		\begin{aligned}
 			\E_{D}\left[\tilde{\mu}_{s_1}\left(\mathbf{x}; D\right) h_{s_2}\left(\mathbf{x}; D\right)\right]
+			 & = \E_D\left[\binom{s_2}{s_1}^{-1}\sum_{\ell \in L_{s_2, s_1}} h_{s_1}\left(\mathbf{x}; D_{\ell}\right)h_{s_2}\left(\mathbf{x}; D\right)\right] \\
+			%
+			 & = \E_D\left[h_{s_1}\left(\mathbf{x}; D_{[s_1]}\right)h_{s_2}\left(\mathbf{x}; D\right)\right]
+			= \Upsilon_{s_1, s_2}
+		\end{aligned}
+	\end{equation}
+
+	Thus, we find the following.
+	\begin{equation}
+		\begin{aligned}
+			\zeta_{s_2, s_2}\left(\mathbf{x}\right)
+			 & \lesssim \left(w_{1}^{*}\right)^2 \Omega_{s_1}
+			+ 2 w_{1}^{*}w_{2}^{*} \Upsilon_{s_1, s_2}
+			+ \left(w_{1}^{*}\right)^2 \Omega_{s_2}                                                                       \\
+			%
+			 & \lesssim \left(w_{1}^{*} + w_{2}^{*}\right)^2 \left(\mu^2(\mathbf{x}) + \sigma_{\varepsilon}\right) + o(1)
+			= \mu^2(\mathbf{x}) + \sigma_{\varepsilon} + o(1).
 		\end{aligned}
 	\end{equation}
 \end{proof}
+
+\hrule
+
+\begin{lem}[Kernel Covariances of the TDNN Kernel]\label{Cov_TDNN_k}
+	For the kernel of the TDNN estimator with subsampling scales $s_1$ and $s_2$, it holds that
+	\begin{equation}
+		{\color{red} LOREM IPSUM}
+	\end{equation}
+\end{lem}
+
+\begin{proof}
+	\begin{equation}
+		\begin{aligned}
+			\zeta_{1,s_2}\left(\mathbf{x}\right)
+			 & = \Cov\left(
+			h_{s_1, s_2}\left(\mathbf{x}; \mathbf{Z}_1, \mathbf{Z}_2, \ldots, \mathbf{Z}_{s_2}\right),
+			h_{s_1, s_2}\left(\mathbf{x}; \mathbf{Z}_1, \mathbf{Z}_{2}^{\prime}, \ldots, \mathbf{Z}_{s_2}^{\prime}\right)
+			\right)                      \\
+			%
+			 & = \E_{\mathbf{Z}_1}\left[
+				\Cov_{D, D^\prime}\left(
+				h_{s_1, s_2}\left(\mathbf{x}; D\right),
+				h_{s_1, s_2}\left(\mathbf{x}; D^{\prime}\right)
+				\, | \, D_1 = D_{1}^{\prime} = \mathbf{Z}_1
+				\right)
+				\right]
+		\end{aligned}
+	\end{equation}
+\end{proof}
+
+\hrule
 
 \subsection{Proof of Theorem \ref{JK_Cons}}
 \hrule
