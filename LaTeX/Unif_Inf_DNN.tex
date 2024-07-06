@@ -432,7 +432,7 @@ Specifically, we are interested in applying the following theorem.
 \end{lem}
 
 Thus, we need to show an analog of Lemma \ref{lem_dem7} for the TDNN kernel.
-{\color{red} In even greater detail, we want to improve on the relation shown in Equation (A.52) in the derivation of consistency of the Jackknife variance estimator.}
+	{\color{red} In even greater detail, we want to improve on the relation shown in Equation (A.52) in the derivation of consistency of the Jackknife variance estimator.}
 
 In an analogous fashion to Theorems 5 and 6 from \citet{demirkaya_optimal_2024}, we obtain the following consistency results for the presented variance estimators.
 As they point out, proving these results goes beyond the techniques presented in \citet{arvesen_jackknifing_1969}, instead relying on results for infinite-order U-statistics.
@@ -741,10 +741,11 @@ Having developed theoretical results concerning uniform inference methods for th
 \newpage
 \appendix
 
+\newpage
 \section{Proofs for Results in Section \ref{TDNN}}
 \hrule
 
-
+\newpage
 \section{Proofs for Results in Section \ref{pw_inf}}
 \hrule
 
@@ -810,8 +811,8 @@ Having developed theoretical results concerning uniform inference methods for th
 	\end{equation}
 \end{lem}
 
-\hrule
 
+\newpage
 \begin{lem}\label{lem_omega_sc}\mbox{}\\*
 	Let $D = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{s}\}$ be a vector of i.i.d. random variables drawn from $P$.
 	Let $D^{\prime} = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{c}, \mathbf{Z}_{c+1}^{\prime}, \dotsc,  \mathbf{Z}_{s}^{\prime}\}$ where $\mathbf{Z}_{c+1}^{\prime}, \dotsc,  \mathbf{Z}_{s}^{\prime}$ are i.i.d. draws from $P$ that are independent of $D$.
@@ -923,8 +924,7 @@ Having developed theoretical results concerning uniform inference methods for th
 	The result of Lemma \ref{lem_omega_sc} follows immediately.
 \end{proof}
 
-\hrule
-
+\newpage
 \begin{lem}\label{lem_upsilon_s}\mbox{}\\*
 	Let $D = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{s_2}\}$ be a vector of i.i.d. random variables drawn from $P$ for $s_2 > s_1$.
 	Furthermore, let
@@ -1100,8 +1100,7 @@ Having developed theoretical results concerning uniform inference methods for th
 	\end{equation}
 \end{proof}
 
-\hrule
-
+\newpage
 \begin{lem}[Kernel Variance of the TDNN Kernel]\label{Var_TDNN_k}
 	For the kernel of the TDNN estimator with subsampling scales $s_1$ and $s_2$, it holds that
 	\begin{equation}
@@ -1182,8 +1181,7 @@ Having developed theoretical results concerning uniform inference methods for th
 	\end{equation}
 \end{proof}
 
-\hrule
-
+\newpage
 \begin{lem}[Kernel Covariances of the TDNN Kernel]\label{Cov_TDNN_k}
 	For the kernel of the TDNN estimator with subsampling scales $s_1$ and $s_2$, it holds that
 	\begin{equation}
@@ -1235,101 +1233,11 @@ Having developed theoretical results concerning uniform inference methods for th
 	\end{equation}
 	This gives us two conditional expectations to analyze individually.
 	\begin{equation}
-		\begin{aligned}
-			A :=
-			 & \E_{2:s_2}\left[\tilde{\mu}_{s_1}\left(\mathbf{x}; D\right)\, \Big| \, D_1 = \mathbf{Z}_1\right]                                                                         \\
-			 & \quad = \E_{2:s_2}\left[
-			\binom{s_2}{s_1}^{-1}\sum_{\ell \in L_{s_2, s_1}}h_{s_1}\left(\mathbf{x}; D_{\ell}\right)\, \Big| \, D_1 = \mathbf{Z}_1
-			\right]                                                                                                                                                                     \\
-			%
-			 & \quad = \binom{s_2}{s_1}^{-1}\left(\E_{2:s_2}\left[
-				\sum_{\ell \in L_{s_1}\left([s_2] \backslash \{1\}\right)}h_{s_1}\left(\mathbf{x}; D_{\ell}\right)\right]
-			+ \E_{2:s_2}\left[
-				\sum_{\ell \in L_{s_1 - 1}\left([s_2] \backslash \{1\}\right)}h_{s_1}\left(\mathbf{x}; D_{\ell \cap 1}\right)\, \Big| \, D_1 = \mathbf{Z}_1\right]
-			\right)                                                                                                                                                                     \\
-			%
-			 & \quad = \binom{s_2}{s_1}^{-1}\left(
-			\binom{s_2 - 1}{s_1}\E_{2:(s_1 + 1)}\left[h_{s_1}\left(\mathbf{x}; D_{2:(s_1 + 1)}\right)\right]
-			+ \binom{s_2 - 1}{s_1 - 1}\E_{2:s_1}\left[h_{s_1}\left(\mathbf{x}; D_{[s_1]}\right)\, \Big| \, D_1 = \mathbf{Z}_1\right]
-			\right)                                                                                                                                                                     \\
-			%
-			 & \quad = \binom{s_2}{s_1}^{-1}\left(
-			\binom{s_2 - 1}{s_1}\E_{2:(s_1 + 1)}\left[\sum_{i = 2}^{s_1 + 1}\kappa(\mathbf{x}; \mathbf{Z}_i, D_{2:(s_1 + 1)}) Y_i\right]
-			+ \binom{s_2 - 1}{s_1 - 1}\E_{2:s_1}\left[\sum_{i = 1}^{s_1}\kappa(\mathbf{x}; \mathbf{Z}_i, D_{[s_1]}) Y_i\, \Big| \, D_1 = \mathbf{Z}_1\right]
-			\right)                                                                                                                                                                     \\
-			%
-			 & \quad = \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1} s_1 \E_{2:(s_1 + 1)}\left[\kappa(\mathbf{x}; \mathbf{Z}_2, D_{2:(s_1 + 1)}) Y_2\right]                                 \\
-			 & \quad \quad + \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1 - 1}\left(
-			(s_1 - 1)\E_{2:s_1}\left[\kappa(\mathbf{x}; \mathbf{Z}_2, D_{[s_1]}) Y_2\, \Big| \, D_1 = \mathbf{Z}_1\right]
-			+ \mu(\mathbf{X}_1)\E_{2:s_1}\left[\kappa(\mathbf{x}; \mathbf{Z}_1, D_{[s_1]})\, \Big| \, D_1 = \mathbf{Z}_1\right]
-			\right)                                                                                                                                                                     \\
-			%
-			 & \quad = \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1}
-			\E_{2}\left[\mu(\mathbf{X}_2) \, s_1 \, \E_{3:(s_1+1)}\left[\kappa(\mathbf{x}; \mathbf{Z}_2, D_{2:(s_1 + 1)}) \, | \, \mathbf{Z}_2\right]\right]                            \\
-			 & \quad \quad + \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1 - 1}
-			\E_{2}\left[\mu(\mathbf{X}_2) \, (s_1 - 1) \, \E_{3:s_1}\left[\kappa(\mathbf{x}; \mathbf{Z}_2, D_{[s_1]}) \, | \, \mathbf{Z}_2\right] \, \Big| \, D_1 = \mathbf{Z}_1\right] \\
-			 & \quad \quad + \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1 - 1}\mu(\mathbf{X}_1)
-			\left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_1 - \mathbf{x} \|\right)\right)\right)^{s_1 - 1}                                                                    \\
-			%
-			 & \quad = \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1}
-			\E_{2}\left[\mu(\mathbf{X}_2) \, s_1 \, \left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_2 - \mathbf{x} \|\right)\right)\right)^{s_1 - 1}\right]                     \\
-			 & \quad \quad + \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1 - 1}
-			\E_{2}\left[\mu(\mathbf{X}_2) \, (s_1 - 1) \,
-				\1\left(\|\mathbf{X}_2 - \mathbf{x}\| < \|\mathbf{X}_1 - \mathbf{x}\|\right)
-			\left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_2 - \mathbf{x} \|\right)\right)\right)^{s_1 - 2} \, \Big| \, D_1 = \mathbf{Z}_1\right]                              \\
-			 & \quad \quad + \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1 - 1}\mu(\mathbf{X}_1)
-			\left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_1 - \mathbf{x} \|\right)\right)\right)^{s_1 - 1}
-		\end{aligned}
+		A := \E_{2:s_2}\left[\tilde{\mu}_{s_1}\left(\mathbf{x}; D\right)\, \Big| \, D_1 = \mathbf{Z}_1\right]
+		\quad \text{and} \quad
+		B := \E_{2:s_2}\left[h_{s_2}\left(\mathbf{x}; D\right)\, \Big| \, D_1 = \mathbf{Z}_1\right]
 	\end{equation}
-	\begin{equation}
-		\begin{aligned}
-			A = & \E_{2:s_2}\left[\tilde{\mu}_{s_1}\left(\mathbf{x}; D\right)\, \Big| \, D_1 = \mathbf{Z}_1\right]                                                  \\
-			%
-			    & \quad = \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1}
-			\E_{2}\left[\mu(\mathbf{X}_2) \, s_1 \, \left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_2 - \mathbf{x} \|\right)\right)\right)^{s_1 - 1}\right] \\
-			    & \quad \quad + \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1 - 1}
-			\P\left(\|\mathbf{X}_2 - \mathbf{x}\| < \|\mathbf{X}_1 - \mathbf{x}\|\right)                                                                            \\
-			    & \quad \quad \quad \cdot
-			\E_{2}\left[\mu(\mathbf{X}_2) \, (s_1 - 1) \,
-				\left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_2 - \mathbf{x} \|\right)\right)\right)^{s_1 - 2}
-			\, \Big| \, \|\mathbf{X}_2 - \mathbf{x}\| < \|\mathbf{X}_1 - \mathbf{x}\|\right]                                                                        \\
-			    & \quad \quad + \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1 - 1}\mu(\mathbf{X}_1)
-			\left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_1 - \mathbf{x} \|\right)\right)\right)^{s_1 - 1}
-		\end{aligned}
-	\end{equation}
-	Concerning the second conditional expectation, we find the following.
-	\begin{equation}
-		\begin{aligned}
-			B := & \E_{2:s_2}\left[h_{s_2}\left(\mathbf{x}; D\right)\, \Big| \, D_1 = \mathbf{Z}_1\right]                                             \\
-			%
-			     & \quad = \E_{2:s_2}\left[\sum_{i = 1}^{s_2} \kappa(\mathbf{x}; \mathbf{Z}_i, D) Y_i \, \Big| \, D_1 = \mathbf{Z}_1\right]           \\
-			%
-			     & \quad = \E_{2:s_2}\left[\kappa(\mathbf{x}; \mathbf{Z}_1, D) Y_1 \, \Big| \, D_1 = \mathbf{Z}_1\right]
-			+ \E_{2:s_2}\left[\sum_{i = 2}^{s_2} \kappa(\mathbf{x}; \mathbf{Z}_i, D) Y_i \, \Big| \, D_1 = \mathbf{Z}_1\right]                        \\
-			%
-			     & \quad = \mu(\mathbf{X}_1) \left(1 - \varphi\left(B\left(\mathbf{X}, \| \mathbf{X}_1 - \mathbf{x} \|\right)\right)\right)^{s_2 - 1}
-			+ (s_2 - 1)\E_{2:s_2}\left[\kappa(\mathbf{x}; \mathbf{Z}_2, D) Y_2 \, \Big| \, D_1 = \mathbf{Z}_1\right]                                  \\
-			%
-			     & \quad = \mu(\mathbf{X}_1) \left(1 - \varphi\left(B\left(\mathbf{X}, \| \mathbf{X}_1 - \mathbf{x} \|\right)\right)\right)^{s_2 - 1}
-			+ \E_{2}\left[
-				\mu(\mathbf{X}_2) \, (s_2 - 1) \, \E_{3:s_2}\left[\kappa(\mathbf{x}; \mathbf{Z}_2, D)\, | \, \mathbf{Z}_2\right]
-			\, \Big| \, D_1 = \mathbf{Z}_1\right]                                                                                                     \\
-			%
-			     & \quad = \mu(\mathbf{X}_1) \left(1 - \varphi\left(B\left(\mathbf{X}, \| \mathbf{X}_1 - \mathbf{x} \|\right)\right)\right)^{s_2 - 1} \\
-			     & \quad \quad + \E_{2}\left[
-				\mu(\mathbf{X}_2)\, (s_2 - 1) \,
-				\1\left(\|\mathbf{X}_2 - \mathbf{x}\| < \|\mathbf{X}_1 - \mathbf{x}\|\right)
-				\left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_2 - \mathbf{x} \|\right)\right)\right)^{s_2 - 2}
-			\, \Big| \, D_1 = \mathbf{Z}_1\right]                                                                                                     \\
-			%
-			     & \quad = \mu(\mathbf{X}_1) \left(1 - \varphi\left(B\left(\mathbf{X}, \| \mathbf{X}_1 - \mathbf{x} \|\right)\right)\right)^{s_2 - 1} \\
-			     & \quad \quad + \P\left(\|\mathbf{X}_2 - \mathbf{x}\| < \|\mathbf{X}_1 - \mathbf{x}\|\right)\E_{2}\left[
-				\mu(\mathbf{X}_2)\, (s_2 - 1) \,
-				\left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_2 - \mathbf{x} \|\right)\right)\right)^{s_2 - 2}
-				\, \Big| \, \|\mathbf{X}_2 - \mathbf{x}\| < \|\mathbf{X}_1 - \mathbf{x}\|\right]
-		\end{aligned}
-	\end{equation}
-	Plugging into the original expression, we obtain the following.
+	We thus obtain the following expression.
 	\begin{equation}
 		\zeta_{s_1, s_2}^{1}\left(\mathbf{x}\right)
 		\leq \E_{1}\left[\left(w_{1}^{*} A	+ w_{2}^{*} B\right)^{2}\right]
@@ -1337,6 +1245,98 @@ Having developed theoretical results concerning uniform inference methods for th
 		+ 2 w_{1}^{*}w_{2}^{*} \E_{1}\left[AB\right]
 		+ \left(w_{2}^{*}\right)^2 \E_{1}\left[B^2\right]
 	\end{equation}
+	We can use this to find an upper bound for $\zeta_{s_1, s_2}^{1}\left(\mathbf{x}\right)$ by considering the terms individually.
+	\begin{equation}
+		\begin{aligned}
+			A
+			 & := \E_{2:s_2}\left[\tilde{\mu}_{s_1}\left(\mathbf{x}; D\right)\, \Big| \, D_1 = \mathbf{Z}_1\right]
+			= \E_{2:s_2}\left[
+			\binom{s_2}{s_1}^{-1}\sum_{\ell \in L_{s_2, s_1}}h_{s_1}\left(\mathbf{x}; D_{\ell}\right)\, \Big| \, D_1 = \mathbf{Z}_1
+			\right]                                                                                                                                                                     \\
+			%
+			 & = \binom{s_2}{s_1}^{-1}\left(\E_{2:s_2}\left[
+				\sum_{\ell \in L_{s_1}\left([s_2] \backslash \{1\}\right)}h_{s_1}\left(\mathbf{x}; D_{\ell}\right)\right]
+			+ \E_{2:s_2}\left[
+				\sum_{\ell \in L_{s_1 - 1}\left([s_2] \backslash \{1\}\right)}h_{s_1}\left(\mathbf{x}; D_{\ell \cap 1}\right)\, \Big| \, D_1 = \mathbf{Z}_1\right]
+			\right)                                                                                                                                                                     \\
+			%
+			 & = \binom{s_2}{s_1}^{-1}\left(
+			\binom{s_2 - 1}{s_1}\E_{2:(s_1 + 1)}\left[h_{s_1}\left(\mathbf{x}; D_{2:(s_1 + 1)}\right)\right]
+			+ \binom{s_2 - 1}{s_1 - 1}\E_{2:s_1}\left[h_{s_1}\left(\mathbf{x}; D_{[s_1]}\right)\, \Big| \, D_1 = \mathbf{Z}_1\right]
+			\right)                                                                                                                                                                     \\
+			%
+			 & = \binom{s_2}{s_1}^{-1}\left(
+			\binom{s_2 - 1}{s_1}\E_{2:(s_1 + 1)}\left[\sum_{i = 2}^{s_1 + 1}\kappa(\mathbf{x}; \mathbf{Z}_i, D_{2:(s_1 + 1)}) Y_i\right]
+			+ \binom{s_2 - 1}{s_1 - 1}\E_{2:s_1}\left[\sum_{i = 1}^{s_1}\kappa(\mathbf{x}; \mathbf{Z}_i, D_{[s_1]}) Y_i\, \Big| \, D_1 = \mathbf{Z}_1\right]
+			\right)                                                                                                                                                                     \\
+			%
+			 & = \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1} s_1 \E_{2:(s_1 + 1)}\left[\kappa(\mathbf{x}; \mathbf{Z}_2, D_{2:(s_1 + 1)}) Y_2\right]                                       \\
+			 & \quad + \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1 - 1}\left(
+			(s_1 - 1)\E_{2:s_1}\left[\kappa(\mathbf{x}; \mathbf{Z}_2, D_{[s_1]}) Y_2\, \Big| \, D_1 = \mathbf{Z}_1\right]
+			+ \mu(\mathbf{X}_1)\E_{2:s_1}\left[\kappa(\mathbf{x}; \mathbf{Z}_1, D_{[s_1]})\, \Big| \, D_1 = \mathbf{Z}_1\right]
+			\right)                                                                                                                                                                     \\
+			%
+			 & = \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1}
+			\E_{2}\left[\mu(\mathbf{X}_2) \, s_1 \, \E_{3:(s_1+1)}\left[\kappa(\mathbf{x}; \mathbf{Z}_2, D_{2:(s_1 + 1)}) \, | \, \mathbf{Z}_2\right]\right]                            \\
+			 & \quad + \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1 - 1}
+			\E_{2}\left[\mu(\mathbf{X}_2) \, (s_1 - 1) \, \E_{3:s_1}\left[\kappa(\mathbf{x}; \mathbf{Z}_2, D_{[s_1]}) \, | \, \mathbf{Z}_2\right] \, \Big| \, D_1 = \mathbf{Z}_1\right] \\
+			 & \quad + \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1 - 1}\mu(\mathbf{X}_1)
+			\left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_1 - \mathbf{x} \|\right)\right)\right)^{s_1 - 1}                                                                    \\
+			%
+			 & = \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1}
+			\E_{2}\left[\mu(\mathbf{X}_2) \, s_1 \, \left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_2 - \mathbf{x} \|\right)\right)\right)^{s_1 - 1}\right]                     \\
+			 & \quad + \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1 - 1}
+			\E_{2}\left[\mu(\mathbf{X}_2) \, (s_1 - 1) \,
+				\1\left(\|\mathbf{X}_2 - \mathbf{x}\| < \|\mathbf{X}_1 - \mathbf{x}\|\right)
+			\left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_2 - \mathbf{x} \|\right)\right)\right)^{s_1 - 2} \, \Big| \, D_1 = \mathbf{Z}_1\right]                              \\
+			 & \quad + \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1 - 1}\mu(\mathbf{X}_1)
+			\left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_1 - \mathbf{x} \|\right)\right)\right)^{s_1 - 1}                                                                    \\
+			%
+			 & = \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1}
+			\E_{2}\left[\mu(\mathbf{X}_2) \, s_1 \, \left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_2 - \mathbf{x} \|\right)\right)\right)^{s_1 - 1}\right]                     \\
+			 & \quad + \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1 - 1}
+			\P\left(\|\mathbf{X}_2 - \mathbf{x}\| < \|\mathbf{X}_1 - \mathbf{x}\|\right)                                                                                                \\
+			 & \quad \quad \cdot
+			\E_{2}\left[\mu(\mathbf{X}_2) \, (s_1 - 1) \,
+				\left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_2 - \mathbf{x} \|\right)\right)\right)^{s_1 - 2}
+			\, \Big| \, \|\mathbf{X}_2 - \mathbf{x}\| < \|\mathbf{X}_1 - \mathbf{x}\|\right]                                                                                            \\
+			 & \quad + \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1 - 1}\mu(\mathbf{X}_1)
+			\left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_1 - \mathbf{x} \|\right)\right)\right)^{s_1 - 1}
+		\end{aligned}
+	\end{equation}
+	Concerning the second conditional expectation, we find the following.
+	\begin{equation}
+		\begin{aligned}
+			B
+			 & := \E_{2:s_2}\left[h_{s_2}\left(\mathbf{x}; D\right)\, \Big| \, D_1 = \mathbf{Z}_1\right]
+			= \E_{2:s_2}\left[\sum_{i = 1}^{s_2} \kappa(\mathbf{x}; \mathbf{Z}_i, D) Y_i \, \Big| \, D_1 = \mathbf{Z}_1\right]              \\
+			%
+			 & = \E_{2:s_2}\left[\kappa(\mathbf{x}; \mathbf{Z}_1, D) Y_1 \, \Big| \, D_1 = \mathbf{Z}_1\right]
+			+ \E_{2:s_2}\left[\sum_{i = 2}^{s_2} \kappa(\mathbf{x}; \mathbf{Z}_i, D) Y_i \, \Big| \, D_1 = \mathbf{Z}_1\right]              \\
+			%
+			 & = \mu(\mathbf{X}_1) \left(1 - \varphi\left(B\left(\mathbf{X}, \| \mathbf{X}_1 - \mathbf{x} \|\right)\right)\right)^{s_2 - 1}
+			+ (s_2 - 1)\E_{2:s_2}\left[\kappa(\mathbf{x}; \mathbf{Z}_2, D) Y_2 \, \Big| \, D_1 = \mathbf{Z}_1\right]                        \\
+			%
+			 & = \mu(\mathbf{X}_1) \left(1 - \varphi\left(B\left(\mathbf{X}, \| \mathbf{X}_1 - \mathbf{x} \|\right)\right)\right)^{s_2 - 1}
+			+ \E_{2}\left[
+				\mu(\mathbf{X}_2) \, (s_2 - 1) \, \E_{3:s_2}\left[\kappa(\mathbf{x}; \mathbf{Z}_2, D)\, | \, \mathbf{Z}_2\right]
+			\, \Big| \, D_1 = \mathbf{Z}_1\right]                                                                                           \\
+			%
+			 & = \mu(\mathbf{X}_1) \left(1 - \varphi\left(B\left(\mathbf{X}, \| \mathbf{X}_1 - \mathbf{x} \|\right)\right)\right)^{s_2 - 1} \\
+			 & \quad + \E_{2}\left[
+				\mu(\mathbf{X}_2)\, (s_2 - 1) \,
+				\1\left(\|\mathbf{X}_2 - \mathbf{x}\| < \|\mathbf{X}_1 - \mathbf{x}\|\right)
+				\left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_2 - \mathbf{x} \|\right)\right)\right)^{s_2 - 2}
+			\, \Big| \, D_1 = \mathbf{Z}_1\right]                                                                                           \\
+			%
+			 & = \mu(\mathbf{X}_1) \left(1 - \varphi\left(B\left(\mathbf{X}, \| \mathbf{X}_1 - \mathbf{x} \|\right)\right)\right)^{s_2 - 1} \\
+			 & \quad + \P\left(\|\mathbf{X}_2 - \mathbf{x}\| < \|\mathbf{X}_1 - \mathbf{x}\|\right)\E_{2}\left[
+				\mu(\mathbf{X}_2)\, (s_2 - 1) \,
+				\left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_2 - \mathbf{x} \|\right)\right)\right)^{s_2 - 2}
+				\, \Big| \, \|\mathbf{X}_2 - \mathbf{x}\| < \|\mathbf{X}_1 - \mathbf{x}\|\right]
+		\end{aligned}
+	\end{equation}
+	
 	It remains to analyze the asymptotic behavior of the individual terms.
 	\begin{equation}
 		\begin{aligned}
@@ -1364,6 +1364,7 @@ Having developed theoretical results concerning uniform inference methods for th
 	\end{equation}
 \end{proof}
 
+\newpage
 \subsection{Proof of Theorem \ref{JK_Cons}}
 \hrule
 
@@ -1385,6 +1386,7 @@ Having developed theoretical results concerning uniform inference methods for th
 
 \end{proof}
 
+\newpage
 \section{Proofs for Results in Section \ref{unif_inf}}
 \hrule
 \subsection{Useful Lemmas for Proofs for Results in Section \ref{unif_inf}}
