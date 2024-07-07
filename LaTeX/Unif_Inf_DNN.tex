@@ -762,13 +762,37 @@ Having developed theoretical results concerning uniform inference methods for th
 \subsection{Kernel (Conditional) Expectations}
 \hrule
 
+\begin{lem}[DNN Kernel Expecctation]\label{lem:DNN_k_exp}\mbox{}\\*
+	Let $\mathbf{x}$ denote a point of interest.
+	Then
+	\begin{equation}
+		\E_D\left[h_s\left(\mathbf{x}; D\right)\right]
+		= \E_{1}\left[\mu\left(\mathbf{X}_1\right)\right].
+	\end{equation}
+\end{lem}
+
+\begin{proof}[Proof of Lemma \ref{lem:DNN_k_exp}]
+	\begin{equation}
+		\begin{aligned}
+			\E_D\left[h_s\left(\mathbf{x}; D\right)\right]
+			 & = \E_D\left[\sum_{i = 1}^{s} \kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right) Y_i\right]
+			= s \E_{D}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1, D\right) Y_1\right]                 \\
+			%
+			 & = \E_{1}\left[\mu\left(\mathbf{X}_1\right) + \varepsilon_1\right]
+			= \E_{1}\left[\mu\left(\mathbf{X}_1\right)\right].
+		\end{aligned}
+	\end{equation}
+\end{proof}
+
+\hrule
+
 \begin{lem}[DNN Haj\'ek Kernel Expectation]\label{lem:psi_s_1}\mbox{}\\*
 	Let $\mathbf{z}_1 = (\mathbf{x}_1, y_1)$ denote a specific realization of $\mathbf{Z}$ and $\mathbf{x}$ denote a point of interest.
 	Then
 	\begin{equation}
 		\psi_{s}^{1}\left(\mathbf{x}; \mathbf{z}_1\right)
-		= \left(\mu\left(\mathbf{x}_1\right) + \varepsilon_1\right) \left(1 - \psi\left(B\left(\mathbf{x}, \| \mathbf{X}_1 - \mathbf{x} \|\right)\right)\right)^{s-1}
-		+ (s-1)\E_{D}\left[\mu\left(\mathbf{X}_2\right)\kappa\left(\mathbf{x}; \mathbf{Z}_2, D\right)  \, \Big| \, \mathbf{Z}_1 = \mathbf{z}_1 \right].
+		= \varepsilon_1 \E_D\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1, D\right)\, \Big| \, \mathbf{X}_1 = \mathbf{x}_1 \right]
+		+ \E_{D}\left[\sum_{i = 1}^{s} \kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right) \mu(\mathbf{X}_i)\, \Big| \, \mathbf{X}_1 = \mathbf{x}_1 \right]
 	\end{equation}
 \end{lem}
 
@@ -777,13 +801,13 @@ Having developed theoretical results concerning uniform inference methods for th
 		\begin{aligned}
 			\psi_{s}^{1}\left(\mathbf{x}; \mathbf{z}_1\right)
 			 & = \E_{D}\left[h_{s}\left(\mathbf{x}; D\right) \, | \, \mathbf{Z}_1 = \mathbf{z}_1 \right]
-			= \E_{D}\left[\sum_{i = 1}^{s} \kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right) Y_i \, \Big| \, \mathbf{Z}_1 = \mathbf{z}_1 \right] \\
+			= \E_{D}\left[\sum_{i = 1}^{s} \kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right) Y_i \, \Big| \, \mathbf{Z}_1 = \mathbf{z}_1 \right]  \\
 			%
-			 & = y_1 \left(1 - \psi\left(B\left(\mathbf{x}, \| \mathbf{X}_1 - \mathbf{x} \|\right)\right)\right)^{s-1}
-			 + (s-1)\E_{D}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_2, D\right) Y_2 \, \Big| \, \mathbf{Z}_1 = \mathbf{z}_1 \right]\\
-			 %
-			 & = \left(\mu\left(\mathbf{x}_1\right) + \varepsilon_1\right) \left(1 - \psi\left(B\left(\mathbf{x}, \| \mathbf{X}_1 - \mathbf{x} \|\right)\right)\right)^{s-1}
-			 + (s-1)\E_{D}\left[\mu\left(\mathbf{X}_2\right)\kappa\left(\mathbf{x}; \mathbf{Z}_2, D\right)  \, \Big| \, \mathbf{Z}_1 = \mathbf{z}_1 \right]
+			 & = \E_{D}\left[\left(\mu(\mathbf{x}_1) + \varepsilon_1\right)\kappa\left(\mathbf{x}; \mathbf{Z}_1, D\right)
+			+ \sum_{i = 2}^{s} \kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right) \mu(\mathbf{X}_i)\, \Big| \, \mathbf{Z}_1 = \mathbf{z}_1 \right] \\
+			%
+			 & = \varepsilon_1 \E_D\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1, D\right)\, \Big| \, \mathbf{X}_1 = \mathbf{x}_1 \right]
+			+ \E_{D}\left[\sum_{i = 1}^{s} \kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right) \mu(\mathbf{X}_i)\, \Big| \, \mathbf{X}_1 = \mathbf{x}_1 \right]
 		\end{aligned}
 	\end{equation}
 \end{proof}
@@ -791,9 +815,20 @@ Having developed theoretical results concerning uniform inference methods for th
 \hrule
 
 \begin{lem}[TDNN Haj\'ek Kernel Expectation]\label{lem:psi_s1s2_1}\mbox{}\\*
+	Let $\mathbf{z}_1 = (\mathbf{x}_1, y_1)$ denote a specific realization of $\mathbf{Z}$ and $\mathbf{x}$ denote a point of interest.
+	Let $D = \left\{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{s_2} \right\}$ and $D' = \left\{\mathbf{Z}_1^{\prime}, \dotsc, \mathbf{Z}_{s_1}^{\prime} \right\}$ denote two independent and i.i.d. samples drawn from $P$.
+	Furthermore, let $\mathbf{X} \sim P$ and $\mathbf{X} \indep D,D'$.
+	Then
 	\begin{equation}
-		\psi_{s_1, s_2}^{1}\left(\mathbf{x}; \mathbf{z}_1\right)
-		= {\color{red} LOREM IPSUM}
+		\begin{aligned}
+			\psi_{s_1, s_2}^{1}\left(\mathbf{x}; \mathbf{z}_1\right)
+			& = w_{1}^{*} \left(
+			\frac{s_2}{s_1}\left(\varepsilon_1 \E_{D'}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1^{\prime}, D'\right)\, \Big| \, \mathbf{X}_1^{\prime} = \mathbf{x}_1 \right]
+				+ \E_{D'}\left[\sum_{i = 1}^{s} \kappa\left(\mathbf{x}; \mathbf{Z}_i^{\prime}, D'\right) \mu(\mathbf{X}_i^{\prime})\, \Big| \, \mathbf{X}_1 ^{\prime}= \mathbf{x}_1 \right]\right)
+			+ \frac{s_2}{s_2 - s_1}\E\left[\mu(\mathbf{X})\right]\right)                                                                                          \\
+			 & \quad + w_{2}^{*} \left(\varepsilon_1 \E_D\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1, D\right)\, \Big| \, \mathbf{X}_1 = \mathbf{x}_1 \right]
+			+ \E_{D}\left[\sum_{i = 1}^{s} \kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right) \mu(\mathbf{X}_i)\, \Big| \, \mathbf{X}_1 = \mathbf{x}_1 \right]\right) \\
+		\end{aligned}
 	\end{equation}
 \end{lem}
 
@@ -803,16 +838,54 @@ Having developed theoretical results concerning uniform inference methods for th
 			\psi_{s_1, s_2}^{1}\left(\mathbf{x}; \mathbf{z}_1\right)
 			 & = \E_{D}\left[w_{1}^{*} \tilde{\mu}_{s_1}\left(\mathbf{x}; D\right)
 				+ w_{2}^{*} h_{s_2}\left(\mathbf{x}; D\right)\, | \, \mathbf{Z}_1 = \mathbf{z}_1\right]
-			= \E_{D}\left[h_{s_1, s_2}\left(\mathbf{x}; D\right) \, | \, \mathbf{Z}_1 = \mathbf{z}_1 \right]                 \\
+			= \E_{D}\left[h_{s_1, s_2}\left(\mathbf{x}; D\right) \, | \, \mathbf{Z}_1 = \mathbf{z}_1 \right]                                                             \\
 			%
 			 & = w_{1}^{*} \E_{D}\left[\tilde{\mu}_{s_1}\left(\mathbf{x}; D\right)\, | \, \mathbf{Z}_1 = \mathbf{z}_1\right]
-			+ w_{2}^{*} \E_D\left[h_{s_2}\left(\mathbf{x}; D\right)\, | \, \mathbf{Z}_1 = \mathbf{z}_1\right]                \\
+			+ w_{2}^{*} \E_D\left[h_{s_2}\left(\mathbf{x}; D\right)\, | \, \mathbf{Z}_1 = \mathbf{z}_1\right]                                                            \\
 			%
-			 & = {\color{red} LOREM IPSUM}
+			 & = w_{1}^{*} \E_{D}\left[\binom{s_2}{s_1}^{-1}\sum_{\ell \in L_{s_2, s_1}}h_{s_1}\left(\mathbf{x}; D_\ell\right)\, | \, \mathbf{Z}_1 = \mathbf{z}_1\right]
+			+ w_{2}^{*} \E_D\left[h_{s_2}\left(\mathbf{x}; D\right)\, | \, \mathbf{Z}_1 = \mathbf{z}_1\right]                                                            \\
+			%
+			 & = w_{1}^{*} \binom{s_2}{s_1}^{-1}\left(\E_{D}\left[
+				\sum_{\ell \in L_{s_1 - 1}\left([s_2]\backslash \{1\}\right)}h_{s_1}\left(\mathbf{x}; D_{\ell \cup 1}\right)
+				\sum_{\ell \in L_{s_1}\left([s_2]\backslash \{1\}\right)}h_{s_1}\left(\mathbf{x}; D_\ell\right)
+				\, | \, \mathbf{Z}_1 = \mathbf{z}_1\right]
+			\right)                                                                                                                                                      \\
+			 & \quad + w_{2}^{*} \E_D\left[h_{s_2}\left(\mathbf{x}; D\right)\, | \, \mathbf{Z}_1 = \mathbf{z}_1\right]                                                   \\
+			%
+			 & = w_{1}^{*} \binom{s_2}{s_1}^{-1}\left(
+			\binom{s_2-1}{s_1-1}\E_{1:s_1}\left[h_{s_1}\left(\mathbf{x}; D_{[s_1]}\right) \, | \, \mathbf{Z}_1 = \mathbf{z}_1 \right]
+			+ \binom{s_2-1}{s_1}\E_{2:(s_1+1)}\left[h_{s_1}\left(\mathbf{x}; D_{2:(s_1+1)}\right)\right]
+			\right)                                                                                                                                                      \\
+			 & \quad + w_{2}^{*} \E_D\left[h_{s_2}\left(\mathbf{x}; D\right)\, | \, \mathbf{Z}_1 = \mathbf{z}_1\right]                                                   \\
+			%
+			 & = w_{1}^{*} \binom{s_2}{s_1}^{-1}\left(
+			\binom{s_2-1}{s_1-1}\psi_{s_1}^{1}\left(\mathbf{x}; \mathbf{z_1}\right)
+			+ \binom{s_2-1}{s_1}\E_{2:(s_1+1)}\left[h_{s_1}\left(\mathbf{x}; D_{2:(s_1+1)}\right)\right]
+			\right) + w_{2}^{*} \psi_{s_2}^{1}\left(\mathbf{x}; \mathbf{z_1}\right)
+		\end{aligned}
+	\end{equation}
+	Using Lemmas \ref{lem:DNN_k_exp} and \ref{lem:psi_s_1}, we can further simplify this term significantly.
+	\begin{equation}
+		\begin{aligned}
+			\psi_{s_1, s_2}^{1}\left(\mathbf{x}; \mathbf{z}_1\right)
+			 & = w_{1}^{*} \left(\frac{s_2}{s_1}\psi_{s_1}^{1}\left(\mathbf{x}; \mathbf{z_1}\right)
+			+ \frac{s_2}{s_2 - s_1}\E\left[\mu(\mathbf{X})\right]\right)
+			+ w_{2}^{*} \psi_{s_2}^{1}\left(\mathbf{x}; \mathbf{z_1}\right)                                                                                       \\
+			%
+			 & = w_{1}^{*} \left(
+			\frac{s_2}{s_1}\left(\varepsilon_1 \E_{D'}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1, D'\right)\, \Big| \, \mathbf{X}_1 = \mathbf{x}_1 \right]
+				+ \E_{D'}\left[\sum_{i = 1}^{s} \kappa\left(\mathbf{x}; \mathbf{Z}_i, D'\right) \mu(\mathbf{X}_i)\, \Big| \, \mathbf{X}_1 = \mathbf{x}_1 \right]\right)
+			+ \frac{s_2}{s_2 - s_1}\E\left[\mu(\mathbf{X})\right]\right)                                                                                          \\
+			 & \quad + w_{2}^{*} \left(\varepsilon_1 \E_D\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1, D\right)\, \Big| \, \mathbf{X}_1 = \mathbf{x}_1 \right]
+			+ \E_{D}\left[\sum_{i = 1}^{s} \kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right) \mu(\mathbf{X}_i)\, \Big| \, \mathbf{X}_1 = \mathbf{x}_1 \right]\right) \\
+			%
+			 & \quad = {\color{red} LOREM IPSUM}
 		\end{aligned}
 	\end{equation}
 \end{proof}
 
+\newpage
 \subsection{Kernel Variances \& Covariances}
 \hrule
 
