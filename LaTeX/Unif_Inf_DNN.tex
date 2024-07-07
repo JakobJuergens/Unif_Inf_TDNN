@@ -107,8 +107,8 @@ Due to the inherent connection of the Potential Nearest Neighbors (PNN) framewor
 	{\color{red} LOREM IPSUM}
 
 The remainder of this paper is organized as follows.
-Section \ref{TDNN} introduces the TDNN estimator as developed by \citet{demirkaya_optimal_2024} and presents some of the results this paper is based on.
-Section \ref{pw_inf} uses recent theoretical developments to show that the distributional approximations provided by \citet{demirkaya_optimal_2024} can be justified under weaker assumptions on the chosen subsampling scales.
+Section \ref{sec:TDNN} introduces the TDNN estimator as developed by \citet{demirkaya_optimal_2024} and presents some of the results this paper is based on.
+Section \ref{sec:pw_inf} uses recent theoretical developments to show that the distributional approximations provided by \citet{demirkaya_optimal_2024} can be justified under weaker assumptions on the chosen subsampling scales.
 Section \ref{unif_inf} extends results from \citet{ritzwoller_uniform_2024} to the TDNN estimator and thus introduces methods to construct uniform confidence bands for the TDNN estimator.
 Section \ref{Simulations} explores the performance of the developed uniform inference methods in a number of setups and Section \ref{Application} applies them to the context of {\color{red} LOREM IPSUM}.
 Section \ref{Conclusion} concludes.
@@ -137,7 +137,7 @@ Similarly, given a finite index set $\mathcal{I} \subset \mathbb{N}$, define the
 
 
 \newpage
-\section{Two-Scale Distributional Nearest Neighbor Estimator}\label{TDNN}
+\section{Two-Scale Distributional Nearest Neighbor Estimator}\label{sec:TDNN}
 \hrule
 As in \citet{demirkaya_optimal_2024}, consider a sample of independent and identically distributed observations
 \begin{equation}\label{DGP}
@@ -239,7 +239,7 @@ Through an equivalent representation as an L-statistic developed by \citet{steel
 Starting from this setup, \citet{demirkaya_optimal_2024} develop a novel bias-correction method for the DNN estimator that leads to appealing finite-sample properties of the resulting Two-Scale Distributional Nearest Neighbor (TDNN) estimator.
 Their method is based on an explicit formula for the first-order bias term of the DNN estimator, which in turn allows them to eliminate it through a clever combination of two DNN estimators.
 
-\begin{thm}[\citet{demirkaya_optimal_2024} - Theorem 1]\label{thm_dem1}\mbox{}\\*
+\begin{thm}[\citet{demirkaya_optimal_2024} - Theorem 1]\label{thm:dem1}\mbox{}\\*
 	Assume that the distribution of $\mathbf{X}$ has a density function $f(\cdot)$ with respect to the Lebesgue measure $\lambda$ on the Euclidean space $\mathbb{R}^d$.
 	Let $\mathbf{x} \in \operatorname{supp}(\mathbf{X})$ be a fixed feature vector.
 	If \dots
@@ -281,12 +281,12 @@ they define the corresponding TDNN estimator as follows.
 	\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right)
 	= w_1^{*}(s_1, s_2)\tilde{\mu}_{s_1}\left(\mathbf{x}; \mathbf{D}_n\right) + w_2^{*}(s_1, s_2)\tilde{\mu}_{s_2}\left(\mathbf{x}; \mathbf{D}_n\right)
 \end{equation}
-As a direct consequence of Theorem \ref{thm_dem1}, this leads to the elimination of the first-order bias term leading to desirable finite-sample properties.
+As a direct consequence of Theorem \ref{thm:dem1}, this leads to the elimination of the first-order bias term leading to desirable finite-sample properties.
 Furthermore, the authors show that this construction improves the quality of the normal approximation.
 
 
-\begin{thm}[\citet{demirkaya_optimal_2024} - Theorem 3]\label{thm_dem3}\mbox{}\\*
-	Assume that Conditions (1) to (3) from Theorem \ref{thm_dem1} hold.
+\begin{thm}[\citet{demirkaya_optimal_2024} - Theorem 3]\label{thm:dem3}\mbox{}\\*
+	Assume that Conditions (1) to (3) from Theorem \ref{thm:dem1} hold.
 	Furthermore, let $s_2 \rightarrow \infty$ with $s_2 = o(n)$ and $c_1 \leq s_1/s_2 \leq c_2$ for some constants $0 < c_1 < c_2 < 1$.
 	Then, for any fixed $\mathbf{x} \in \operatorname{supp}(\mathbf{X}) \subset \mathbb{R}^d,$ it holds that for some positive sequence $\sigma_n$ of order $(s_2/n)^{1/2}$,
 	\begin{equation}
@@ -303,18 +303,6 @@ Furthermore, the authors show that this construction improves the quality of the
 
 \subsection{U-Statistic Representation for the DNN and TDNN Estimators}
 As the majority of the theoretical results in the original paper rely on representations as a U-statistic, it is necessary to introduce additional concepts and notation.
-% First, as introduced by \citet{peng_rates_2022}, the concept of generalized U-statistics.
-% \begin{dfn}[Generalized U-Statistic]\label{Gen_UStat}\mbox{}\\*
-% 	Suppose $Z_1, \ldots, Z_n$ are i.i.d. samples from $F_Z$ and let $h$ denote a (possibly randomized) real-valued function utilizing $s$ of these samples that is permutation symmetric in those $s$ arguments. A generalized $U$-statistic with kernel $h$ of order (rank) s refers to any estimator of the form
-% 	\begin{equation}
-% 		U_{n, s, N, \omega}=\frac{1}{\hat{N}} \sum_{(n, s)} \rho h\left(Z_{i 1}, \ldots, Z_{i s} ; \omega\right)
-% 	\end{equation}
-% 	where $\omega$ denotes i.i.d. randomness, independent of the original data.
-% 	The $\rho$ denotes i.i.d. Bernoulli random variables determining which subsamples are selected and $\operatorname{Pr}(\rho=1)=N /\binom{n}{s}$.
-% 	The actual number of subsamples selected is given by $\hat{N}=\sum \rho$ where $\E[\hat{N}]=N$.
-% 	When $N=\binom{n}{s}$, the estimator in Eq. (2.4) is a generalized complete $U$-statistic and is denoted as $U_{n, s, \omega}$.
-% 	When $N<\binom{n}{s}$, these estimators are generalized incomplete $U$-statistics.
-% \end{dfn}
 Recalling Equation \ref{U_stat}, the DNN and TDNN estimators can be expressed in the following U-statistic form and are thus a type of generalized complete U-statistic as introduced by \citet{peng_rates_2022}.
 \begin{equation}
 	\tilde{\mu}_{s}(\mathbf{x}; \mathbf{D}_n)
@@ -326,7 +314,7 @@ Recalling Equation \ref{U_stat}, the DNN and TDNN estimators can be expressed in
 It is worth pointing out that in contrast to the DNN estimator, the kernel for the TDNN estimator is of order $s_2 > s_1$.
 The authors derive an explicit formula for the kernel that shows the connection between the DNN and TDNN estimators.
 This connection will prove useful going forward.
-\begin{lem}[Kernel of TDNN Estimator - Adapted from Lemma 8 of \citet{demirkaya_optimal_2024}]\label{lem_dem8}\mbox{}\\*
+\begin{lem}[Kernel of TDNN Estimator - Adapted from Lemma 8 of \citet{demirkaya_optimal_2024}]\label{lem:dem8}\mbox{}\\*
 	The kernel of the TDNN estimator takes the following form.
 	\begin{equation}
 		\begin{aligned}
@@ -335,7 +323,6 @@ This connection will prove useful going forward.
 			 & = w_{1}^{*} \tilde{\mu}_{s_1}\left(\mathbf{x}; D\right) + w_{2}^{*} h_{s_2}\left(\mathbf{x}; D\right)                                                            \\
 		\end{aligned}
 	\end{equation}
-	{\color{red} LOREM IPSUM}
 \end{lem}
 
 For the DNN estimator and any $1 \leq c \leq s$, define
@@ -346,16 +333,7 @@ For the DNN estimator and any $1 \leq c \leq s$, define
 \end{equation}
 where $\mathbf{Z}_{c+1}^{\prime}, \ldots, \mathbf{Z}_n^{\prime}$ are i.i.d. from $P$ and independent of $\mathbf{Z}_1, \ldots, \mathbf{Z}_n$ and thus
 $\xi_{s}^{s}\left(\mathbf{x}\right) = \Var\left(h_s\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_s\right)\right).$
-Then, we have the following result from the original paper.
-
-\begin{lem}[\citet{demirkaya_optimal_2024} - Lemma 7]\label{lem_dem7}\mbox{}\\*
-	For any fixed $\mathbf{x}$ we have the following as $s \rightarrow \infty$ and $s = o(n)$
-	\begin{equation}
-		\lim_{n \rightarrow \infty} n^{-1}\frac{\xi_{s}^{s}\left(\mathbf{x}\right)}{\xi_{s}^{1}\left(\mathbf{x}\right)}
-		= 0.
-	\end{equation}
-\end{lem}
-
+% Then, we have the following result from the original paper.
 Similarly, for the TDNN estimator and any $1 \leq c \leq s_2$, let
 \begin{equation}
 	\zeta_{s_1, s_2}^{c}\left(\mathbf{x}\right)
@@ -363,14 +341,38 @@ Similarly, for the TDNN estimator and any $1 \leq c \leq s_2$, let
 	h_{s_1, s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_c, \mathbf{Z}_{c+1}^{\prime}, \ldots, \mathbf{Z}_{s_2}^{\prime}\right)\right)
 \end{equation}
 with an analogous definition of $\mathbf{Z}'$.
+% \begin{lem}[\citet{demirkaya_optimal_2024} - Lemma 7]\label{lem:dem7}\mbox{}\\*
+% 	For any fixed $\mathbf{x}$ we have the following as $s \rightarrow \infty$ and $s = o(n)$
+% 	\begin{equation}
+% 		\lim_{n \rightarrow \infty} n^{-1}\frac{\xi_{s}^{s}\left(\mathbf{x}\right)}{\xi_{s}^{1}\left(\mathbf{x}\right)}
+% 		= 0.
+% 	\end{equation}
+% \end{lem}
+Borrowing the notational conventions from \citet{lee_u-statistics_2019}, additionally, introduce the following notation.
+\begin{equation}\label{eq:psi_c_s}
+	\psi_{c}^{s}(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c})
+	 = \E_{\mathbf{Z}}\left[h_{s}\left(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \mathbf{Z}_{c+1}, \dotsc, \mathbf{Z}_{s}\right)\right]                                            
+\end{equation}
+\begin{equation}
+	h_{s}^{(1)}\left(\mathbf{x}; \mathbf{z}_{1}\right)
+	 = \psi_{1}^{s}(\mathbf{x}; \mathbf{z}_{1}) - \mu(\mathbf{x})                                                                                                                            
+\end{equation}
+\begin{equation}
+	h_{s}^{(c)}\left(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}\right)
+	= \psi_{c}^{s}(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}) - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{n,j}}h_{s}^{(j)}(\mathbf{x}; \mathbf{z}_{\ell})\right) - \mu(\mathbf{x})
+	\quad \text{for } c = 2, \dotsc, s
+\end{equation}
+In contrast to the notational inspiration, the subsampling size $s$ is made explicit.
+Since we are dealing with an infinite-order U-statistic, $s$ will be diverging with $n$.
+Completely analogous, define the corresponding objects for the TDNN estimator.
 
 
 \newpage
-\section{Pointwise Inference for the TDNN Estimator}\label{pw_inf}
+\section{Pointwise Inference for the TDNN Estimator}\label{sec:pw_inf}
 \hrule
 To perform inference, the authors introduce variance estimators based on the Jackknife and Bootstrap.
 However, as they point out, their consistency results rely on a likely suboptimal rate condition for the subsampling scale.
-While Theorem \ref{thm_dem3} allows $s_2$ to be of the order $o(n)$, the variance estimators rely on the considerably stronger condition that $s_2 = o(n^{1/3})$.
+While Theorem \ref{thm:dem3} allows $s_2$ to be of the order $o(n)$, the variance estimators rely on the considerably stronger condition that $s_2 = o(n^{1/3})$.
 Establishing consistency for their variance estimators under weaker assumptions on the subsampling rates could broaden the scope of the TDNN estimator for inferential purposes considerably.
 Another variance that is of particular interest in this context is the Pseudo-Infinitesimal Jackknife (PIJK) Variance Estimator for Generalized U-Statistics of \citet{peng_bias_2021}.
 Going forward, all results will be stated for the TDNN estimator.
@@ -420,7 +422,7 @@ The PIJK variance estimator applied to the TDNN estimator is as follows.
 Having introduced the PIJK variance estimator, we can consider whether the results from \citet{peng_bias_2021} apply to the TDNN estimator.
 Specifically, we are interested in applying the following theorem.
 
-\begin{lem}[\citet{peng_bias_2021} - Theorem 6]\label{thm_peng21_6}\mbox{}\\*
+\begin{lem}[\citet{peng_bias_2021} - Theorem 6]\label{thm:peng21_6}\mbox{}\\*
 	Let $X_1, \ldots, X_n$ be i.i.d. from $\mathrm{P}$ and $\mathrm{U}_{n, k, \omega}$ be a generalized complete $U$ statistic with kernel $s\left(X_1, \ldots, X_k ; \omega\right)$.
 
 	Let $\theta=\E[s], \zeta_{1, \omega}=\Var\left(\E\left[s \mid X_1\right]\right)$ and $\zeta_k=\Var(s)$.
@@ -431,7 +433,7 @@ Specifically, we are interested in applying the following theorem.
 	\end{equation}
 \end{lem}
 
-Thus, we need to show an analog of Lemma \ref{lem_dem7} for the TDNN kernel.
+Thus, we need to show an analog of Lemma \ref{lem:dem7} for the TDNN kernel.
 	{\color{red} In even greater detail, we want to improve on the relation shown in Equation (A.52) in the derivation of consistency of the Jackknife variance estimator.}
 
 In an analogous fashion to Theorems 5 and 6 from \citet{demirkaya_optimal_2024}, we obtain the following consistency results for the presented variance estimators.
@@ -454,7 +456,7 @@ As they point out, proving these results goes beyond the techniques presented in
 \subsection{Pointwise Inference with the TDNN Estimator}
 
 {\color{red}
-	\begin{thm}[Pointwise Inference with the TDNN Estimator]\label{pw_inf_TDNN}\mbox{}\\*
+	\begin{thm}[Pointwise Inference with the TDNN Estimator]\label{sec:pw_inf_TDNN}\mbox{}\\*
 		LOREM IPSUM
 	\end{thm}
 }
@@ -492,7 +494,7 @@ To summarize the kind of object we want to construct, we define a uniform confid
 \subsection{Low-Level}
 In our pursuit of constructing uniform confidence regions for the TDNN estimator, we return to the results from \citet{ritzwoller_uniform_2024} in their high-dimensional form.
 
-\begin{thm}[\citet{ritzwoller_uniform_2024} - Theorem 4.1]\label{thm_rit4_1}\mbox{}\\*
+\begin{thm}[\citet{ritzwoller_uniform_2024} - Theorem 4.1]\label{thm:rit4_1}\mbox{}\\*
 	For any sequence of kernel orders $b=b_n$, where
 	\begin{equation}
 		\frac{1}{n} \frac{\nu_j^2}{\sigma_{b, j}^2} \rightarrow 0
@@ -508,7 +510,7 @@ In our pursuit of constructing uniform confidence regions for the TDNN estimator
 \end{thm}
 
 
-\begin{thm}[Adapted from \citet{ritzwoller_uniform_2024} - Theorem 4.2]\label{thm_rit4_2}\mbox{}\\*
+\begin{thm}[Adapted from \citet{ritzwoller_uniform_2024} - Theorem 4.2]\label{thm:rit4_2}\mbox{}\\*
 	Define the terms
 	\begin{equation}
 		\bar{\psi}_{s_2}^2
@@ -742,17 +744,17 @@ Having developed theoretical results concerning uniform inference methods for th
 \appendix
 
 \newpage
-\section{Proofs for Results in Section \ref{TDNN}}
+\section{Proofs for Results in Section \ref{sec:TDNN}}
 \hrule
 
 \newpage
-\section{Proofs for Results in Section \ref{pw_inf}}
+\section{Proofs for Results in Section \ref{sec:pw_inf}}
 \hrule
 
-\subsection{Useful Lemmas for Proofs for Results in Section \ref{pw_inf}}
+\subsection{Useful Lemmas for Proofs for Results in Section \ref{sec:pw_inf}}
 \hrule
 
-\begin{lem}[\citet{lee_u-statistics_2019} - Chapter 5, Theorem 1]\mbox{}\\*\label{Lee_ch5thm1}
+\begin{lem}[\citet{lee_u-statistics_2019} - Chapter 5, Theorem 1]\label{thm:lee_ch5_1}\mbox{}\\*
 	Let $U_n$ be a U-statistic of degree $s$ based on a kernel $\psi_s$.
 	Then, the Jackknife Variance estimator takes the following form.
 	\begin{equation}
@@ -770,7 +772,7 @@ Having developed theoretical results concerning uniform inference methods for th
 \subsection{Kernel Variances \& Covariances}
 \hrule
 
-\begin{lem}[\citet{demirkaya_optimal_2024} - Lemma 12]\label{lem_dem12}\mbox{}\\*
+\begin{lem}[\citet{demirkaya_optimal_2024} - Lemma 12]\label{lem:dem12}\mbox{}\\*
 	Let $D = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_s\}$ an i.i.d. sample drawn from $P$.
 	The indicator functions $\kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right)$ satisfy the following properties.
 	\begin{enumerate}
@@ -785,7 +787,7 @@ Having developed theoretical results concerning uniform inference methods for th
 
 \hrule
 
-\begin{lem}[\citet{demirkaya_optimal_2024} - Lemma 13]\label{lem_dem13}\mbox{}\\*
+\begin{lem}[\citet{demirkaya_optimal_2024} - Lemma 13]\label{lem:dem13}\mbox{}\\*
 	For any $L^1$ function $f$ that is continuous at $\mathbf{x}$, it holds that
 	\begin{equation}
 		\lim _{s \rightarrow \infty} \E_1\left[f\left(\mathbf{X}_1\right) s \E_{2: s}\left[\kappa(\mathbf{x}; \mathbf{Z}_1, D)\right]\right]
@@ -795,7 +797,7 @@ Having developed theoretical results concerning uniform inference methods for th
 
 \hrule
 
-\begin{lem}[Adapted from \citet{demirkaya_optimal_2024}]\label{lem_omega_s}\mbox{}\\*
+\begin{lem}[Adapted from \citet{demirkaya_optimal_2024}]\label{lem:omega_s}\mbox{}\\*
 	Let $D = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{s}\}$ be a vector of i.i.d. random variables drawn from $P$.
 	Furthermore, let
 	\begin{equation}
@@ -813,7 +815,7 @@ Having developed theoretical results concerning uniform inference methods for th
 
 
 \newpage
-\begin{lem}\label{lem_omega_sc}\mbox{}\\*
+\begin{lem}\label{lem:omega_sc}\mbox{}\\*
 	Let $D = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{s}\}$ be a vector of i.i.d. random variables drawn from $P$.
 	Let $D^{\prime} = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{c}, \mathbf{Z}_{c+1}^{\prime}, \dotsc,  \mathbf{Z}_{s}^{\prime}\}$ where $\mathbf{Z}_{c+1}^{\prime}, \dotsc,  \mathbf{Z}_{s}^{\prime}$ are i.i.d. draws from $P$ that are independent of $D$.
 	Furthermore, let
@@ -836,7 +838,7 @@ Having developed theoretical results concerning uniform inference methods for th
 	\end{equation}
 \end{lem}
 
-\begin{proof}[Proof of Lemma \ref{lem_omega_sc}]
+\begin{proof}[Proof of Lemma \ref{lem:omega_sc}]
 	\begin{equation}
 		\begin{aligned}
 			\Omega_{s}^{c}
@@ -861,7 +863,7 @@ Having developed theoretical results concerning uniform inference methods for th
 		\end{aligned}
 	\end{equation}
 	Starting from this decomposition, we will analyze the terms one by one.
-	First, by honesty and an application of Lemma \ref{lem_dem12}, we find the following.
+	First, by honesty and an application of Lemma \ref{lem:dem12}, we find the following.
 	\begin{equation}
 		\begin{aligned}
 			\E_{D, D'}\left[c\kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D\right)\kappa\left(\mathbf{x}; \mathbf{Z}_{1}, D^{\prime}\right)Y_{1}^{2}\right]
@@ -921,11 +923,11 @@ Having developed theoretical results concerning uniform inference methods for th
 			 & \quad \lesssim \frac{(s-c)^2}{s^2}\mu^2(\mathbf{x}) + o(1)
 		\end{aligned}
 	\end{equation}
-	The result of Lemma \ref{lem_omega_sc} follows immediately.
+	The result of Lemma \ref{lem:omega_sc} follows immediately.
 \end{proof}
 
 \newpage
-\begin{lem}\label{lem_upsilon_s}\mbox{}\\*
+\begin{lem}\label{lem:upsilon_s}\mbox{}\\*
 	Let $D = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{s_2}\}$ be a vector of i.i.d. random variables drawn from $P$ for $s_2 > s_1$.
 	Furthermore, let
 	\begin{equation}
@@ -943,7 +945,7 @@ Having developed theoretical results concerning uniform inference methods for th
 	\end{equation}
 \end{lem}
 
-\begin{proof}[Proof of Lemma \ref{lem_upsilon_s}]
+\begin{proof}[Proof of Lemma \ref{lem:upsilon_s}]
 	\begin{equation}
 		\begin{aligned}
 			\Upsilon_{s_1, s_2}
@@ -978,7 +980,7 @@ Having developed theoretical results concerning uniform inference methods for th
 
 \hrule
 
-\begin{lem}\label{lem_upsilon_sc}\mbox{}\\*
+\begin{lem}\label{lem:upsilon_sc}\mbox{}\\*
 	Let $D = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{s_2}\}$ be a vector of i.i.d. random variables drawn from $P$ for $s_2 > s_1$.
 	Let $D^{\prime} = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{c}, \mathbf{Z}_{c+1}^{\prime}, \dotsc,  \mathbf{Z}_{s_1}^{\prime}\}$ where $\mathbf{Z}_{c+1}^{\prime}, \dotsc,  \mathbf{Z}_{s_1}^{\prime}$ are i.i.d. draws from $P$ that are independent of $D$.
 	Furthermore, let
@@ -1008,7 +1010,7 @@ Having developed theoretical results concerning uniform inference methods for th
 	\end{equation}
 \end{lem}
 
-\begin{proof}[Proof of Lemma \ref{lem_upsilon_sc}]
+\begin{proof}[Proof of Lemma \ref{lem:upsilon_sc}]
 	\begin{equation}
 		\begin{aligned}
 			\Upsilon_{s_1, s_2}^{c}
@@ -1101,7 +1103,7 @@ Having developed theoretical results concerning uniform inference methods for th
 \end{proof}
 
 \newpage
-\begin{lem}[Kernel Variance of the TDNN Kernel]\label{Var_TDNN_k}
+\begin{lem}[Kernel Variance of the TDNN Kernel]\label{lem:Var_TDNN_k}
 	For the kernel of the TDNN estimator with subsampling scales $s_1$ and $s_2$, it holds that
 	\begin{equation}
 		\zeta_{s_1, s_2}^{s_2}\left(\mathbf{x}\right)
@@ -1112,7 +1114,7 @@ Having developed theoretical results concerning uniform inference methods for th
 	\end{equation}
 \end{lem}
 
-\begin{proof}[Proof of Lemma \ref{Var_TDNN_k}]
+\begin{proof}[Proof of Lemma \ref{lem:Var_TDNN_k}]
 	Consider first the following decomposition.
 	\begin{equation}
 		\begin{aligned}
@@ -1147,7 +1149,7 @@ Having developed theoretical results concerning uniform inference methods for th
 		\end{aligned}
 	\end{equation}
 
-	Recall that by Lemma \ref{lem_omega_s}, we have the following.
+	Recall that by Lemma \ref{lem:omega_s}, we have the following.
 	\begin{equation}
 		\begin{aligned}
 			\Omega_{s_2}
@@ -1182,7 +1184,7 @@ Having developed theoretical results concerning uniform inference methods for th
 \end{proof}
 
 \newpage
-\begin{lem}[Kernel Covariances of the TDNN Kernel]\label{Cov_TDNN_k}
+\begin{lem}[Kernel Covariances of the TDNN Kernel]\label{lem:Cov_TDNN_k}
 	For the kernel of the TDNN estimator with subsampling scales $s_1$ and $s_2$, it holds that
 	\begin{equation}
 		\zeta_{s_1, s_2}^{1}\left(\mathbf{x}\right)
@@ -1191,7 +1193,7 @@ Having developed theoretical results concerning uniform inference methods for th
 	\end{equation}
 \end{lem}
 
-\begin{proof}[Proof of Lemma \ref{Cov_TDNN_k}]
+\begin{proof}[Proof of Lemma \ref{lem:Cov_TDNN_k}]
 	Following the idea of the proof of Lemma 7 in \citet{demirkaya_optimal_2024}, we want to find an upper and lower asymptotic bound for $\zeta_{s_1, s_2}^{1}$ to pin down its asymptotic order.
 	Thus, consider first the following.
 	\begin{equation}
@@ -1336,7 +1338,7 @@ Having developed theoretical results concerning uniform inference methods for th
 				\, \Big| \, \|\mathbf{X}_2 - \mathbf{x}\| < \|\mathbf{X}_1 - \mathbf{x}\|\right]
 		\end{aligned}
 	\end{equation}
-	
+
 	It remains to analyze the asymptotic behavior of the individual terms.
 	\begin{equation}
 		\begin{aligned}
@@ -1362,6 +1364,14 @@ Having developed theoretical results concerning uniform inference methods for th
 			 & {\color{red} LOREM IPSUM}
 		\end{aligned}
 	\end{equation}
+
+	To construct a lower bound we again follow a similar strategy as the proof in \citet{demirkaya_optimal_2024}.
+	First, recall
+	\begin{equation}
+		\begin{aligned}
+			{\color{red} LOREM IPSUM}
+		\end{aligned}
+	\end{equation}
 \end{proof}
 
 \newpage
@@ -1379,10 +1389,10 @@ Having developed theoretical results concerning uniform inference methods for th
 
 \end{proof}
 
-\subsection{Proof of Theorem \ref{pw_inf_TDNN}}
+\subsection{Proof of Theorem \ref{sec:pw_inf_TDNN}}
 \hrule
 
-\begin{proof}[Proof of Theorem \ref{pw_inf_TDNN}]\mbox{}\\*
+\begin{proof}[Proof of Theorem \ref{sec:pw_inf_TDNN}]\mbox{}\\*
 
 \end{proof}
 
@@ -1392,7 +1402,7 @@ Having developed theoretical results concerning uniform inference methods for th
 \subsection{Useful Lemmas for Proofs for Results in Section \ref{unif_inf}}
 
 \begin{lem}[Jackknife Variance Estimator as U-Statistic]\label{JK_as_U_Stat}\mbox{}\\*
-	The Jackknife Variance Estimator as described in Lemma \ref{Lee_ch5thm1} can be expressed as a U-statistic of order $2s$.
+	The Jackknife Variance Estimator as described in Lemma \ref{thm:lee_ch5_1} can be expressed as a U-statistic of order $2s$.
 	\begin{equation}
 		\hat{\omega}^{2}_{JK}\left(\mathbf{x}; \mathbf{D}_n\right)
 		= \binom{n}{2s}^{-1} \sum_{\ell \in L_{n, 2 s}}J_{s}\left(\mathbf{x}; n, D_\ell\right)
@@ -1422,7 +1432,7 @@ Having developed theoretical results concerning uniform inference methods for th
 \end{lem}
 
 \begin{proof}[Proof of Lemma \ref{JK_as_U_Stat}]
-	Taking Lemma \ref{Lee_ch5thm1} as given, we find that the Jackknife variance estimator for the TDNN estimator can be expressed in the following form.
+	Taking Lemma \ref{thm:lee_ch5_1} as given, we find that the Jackknife variance estimator for the TDNN estimator can be expressed in the following form.
 	\begin{equation}
 		\hat{\omega}^{2}_{JK}
 		= \frac{n-1}{n^2}\binom{n-1}{s}^{-2}

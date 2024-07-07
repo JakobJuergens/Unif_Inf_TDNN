@@ -57,20 +57,6 @@ where $D_{\ell}$ and $D_{\ell'}$ only share exactly one observation, say $\mathb
 
 \section{Hoeffding-Decompositions}
 
-Borrowing the notational conventions from \citet{lee_u-statistics_2019}, additionally, introduce the following notation.
-\begin{align}
-	\psi_{c}^{s}(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c})
-	 & = \E_{\mathbf{Z}}\left[h_{s}\left(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \mathbf{Z}_{c+1}, \dotsc, \mathbf{Z}_{s}\right)\right]                                            \\
-	%
-	h_{s}^{(1)}\left(\mathbf{x}; \mathbf{z}_{1}\right)
-	 & = \psi_{1}^{s}(\mathbf{x}; \mathbf{z}_{1}) - \mu(\mathbf{x})                                                                                                                            \\
-	%
-	h_{s}^{(c)}\left(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}\right)
-	 & = \psi_{c}^{s}(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}) - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{n,j}}h_{s}^{(j)}(\mathbf{x}; \mathbf{z}_{\ell})\right) - \mu(\mathbf{x})
-	\quad \text{for } c = 2, \dotsc, s
-\end{align}
-In contrast to the notational inspiration, the subsampling size $s$ is made explicit.
-Since we are dealing with an infinite-order U-statistic, $s$ will be diverging with $n$.
 In the usual fashion, these terms can be used to express the Hoeffding projections of different orders.
 \begin{equation}
 	H_{s}^{c}\left(\mathbf{x}; \mathbf{D}_n\right)
@@ -142,3 +128,18 @@ By restricting Theorem 4.2 from \citet{ritzwoller_uniform_2024} to the univariat
 
 We want to use this bound to improve on the subsampling bounds derived in the proofs of Theorems 5 and 6 from \cite{demirkaya_optimal_2024}.
 These can be found in their Supplementary Material, parts D.5 and D.6.
+
+\hrule
+
+First, as introduced by \citet{peng_rates_2022}, the concept of generalized U-statistics.
+\begin{dfn}[Generalized U-Statistic]\label{Gen_UStat}\mbox{}\\*
+	Suppose $Z_1, \ldots, Z_n$ are i.i.d. samples from $F_Z$ and let $h$ denote a (possibly randomized) real-valued function utilizing $s$ of these samples that is permutation symmetric in those $s$ arguments. A generalized $U$-statistic with kernel $h$ of order (rank) s refers to any estimator of the form
+	\begin{equation}
+		U_{n, s, N, \omega}=\frac{1}{\hat{N}} \sum_{(n, s)} \rho h\left(Z_{i 1}, \ldots, Z_{i s} ; \omega\right)
+	\end{equation}
+	where $\omega$ denotes i.i.d. randomness, independent of the original data.
+	The $\rho$ denotes i.i.d. Bernoulli random variables determining which subsamples are selected and $\operatorname{Pr}(\rho=1)=N /\binom{n}{s}$.
+	The actual number of subsamples selected is given by $\hat{N}=\sum \rho$ where $\E[\hat{N}]=N$.
+	When $N=\binom{n}{s}$, the estimator in Eq. (2.4) is a generalized complete $U$-statistic and is denoted as $U_{n, s, \omega}$.
+	When $N<\binom{n}{s}$, these estimators are generalized incomplete $U$-statistics.
+\end{dfn}
