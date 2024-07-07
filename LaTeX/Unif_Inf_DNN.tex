@@ -324,47 +324,37 @@ This connection will prove useful going forward.
 		\end{aligned}
 	\end{equation}
 \end{lem}
-
-For the DNN estimator and any $1 \leq c \leq s$, define
-\begin{equation}
-	\xi_{s}^{c}\left(\mathbf{x}\right)
-	= \Cov\left(h_{s}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_c, \mathbf{Z}_{c+1}, \ldots, \mathbf{Z}_s\right),
-	h_{s}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_c, \mathbf{Z}_{c+1}^{\prime}, \ldots, \mathbf{Z}_s^{\prime}\right)\right)
-\end{equation}
-where $\mathbf{Z}_{c+1}^{\prime}, \ldots, \mathbf{Z}_n^{\prime}$ are i.i.d. from $P$ and independent of $\mathbf{Z}_1, \ldots, \mathbf{Z}_n$ and thus
-$\xi_{s}^{s}\left(\mathbf{x}\right) = \Var\left(h_s\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_s\right)\right).$
-% Then, we have the following result from the original paper.
-Similarly, for the TDNN estimator and any $1 \leq c \leq s_2$, let
-\begin{equation}
-	\zeta_{s_1, s_2}^{c}\left(\mathbf{x}\right)
-	= \Cov\left(h_{s_1, s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_c, \mathbf{Z}_{c+1}, \ldots, \mathbf{Z}_{s_2}\right),
-	h_{s_1, s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_c, \mathbf{Z}_{c+1}^{\prime}, \ldots, \mathbf{Z}_{s_2}^{\prime}\right)\right)
-\end{equation}
-with an analogous definition of $\mathbf{Z}'$.
-% \begin{lem}[\citet{demirkaya_optimal_2024} - Lemma 7]\label{lem:dem7}\mbox{}\\*
-% 	For any fixed $\mathbf{x}$ we have the following as $s \rightarrow \infty$ and $s = o(n)$
-% 	\begin{equation}
-% 		\lim_{n \rightarrow \infty} n^{-1}\frac{\xi_{s}^{s}\left(\mathbf{x}\right)}{\xi_{s}^{1}\left(\mathbf{x}\right)}
-% 		= 0.
-% 	\end{equation}
-% \end{lem}
 Borrowing the notational conventions from \citet{lee_u-statistics_2019}, additionally, introduce the following notation.
-\begin{equation}\label{eq:psi_c_s}
-	\psi_{c}^{s}(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c})
-	 = \E_{\mathbf{Z}}\left[h_{s}\left(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \mathbf{Z}_{c+1}, \dotsc, \mathbf{Z}_{s}\right)\right]                                            
+\begin{equation}\label{eq:psi_s_c}
+	\psi_{s}^{c}(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c})
+	= \E_{D}\left[h_{s}\left(\mathbf{x}; D\right) \, | \,  \mathbf{Z}_1 = \mathbf{z}_{1}, \dotsc, \mathbf{Z}_c = \mathbf{z}_{c}\right]
 \end{equation}
 \begin{equation}
 	h_{s}^{(1)}\left(\mathbf{x}; \mathbf{z}_{1}\right)
-	 = \psi_{1}^{s}(\mathbf{x}; \mathbf{z}_{1}) - \mu(\mathbf{x})                                                                                                                            
+	= \psi_{s}^{1}(\mathbf{x}; \mathbf{z}_{1}) - \mu(\mathbf{x})
 \end{equation}
 \begin{equation}
 	h_{s}^{(c)}\left(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}\right)
-	= \psi_{c}^{s}(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}) - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{n,j}}h_{s}^{(j)}(\mathbf{x}; \mathbf{z}_{\ell})\right) - \mu(\mathbf{x})
+	= \psi_{s}^{c}(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}) - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{n,j}}h_{s}^{(j)}(\mathbf{x}; \mathbf{z}_{\ell})\right) - \mu(\mathbf{x})
 	\quad \text{for } c = 2, \dotsc, s
 \end{equation}
 In contrast to the notational inspiration, the subsampling size $s$ is made explicit.
 Since we are dealing with an infinite-order U-statistic, $s$ will be diverging with $n$.
 Completely analogous, define the corresponding objects for the TDNN estimator.
+For the DNN estimator and any $1 \leq c \leq s$, define
+\begin{equation}\label{eq:xi_s_c}
+	\xi_{s}^{c}\left(\mathbf{x}\right)
+	= \Var_{1:c}\left(\psi_{s}^{c}(\mathbf{x}; \mathbf{Z}_{1}, \dotsc, \mathbf{Z}_{c})\right)
+\end{equation}
+where $\mathbf{Z}_{c+1}^{\prime}, \ldots, \mathbf{Z}_n^{\prime}$ are i.i.d. from $P$ and independent of $\mathbf{Z}_1, \ldots, \mathbf{Z}_n$ and thus
+$\xi_{s}^{s}\left(\mathbf{x}\right) = \Var\left(h_s\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_s\right)\right).$
+% Then, we have the following result from the original paper.
+Similarly, for the TDNN estimator and any $1 \leq c \leq s_2$, let
+\begin{equation}\label{eq:zeta_s1s2_c}
+	\zeta_{s_1, s_2}^{c}\left(\mathbf{x}\right)
+	= \Var_{1:c}\left(\psi_{s_1, s_2}^{c}(\mathbf{x}; \mathbf{Z}_{1}, \dotsc, \mathbf{Z}_{c})\right)
+\end{equation}
+with an analogous definition of $\mathbf{Z}'$.
 
 
 \newpage
@@ -768,6 +758,60 @@ Having developed theoretical results concerning uniform inference methods for th
 		\psi_{s}(D_{\iota})\psi_{s}(D_{\iota'}).
 	\end{equation}
 \end{lem}
+
+\subsection{Kernel (Conditional) Expectations}
+\hrule
+
+\begin{lem}[DNN Haj\'ek Kernel Expectation]\label{lem:psi_s_1}\mbox{}\\*
+	Let $\mathbf{z}_1 = (\mathbf{x}_1, y_1)$ denote a specific realization of $\mathbf{Z}$ and $\mathbf{x}$ denote a point of interest.
+	Then
+	\begin{equation}
+		\psi_{s}^{1}\left(\mathbf{x}; \mathbf{z}_1\right)
+		= \left(\mu\left(\mathbf{x}_1\right) + \varepsilon_1\right) \left(1 - \psi\left(B\left(\mathbf{x}, \| \mathbf{X}_1 - \mathbf{x} \|\right)\right)\right)^{s-1}
+		+ (s-1)\E_{D}\left[\mu\left(\mathbf{X}_2\right)\kappa\left(\mathbf{x}; \mathbf{Z}_2, D\right)  \, \Big| \, \mathbf{Z}_1 = \mathbf{z}_1 \right].
+	\end{equation}
+\end{lem}
+
+\begin{proof}[Proof of Lemma \ref{lem:psi_s_1}]
+	\begin{equation}
+		\begin{aligned}
+			\psi_{s}^{1}\left(\mathbf{x}; \mathbf{z}_1\right)
+			 & = \E_{D}\left[h_{s}\left(\mathbf{x}; D\right) \, | \, \mathbf{Z}_1 = \mathbf{z}_1 \right]
+			= \E_{D}\left[\sum_{i = 1}^{s} \kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right) Y_i \, \Big| \, \mathbf{Z}_1 = \mathbf{z}_1 \right] \\
+			%
+			 & = y_1 \left(1 - \psi\left(B\left(\mathbf{x}, \| \mathbf{X}_1 - \mathbf{x} \|\right)\right)\right)^{s-1}
+			 + (s-1)\E_{D}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_2, D\right) Y_2 \, \Big| \, \mathbf{Z}_1 = \mathbf{z}_1 \right]\\
+			 %
+			 & = \left(\mu\left(\mathbf{x}_1\right) + \varepsilon_1\right) \left(1 - \psi\left(B\left(\mathbf{x}, \| \mathbf{X}_1 - \mathbf{x} \|\right)\right)\right)^{s-1}
+			 + (s-1)\E_{D}\left[\mu\left(\mathbf{X}_2\right)\kappa\left(\mathbf{x}; \mathbf{Z}_2, D\right)  \, \Big| \, \mathbf{Z}_1 = \mathbf{z}_1 \right]
+		\end{aligned}
+	\end{equation}
+\end{proof}
+
+\hrule
+
+\begin{lem}[TDNN Haj\'ek Kernel Expectation]\label{lem:psi_s1s2_1}\mbox{}\\*
+	\begin{equation}
+		\psi_{s_1, s_2}^{1}\left(\mathbf{x}; \mathbf{z}_1\right)
+		= {\color{red} LOREM IPSUM}
+	\end{equation}
+\end{lem}
+
+\begin{proof}[Proof of Lemma \ref{lem:psi_s1s2_1}]
+	\begin{equation}
+		\begin{aligned}
+			\psi_{s_1, s_2}^{1}\left(\mathbf{x}; \mathbf{z}_1\right)
+			 & = \E_{D}\left[w_{1}^{*} \tilde{\mu}_{s_1}\left(\mathbf{x}; D\right)
+				+ w_{2}^{*} h_{s_2}\left(\mathbf{x}; D\right)\, | \, \mathbf{Z}_1 = \mathbf{z}_1\right]
+			= \E_{D}\left[h_{s_1, s_2}\left(\mathbf{x}; D\right) \, | \, \mathbf{Z}_1 = \mathbf{z}_1 \right]                 \\
+			%
+			 & = w_{1}^{*} \E_{D}\left[\tilde{\mu}_{s_1}\left(\mathbf{x}; D\right)\, | \, \mathbf{Z}_1 = \mathbf{z}_1\right]
+			+ w_{2}^{*} \E_D\left[h_{s_2}\left(\mathbf{x}; D\right)\, | \, \mathbf{Z}_1 = \mathbf{z}_1\right]                \\
+			%
+			 & = {\color{red} LOREM IPSUM}
+		\end{aligned}
+	\end{equation}
+\end{proof}
 
 \subsection{Kernel Variances \& Covariances}
 \hrule
@@ -1184,6 +1228,7 @@ Having developed theoretical results concerning uniform inference methods for th
 \end{proof}
 
 \newpage
+
 \begin{lem}[Kernel Covariances of the TDNN Kernel]\label{lem:Cov_TDNN_k}
 	For the kernel of the TDNN estimator with subsampling scales $s_1$ and $s_2$, it holds that
 	\begin{equation}
@@ -1365,11 +1410,20 @@ Having developed theoretical results concerning uniform inference methods for th
 		\end{aligned}
 	\end{equation}
 
-	To construct a lower bound we again follow a similar strategy as the proof in \citet{demirkaya_optimal_2024}.
-	First, recall
+	To construct a lower bound we again follow a similar strategy as used in the proof in \citet{demirkaya_optimal_2024}.
+	Recall Lemma \ref{lem:psi_s1s2_1} and observe the following.
 	\begin{equation}
 		\begin{aligned}
-			{\color{red} LOREM IPSUM}
+			\psi_{s_1, s_2}^{1}\left(\mathbf{x}; \mathbf{z}_1\right)
+		\end{aligned}
+	\end{equation}
+	Now, make the following observation.
+	\begin{equation}
+		\begin{aligned}
+			\zeta_{s_1, s_2}^{1}
+			 & = \Var_{1}(\psi_{s_1, s_2}^{1}\left(\mathbf{x}; \mathbf{z}_1\right)) \\
+			%
+			 & = {\color{red} LOREM IPSUM}
 		\end{aligned}
 	\end{equation}
 \end{proof}
