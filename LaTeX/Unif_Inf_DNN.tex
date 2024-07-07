@@ -822,7 +822,7 @@ Having developed theoretical results concerning uniform inference methods for th
 	\begin{equation}
 		\begin{aligned}
 			\psi_{s_1, s_2}^{1}\left(\mathbf{x}; \mathbf{z}_1\right)
-			& = w_{1}^{*} \left(
+			 & = w_{1}^{*} \left(
 			\frac{s_2}{s_1}\left(\varepsilon_1 \E_{D'}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1^{\prime}, D'\right)\, \Big| \, \mathbf{X}_1^{\prime} = \mathbf{x}_1 \right]
 				+ \E_{D'}\left[\sum_{i = 1}^{s} \kappa\left(\mathbf{x}; \mathbf{Z}_i^{\prime}, D'\right) \mu(\mathbf{X}_i^{\prime})\, \Big| \, \mathbf{X}_1 ^{\prime}= \mathbf{x}_1 \right]\right)
 			+ \frac{s_2}{s_2 - s_1}\E\left[\mu(\mathbf{X})\right]\right)                                                                                          \\
@@ -1484,21 +1484,72 @@ Having developed theoretical results concerning uniform inference methods for th
 	\end{equation}
 
 	To construct a lower bound we again follow a similar strategy as used in the proof in \citet{demirkaya_optimal_2024}.
-	Recall Lemma \ref{lem:psi_s1s2_1} and observe the following.
-	\begin{equation}
-		\begin{aligned}
-			\psi_{s_1, s_2}^{1}\left(\mathbf{x}; \mathbf{z}_1\right)
-		\end{aligned}
-	\end{equation}
-	Now, make the following observation.
+	Recalling Lemma \ref{lem:psi_s1s2_1} and the conditional independence properties of the individual summands we can observe the following.
 	\begin{equation}
 		\begin{aligned}
 			\zeta_{s_1, s_2}^{1}
-			 & = \Var_{1}(\psi_{s_1, s_2}^{1}\left(\mathbf{x}; \mathbf{z}_1\right)) \\
+			 & = \Var_{1}(\psi_{s_1, s_2}^{1}\left(\mathbf{x}; \mathbf{Z}_1\right))                                                                                                               \\
 			%
-			 & = {\color{red} LOREM IPSUM}
+			 & \geq \Var\left(w_{1}^{*}\frac{s_2}{s_1}\varepsilon_1 \E_{D'}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1^{\prime}, D'\right)\, \Big| \, \mathbf{X}_1^{\prime} = \mathbf{X}_1 \right]
+			+ w_{2}^{*}\varepsilon_1 \E_D\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1, D\right)\, \Big| \, \mathbf{X}_1\right]\right)                                                               \\
+			%
+			 & = \sigma_{\varepsilon}^{2}\cdot
+			\Var\left(w_{1}^{*}\frac{s_2}{s_1}\E_{D'}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1^{\prime}, D'\right)\, \Big| \, \mathbf{X}_1^{\prime} = \mathbf{X}_1 \right]
+			+ w_{2}^{*}\E_D\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1, D\right)\, \Big| \, \mathbf{X}_1\right]\right)                                                                             \\
+			% %
+			%  & \geq \sigma_{\varepsilon}^{2}\cdot
+			%  \Var\left(w_{1}^{*} \left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_1 - \mathbf{x}\|\right)\right)\right)^{s_1 - 1}
+			%  + w_{2}^{*}\left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_1 - \mathbf{x}\|\right)\right)\right)^{s_2 - 1}\right)   \\
+			%  % 
+			%  & \geq \sigma_{\varepsilon}^{2} \cdot \Var\left(\left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_1 - \mathbf{x}\|\right)\right)\right)^{s_2 - 1}\right)   \\                                             
+			%  %
+			%  & = \sigma_{\varepsilon}^{2} \cdot \left[
+			% 	\E\left[\left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_1 - \mathbf{x}\|\right)\right)\right)^{2(s_2 - 1)}\right]
+			% 	- \left(\E\left[\left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_1 - \mathbf{x}\|\right)\right)\right)^{s_2 - 1}\right]\right)^2
+			%  \right]
 		\end{aligned}
 	\end{equation}
+	Let now $B_D$ denote the event that observation $\mathbf{Z}_1$ is the closest to the point of interest $\mathbf{x}$ in a data set $D$, i.e. $\rk(\mathbf{x}; \mathbf{Z}_1, D) = 1$.
+	Then we can continue as follows.
+	\begin{equation}
+		\begin{aligned}
+			\zeta_{s_1, s_2}^{1}
+			\geq \sigma_{\varepsilon}^{2}\cdot \Var\left(w_{1}^{*}\frac{s_2}{s_1}\E_{D'}\left[B_{D'}\, \Big| \, \mathbf{X}_1^{\prime} = \mathbf{X}_1 \right]
+			+ w_{2}^{*}\E_D\left[B_D\, \Big| \, \mathbf{X}_1\right]\right)\\
+			%
+			\geq \sigma_{\varepsilon}^{2}\cdot \Var\left(w_{1}^{*}\E_{D'}\left[B_{D'}\, \Big| \, \mathbf{X}_1^{\prime} = \mathbf{X}_1 \right]
+			+ w_{2}^{*}\E_D\left[B_D\, \Big| \, \mathbf{X}_1\right]\right)
+		\end{aligned}
+	\end{equation}
+	Next, notice the following fact.
+	\begin{equation}
+		\forall \mathbf{x}_1 \in \mathbb{R}^d: \quad 
+		0
+		\leq \E_D\left[B_D\, \Big| \, \mathbf{x}_1\right] 
+		\leq \E_D\left[B_{D_{[s_1]}}\, \Big| \, \mathbf{x}_1\right] 
+		= \E_{D'}\left[B_{D'}\, \Big| \, \mathbf{X}_1^{\prime} = \mathbf{x}_1\right] 
+		\leq 1
+	\end{equation}
+	Thus, we can find the following, where $D^{\prime \prime}$ denotes a third independent data set of i.i.d. observations drawn from $P$ of size $2s_2 - 1$.
+	\begin{equation}
+		\begin{aligned}
+			\zeta_{s_1, s_2}^{1}
+			& \geq \sigma_{\varepsilon}^{2}\cdot \Var\left(\E_D\left[B_D\, \Big| \, \mathbf{X}_1\right]\right)
+			= \sigma_{\varepsilon}^{2}\cdot \left(
+				\E\left[\left(\E_D\left[B_D\, \Big| \, \mathbf{X}_1\right]\right)^2\right]
+				- \left(\E\left[\E\left[B_D\, \Big| \, \mathbf{X}_1\right]\right]\right)^2
+			\right)\\
+			%
+			& = \sigma_{\varepsilon}^{2}\cdot \left(
+				\E\left[\E_{D^{\prime \prime}}\left[B_{D^{\prime \prime}}\, \Big| \, \mathbf{X}_1\right]\right]
+				- s_{2}^{-2}
+			\right)
+			= \sigma_{\varepsilon}^{2}\cdot \left(\frac{1}{2s_2 - 1} - \frac{1}{s_2^2}\right) \\
+			%
+			& \sim s_2^{-1}.
+		\end{aligned}
+	\end{equation}
+	{\color{red} LOREM IPSUM}
 \end{proof}
 
 \newpage
