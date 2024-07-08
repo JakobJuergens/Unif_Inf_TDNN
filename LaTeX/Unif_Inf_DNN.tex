@@ -364,6 +364,38 @@ Similarly, for the TDNN estimator and any $1 \leq c \leq s_2$, let
 \end{equation}
 with an analogous definition of $\mathbf{Z}'$.
 
+\subsection{Hoeffding-Decomposition}
+As a byproduct (or main purpose depending on the perspective) these terms can be used to derive the Hoeffding decomposition of the TDNN estimator.
+\begin{equation}\label{eq:H_projection}
+	\begin{aligned}
+		H_{s}^{c}\left(\mathbf{x}; \mathbf{D}_n\right)
+		= \binom{n}{c}^{-1} \sum_{\ell \in L_{n,c}} h^{(c)}_{s}(\mathbf{x}; D_{\ell})
+		\quad \text{and} \quad
+		H_{s_1, s_2}^{c}\left(\mathbf{x}; \mathbf{D}_n\right)
+		= \binom{n}{c}^{-1} \sum_{\ell \in L_{n,c}} h^{(c)}_{s_1, s_2}(\mathbf{x}; D_{\ell})
+	\end{aligned}
+\end{equation}
+These projection terms can then be used to construct the following Hoeffding decompositions.
+\begin{equation}\label{eq:H_Decomp}
+	\tilde{\mu}_{s}\left(\mathbf{x}; \mathbf{D}_n\right)
+	= \mu(\mathbf{x}) + \sum_{j = 1}^{s}\binom{s}{j}H_{s}^{j}\left(\mathbf{x}; \mathbf{D}_n\right)\\
+	\quad \text{and} \quad
+	\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right)
+	= \mu(\mathbf{x}) + \sum_{j = 1}^{s_2}\binom{s_2}{j}H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_n\right)
+\end{equation}
+Furthermore, the corresponding Haj\'ek-Projections are as follows.
+\begin{equation}
+	\begin{aligned}
+		\tilde{\mu}_{s}\left(\mathbf{x}; \mathbf{D}_n\right)
+		 & = \mu(\mathbf{x}) + \frac{s}{n}\sum_{i = 1}^{n}h^{(1)}_{s}(\mathbf{x}; \mathbf{z}_{i})
+		+ \operatorname{HR}_{s}(\mathbf{x}; \mathbf{D}_n)                                                   \\
+		\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right)
+		 & = \mu(\mathbf{x}) + \frac{s_2}{n}\sum_{i = 1}^{n} h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{z}_{i})
+		+ \operatorname{HR}_{s_1, s_2}(\mathbf{x}; \mathbf{D}_n)
+	\end{aligned}
+\end{equation}
+Here $\operatorname{HR}$ stands for the Haj\'ek residual.
+Bounding this residual will be integral to the theoretical arguments made in later parts of this paper.
 
 \newpage
 \section{Pointwise Inference for the TDNN Estimator}\label{sec:pw_inf}
@@ -379,20 +411,20 @@ However, due to the underlying similarities between the U-statistic representati
 \subsection{Variance Estimators}\label{Var_Ests}
 
 Define the following variance we need to estimate to perform pointwise inference at a point of interest $\mathbf{x}$.
-\begin{equation}
+\begin{equation}\label{eq:TDNN_Var}
 	\omega^{2}\left(\mathbf{x}; \mathbf{D}_n\right)
 	= \Var_{D}\left(\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right)\right)
 \end{equation}
 We denote by $\mathbf{D}_{n, -i}$ the data set $\mathbf{D}_n$ after removing the $i$'th observation.
 Then, the proposed Jackknife variance estimator takes the following form.
-\begin{equation}
+\begin{equation}\label{eq:JK_Var_Est}
 	\hat{\omega}_{JK}^2\left(\mathbf{x}; \mathbf{D}_n\right)
 	= \frac{n-1}{n} \sum_{i = 1}^{n}\left(\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n, -i}\right) - \hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}\right)\right)^2
 \end{equation}
 
 Next, denote the chosen number of bootstrap samples by $B \geq 1$ and for all $1 \leq b \leq B$, let $\mathbf{D}^{(b)}_n$ denote a bootstrap sample drawn from $\mathbf{D}_n$ uniformly and with replacement.
 Then, their bootstrap variance estimator is defined as follows.
-\begin{equation}
+\begin{equation}\label{eq:BS_Var_Est}
 	\hat{\omega}_{BS}^2\left(\mathbf{x}; \mathbf{D}_n\right)
 	= \frac{1}{B - 1}\sum_{b = 1}^{B} \left(\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}^{(b)}\right) - \bar{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}\right)\right)^2
 \end{equation}
@@ -404,9 +436,9 @@ Here, $\bar{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}\right)$ is defined i
 In their resulting analysis, the authors show that under some mild assumptions and in the regime $s_2 = o(n^{1/3})$, these estimators are ratio consistent.
 In this section, we will loosen that restrictive condition to make use of the attractive performance of U-statistics with large subsampling rates in the context of inference.
 The PIJK variance estimator applied to the TDNN estimator is as follows.
-\begin{equation}
+\begin{equation}\label{eq:PIJK_Var_Est}
 	\hat{\omega}_{PI}^2\left(\mathbf{x}; \mathbf{D}_n\right)
-	= \frac{s^2}{n^2}\sum_{i = 1}^{n}\left[\left(
+	= \frac{s_2^2}{n^2}\sum_{i = 1}^{n}\left[\left(
 		\binom{n-1}{s-1}^{-1} \sum_{\ell \in L_{s_2-1}([n]\backslash\{i\})} h_{s_1, s_2}\left(\mathbf{x}; D_{\ell \cup \{i\}}\right)\right)
 		- \hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right)\right]^2
 \end{equation}
@@ -429,9 +461,9 @@ Specifically, we are interested in applying the following theorem.
 \end{lem}
 
 It is relatively straightforward to show that this Theorem applies to the TDNN estimator with $s_2 = o(n)$, giving us the following result.
-{\color{red} I need to check this proof in detail again!}
+	{\color{red} I need to check this proof in detail again!}
 \begin{thm}[Pseudo-Infinitesimal Jackknife Variance Estimator Consistency]\label{thm:PI_JK_Cons}\mbox{}\\*
-	Let $0 < c_1 \leq s_1/s_2 \leq c_2 < 1$ and $s_2 = o(n)$, then 
+	Let $0 < c_1 \leq s_1/s_2 \leq c_2 < 1$ and $s_2 = o(n)$, then
 	\begin{equation}
 		\frac{\hat{\omega}_{PI}^2\left(\mathbf{x}; \mathbf{D}_n\right)}{\omega^{2}\left(\mathbf{x}; \mathbf{D}_n\right)} \longrightarrow_{p} 1.
 	\end{equation}
@@ -439,10 +471,12 @@ It is relatively straightforward to show that this Theorem applies to the TDNN e
 
 {\color{red}
 \begin{enumerate}
-	\item Consider difference between JK and PI-JK and show that it converges to zero in the regime $s_2 = o(n)$
-	\item Consider the JK estimator as U-statistic and improve on the approach in Demirkaya 
-	(effectively Theory for JK for IOUS)
+	\item Consider the difference between JK and PI-JK and show that it converges to zero in the regime $s_2 = o(n)$
+	\item Consider the JK estimator as U-statistic and improve on the approach in Demirkaya
+	      (effectively Theory for JK for IOUS)
 	\item Consider the JK estimator as U-statistic and consider the Hoeffding and Hajek projections to obtain results
+		(effectively following the approach in Peng, Mentch, Stefanski (2021)) 
+		This seems most promising
 \end{enumerate}
 
 In an analogous fashion to Theorems 5 and 6 from \citet{demirkaya_optimal_2024}, we furthermore obtain the following consistency results for the presented variance estimators.
@@ -476,7 +510,6 @@ Instead of a single point of interest, previously denoted by $\mathbf{x}$, we wi
 Consequently, the $j$-th entry of $\mathbf{x}^{(p)}$ will be denoted by $\mathbf{x}^{(p)}_{j}$.
 In an abuse of notation, let functions (such as $\mu$ or the DNN/TDNN estimators) evaluated at $\mathbf{x}^{(p)}$ denote the vector of corresponding function values evaluated at the point, respectively.
 It should be pointed out that, due to the local definition of the kernel in the estimators, this does not translate to the evaluation of the same function at different points in the most immediate sense.
-% Furthermore, going forward $\hat{\mu}\left(\mathbf{x}; D\right)$ can be taken as the DNN or TDNN estimator evaluated at $\mathbf{x}$ based on the (sub-)sample $D$, respectively.
 To summarize the kind of object we want to construct, we define a uniform confidence region for the TDNN estimator in the following way following closely the notation of \citet{ritzwoller_uniform_2024}.
 
 
@@ -799,12 +832,12 @@ Having developed theoretical results concerning uniform inference methods for th
 		\begin{aligned}
 			\E_D\left[h_s\left(\mathbf{x}; D\right)\right]
 			 & = \E_D\left[\sum_{i = 1}^{s} \kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right) Y_i\right]
-			= s \E_{1}\left[Y_1 \E_{2:s}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1, D\right)\, | \, \mathbf{X}_1 \right]\right]                 \\
+			= s \E_{1}\left[Y_1 \E_{2:s}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1, D\right)\, | \, \mathbf{X}_1 \right]\right]                                                                \\
 			%
-			 & = \E_{1}\left[\left(\mu\left(\mathbf{X}_1\right) + \varepsilon_1\right) s\left(1 - \psi\left(B\left(\mathbf{x}, \|\mathbf{X}_1 - \mathbf{x}\|\right)\right)\right)^{s-1}\right]\\
-			 %
-			 & = \E_{1}\left[\mu\left(\mathbf{X}_1\right) s\left(1 - \psi\left(B\left(\mathbf{x}, \|\mathbf{X}_1 - \mathbf{x}\|\right)\right)\right)^{s-1}\right]\\
-			 %
+			 & = \E_{1}\left[\left(\mu\left(\mathbf{X}_1\right) + \varepsilon_1\right) s\left(1 - \psi\left(B\left(\mathbf{x}, \|\mathbf{X}_1 - \mathbf{x}\|\right)\right)\right)^{s-1}\right] \\
+			%
+			 & = \E_{1}\left[\mu\left(\mathbf{X}_1\right) s\left(1 - \psi\left(B\left(\mathbf{x}, \|\mathbf{X}_1 - \mathbf{x}\|\right)\right)\right)^{s-1}\right]                              \\
+			%
 			 & \longrightarrow \mu(\mathbf{x}) \quad \text{as} \quad s \rightarrow \infty
 		\end{aligned}
 	\end{equation}
@@ -931,7 +964,7 @@ Having developed theoretical results concerning uniform inference methods for th
 	\end{equation}
 \end{lem}
 
-\hrule 
+\hrule
 
 \begin{lem}\label{lem:omega_sc}\mbox{}\\*
 	Let $D = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{s}\}$ be a vector of i.i.d. random variables drawn from $P$.
@@ -1306,7 +1339,7 @@ Having developed theoretical results concerning uniform inference methods for th
 \begin{lem}[Lemma 10 - \citet{demirkaya_optimal_2024}]\label{lem:dem10}
 	For the kernel of the TDNN estimator with subsampling scales $s_1$ and $s_2$ satisfying
 	\begin{equation}
-		0 < c_1 \leq s_1 / s_2 \leq c_2 < 1 
+		0 < c_1 \leq s_1 / s_2 \leq c_2 < 1
 		\quad \text{and} \quad
 		s_2 = o(n),
 	\end{equation}
@@ -1450,8 +1483,39 @@ Having developed theoretical results concerning uniform inference methods for th
 \hrule
 
 \begin{lem}[Hoeffding Decomposition of Jackknife Variance Estimator]\label{lem:HDecomp_JK}\mbox{}\\*
-	
+
 \end{lem}
+
+\begin{proof}
+	Recall the definition of the Jackknife Variance estimator as described in Equation \ref{eq:JK_Var_Est}.
+	\begin{equation}
+		\hat{\omega}_{JK}^2\left(\mathbf{x}; \mathbf{D}_n\right)
+		= \frac{n-1}{n} \sum_{i = 1}^{n}\left(\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n, -i}\right) - \hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}\right)\right)^2
+	\end{equation}
+
+	Now, using the Hoeffding decomposition of the TDNN estimator, we can reformulate this expression in the following way.
+	\begin{equation}
+		\begin{aligned}
+			\hat{\omega}_{JK}^2\left(\mathbf{x}; \mathbf{D}_n\right)
+			& = \frac{n-1}{n} \sum_{i = 1}^{n}\left(
+				\sum_{j = 1}^{s_2}\binom{s_2}{j}H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_{n, -i}\right)
+				- \sum_{j = 1}^{s_2}\binom{s_2}{j}H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_{n}\right)
+			\right)^2\\
+			%
+			& = \frac{n-1}{n} \sum_{i = 1}^{n}\left(
+				\sum_{j = 1}^{s_2}\binom{s_2}{j}\left(H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_{n, -i}\right)
+				- H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_{n}\right)\right)
+			\right)^2\\
+			%
+			& = \frac{n-1}{n} \sum_{i = 1}^{n}\left(\sum_{j = 1}^{s_2}\binom{s_2}{j}\binom{n}{j}^{-1}
+			\left( \sum_{\ell \in L_{j}\left([n]\backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\ell})
+				- \sum_{\iota \in L_{n,j}} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\iota})\right)
+			\right)^2\\
+			%
+			& = {\color{red} LOREM IPSUM}
+		\end{aligned}
+	\end{equation}
+\end{proof}
 
 \newpage
 \subsection{Variance Estimator Consistency Theorems}
@@ -1469,7 +1533,7 @@ Having developed theoretical results concerning uniform inference methods for th
 		\begin{aligned}
 			\frac{s_2}{n}\left(\frac{
 				\zeta_{s_1, s_2}^{s_2}\left(\mathbf{x}\right)}{s_2 \zeta_{s_1, s_2}^{1}\left(\mathbf{x}\right)} - 1\right)
-			& \sim \frac{s_2}{n}\left(\mu^2(\mathbf{x}) + \sigma_{\varepsilon} + o(1) - 1\right)
+			 & \sim \frac{s_2}{n}\left(\mu^2(\mathbf{x}) + \sigma_{\varepsilon} + o(1) - 1\right)
 			\sim \frac{s_2}{n} \rightarrow_{p} 0
 		\end{aligned}
 	\end{equation}

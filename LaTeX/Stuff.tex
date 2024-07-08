@@ -57,33 +57,7 @@ where $D_{\ell}$ and $D_{\ell'}$ only share exactly one observation, say $\mathb
 
 \section{Hoeffding-Decompositions}
 
-In the usual fashion, these terms can be used to express the Hoeffding projections of different orders.
-\begin{equation}
-	H_{s}^{c}\left(\mathbf{x}; \mathbf{D}_n\right)
-	= \binom{n}{c}^{-1} \sum_{\ell \in L_{n,c}} h^{(c)}_{s}(\mathbf{x}; D_{\ell})
-\end{equation}
-In a completely analogous fashion to the DNN estimator, we can define the corresponding terms for the Hoeffding decomposition of the TDNN estimator.
-The corresponding expressions will be denoted analogous to the terms for the DNN estimator with ``$s_1, s_2$'' replacing ``$s$'' ultimately leading to the following Hoeffding decompositions.
-\begin{equation}
-	\tilde{\mu}_{s}\left(\mathbf{x}; \mathbf{D}_n\right)
-	= \mu(\mathbf{x}) + \sum_{j = 1}^{s}\binom{s}{j}H_{s}^{j}\left(\mathbf{x}; \mathbf{D}_n\right)\\
-	\quad \text{and} \quad
-	\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right)
-	= \mu(\mathbf{x}) + \sum_{j = 1}^{s_2}\binom{s_2}{j}H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_n\right)
-\end{equation}
-Furthermore, the corresponding Haj\'ek-Projections are as follows.
-\begin{equation}
-	\begin{aligned}
-		\tilde{\mu}_{s}\left(\mathbf{x}; \mathbf{D}_n\right)
-		 & = \mu(\mathbf{x}) + \frac{s}{n}\sum_{i = 1}^{n}h^{(1)}_{s}(\mathbf{x}; \mathbf{z}_{i})
-		+ \operatorname{HR}_{s}(\mathbf{x}; \mathbf{D}_n)                                                   \\
-		\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right)
-		 & = \mu(\mathbf{x}) + \frac{s_2}{n}\sum_{i = 1}^{n} h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{z}_{i})
-		+ \operatorname{HR}_{s_1, s_2}(\mathbf{x}; \mathbf{D}_n)
-	\end{aligned}
-\end{equation}
-Here $\operatorname{HR}$ stands for the Haj\'ek residual.
-Bounding this residual will be integral to the theoretical arguments made in the following.
+
 
 \hrule
 
