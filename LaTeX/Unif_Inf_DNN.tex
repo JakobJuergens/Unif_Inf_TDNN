@@ -48,6 +48,8 @@
 % \newtheorem{prop}{Proposition}
 \newtheorem{asm}{Assumption}
 
+\renewcommand\qedsymbol{$\blacksquare$}
+
 \newcommand{\sumi}{\sum_{i=1}^n}
 \newcommand{\calE}{\mathcal{E}}
 \makeatother
@@ -58,6 +60,10 @@
 \newcommand{\Cov}{\text{Cov}}
 \newcommand{\rk}{\text{rk}}
 \renewcommand{\P}{\mathbbm{P}}
+
+\makeatletter
+\def\blfootnote{\gdef\@thefnmark{}\@footnotetext}
+\makeatother
 
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor} %Floor function
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil} %Ceil function
@@ -79,6 +85,8 @@
 	One class of such estimators are bagged nearest neighbor estimators and among them specifically the Two-Scale Distributional Nearest Neighbor Estimator (TDNN) of \citet{demirkaya_optimal_2024}.
 	In this paper, we improve on existing results for pointwise inference using the TDNN estimator and develop uniform inference procedures based on recent work by \citet{ritzwoller_uniform_2024}.
 	As part of this work, we provide a complementary R package called \textit{tdnnR} that implements the presented methods.
+
+	% \blfootnote{The author thanks Harold D. Chiang, Jack Porter {\color{red} ADD OTHERS} for invaluable feedback.}
 \end{abstract}
 \vspace{0.3cm}
 \hrule
@@ -372,7 +380,7 @@ However, due to the underlying similarities between the U-statistic representati
 
 Define the following variance we need to estimate to perform pointwise inference at a point of interest $\mathbf{x}$.
 \begin{equation}
-	\omega^{2}_{n}\left(\mathbf{x}\right)
+	\omega^{2}\left(\mathbf{x}; \mathbf{D}_n\right)
 	= \Var_{D}\left(\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right)\right)
 \end{equation}
 We denote by $\mathbf{D}_{n, -i}$ the data set $\mathbf{D}_n$ after removing the $i$'th observation.
@@ -423,22 +431,24 @@ Specifically, we are interested in applying the following theorem.
 	\end{equation}
 \end{lem}
 
-Thus, we need to show an analog of Lemma \ref{lem:dem7} for the TDNN kernel.
 	{\color{red} In even greater detail, we want to improve on the relation shown in Equation (A.52) in the derivation of consistency of the Jackknife variance estimator.}
 
 In an analogous fashion to Theorems 5 and 6 from \citet{demirkaya_optimal_2024}, we obtain the following consistency results for the presented variance estimators.
 As they point out, proving these results goes beyond the techniques presented in \citet{arvesen_jackknifing_1969}, instead relying on results for infinite-order U-statistics.
 
 {\color{red}
-\begin{thm}[Pseudo-Infinitesimal Jackknife Variance Estimator Consistency]\label{PI_JK_Cons}\mbox{}\\*
+\begin{thm}[Pseudo-Infinitesimal Jackknife Variance Estimator Consistency]\label{thm:PI_JK_Cons}\mbox{}\\*
+	Let $0 < c_1 \leq s_1/s_2 \leq c_2 < 1$ and $s_2 = o(n)$, then 
+	\begin{equation}
+		\frac{\hat{\omega}_{PI}^2\left(\mathbf{x}; \mathbf{D}_n\right)}{\omega^{2}\left(\mathbf{x}; \mathbf{D}_n\right)} \longrightarrow_{p} 1.
+	\end{equation}
+\end{thm}
+
+\begin{thm}[Jackknife Variance Estimator Consistency]\label{thm:JK_Cons}\mbox{}\\*
 	LOREM IPSUM
 \end{thm}
 
-\begin{thm}[Jackknife Variance Estimator Consistency]\label{JK_Cons}\mbox{}\\*
-	LOREM IPSUM
-\end{thm}
-
-\begin{thm}[Bootstrap Variance Estimator Consistency]\label{BS_Cons}\mbox{}\\*
+\begin{thm}[Bootstrap Variance Estimator Consistency]\label{thm:BS_Cons}\mbox{}\\*
 	LOREM IPSUM
 \end{thm}
 }
@@ -446,7 +456,7 @@ As they point out, proving these results goes beyond the techniques presented in
 \subsection{Pointwise Inference with the TDNN Estimator}
 
 {\color{red}
-	\begin{thm}[Pointwise Inference with the TDNN Estimator]\label{sec:pw_inf_TDNN}\mbox{}\\*
+	\begin{thm}[Pointwise Inference with the TDNN Estimator]\label{thm:pw_inf_TDNN}\mbox{}\\*
 		LOREM IPSUM
 	\end{thm}
 }
@@ -1302,275 +1312,58 @@ Having developed theoretical results concerning uniform inference methods for th
 
 \newpage
 
-\begin{lem}[Kernel Covariances of the TDNN Kernel]\label{lem:Cov_TDNN_k}
-	For the kernel of the TDNN estimator with subsampling scales $s_1$ and $s_2$, it holds that
+\begin{lem}[Lemma 10 - \citet{demirkaya_optimal_2024}]\label{lem:dem10}
+	For the kernel of the TDNN estimator with subsampling scales $s_1$ and $s_2$ satisfying
+	\begin{equation}
+		0 < c_1 \leq s_1 / s_2 \leq c_2 < 1 
+		\quad \text{and} \quad
+		s_2 = o(n),
+	\end{equation}
+	it holds that
 	\begin{equation}
 		\zeta_{s_1, s_2}^{1}\left(\mathbf{x}\right)
-		\sim s_2^{-1}
-		{\color{red} ???}
+		\sim s_2^{-1}.
 	\end{equation}
 \end{lem}
 
-\begin{proof}[Proof of Lemma \ref{lem:Cov_TDNN_k}]
-	Following the idea of the proof of Lemma 7 in \citet{demirkaya_optimal_2024}, we want to find an upper and lower asymptotic bound for $\zeta_{s_1, s_2}^{1}$ to pin down its asymptotic order.
-	Thus, consider first the following.
-	\begin{equation}
-		\begin{aligned}
-			\zeta_{s_1, s_2}^{1}\left(\mathbf{x}\right)
-			 & = \Cov\left(
-			h_{s_1, s_2}\left(\mathbf{x}; \mathbf{Z}_1, \mathbf{Z}_2, \ldots, \mathbf{Z}_{s_2}\right),
-			h_{s_1, s_2}\left(\mathbf{x}; \mathbf{Z}_1, \mathbf{Z}_{2}^{\prime}, \ldots, \mathbf{Z}_{s_2}^{\prime}\right)
-			\right)                                                  \\
-			%
-			 & = \E_{1}\left[\Cov_{(2:s_2), (2:s_2)^{\prime}}\left(
-				h_{s_1, s_2}\left(\mathbf{x}; D\right),
-				h_{s_1, s_2}\left(\mathbf{x}; D^{\prime}\right)
-				\, \Big| \, D_1 = D_{1}^{\prime} = \mathbf{Z}_1\right)
-			\right]                                                  \\
-			%
-			 & \leq \E_{1}\left[\E_{(2:s_2), (2:s_2)^{\prime}}\left[
-			|h_{s_1, s_2}\left(\mathbf{x}; D\right)| \cdot
-			|h_{s_1, s_2}\left(\mathbf{x}; D^{\prime}\right)|
-			\, \Big| \, D_1 = D_{1}^{\prime} = \mathbf{Z}_1\right]
-			\right]                                                  \\
-			%
-			 & = \E_{1}\left[\left(\E_{2:s_2}\left[
-					h_{s_1, s_2}\left(\mathbf{x}; D\right)
-					\, \Big| \, D_1 = \mathbf{Z}_1\right]\right)^{2}
-			\right]                                                  \\
-			%
-			 & = \E_{1}\left[\left(\E_{2:s_2}\left[
-					w_{1}^{*} \tilde{\mu}_{s_1}\left(\mathbf{x}; D\right) + w_{2}^{*} h_{s_2}\left(\mathbf{x}; D\right)
-					\, \Big| \, D_1 = \mathbf{Z}_1\right]\right)^{2}
-			\right]                                                  \\
-			%
-			 & = \E_{1}\left[\left(
-				w_{1}^{*} \E_{2:s_2}\left[\tilde{\mu}_{s_1}\left(\mathbf{x}; D\right)\, \Big| \, D_1 = \mathbf{Z}_1\right]
-				+ w_{2}^{*} \E_{2:s_2}\left[h_{s_2}\left(\mathbf{x}; D\right)\, \Big| \, D_1 = \mathbf{Z}_1\right]
-				\right)^{2}
-				\right]
-		\end{aligned}
-	\end{equation}
-	This gives us two conditional expectations to analyze individually.
-	\begin{equation}
-		A := \E_{2:s_2}\left[\tilde{\mu}_{s_1}\left(\mathbf{x}; D\right)\, \Big| \, D_1 = \mathbf{Z}_1\right]
+\subsection{Variance Estimator Consistency Theorems}
+\hrule
+
+\begin{proof}[Proof of Theorem \ref{thm:PI_JK_Cons}]\mbox{}\\*
+	Recall the results from Lemmas \ref{lem:Var_TDNN_k} and \ref{lem:dem10}.
+	\begin{equation*}
+		\zeta_{s_1, s_2}^{s_2}\left(\mathbf{x}\right) \lesssim \mu^2(\mathbf{x}) + \sigma_{\varepsilon} + o(1)
 		\quad \text{and} \quad
-		B := \E_{2:s_2}\left[h_{s_2}\left(\mathbf{x}; D\right)\, \Big| \, D_1 = \mathbf{Z}_1\right]
-	\end{equation}
-	We thus obtain the following expression.
-	\begin{equation}
-		\zeta_{s_1, s_2}^{1}\left(\mathbf{x}\right)
-		\leq \E_{1}\left[\left(w_{1}^{*} A	+ w_{2}^{*} B\right)^{2}\right]
-		= \left(w_{1}^{*}\right)^2 \E_{1}\left[A^2\right]
-		+ 2 w_{1}^{*}w_{2}^{*} \E_{1}\left[AB\right]
-		+ \left(w_{2}^{*}\right)^2 \E_{1}\left[B^2\right]
-	\end{equation}
-	We can use this to find an upper bound for $\zeta_{s_1, s_2}^{1}\left(\mathbf{x}\right)$ by considering the terms individually.
+		\zeta_{s_1, s_2}^{1}\left(\mathbf{x}\right) \sim s_2^{-1}
+	\end{equation*}
+	Using these results, we can find the following.
 	\begin{equation}
 		\begin{aligned}
-			A
-			 & := \E_{2:s_2}\left[\tilde{\mu}_{s_1}\left(\mathbf{x}; D\right)\, \Big| \, D_1 = \mathbf{Z}_1\right]
-			= \E_{2:s_2}\left[
-			\binom{s_2}{s_1}^{-1}\sum_{\ell \in L_{s_2, s_1}}h_{s_1}\left(\mathbf{x}; D_{\ell}\right)\, \Big| \, D_1 = \mathbf{Z}_1
-			\right]                                                                                                                                                                     \\
-			%
-			 & = \binom{s_2}{s_1}^{-1}\left(\E_{2:s_2}\left[
-				\sum_{\ell \in L_{s_1}\left([s_2] \backslash \{1\}\right)}h_{s_1}\left(\mathbf{x}; D_{\ell}\right)\right]
-			+ \E_{2:s_2}\left[
-				\sum_{\ell \in L_{s_1 - 1}\left([s_2] \backslash \{1\}\right)}h_{s_1}\left(\mathbf{x}; D_{\ell \cap 1}\right)\, \Big| \, D_1 = \mathbf{Z}_1\right]
-			\right)                                                                                                                                                                     \\
-			%
-			 & = \binom{s_2}{s_1}^{-1}\left(
-			\binom{s_2 - 1}{s_1}\E_{2:(s_1 + 1)}\left[h_{s_1}\left(\mathbf{x}; D_{2:(s_1 + 1)}\right)\right]
-			+ \binom{s_2 - 1}{s_1 - 1}\E_{2:s_1}\left[h_{s_1}\left(\mathbf{x}; D_{[s_1]}\right)\, \Big| \, D_1 = \mathbf{Z}_1\right]
-			\right)                                                                                                                                                                     \\
-			%
-			 & = \binom{s_2}{s_1}^{-1}\left(
-			\binom{s_2 - 1}{s_1}\E_{2:(s_1 + 1)}\left[\sum_{i = 2}^{s_1 + 1}\kappa(\mathbf{x}; \mathbf{Z}_i, D_{2:(s_1 + 1)}) Y_i\right]
-			+ \binom{s_2 - 1}{s_1 - 1}\E_{2:s_1}\left[\sum_{i = 1}^{s_1}\kappa(\mathbf{x}; \mathbf{Z}_i, D_{[s_1]}) Y_i\, \Big| \, D_1 = \mathbf{Z}_1\right]
-			\right)                                                                                                                                                                     \\
-			%
-			 & = \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1} s_1 \E_{2:(s_1 + 1)}\left[\kappa(\mathbf{x}; \mathbf{Z}_2, D_{2:(s_1 + 1)}) Y_2\right]                                       \\
-			 & \quad + \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1 - 1}\left(
-			(s_1 - 1)\E_{2:s_1}\left[\kappa(\mathbf{x}; \mathbf{Z}_2, D_{[s_1]}) Y_2\, \Big| \, D_1 = \mathbf{Z}_1\right]
-			+ \mu(\mathbf{X}_1)\E_{2:s_1}\left[\kappa(\mathbf{x}; \mathbf{Z}_1, D_{[s_1]})\, \Big| \, D_1 = \mathbf{Z}_1\right]
-			\right)                                                                                                                                                                     \\
-			%
-			 & = \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1}
-			\E_{2}\left[\mu(\mathbf{X}_2) \, s_1 \, \E_{3:(s_1+1)}\left[\kappa(\mathbf{x}; \mathbf{Z}_2, D_{2:(s_1 + 1)}) \, | \, \mathbf{Z}_2\right]\right]                            \\
-			 & \quad + \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1 - 1}
-			\E_{2}\left[\mu(\mathbf{X}_2) \, (s_1 - 1) \, \E_{3:s_1}\left[\kappa(\mathbf{x}; \mathbf{Z}_2, D_{[s_1]}) \, | \, \mathbf{Z}_2\right] \, \Big| \, D_1 = \mathbf{Z}_1\right] \\
-			 & \quad + \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1 - 1}\mu(\mathbf{X}_1)
-			\left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_1 - \mathbf{x} \|\right)\right)\right)^{s_1 - 1}                                                                    \\
-			%
-			 & = \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1}
-			\E_{2}\left[\mu(\mathbf{X}_2) \, s_1 \, \left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_2 - \mathbf{x} \|\right)\right)\right)^{s_1 - 1}\right]                     \\
-			 & \quad + \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1 - 1}
-			\E_{2}\left[\mu(\mathbf{X}_2) \, (s_1 - 1) \,
-				\1\left(\|\mathbf{X}_2 - \mathbf{x}\| < \|\mathbf{X}_1 - \mathbf{x}\|\right)
-			\left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_2 - \mathbf{x} \|\right)\right)\right)^{s_1 - 2} \, \Big| \, D_1 = \mathbf{Z}_1\right]                              \\
-			 & \quad + \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1 - 1}\mu(\mathbf{X}_1)
-			\left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_1 - \mathbf{x} \|\right)\right)\right)^{s_1 - 1}                                                                    \\
-			%
-			 & = \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1}
-			\E_{2}\left[\mu(\mathbf{X}_2) \, s_1 \, \left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_2 - \mathbf{x} \|\right)\right)\right)^{s_1 - 1}\right]                     \\
-			 & \quad + \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1 - 1}
-			\P\left(\|\mathbf{X}_2 - \mathbf{x}\| < \|\mathbf{X}_1 - \mathbf{x}\|\right)                                                                                                \\
-			 & \quad \quad \cdot
-			\E_{2}\left[\mu(\mathbf{X}_2) \, (s_1 - 1) \,
-				\left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_2 - \mathbf{x} \|\right)\right)\right)^{s_1 - 2}
-			\, \Big| \, \|\mathbf{X}_2 - \mathbf{x}\| < \|\mathbf{X}_1 - \mathbf{x}\|\right]                                                                                            \\
-			 & \quad + \binom{s_2}{s_1}^{-1}\binom{s_2 - 1}{s_1 - 1}\mu(\mathbf{X}_1)
-			\left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_1 - \mathbf{x} \|\right)\right)\right)^{s_1 - 1}
+			\frac{s_2}{n}\left(\frac{
+				\zeta_{s_1, s_2}^{s_2}\left(\mathbf{x}\right)}{s_2 \zeta_{s_1, s_2}^{1}\left(\mathbf{x}\right)} - 1\right)
+			& \sim \frac{s_2}{n}\left(\mu^2(\mathbf{x}) + \sigma_{\varepsilon} + o(1) - 1\right)
+			\sim \frac{s_2}{n} \rightarrow_{p} 0
 		\end{aligned}
 	\end{equation}
-	Concerning the second conditional expectation, we find the following.
-	\begin{equation}
-		\begin{aligned}
-			B
-			 & := \E_{2:s_2}\left[h_{s_2}\left(\mathbf{x}; D\right)\, \Big| \, D_1 = \mathbf{Z}_1\right]
-			= \E_{2:s_2}\left[\sum_{i = 1}^{s_2} \kappa(\mathbf{x}; \mathbf{Z}_i, D) Y_i \, \Big| \, D_1 = \mathbf{Z}_1\right]              \\
-			%
-			 & = \E_{2:s_2}\left[\kappa(\mathbf{x}; \mathbf{Z}_1, D) Y_1 \, \Big| \, D_1 = \mathbf{Z}_1\right]
-			+ \E_{2:s_2}\left[\sum_{i = 2}^{s_2} \kappa(\mathbf{x}; \mathbf{Z}_i, D) Y_i \, \Big| \, D_1 = \mathbf{Z}_1\right]              \\
-			%
-			 & = \mu(\mathbf{X}_1) \left(1 - \varphi\left(B\left(\mathbf{X}, \| \mathbf{X}_1 - \mathbf{x} \|\right)\right)\right)^{s_2 - 1}
-			+ (s_2 - 1)\E_{2:s_2}\left[\kappa(\mathbf{x}; \mathbf{Z}_2, D) Y_2 \, \Big| \, D_1 = \mathbf{Z}_1\right]                        \\
-			%
-			 & = \mu(\mathbf{X}_1) \left(1 - \varphi\left(B\left(\mathbf{X}, \| \mathbf{X}_1 - \mathbf{x} \|\right)\right)\right)^{s_2 - 1}
-			+ \E_{2}\left[
-				\mu(\mathbf{X}_2) \, (s_2 - 1) \, \E_{3:s_2}\left[\kappa(\mathbf{x}; \mathbf{Z}_2, D)\, | \, \mathbf{Z}_2\right]
-			\, \Big| \, D_1 = \mathbf{Z}_1\right]                                                                                           \\
-			%
-			 & = \mu(\mathbf{X}_1) \left(1 - \varphi\left(B\left(\mathbf{X}, \| \mathbf{X}_1 - \mathbf{x} \|\right)\right)\right)^{s_2 - 1} \\
-			 & \quad + \E_{2}\left[
-				\mu(\mathbf{X}_2)\, (s_2 - 1) \,
-				\1\left(\|\mathbf{X}_2 - \mathbf{x}\| < \|\mathbf{X}_1 - \mathbf{x}\|\right)
-				\left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_2 - \mathbf{x} \|\right)\right)\right)^{s_2 - 2}
-			\, \Big| \, D_1 = \mathbf{Z}_1\right]                                                                                           \\
-			%
-			 & = \mu(\mathbf{X}_1) \left(1 - \varphi\left(B\left(\mathbf{X}, \| \mathbf{X}_1 - \mathbf{x} \|\right)\right)\right)^{s_2 - 1} \\
-			 & \quad + \P\left(\|\mathbf{X}_2 - \mathbf{x}\| < \|\mathbf{X}_1 - \mathbf{x}\|\right)\E_{2}\left[
-				\mu(\mathbf{X}_2)\, (s_2 - 1) \,
-				\left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_2 - \mathbf{x} \|\right)\right)\right)^{s_2 - 2}
-				\, \Big| \, \|\mathbf{X}_2 - \mathbf{x}\| < \|\mathbf{X}_1 - \mathbf{x}\|\right]
-		\end{aligned}
-	\end{equation}
+	The desired result immediately follows from Theorem \ref{thm:peng21_6}.
+\end{proof}
 
-	It remains to analyze the asymptotic behavior of the individual terms.
-	\begin{equation}
-		\begin{aligned}
-			\E_{1}\left[A^2\right]
-			 & =                         \\
-			%
-			 & {\color{red} LOREM IPSUM}
-		\end{aligned}
-	\end{equation}
-	\begin{equation}
-		\begin{aligned}
-			\E_{1}\left[AB\right]
-			 & =                         \\
-			%
-			 & {\color{red} LOREM IPSUM}
-		\end{aligned}
-	\end{equation}
-	\begin{equation}
-		\begin{aligned}
-			\E_{1}\left[B^2\right]
-			 & =                         \\
-			%
-			 & {\color{red} LOREM IPSUM}
-		\end{aligned}
-	\end{equation}
+\hrule
 
-	To construct a lower bound we again follow a similar strategy as used in the proof in \citet{demirkaya_optimal_2024}.
-	Recalling Lemma \ref{lem:psi_s1s2_1} and the conditional independence properties of the individual summands we can observe the following.
-	\begin{equation}
-		\begin{aligned}
-			\zeta_{s_1, s_2}^{1}
-			 & = \Var_{1}(\psi_{s_1, s_2}^{1}\left(\mathbf{x}; \mathbf{Z}_1\right))                                                                                                               \\
-			%
-			 & \geq \Var\left(w_{1}^{*}\frac{s_2}{s_1}\varepsilon_1 \E_{D'}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1^{\prime}, D'\right)\, \Big| \, \mathbf{X}_1^{\prime} = \mathbf{X}_1 \right]
-			+ w_{2}^{*}\varepsilon_1 \E_D\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1, D\right)\, \Big| \, \mathbf{X}_1\right]\right)                                                               \\
-			%
-			 & = \sigma_{\varepsilon}^{2}\cdot
-			\Var\left(w_{1}^{*}\frac{s_2}{s_1}\E_{D'}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1^{\prime}, D'\right)\, \Big| \, \mathbf{X}_1^{\prime} = \mathbf{X}_1 \right]
-			+ w_{2}^{*}\E_D\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1, D\right)\, \Big| \, \mathbf{X}_1\right]\right)                                                                             \\
-			% %
-			%  & \geq \sigma_{\varepsilon}^{2}\cdot
-			%  \Var\left(w_{1}^{*} \left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_1 - \mathbf{x}\|\right)\right)\right)^{s_1 - 1}
-			%  + w_{2}^{*}\left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_1 - \mathbf{x}\|\right)\right)\right)^{s_2 - 1}\right)   \\
-			%  % 
-			%  & \geq \sigma_{\varepsilon}^{2} \cdot \Var\left(\left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_1 - \mathbf{x}\|\right)\right)\right)^{s_2 - 1}\right)   \\                                             
-			%  %
-			%  & = \sigma_{\varepsilon}^{2} \cdot \left[
-			% 	\E\left[\left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_1 - \mathbf{x}\|\right)\right)\right)^{2(s_2 - 1)}\right]
-			% 	- \left(\E\left[\left(1 - \varphi\left(B\left(\mathbf{x}, \| \mathbf{X}_1 - \mathbf{x}\|\right)\right)\right)^{s_2 - 1}\right]\right)^2
-			%  \right]
-		\end{aligned}
-	\end{equation}
-	Let now $B_D$ denote the event that observation $\mathbf{Z}_1$ is the closest to the point of interest $\mathbf{x}$ in a data set $D$, i.e. $\rk(\mathbf{x}; \mathbf{Z}_1, D) = 1$.
-	Then we can continue as follows.
-	\begin{equation}
-		\begin{aligned}
-			\zeta_{s_1, s_2}^{1}
-			\geq \sigma_{\varepsilon}^{2}\cdot \Var\left(w_{1}^{*}\frac{s_2}{s_1}\E_{D'}\left[B_{D'}\, \Big| \, \mathbf{X}_1^{\prime} = \mathbf{X}_1 \right]
-			+ w_{2}^{*}\E_D\left[B_D\, \Big| \, \mathbf{X}_1\right]\right)\\
-			%
-			\geq \sigma_{\varepsilon}^{2}\cdot \Var\left(w_{1}^{*}\E_{D'}\left[B_{D'}\, \Big| \, \mathbf{X}_1^{\prime} = \mathbf{X}_1 \right]
-			+ w_{2}^{*}\E_D\left[B_D\, \Big| \, \mathbf{X}_1\right]\right)
-		\end{aligned}
-	\end{equation}
-	Next, notice the following fact.
-	\begin{equation}
-		\forall \mathbf{x}_1 \in \mathbb{R}^d: \quad 
-		0
-		\leq \E_D\left[B_D\, \Big| \, \mathbf{x}_1\right] 
-		\leq \E_D\left[B_{D_{[s_1]}}\, \Big| \, \mathbf{x}_1\right] 
-		= \E_{D'}\left[B_{D'}\, \Big| \, \mathbf{X}_1^{\prime} = \mathbf{x}_1\right] 
-		\leq 1
-	\end{equation}
-	Thus, we can find the following, where $D^{\prime \prime}$ denotes a third independent data set of i.i.d. observations drawn from $P$ of size $2s_2 - 1$.
-	\begin{equation}
-		\begin{aligned}
-			\zeta_{s_1, s_2}^{1}
-			& \geq \sigma_{\varepsilon}^{2}\cdot \Var\left(\E_D\left[B_D\, \Big| \, \mathbf{X}_1\right]\right)
-			= \sigma_{\varepsilon}^{2}\cdot \left(
-				\E\left[\left(\E_D\left[B_D\, \Big| \, \mathbf{X}_1\right]\right)^2\right]
-				- \left(\E\left[\E\left[B_D\, \Big| \, \mathbf{X}_1\right]\right]\right)^2
-			\right)\\
-			%
-			& = \sigma_{\varepsilon}^{2}\cdot \left(
-				\E\left[\E_{D^{\prime \prime}}\left[B_{D^{\prime \prime}}\, \Big| \, \mathbf{X}_1\right]\right]
-				- s_{2}^{-2}
-			\right)
-			= \sigma_{\varepsilon}^{2}\cdot \left(\frac{1}{2s_2 - 1} - \frac{1}{s_2^2}\right) \\
-			%
-			& \sim s_2^{-1}.
-		\end{aligned}
-	\end{equation}
-	{\color{red} LOREM IPSUM}
+\begin{proof}[Proof of Theorem \ref{thm:JK_Cons}]\mbox{}\\*
+
+\end{proof}
+
+\hrule
+
+\begin{proof}[Proof of Theorem \ref{thm:BS_Cons}]\mbox{}\\*
+
 \end{proof}
 
 \newpage
-\subsection{Proof of Theorem \ref{JK_Cons}}
-\hrule
+\subsection{Pointwise Inference Results}
 
-\begin{proof}[Proof of Theorem \ref{JK_Cons}]\mbox{}\\*
-
-\end{proof}
-
-\subsection{Proof of Theorem \ref{BS_Cons}}
-\hrule
-
-\begin{proof}[Proof of Theorem \ref{BS_Cons}]\mbox{}\\*
-
-\end{proof}
-
-\subsection{Proof of Theorem \ref{sec:pw_inf_TDNN}}
-\hrule
-
-\begin{proof}[Proof of Theorem \ref{sec:pw_inf_TDNN}]\mbox{}\\*
+\begin{proof}[Proof of Theorem \ref{thm:pw_inf_TDNN}]\mbox{}\\*
 
 \end{proof}
 
