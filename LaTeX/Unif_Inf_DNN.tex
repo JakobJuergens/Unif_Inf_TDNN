@@ -1494,6 +1494,7 @@ Having developed theoretical results concerning uniform inference methods for th
 	\end{equation}
 
 	Now, using the Hoeffding decomposition of the TDNN estimator, we can reformulate this expression in the following way.
+	This reformulation is akin to the proof of Theorem 6 in \citet{peng_bias_2021} and exploits a similar structure in the estimator.
 	\begin{equation}
 		\begin{aligned}
 			\hat{\omega}_{JK}^2\left(\mathbf{x}; \mathbf{D}_n\right)
@@ -1507,14 +1508,39 @@ Having developed theoretical results concerning uniform inference methods for th
 				- H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_{n}\right)\right)
 			\right)^2\\
 			%
-			& = \frac{n-1}{n} \sum_{i = 1}^{n}\left(\sum_{j = 1}^{s_2}\binom{s_2}{j}\binom{n}{j}^{-1}
-			\left( \sum_{\ell \in L_{j}\left([n]\backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\ell})
-				- \sum_{\iota \in L_{n,j}} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\iota})\right)
+			& = \frac{n-1}{n} \sum_{i = 1}^{n}\left(\sum_{j = 1}^{s_2}\binom{s_2}{j}
+			\left( \binom{n-1}{j}^{-1}\sum_{\ell \in L_{j}\left([n]\backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\ell})
+				- \binom{n}{j}^{-1}\sum_{\iota \in L_{n,j}} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\iota})\right)
 			\right)^2\\
 			%
-			& = {\color{red} LOREM IPSUM}
+			& = \frac{n-1}{n} \sum_{i = 1}^{n}\left[
+				\frac{s_2}{n}h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_i)
+				- \sum_{j \neq i} \left(\frac{s_2}{n-1} - \frac{s_2}{n}\right) h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_j) \right.\\
+			& \quad \quad - \left.\sum_{j = 2}^{s_2}\binom{s_2}{j}
+			\left( \binom{n-1}{j}^{-1}\sum_{\ell \in L_{j}\left([n]\backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\ell})
+				- \binom{n}{j}^{-1}\sum_{\iota \in L_{n,j}} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\iota})\right)
+			\right]^2\\
+			%
+			& = \frac{n-1}{n} \frac{s_2^2}{n^2}\sum_{i = 1}^{n}\left[
+				h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_i)
+				- \frac{1}{n-1}\sum_{j \neq i}  h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_j) \right.\\
+			& \quad \quad - \left. \frac{n}{s_2}\sum_{j = 2}^{s_2}\binom{s_2}{j}
+			\left( \binom{n-1}{j}^{-1}\sum_{\ell \in L_{j}\left([n]\backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\ell})
+				- \binom{n}{j}^{-1}\sum_{\iota \in L_{n,j}} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\iota})\right)
+			\right]^2\\
+			%
+			& = \frac{n-1}{n} \frac{s_2^2}{n^2}\sum_{i = 1}^{n}\left[
+				h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_i)
+				- \frac{1}{n-1}\sum_{j \neq i}  h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_j) 
+				 - \frac{n}{s_2}\sum_{j = 2}^{s_2}\binom{s_2}{j}
+			\left(H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_{n, -i}\right)
+				- H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_{n}\right)\right)
+			\right]^2\\
+			%
+			& =: \frac{n-1}{n}\frac{s_2^2}{n^2} \sum_{i = 1}^{n}\left[h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_i) + T_{i}\right]^2
 		\end{aligned}
 	\end{equation}
+	{\color{red} Continue HERE!}
 \end{proof}
 
 \newpage
