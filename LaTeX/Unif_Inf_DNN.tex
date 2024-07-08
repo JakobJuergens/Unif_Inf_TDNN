@@ -415,11 +415,8 @@ The PIJK variance estimator applied to the TDNN estimator is as follows.
 
 \subsection{Subsampling Rate Improvements}
 
-{\color{red} Idea 1:}
-
 Having introduced the PIJK variance estimator, we can consider whether the results from \citet{peng_bias_2021} apply to the TDNN estimator.
 Specifically, we are interested in applying the following theorem.
-
 \begin{lem}[\citet{peng_bias_2021} - Theorem 6]\label{thm:peng21_6}\mbox{}\\*
 	Let $X_1, \ldots, X_n$ be i.i.d. from $\mathrm{P}$ and $\mathrm{U}_{n, k, \omega}$ be a generalized complete $U$ statistic with kernel $s\left(X_1, \ldots, X_k ; \omega\right)$.
 
@@ -431,12 +428,8 @@ Specifically, we are interested in applying the following theorem.
 	\end{equation}
 \end{lem}
 
-	{\color{red} In even greater detail, we want to improve on the relation shown in Equation (A.52) in the derivation of consistency of the Jackknife variance estimator.}
-
-In an analogous fashion to Theorems 5 and 6 from \citet{demirkaya_optimal_2024}, we obtain the following consistency results for the presented variance estimators.
-As they point out, proving these results goes beyond the techniques presented in \citet{arvesen_jackknifing_1969}, instead relying on results for infinite-order U-statistics.
-
-{\color{red}
+It is relatively straightforward to show that this Theorem applies to the TDNN estimator with $s_2 = o(n)$, giving us the following result.
+{\color{red} I need to check this proof in detail again!}
 \begin{thm}[Pseudo-Infinitesimal Jackknife Variance Estimator Consistency]\label{thm:PI_JK_Cons}\mbox{}\\*
 	Let $0 < c_1 \leq s_1/s_2 \leq c_2 < 1$ and $s_2 = o(n)$, then 
 	\begin{equation}
@@ -444,6 +437,17 @@ As they point out, proving these results goes beyond the techniques presented in
 	\end{equation}
 \end{thm}
 
+{\color{red}
+\begin{enumerate}
+	\item Consider difference between JK and PI-JK and show that it converges to zero in the regime $s_2 = o(n)$
+	\item Consider the JK estimator as U-statistic and improve on the approach in Demirkaya 
+	(effectively Theory for JK for IOUS)
+	\item Consider the JK estimator as U-statistic and consider the Hoeffding and Hajek projections to obtain results
+\end{enumerate}
+
+In an analogous fashion to Theorems 5 and 6 from \citet{demirkaya_optimal_2024}, we furthermore obtain the following consistency results for the presented variance estimators.
+As they point out, proving these results goes beyond the techniques presented in \citet{arvesen_jackknifing_1969}, instead relying on results for infinite-order U-statistics.
+In even greater detail, we want to improve on the relation shown in Equation (A.52) in the derivation of consistency of the Jackknife variance estimator.
 \begin{thm}[Jackknife Variance Estimator Consistency]\label{thm:JK_Cons}\mbox{}\\*
 	LOREM IPSUM
 \end{thm}
@@ -751,21 +755,29 @@ Having developed theoretical results concerning uniform inference methods for th
 \section{Proofs for Results in Section \ref{sec:pw_inf}}
 \hrule
 
-\subsection{Useful Lemmas for Proofs for Results in Section \ref{sec:pw_inf}}
+\subsection{Useful Results}
 \hrule
 
-\begin{lem}[\citet{lee_u-statistics_2019} - Chapter 5, Theorem 1]\label{thm:lee_ch5_1}\mbox{}\\*
-	Let $U_n$ be a U-statistic of degree $s$ based on a kernel $\psi_s$.
-	Then, the Jackknife Variance estimator takes the following form.
+\begin{lem}[\citet{demirkaya_optimal_2024} - Lemma 12]\label{lem:dem12}\mbox{}\\*
+	Let $D = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_s\}$ an i.i.d. sample drawn from $P$.
+	The indicator functions $\kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right)$ satisfy the following properties.
+	\begin{enumerate}
+		\item For any $i \neq j$, we have $\kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right) \kappa\left(\mathbf{x}; \mathbf{Z}_j, D\right)=0$ with probability one;
+		\item $\sum_{i=1}^{s} \kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right)=1$;
+		\item $\forall i \in [s]: \quad \mathbb{E}_{1:s}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right)\right]=s^{-1}$
+		\item $\mathbb{E}_{2: s}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1, D\right)\right]=\left\{1-\varphi\left(B\left(\mathbf{x},\left\|\mathbf{X}_1-\mathbf{x}\right\|\right)\right)\right\}^{s-1}$
+	\end{enumerate}
+	Here $\mathbb{E}_{i: s}$ denotes the expectation with respect to $\left\{\mathbf{Z}_i, \mathbf{Z}_{i+1}, \cdots, \mathbf{Z}_s\right\}$.
+	Furthermore, $\varphi$ denotes the probability measure on $\mathbb{R}^{d}$ induced by the random vector $\mathbf{X}$.
+\end{lem}
+
+\hrule
+
+\begin{lem}[\citet{demirkaya_optimal_2024} - Lemma 13]\label{lem:dem13}\mbox{}\\*
+	For any $L^1$ function $f$ that is continuous at $\mathbf{x}$, it holds that
 	\begin{equation}
-		\hat{\omega}^{2}_{JK}\left(\mathbf{x}; \mathbf{D}_n\right)
-		= \frac{n-1}{n^2}\binom{n-1}{s}^{-2}\sum_{c = 0}^{s}\left(cn - s^2\right)S_c
-	\end{equation}
-	where the quantities $S_c$ are defined by
-	\begin{equation}
-		S_c
-		= \sum_{\substack{\iota, \iota' \in L_{n,s}, \\ \, |\iota \cap \iota'| = c}}
-		\psi_{s}(D_{\iota})\psi_{s}(D_{\iota'}).
+		\lim _{s \rightarrow \infty} \E_1\left[f\left(\mathbf{X}_1\right) s \E_{2: s}\left[\kappa(\mathbf{x}; \mathbf{Z}_1, D)\right]\right]
+		= f(\mathbf{x}).
 	\end{equation}
 \end{lem}
 
@@ -777,7 +789,8 @@ Having developed theoretical results concerning uniform inference methods for th
 	Then
 	\begin{equation}
 		\E_D\left[h_s\left(\mathbf{x}; D\right)\right]
-		= \E_{1}\left[\mu\left(\mathbf{X}_1\right)\right].
+		= \E_{1}\left[\mu\left(\mathbf{X}_1\right) s\left(1 - \psi\left(B\left(\mathbf{x}, \|\mathbf{X}_1 - \mathbf{x}\|\right)\right)\right)^{s-1}\right]\\
+		\longrightarrow \mu(\mathbf{x}) \quad \text{as} \quad s \rightarrow \infty
 	\end{equation}
 \end{lem}
 
@@ -786,10 +799,13 @@ Having developed theoretical results concerning uniform inference methods for th
 		\begin{aligned}
 			\E_D\left[h_s\left(\mathbf{x}; D\right)\right]
 			 & = \E_D\left[\sum_{i = 1}^{s} \kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right) Y_i\right]
-			= s \E_{D}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1, D\right) Y_1\right]                 \\
+			= s \E_{1}\left[Y_1 \E_{2:s}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1, D\right)\, | \, \mathbf{X}_1 \right]\right]                 \\
 			%
-			 & = \E_{1}\left[\mu\left(\mathbf{X}_1\right) + \varepsilon_1\right]
-			= \E_{1}\left[\mu\left(\mathbf{X}_1\right)\right].
+			 & = \E_{1}\left[\left(\mu\left(\mathbf{X}_1\right) + \varepsilon_1\right) s\left(1 - \psi\left(B\left(\mathbf{x}, \|\mathbf{X}_1 - \mathbf{x}\|\right)\right)\right)^{s-1}\right]\\
+			 %
+			 & = \E_{1}\left[\mu\left(\mathbf{X}_1\right) s\left(1 - \psi\left(B\left(\mathbf{x}, \|\mathbf{X}_1 - \mathbf{x}\|\right)\right)\right)^{s-1}\right]\\
+			 %
+			 & \longrightarrow \mu(\mathbf{x}) \quad \text{as} \quad s \rightarrow \infty
 		\end{aligned}
 	\end{equation}
 \end{proof}
@@ -899,31 +915,6 @@ Having developed theoretical results concerning uniform inference methods for th
 \subsection{Kernel Variances \& Covariances}
 \hrule
 
-\begin{lem}[\citet{demirkaya_optimal_2024} - Lemma 12]\label{lem:dem12}\mbox{}\\*
-	Let $D = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_s\}$ an i.i.d. sample drawn from $P$.
-	The indicator functions $\kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right)$ satisfy the following properties.
-	\begin{enumerate}
-		\item For any $i \neq j$, we have $\kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right) \kappa\left(\mathbf{x}; \mathbf{Z}_j, D\right)=0$ with probability one;
-		\item $\sum_{i=1}^{s} \kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right)=1$;
-		\item $\forall i \in [s]: \quad \mathbb{E}_{1:s}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right)\right]=s^{-1}$
-		\item $\mathbb{E}_{2: s}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1, D\right)\right]=\left\{1-\varphi\left(B\left(\mathbf{x},\left\|\mathbf{X}_1-\mathbf{x}\right\|\right)\right)\right\}^{s-1}$
-	\end{enumerate}
-	Here $\mathbb{E}_{i: s}$ denotes the expectation with respect to $\left\{\mathbf{Z}_i, \mathbf{Z}_{i+1}, \cdots, \mathbf{Z}_s\right\}$.
-	Furthermore, $\varphi$ denotes the probability measure on $\mathbb{R}^{d}$ induced by the random vector $\mathbf{X}$.
-\end{lem}
-
-\hrule
-
-\begin{lem}[\citet{demirkaya_optimal_2024} - Lemma 13]\label{lem:dem13}\mbox{}\\*
-	For any $L^1$ function $f$ that is continuous at $\mathbf{x}$, it holds that
-	\begin{equation}
-		\lim _{s \rightarrow \infty} \E_1\left[f\left(\mathbf{X}_1\right) s \E_{2: s}\left[\kappa(\mathbf{x}; \mathbf{Z}_1, D)\right]\right]
-		= f(\mathbf{x}).
-	\end{equation}
-\end{lem}
-
-\hrule
-
 \begin{lem}[Adapted from \citet{demirkaya_optimal_2024}]\label{lem:omega_s}\mbox{}\\*
 	Let $D = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{s}\}$ be a vector of i.i.d. random variables drawn from $P$.
 	Furthermore, let
@@ -940,8 +931,8 @@ Having developed theoretical results concerning uniform inference methods for th
 	\end{equation}
 \end{lem}
 
+\hrule 
 
-\newpage
 \begin{lem}\label{lem:omega_sc}\mbox{}\\*
 	Let $D = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{s}\}$ be a vector of i.i.d. random variables drawn from $P$.
 	Let $D^{\prime} = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{c}, \mathbf{Z}_{c+1}^{\prime}, \dotsc,  \mathbf{Z}_{s}^{\prime}\}$ where $\mathbf{Z}_{c+1}^{\prime}, \dotsc,  \mathbf{Z}_{s}^{\prime}$ are i.i.d. draws from $P$ that are independent of $D$.
@@ -1326,53 +1317,27 @@ Having developed theoretical results concerning uniform inference methods for th
 	\end{equation}
 \end{lem}
 
-\subsection{Variance Estimator Consistency Theorems}
+\subsection{Jackknife Lemmas}
 \hrule
 
-\begin{proof}[Proof of Theorem \ref{thm:PI_JK_Cons}]\mbox{}\\*
-	Recall the results from Lemmas \ref{lem:Var_TDNN_k} and \ref{lem:dem10}.
-	\begin{equation*}
-		\zeta_{s_1, s_2}^{s_2}\left(\mathbf{x}\right) \lesssim \mu^2(\mathbf{x}) + \sigma_{\varepsilon} + o(1)
-		\quad \text{and} \quad
-		\zeta_{s_1, s_2}^{1}\left(\mathbf{x}\right) \sim s_2^{-1}
-	\end{equation*}
-	Using these results, we can find the following.
+\begin{lem}[\citet{lee_u-statistics_2019} - Chapter 5, Theorem 1]\label{thm:lee_ch5_1}\mbox{}\\*
+	Let $U_n$ be a U-statistic of degree $s$ based on a kernel $\psi_s$.
+	Then, the Jackknife Variance estimator takes the following form.
 	\begin{equation}
-		\begin{aligned}
-			\frac{s_2}{n}\left(\frac{
-				\zeta_{s_1, s_2}^{s_2}\left(\mathbf{x}\right)}{s_2 \zeta_{s_1, s_2}^{1}\left(\mathbf{x}\right)} - 1\right)
-			& \sim \frac{s_2}{n}\left(\mu^2(\mathbf{x}) + \sigma_{\varepsilon} + o(1) - 1\right)
-			\sim \frac{s_2}{n} \rightarrow_{p} 0
-		\end{aligned}
+		\hat{\omega}^{2}_{JK}\left(\mathbf{x}; \mathbf{D}_n\right)
+		= \frac{n-1}{n^2}\binom{n-1}{s}^{-2}\sum_{c = 0}^{s}\left(cn - s^2\right)S_c
 	\end{equation}
-	The desired result immediately follows from Theorem \ref{thm:peng21_6}.
-\end{proof}
+	where the quantities $S_c$ are defined by
+	\begin{equation}
+		S_c
+		= \sum_{\substack{\iota, \iota' \in L_{n,s}, \\ \, |\iota \cap \iota'| = c}}
+		\psi_{s}(D_{\iota})\psi_{s}(D_{\iota'}).
+	\end{equation}
+\end{lem}
 
 \hrule
 
-\begin{proof}[Proof of Theorem \ref{thm:JK_Cons}]\mbox{}\\*
-
-\end{proof}
-
-\hrule
-
-\begin{proof}[Proof of Theorem \ref{thm:BS_Cons}]\mbox{}\\*
-
-\end{proof}
-
-\newpage
-\subsection{Pointwise Inference Results}
-
-\begin{proof}[Proof of Theorem \ref{thm:pw_inf_TDNN}]\mbox{}\\*
-
-\end{proof}
-
-\newpage
-\section{Proofs for Results in Section \ref{unif_inf}}
-\hrule
-\subsection{Useful Lemmas for Proofs for Results in Section \ref{unif_inf}}
-
-\begin{lem}[Jackknife Variance Estimator as U-Statistic]\label{JK_as_U_Stat}\mbox{}\\*
+\begin{lem}[Jackknife Variance Estimator as U-Statistic]\label{lem:JK_as_U_Stat}\mbox{}\\*
 	The Jackknife Variance Estimator as described in Lemma \ref{thm:lee_ch5_1} can be expressed as a U-statistic of order $2s$.
 	\begin{equation}
 		\hat{\omega}^{2}_{JK}\left(\mathbf{x}; \mathbf{D}_n\right)
@@ -1402,7 +1367,7 @@ Having developed theoretical results concerning uniform inference methods for th
 	\end{equation}
 \end{lem}
 
-\begin{proof}[Proof of Lemma \ref{JK_as_U_Stat}]
+\begin{proof}[Proof of Lemma \ref{lem:JK_as_U_Stat}]
 	Taking Lemma \ref{thm:lee_ch5_1} as given, we find that the Jackknife variance estimator for the TDNN estimator can be expressed in the following form.
 	\begin{equation}
 		\hat{\omega}^{2}_{JK}
@@ -1410,7 +1375,7 @@ Having developed theoretical results concerning uniform inference methods for th
 		\left(\sum_{c = 0}^{s}\left(cn - s^2\right)
 		\sum_{\substack{\ell, \iota \in L_{n,s}, \\ \, |\ell \cap \iota| = c}} h_{s}(\mathbf{x}; D_{\ell})h_{s}(\mathbf{x};D_{\iota})\right)
 	\end{equation}
-	Taking now the kernel as described in Lemma \ref{JK_as_U_Stat}, we can make the following observation.
+	Taking now the kernel as described in Lemma \ref{lem:JK_as_U_Stat}, we can make the following observation.
 	\begin{equation}
 		\begin{aligned}
 			\hat{\omega}^{2}_{JK}
@@ -1481,5 +1446,58 @@ Having developed theoretical results concerning uniform inference methods for th
 	\end{equation}
 	Thus showing that the Jackknife variance estimator is a U-statistic of order $2s$.
 \end{proof}
+
+\hrule
+
+\begin{lem}[Hoeffding Decomposition of Jackknife Variance Estimator]\label{lem:HDecomp_JK}\mbox{}\\*
+	
+\end{lem}
+
+\newpage
+\subsection{Variance Estimator Consistency Theorems}
+\hrule
+
+\begin{proof}[Proof of Theorem \ref{thm:PI_JK_Cons}]\mbox{}\\*
+	Recall the results from Lemmas \ref{lem:Var_TDNN_k} and \ref{lem:dem10}.
+	\begin{equation*}
+		\zeta_{s_1, s_2}^{s_2}\left(\mathbf{x}\right) \lesssim \mu^2(\mathbf{x}) + \sigma_{\varepsilon} + o(1)
+		\quad \text{and} \quad
+		\zeta_{s_1, s_2}^{1}\left(\mathbf{x}\right) \sim s_2^{-1}
+	\end{equation*}
+	Using these results, we can find the following.
+	\begin{equation}
+		\begin{aligned}
+			\frac{s_2}{n}\left(\frac{
+				\zeta_{s_1, s_2}^{s_2}\left(\mathbf{x}\right)}{s_2 \zeta_{s_1, s_2}^{1}\left(\mathbf{x}\right)} - 1\right)
+			& \sim \frac{s_2}{n}\left(\mu^2(\mathbf{x}) + \sigma_{\varepsilon} + o(1) - 1\right)
+			\sim \frac{s_2}{n} \rightarrow_{p} 0
+		\end{aligned}
+	\end{equation}
+	The desired result immediately follows from Theorem \ref{thm:peng21_6}.
+\end{proof}
+
+\hrule
+
+\begin{proof}[Proof of Theorem \ref{thm:JK_Cons}]\mbox{}\\*
+
+\end{proof}
+
+\hrule
+
+\begin{proof}[Proof of Theorem \ref{thm:BS_Cons}]\mbox{}\\*
+
+\end{proof}
+
+\newpage
+\subsection{Pointwise Inference Results}
+
+\begin{proof}[Proof of Theorem \ref{thm:pw_inf_TDNN}]\mbox{}\\*
+
+\end{proof}
+
+\newpage
+\section{Proofs for Results in Section \ref{unif_inf}}
+\hrule
+\subsection{Useful Lemmas for Proofs for Results in Section \ref{unif_inf}}
 
 \end{document}
