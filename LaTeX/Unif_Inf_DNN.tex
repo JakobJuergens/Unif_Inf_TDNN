@@ -383,19 +383,22 @@ These projection terms can then be used to construct the following Hoeffding dec
 	\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right)
 	= \mu(\mathbf{x}) + \sum_{j = 1}^{s_2}\binom{s_2}{j}H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_n\right)
 \end{equation}
-Furthermore, the corresponding Haj\'ek-Projections are as follows.
-\begin{equation}
-	\begin{aligned}
-		\tilde{\mu}_{s}\left(\mathbf{x}; \mathbf{D}_n\right)
-		 & = \mu(\mathbf{x}) + \frac{s}{n}\sum_{i = 1}^{n}h^{(1)}_{s}(\mathbf{x}; \mathbf{z}_{i})
-		+ \operatorname{HR}_{s}(\mathbf{x}; \mathbf{D}_n)                                                   \\
-		\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right)
-		 & = \mu(\mathbf{x}) + \frac{s_2}{n}\sum_{i = 1}^{n} h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{z}_{i})
-		+ \operatorname{HR}_{s_1, s_2}(\mathbf{x}; \mathbf{D}_n)
-	\end{aligned}
-\end{equation}
-Here $\operatorname{HR}$ stands for the Haj\'ek residual.
-Bounding this residual will be integral to the theoretical arguments made in later parts of this paper.
+
+Standard results for U-statistics (see for example \citet{lee_u-statistics_2019}) now give us a number of useful results.
+First, an immediate result on the expectations of the Hoeffding-projection kernels.
+\begin{align}\label{eq:H_k_expectation}
+	\forall c = 1,2,\dotsc, j-1: \quad & \E_{D}\left[h_{s_1, s_2}^{(j)}\left(\mathbf{x}; D\right) \, | \, \mathbf{Z}_1 = \mathbf{z}_1, \dotsc, \mathbf{Z}_c = \mathbf{z}_c\right] = 0\\
+	& \E_{D}\left[h_{s_1, s_2}^{(j)}\left(\mathbf{x}; D\right)\right] = 0
+\end{align}
+Second, we obtain a useful variance decomposition in terms of the Hoeffding-projection variances.
+\begin{align}\label{eq:Var_decomp}
+		\Var_{D}\left(\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; D\right)\right) 
+	& = \sum_{j = 1}^{s_2} \binom{s_2}{j}^2 \Var_{D}\left(H_{s_1, s_2}^{j}\left(\mathbf{x}; D\right)\right)\\
+	%
+	\Var_{D}\left(H_{s_1, s_2}^{j}\left(\mathbf{x}; D\right)\right)
+	& = \binom{n}{j}^{-1} \Var_{D}\left(h_{s_1, s_2}^{(j)}\left(\mathbf{x}; D\right)\right)
+	=: \binom{n}{j}^{-1} V_{s_1, s_2}^{j}\left(\mathbf{x}\right)
+\end{align}
 
 \newpage
 \section{Pointwise Inference for the TDNN Estimator}\label{sec:pw_inf}
@@ -873,76 +876,76 @@ Having developed theoretical results concerning uniform inference methods for th
 
 \hrule
 
-\begin{lem}[TDNN Haj\'ek Kernel Expectation]\label{lem:psi_s1s2_1}\mbox{}\\*
-	Let $\mathbf{z}_1 = (\mathbf{x}_1, y_1)$ denote a specific realization of $\mathbf{Z}$ and $\mathbf{x}$ denote a point of interest.
-	Let $D = \left\{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{s_2} \right\}$ and $D' = \left\{\mathbf{Z}_1^{\prime}, \dotsc, \mathbf{Z}_{s_1}^{\prime} \right\}$ denote two independent and i.i.d. samples drawn from $P$.
-	Furthermore, let $\mathbf{X} \sim P$ and $\mathbf{X} \indep D,D'$.
-	Then
-	\begin{equation}
-		\begin{aligned}
-			\psi_{s_1, s_2}^{1}\left(\mathbf{x}; \mathbf{z}_1\right)
-			 & = w_{1}^{*} \left(
-			\frac{s_2}{s_1}\left(\varepsilon_1 \E_{D'}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1^{\prime}, D'\right)\, \Big| \, \mathbf{X}_1^{\prime} = \mathbf{x}_1 \right]
-				+ \E_{D'}\left[\sum_{i = 1}^{s} \kappa\left(\mathbf{x}; \mathbf{Z}_i^{\prime}, D'\right) \mu(\mathbf{X}_i^{\prime})\, \Big| \, \mathbf{X}_1 ^{\prime}= \mathbf{x}_1 \right]\right)
-			+ \frac{s_2}{s_2 - s_1}\E\left[\mu(\mathbf{X})\right]\right)                                                                                          \\
-			 & \quad + w_{2}^{*} \left(\varepsilon_1 \E_D\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1, D\right)\, \Big| \, \mathbf{X}_1 = \mathbf{x}_1 \right]
-			+ \E_{D}\left[\sum_{i = 1}^{s} \kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right) \mu(\mathbf{X}_i)\, \Big| \, \mathbf{X}_1 = \mathbf{x}_1 \right]\right) \\
-		\end{aligned}
-	\end{equation}
-\end{lem}
+% \begin{lem}[TDNN Haj\'ek Kernel Expectation]\label{lem:psi_s1s2_1}\mbox{}\\*
+% 	Let $\mathbf{z}_1 = (\mathbf{x}_1, y_1)$ denote a specific realization of $\mathbf{Z}$ and $\mathbf{x}$ denote a point of interest.
+% 	Let $D = \left\{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{s_2} \right\}$ and $D' = \left\{\mathbf{Z}_1^{\prime}, \dotsc, \mathbf{Z}_{s_1}^{\prime} \right\}$ denote two independent and i.i.d. samples drawn from $P$.
+% 	Furthermore, let $\mathbf{X} \sim P$ and $\mathbf{X} \indep D,D'$.
+% 	Then
+% 	\begin{equation}
+% 		\begin{aligned}
+% 			\psi_{s_1, s_2}^{1}\left(\mathbf{x}; \mathbf{z}_1\right)
+% 			 & = w_{1}^{*} \left(
+% 			\frac{s_2}{s_1}\left(\varepsilon_1 \E_{D'}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1^{\prime}, D'\right)\, \Big| \, \mathbf{X}_1^{\prime} = \mathbf{x}_1 \right]
+% 				+ \E_{D'}\left[\sum_{i = 1}^{s} \kappa\left(\mathbf{x}; \mathbf{Z}_i^{\prime}, D'\right) \mu(\mathbf{X}_i^{\prime})\, \Big| \, \mathbf{X}_1 ^{\prime}= \mathbf{x}_1 \right]\right)
+% 			+ \frac{s_2}{s_2 - s_1}\E\left[\mu(\mathbf{X})\right]\right)                                                                                          \\
+% 			 & \quad + w_{2}^{*} \left(\varepsilon_1 \E_D\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1, D\right)\, \Big| \, \mathbf{X}_1 = \mathbf{x}_1 \right]
+% 			+ \E_{D}\left[\sum_{i = 1}^{s} \kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right) \mu(\mathbf{X}_i)\, \Big| \, \mathbf{X}_1 = \mathbf{x}_1 \right]\right) \\
+% 		\end{aligned}
+% 	\end{equation}
+% \end{lem}
 
-\begin{proof}[Proof of Lemma \ref{lem:psi_s1s2_1}]
-	\begin{equation}
-		\begin{aligned}
-			\psi_{s_1, s_2}^{1}\left(\mathbf{x}; \mathbf{z}_1\right)
-			 & = \E_{D}\left[w_{1}^{*} \tilde{\mu}_{s_1}\left(\mathbf{x}; D\right)
-				+ w_{2}^{*} h_{s_2}\left(\mathbf{x}; D\right)\, | \, \mathbf{Z}_1 = \mathbf{z}_1\right]
-			= \E_{D}\left[h_{s_1, s_2}\left(\mathbf{x}; D\right) \, | \, \mathbf{Z}_1 = \mathbf{z}_1 \right]                                                             \\
-			%
-			 & = w_{1}^{*} \E_{D}\left[\tilde{\mu}_{s_1}\left(\mathbf{x}; D\right)\, | \, \mathbf{Z}_1 = \mathbf{z}_1\right]
-			+ w_{2}^{*} \E_D\left[h_{s_2}\left(\mathbf{x}; D\right)\, | \, \mathbf{Z}_1 = \mathbf{z}_1\right]                                                            \\
-			%
-			 & = w_{1}^{*} \E_{D}\left[\binom{s_2}{s_1}^{-1}\sum_{\ell \in L_{s_2, s_1}}h_{s_1}\left(\mathbf{x}; D_\ell\right)\, | \, \mathbf{Z}_1 = \mathbf{z}_1\right]
-			+ w_{2}^{*} \E_D\left[h_{s_2}\left(\mathbf{x}; D\right)\, | \, \mathbf{Z}_1 = \mathbf{z}_1\right]                                                            \\
-			%
-			 & = w_{1}^{*} \binom{s_2}{s_1}^{-1}\left(\E_{D}\left[
-				\sum_{\ell \in L_{s_1 - 1}\left([s_2]\backslash \{1\}\right)}h_{s_1}\left(\mathbf{x}; D_{\ell \cup 1}\right)
-				\sum_{\ell \in L_{s_1}\left([s_2]\backslash \{1\}\right)}h_{s_1}\left(\mathbf{x}; D_\ell\right)
-				\, | \, \mathbf{Z}_1 = \mathbf{z}_1\right]
-			\right)                                                                                                                                                      \\
-			 & \quad + w_{2}^{*} \E_D\left[h_{s_2}\left(\mathbf{x}; D\right)\, | \, \mathbf{Z}_1 = \mathbf{z}_1\right]                                                   \\
-			%
-			 & = w_{1}^{*} \binom{s_2}{s_1}^{-1}\left(
-			\binom{s_2-1}{s_1-1}\E_{1:s_1}\left[h_{s_1}\left(\mathbf{x}; D_{[s_1]}\right) \, | \, \mathbf{Z}_1 = \mathbf{z}_1 \right]
-			+ \binom{s_2-1}{s_1}\E_{2:(s_1+1)}\left[h_{s_1}\left(\mathbf{x}; D_{2:(s_1+1)}\right)\right]
-			\right)                                                                                                                                                      \\
-			 & \quad + w_{2}^{*} \E_D\left[h_{s_2}\left(\mathbf{x}; D\right)\, | \, \mathbf{Z}_1 = \mathbf{z}_1\right]                                                   \\
-			%
-			 & = w_{1}^{*} \binom{s_2}{s_1}^{-1}\left(
-			\binom{s_2-1}{s_1-1}\psi_{s_1}^{1}\left(\mathbf{x}; \mathbf{z_1}\right)
-			+ \binom{s_2-1}{s_1}\E_{2:(s_1+1)}\left[h_{s_1}\left(\mathbf{x}; D_{2:(s_1+1)}\right)\right]
-			\right) + w_{2}^{*} \psi_{s_2}^{1}\left(\mathbf{x}; \mathbf{z_1}\right)
-		\end{aligned}
-	\end{equation}
-	Using Lemmas \ref{lem:DNN_k_exp} and \ref{lem:psi_s_1}, we can further simplify this term significantly.
-	\begin{equation}
-		\begin{aligned}
-			\psi_{s_1, s_2}^{1}\left(\mathbf{x}; \mathbf{z}_1\right)
-			 & = w_{1}^{*} \left(\frac{s_2}{s_1}\psi_{s_1}^{1}\left(\mathbf{x}; \mathbf{z_1}\right)
-			+ \frac{s_2}{s_2 - s_1}\E\left[\mu(\mathbf{X})\right]\right)
-			+ w_{2}^{*} \psi_{s_2}^{1}\left(\mathbf{x}; \mathbf{z_1}\right)                                                                                       \\
-			%
-			 & = w_{1}^{*} \left(
-			\frac{s_2}{s_1}\left(\varepsilon_1 \E_{D'}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1, D'\right)\, \Big| \, \mathbf{X}_1 = \mathbf{x}_1 \right]
-				+ \E_{D'}\left[\sum_{i = 1}^{s} \kappa\left(\mathbf{x}; \mathbf{Z}_i, D'\right) \mu(\mathbf{X}_i)\, \Big| \, \mathbf{X}_1 = \mathbf{x}_1 \right]\right)
-			+ \frac{s_2}{s_2 - s_1}\E\left[\mu(\mathbf{X})\right]\right)                                                                                          \\
-			 & \quad + w_{2}^{*} \left(\varepsilon_1 \E_D\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1, D\right)\, \Big| \, \mathbf{X}_1 = \mathbf{x}_1 \right]
-			+ \E_{D}\left[\sum_{i = 1}^{s} \kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right) \mu(\mathbf{X}_i)\, \Big| \, \mathbf{X}_1 = \mathbf{x}_1 \right]\right) \\
-			%
-			 & \quad = {\color{red} LOREM IPSUM}
-		\end{aligned}
-	\end{equation}
-\end{proof}
+% \begin{proof}[Proof of Lemma \ref{lem:psi_s1s2_1}]
+% 	\begin{equation}
+% 		\begin{aligned}
+% 			\psi_{s_1, s_2}^{1}\left(\mathbf{x}; \mathbf{z}_1\right)
+% 			 & = \E_{D}\left[w_{1}^{*} \tilde{\mu}_{s_1}\left(\mathbf{x}; D\right)
+% 				+ w_{2}^{*} h_{s_2}\left(\mathbf{x}; D\right)\, | \, \mathbf{Z}_1 = \mathbf{z}_1\right]
+% 			= \E_{D}\left[h_{s_1, s_2}\left(\mathbf{x}; D\right) \, | \, \mathbf{Z}_1 = \mathbf{z}_1 \right]                                                             \\
+% 			%
+% 			 & = w_{1}^{*} \E_{D}\left[\tilde{\mu}_{s_1}\left(\mathbf{x}; D\right)\, | \, \mathbf{Z}_1 = \mathbf{z}_1\right]
+% 			+ w_{2}^{*} \E_D\left[h_{s_2}\left(\mathbf{x}; D\right)\, | \, \mathbf{Z}_1 = \mathbf{z}_1\right]                                                            \\
+% 			%
+% 			 & = w_{1}^{*} \E_{D}\left[\binom{s_2}{s_1}^{-1}\sum_{\ell \in L_{s_2, s_1}}h_{s_1}\left(\mathbf{x}; D_\ell\right)\, | \, \mathbf{Z}_1 = \mathbf{z}_1\right]
+% 			+ w_{2}^{*} \E_D\left[h_{s_2}\left(\mathbf{x}; D\right)\, | \, \mathbf{Z}_1 = \mathbf{z}_1\right]                                                            \\
+% 			%
+% 			 & = w_{1}^{*} \binom{s_2}{s_1}^{-1}\left(\E_{D}\left[
+% 				\sum_{\ell \in L_{s_1 - 1}\left([s_2]\backslash \{1\}\right)}h_{s_1}\left(\mathbf{x}; D_{\ell \cup 1}\right)
+% 				\sum_{\ell \in L_{s_1}\left([s_2]\backslash \{1\}\right)}h_{s_1}\left(\mathbf{x}; D_\ell\right)
+% 				\, | \, \mathbf{Z}_1 = \mathbf{z}_1\right]
+% 			\right)                                                                                                                                                      \\
+% 			 & \quad + w_{2}^{*} \E_D\left[h_{s_2}\left(\mathbf{x}; D\right)\, | \, \mathbf{Z}_1 = \mathbf{z}_1\right]                                                   \\
+% 			%
+% 			 & = w_{1}^{*} \binom{s_2}{s_1}^{-1}\left(
+% 			\binom{s_2-1}{s_1-1}\E_{1:s_1}\left[h_{s_1}\left(\mathbf{x}; D_{[s_1]}\right) \, | \, \mathbf{Z}_1 = \mathbf{z}_1 \right]
+% 			+ \binom{s_2-1}{s_1}\E_{2:(s_1+1)}\left[h_{s_1}\left(\mathbf{x}; D_{2:(s_1+1)}\right)\right]
+% 			\right)                                                                                                                                                      \\
+% 			 & \quad + w_{2}^{*} \E_D\left[h_{s_2}\left(\mathbf{x}; D\right)\, | \, \mathbf{Z}_1 = \mathbf{z}_1\right]                                                   \\
+% 			%
+% 			 & = w_{1}^{*} \binom{s_2}{s_1}^{-1}\left(
+% 			\binom{s_2-1}{s_1-1}\psi_{s_1}^{1}\left(\mathbf{x}; \mathbf{z_1}\right)
+% 			+ \binom{s_2-1}{s_1}\E_{2:(s_1+1)}\left[h_{s_1}\left(\mathbf{x}; D_{2:(s_1+1)}\right)\right]
+% 			\right) + w_{2}^{*} \psi_{s_2}^{1}\left(\mathbf{x}; \mathbf{z_1}\right)
+% 		\end{aligned}
+% 	\end{equation}
+% 	Using Lemmas \ref{lem:DNN_k_exp} and \ref{lem:psi_s_1}, we can further simplify this term significantly.
+% 	\begin{equation}
+% 		\begin{aligned}
+% 			\psi_{s_1, s_2}^{1}\left(\mathbf{x}; \mathbf{z}_1\right)
+% 			 & = w_{1}^{*} \left(\frac{s_2}{s_1}\psi_{s_1}^{1}\left(\mathbf{x}; \mathbf{z_1}\right)
+% 			+ \frac{s_2}{s_2 - s_1}\E\left[\mu(\mathbf{X})\right]\right)
+% 			+ w_{2}^{*} \psi_{s_2}^{1}\left(\mathbf{x}; \mathbf{z_1}\right)                                                                                       \\
+% 			%
+% 			 & = w_{1}^{*} \left(
+% 			\frac{s_2}{s_1}\left(\varepsilon_1 \E_{D'}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1, D'\right)\, \Big| \, \mathbf{X}_1 = \mathbf{x}_1 \right]
+% 				+ \E_{D'}\left[\sum_{i = 1}^{s} \kappa\left(\mathbf{x}; \mathbf{Z}_i, D'\right) \mu(\mathbf{X}_i)\, \Big| \, \mathbf{X}_1 = \mathbf{x}_1 \right]\right)
+% 			+ \frac{s_2}{s_2 - s_1}\E\left[\mu(\mathbf{X})\right]\right)                                                                                          \\
+% 			 & \quad + w_{2}^{*} \left(\varepsilon_1 \E_D\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1, D\right)\, \Big| \, \mathbf{X}_1 = \mathbf{x}_1 \right]
+% 			+ \E_{D}\left[\sum_{i = 1}^{s} \kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right) \mu(\mathbf{X}_i)\, \Big| \, \mathbf{X}_1 = \mathbf{x}_1 \right]\right) \\
+% 			%
+% 			 & \quad = {\color{red} LOREM IPSUM}
+% 		\end{aligned}
+% 	\end{equation}
+% \end{proof}
 
 \newpage
 \subsection{Kernel Variances \& Covariances}
@@ -952,12 +955,12 @@ Having developed theoretical results concerning uniform inference methods for th
 	Let $D = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{s}\}$ be a vector of i.i.d. random variables drawn from $P$.
 	Furthermore, let
 	\begin{equation}
-		\Omega_{s}
+		\Omega_{s}\left(\mathbf{x}\right)
 		= \E\left[h_{s}^{2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,  \mathbf{Z}_{s}\right)\right].
 	\end{equation}
 	Then,
 	\begin{equation}
-		\Omega_{s}
+		\Omega_{s}\left(\mathbf{x}\right)
 		= \E_1\left[\mu^2\left(\mathbf{X}_1\right) s \E_{2:s}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1, D\right)\right]\right] + \sigma_{\varepsilon}^2
 		\lesssim \mu^2(\mathbf{x}) + \sigma_{\varepsilon}^2 + o(1)
 		\quad \text{as} \quad s \rightarrow \infty.
@@ -971,19 +974,19 @@ Having developed theoretical results concerning uniform inference methods for th
 	Let $D^{\prime} = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{c}, \mathbf{Z}_{c+1}^{\prime}, \dotsc,  \mathbf{Z}_{s}^{\prime}\}$ where $\mathbf{Z}_{c+1}^{\prime}, \dotsc,  \mathbf{Z}_{s}^{\prime}$ are i.i.d. draws from $P$ that are independent of $D$.
 	Furthermore, let
 	\begin{equation}
-		\Omega_{s}^{c}
+		\Omega_{s}^{c}\left(\mathbf{x}\right)
 		= \E\left[h_{s}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_{c}, \mathbf{Z}_{c+1}, \ldots, \mathbf{Z}_{s}\right) \cdot
 			h_{s}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{c}, \mathbf{Z}_{c+1}^{\prime}, \ldots, \mathbf{Z}_{s}^{\prime}\right)\right].
 	\end{equation}
 	Then,
 	\begin{equation}
-		\Omega_{s}^{c}
+		\Omega_{s}^{c}\left(\mathbf{x}\right)
 		\lesssim \frac{s^2 + cs  - c^2}{s^2} \mu^2(\mathbf{x}) + (c/s) \sigma_{\varepsilon}^2 + o(1)
 		\quad \text{for} \quad s \quad \text{sufficiently large}
 	\end{equation}
 	and thus
 	\begin{equation}
-		\Omega_{s}^{c}
+		\Omega_{s}^{c}\left(\mathbf{x}\right)
 		\lesssim \mu^2(\mathbf{x}) + o(1)
 		\quad \text{as} \quad s \rightarrow \infty.
 	\end{equation}
@@ -992,7 +995,7 @@ Having developed theoretical results concerning uniform inference methods for th
 \begin{proof}[Proof of Lemma \ref{lem:omega_sc}]
 	\begin{equation}
 		\begin{aligned}
-			\Omega_{s}^{c}
+			\Omega_{s}^{c}\left(\mathbf{x}\right)
 			 & = \E\left[h_{s}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_{c}, \mathbf{Z}_{c+1}, \ldots, \mathbf{Z}_{s}\right) \cdot
 			h_{s}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{c}, \mathbf{Z}_{c+1}^{\prime}, \ldots, \mathbf{Z}_{s}^{\prime}\right)\right]                                                                \\
 			%
@@ -1082,13 +1085,13 @@ Having developed theoretical results concerning uniform inference methods for th
 	Let $D = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{s_2}\}$ be a vector of i.i.d. random variables drawn from $P$ for $s_2 > s_1$.
 	Furthermore, let
 	\begin{equation}
-		\Upsilon_{s_1, s_2}
+		\Upsilon_{s_1, s_2}\left(\mathbf{x}\right)
 		= \E\left[h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,  \mathbf{Z}_{s_1}\right) \cdot
 			h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{s_1}, \ldots, \mathbf{Z}_{s_2}\right)\right].
 	\end{equation}
 	Then,
 	\begin{equation}
-		\Upsilon_{s_1, s_2}
+		\Upsilon_{s_1, s_2}\left(\mathbf{x}\right)
 		\lesssim \mu^{2}\left(\mathbf{x}\right) + \sigma^2_{\varepsilon} + o(1)
 		\quad \text{as} \quad s_1, s_2 \rightarrow \infty
 		\quad \text{with} \quad
@@ -1099,7 +1102,7 @@ Having developed theoretical results concerning uniform inference methods for th
 \begin{proof}[Proof of Lemma \ref{lem:upsilon_s}]
 	\begin{equation}
 		\begin{aligned}
-			\Upsilon_{s_1, s_2}
+			\Upsilon_{s_1, s_2}\left(\mathbf{x}\right)
 			 & = \E\left[h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,  \mathbf{Z}_{s_1}\right) \cdot
 			h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots,\mathbf{Z}_{s_1}, \ldots, \mathbf{Z}_{s_2}\right)\right]                                                                             \\
 			%
@@ -1136,14 +1139,14 @@ Having developed theoretical results concerning uniform inference methods for th
 	Let $D^{\prime} = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_{c}, \mathbf{Z}_{c+1}^{\prime}, \dotsc,  \mathbf{Z}_{s_1}^{\prime}\}$ where $\mathbf{Z}_{c+1}^{\prime}, \dotsc,  \mathbf{Z}_{s_1}^{\prime}$ are i.i.d. draws from $P$ that are independent of $D$.
 	Furthermore, let
 	\begin{equation}
-		\Upsilon_{s_1, s_2}^{c}
+		\Upsilon_{s_1, s_2}^{c}\left(\mathbf{x}\right)
 		= \E\left[h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_c, \mathbf{Z}^{\prime}_{c+1}, \ldots,  \mathbf{Z}^{\prime}_{s_1}\right) \cdot
 			h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_{s_2}\right)\right].
 	\end{equation}
 	Then,
 	\begin{equation}
 		\begin{aligned}
-			 & \Upsilon_{s_1, s_2}^{c}
+			 & \Upsilon_{s_1, s_2}^{c}\left(\mathbf{x}\right)
 			\lesssim \frac{c s_2 - c^2 + s_1 s_2}{s_1 s_2}\mu^2(\mathbf{x}) + (c/s_1) \sigma^2_{\varepsilon} + o(1) \\
 			%
 			 & \text{for} \quad s_1, s_2 \quad \text{sufficiently large}
@@ -1153,7 +1156,7 @@ Having developed theoretical results concerning uniform inference methods for th
 	\end{equation}
 	and thus
 	\begin{equation}
-		\Upsilon_{s_1, s_2}^{c}
+		\Upsilon_{s_1, s_2}^{c}\left(\mathbf{x}\right)
 		\lesssim \mu^2(\mathbf{x}) + o(1)
 		\quad \text{as} \quad s_1, s_2 \rightarrow \infty
 		\quad \text{with} \quad
@@ -1164,7 +1167,7 @@ Having developed theoretical results concerning uniform inference methods for th
 \begin{proof}[Proof of Lemma \ref{lem:upsilon_sc}]
 	\begin{equation}
 		\begin{aligned}
-			\Upsilon_{s_1, s_2}^{c}
+			\Upsilon_{s_1, s_2}^{c}\left(\mathbf{x}\right)
 			 & = \E\left[h_{s_1}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_c, \mathbf{Z}^{\prime}_{c+1}, \ldots,  \mathbf{Z}^{\prime}_{s_1}\right) \cdot
 			h_{s_2}\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_{s_2}\right)\right]                                                                                                    \\
 			%                                                                     
@@ -1316,7 +1319,7 @@ Having developed theoretical results concerning uniform inference methods for th
 			 & = \E_D\left[\binom{s_2}{s_1}^{-1}\sum_{\ell \in L_{s_2, s_1}} h_{s_1}\left(\mathbf{x}; D_{\ell}\right)h_{s_2}\left(\mathbf{x}; D\right)\right] \\
 			%
 			 & = \E_D\left[h_{s_1}\left(\mathbf{x}; D_{[s_1]}\right)h_{s_2}\left(\mathbf{x}; D\right)\right]
-			= \Upsilon_{s_1, s_2}
+			= \Upsilon_{s_1, s_2}\left(\mathbf{x}\right)
 		\end{aligned}
 	\end{equation}
 
@@ -1325,7 +1328,7 @@ Having developed theoretical results concerning uniform inference methods for th
 		\begin{aligned}
 			\zeta_{s_2, s_2}\left(\mathbf{x}\right)
 			 & \lesssim \left(w_{1}^{*}\right)^2 \Omega_{s_1}
-			+ 2 w_{1}^{*}w_{2}^{*} \Upsilon_{s_1, s_2}
+			+ 2 w_{1}^{*}w_{2}^{*} \Upsilon_{s_1, s_2}\left(\mathbf{x}\right)
 			+ \left(w_{1}^{*}\right)^2 \Omega_{s_2}                                                                       \\
 			%
 			 & \lesssim \left(w_{1}^{*} + w_{2}^{*}\right)^2 \left(\mu^2(\mathbf{x}) + \sigma_{\varepsilon}\right) + o(1)
@@ -1538,6 +1541,25 @@ Having developed theoretical results concerning uniform inference methods for th
 			\right]^2\\
 			%
 			& =: \frac{n-1}{n}\frac{s_2^2}{n^2} \sum_{i = 1}^{n}\left[h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_i) + T_{i}\right]^2
+		\end{aligned}
+	\end{equation}
+	Observe that due to the independence of the observations and the uncorrelatedness of Hoeffding projections of differing orders, $h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_i)$ and $T_{i}$ are uncorrelated.
+	Now, continuing to follow the line of argument in \citet{peng_bias_2021}, we observe the following.
+	\begin{equation}
+		\begin{aligned}
+			\E\left[\left(h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_i)\right)^{2}\right]
+			& = \\
+			%
+			& = 
+		\end{aligned}
+	\end{equation}
+	Furthermore, we find that
+	\begin{equation}
+		\begin{aligned}
+			\E\left[T_{i}^{2}\right]
+			& = \\
+			%
+			& = {\color{red} LOREM IPSUM}
 		\end{aligned}
 	\end{equation}
 	{\color{red} Continue HERE!}

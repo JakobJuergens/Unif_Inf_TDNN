@@ -57,7 +57,19 @@ where $D_{\ell}$ and $D_{\ell'}$ only share exactly one observation, say $\mathb
 
 \section{Hoeffding-Decompositions}
 
-
+Furthermore, the corresponding Haj\'ek-Projections are as follows.
+\begin{equation}\label{eq:Hajek_projection}
+	\begin{aligned}
+		\tilde{\mu}_{s}\left(\mathbf{x}; \mathbf{D}_n\right)
+		 & = \mu(\mathbf{x}) + \frac{s}{n}\sum_{i = 1}^{n}h^{(1)}_{s}(\mathbf{x}; \mathbf{z}_{i})
+		+ \operatorname{HR}_{s}(\mathbf{x}; \mathbf{D}_n)                                                   \\
+		\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right)
+		 & = \mu(\mathbf{x}) + \frac{s_2}{n}\sum_{i = 1}^{n} h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{z}_{i})
+		+ \operatorname{HR}_{s_1, s_2}(\mathbf{x}; \mathbf{D}_n)
+	\end{aligned}
+\end{equation}
+Here $\operatorname{HR}$ stands for the Haj\'ek residual.
+Bounding this residual will be integral to the theoretical arguments made in later parts of this paper.
 
 \hrule
 
