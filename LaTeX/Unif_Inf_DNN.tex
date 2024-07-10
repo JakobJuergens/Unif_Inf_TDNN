@@ -393,11 +393,11 @@ First, an immediate result on the expectations of the Hoeffding-projection kerne
 \end{align}
 Second, we obtain a useful variance decomposition in terms of the Hoeffding-projection variances.
 \begin{align}\label{eq:Var_decomp}
-		\Var_{D}\left(\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; D\right)\right) 
-	& = \sum_{j = 1}^{s_2} \binom{s_2}{j}^2 \Var_{D}\left(H_{s_1, s_2}^{j}\left(\mathbf{x}; D\right)\right)\\
+	\Var_{D}\left(\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; D\right)\right)
+	 & = \sum_{j = 1}^{s_2} \binom{s_2}{j}^2 \Var_{D}\left(H_{s_1, s_2}^{j}\left(\mathbf{x}; D\right)\right) \\
 	%
 	\Var_{D}\left(H_{s_1, s_2}^{j}\left(\mathbf{x}; D\right)\right)
-	& = \binom{n}{j}^{-1} \Var_{D}\left(h_{s_1, s_2}^{(j)}\left(\mathbf{x}; D\right)\right)
+	 & = \binom{n}{j}^{-1} \Var_{D}\left(h_{s_1, s_2}^{(j)}\left(\mathbf{x}; D\right)\right)
 	=: \binom{n}{j}^{-1} V_{s_1, s_2}^{j}\left(\mathbf{x}\right)
 \end{align}
 Third, the following equivalent expression for the kernel variance.
@@ -485,8 +485,8 @@ It is relatively straightforward to show that this Theorem applies to the TDNN e
 	\item Consider the JK estimator as U-statistic and improve on the approach in Demirkaya
 	      (effectively Theory for JK for IOUS)
 	\item Consider the JK estimator as U-statistic and consider the Hoeffding and Hajek projections to obtain results
-		(effectively following the approach in Peng, Mentch, Stefanski (2021)) 
-		This seems most promising
+	      (effectively following the approach in Peng, Mentch, Stefanski (2021))
+	      This seems most promising
 \end{enumerate}
 
 In an analogous fashion to Theorems 5 and 6 from \citet{demirkaya_optimal_2024}, we furthermore obtain the following consistency results for the presented variance estimators.
@@ -1508,66 +1508,88 @@ Having developed theoretical results concerning uniform inference methods for th
 	\begin{equation}
 		\begin{aligned}
 			\hat{\omega}_{JK}^2\left(\mathbf{x}; \mathbf{D}_n\right)
-			& = \frac{n-1}{n} \sum_{i = 1}^{n}\left(
-				\sum_{j = 1}^{s_2}\binom{s_2}{j}H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_{n, -i}\right)
-				- \sum_{j = 1}^{s_2}\binom{s_2}{j}H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_{n}\right)
-			\right)^2\\
+			 & = \frac{n-1}{n} \sum_{i = 1}^{n}\left(
+			\sum_{j = 1}^{s_2}\binom{s_2}{j}H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_{n, -i}\right)
+			- \sum_{j = 1}^{s_2}\binom{s_2}{j}H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_{n}\right)
+			\right)^2                                                                                                                \\
 			%
-			& = \frac{n-1}{n} \sum_{i = 1}^{n}\left(
-				\sum_{j = 1}^{s_2}\binom{s_2}{j}\left(H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_{n, -i}\right)
+			 & = \frac{n-1}{n} \sum_{i = 1}^{n}\left(
+			\sum_{j = 1}^{s_2}\binom{s_2}{j}\left(H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_{n, -i}\right)
 				- H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_{n}\right)\right)
-			\right)^2\\
+			\right)^2                                                                                                                \\
 			%
-			& = \frac{n-1}{n} \sum_{i = 1}^{n}\left(
-				\sum_{j = 1}^{s_2}\binom{s_2}{j}\left(H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_{n}\right)\right)
-				- H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_{n, -i}\right)
-			\right)^2\\
+			 & = \frac{n-1}{n} \sum_{i = 1}^{n}\left(
+			\sum_{j = 1}^{s_2}\binom{s_2}{j}\left(H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_{n}\right)
+				- H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_{n, -i}\right)\right)
+			\right)^2                                                                                                                \\
 			%
-			& = \frac{n-1}{n} \sum_{i = 1}^{n}\left(\sum_{j = 1}^{s_2}\binom{s_2}{j}
+			 & = \frac{n-1}{n} \sum_{i = 1}^{n}\left(\sum_{j = 1}^{s_2}\binom{s_2}{j}
 			\left( \binom{n}{j}^{-1}\sum_{\iota \in L_{n,j}} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\iota})
 			- \binom{n-1}{j}^{-1}\sum_{\ell \in L_{j}\left([n]\backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\ell})\right)
-			\right)^2\\
+			\right)^2                                                                                                                \\
 			%
-			& = \frac{n-1}{n} \sum_{i = 1}^{n}\left[
+			 & = \frac{n-1}{n} \sum_{i = 1}^{n}\left[
 				\frac{s_2}{n} h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_i)
-				+ \sum_{j \neq i} \left(\frac{s_2}{n} - \frac{s_2}{n-1}\right) h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_j) \right.\\
-			& \quad \quad + \left.\sum_{j = 2}^{s_2}\binom{s_2}{j}
-			\left( \binom{n}{j}^{-1}\sum_{\iota \in L_{n,j}} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\iota})
-			- \binom{n-1}{j}^{-1}\sum_{\ell \in L_{j}\left([n]\backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\ell})\right)
-			\right]^2\\
+			+ \sum_{j \neq i} \left(\frac{s_2}{n} - \frac{s_2}{n-1}\right) h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_j) \right.      \\
+			 & \quad \quad + \left.\sum_{j = 2}^{s_2}\binom{s_2}{j}
+				\left( \binom{n}{j}^{-1}\sum_{\iota \in L_{n,j}} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\iota})
+				- \binom{n-1}{j}^{-1}\sum_{\ell \in L_{j}\left([n]\backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\ell})\right)
+			\right]^2                                                                                                                \\
 			%
-			& = \frac{n-1}{n} \sum_{i = 1}^{n}\left[
-				\frac{s_2}{n} h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_i)
-				+ \sum_{j \neq i} \left(\frac{s_2}{n} - \frac{s_2}{n-1}\right) h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_j) \right.\\
-			& \quad \quad + \left.\sum_{j = 2}^{s_2}\binom{s_2}{j}\left(
-			\binom{n}{j}^{-1}\sum_{\iota \in L_{j-1}\left([n] \backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\iota \cup \{i\}})
-			+ \left[\binom{n}{j}^{-1} - \binom{n-1}{j}^{-1}\right] \sum_{\ell \in L_{j}\left([n] \backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\ell})
-			\right)
-			\right]\\
+			 & = \frac{n-1}{n} \frac{s_2^2}{n^2}\sum_{i = 1}^{n}\left[
+				h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_i)
+			- \frac{1}{n-1} \sum_{j \neq i} h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_j) \right.                                     \\
+			 & \quad \quad + \left. \frac{n}{s_2}\sum_{j = 2}^{s_2}\binom{s_2}{j}\left(
+				\binom{n}{j}^{-1}\sum_{\iota \in L_{j-1}\left([n] \backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\iota \cup \{i\}})
+				+ \left[\binom{n}{j}^{-1} - \binom{n-1}{j}^{-1}\right] \sum_{\ell \in L_{j}\left([n] \backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\ell})
+				\right)
+			\right]                                                                                                                  \\
 			%
-			& = {\color{red} LOREM IPSUM}\\
-			%
-			& =: \frac{n-1}{n}\frac{s_2^2}{n^2} \sum_{i = 1}^{n}\left[h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_i) + T_{i}\right]^2
+			 & =: \frac{n-1}{n}\frac{s_2^2}{n^2} \sum_{i = 1}^{n}\left[h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_i) + T_{i}\right]^2
 		\end{aligned}
 	\end{equation}
-	Observe that due to the independence of the observations and the uncorrelatedness of Hoeffding projections of differing orders, $h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_i)$ and $T_{i}$ are uncorrelated.
+	Observe that due to the independence of the observations and the uncorrelatedness of Hoeffding projections of differing orders, $h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_i)$ and $T_{i}$ are uncorrelated and both have mean zero.
 	Now, continuing to follow the line of argument in \citet{peng_bias_2021}, first recall Equations \ref{eq:H_k_expectation} and \ref{eq:Var_decomp} and observe the immediate consequence.
 	\begin{equation}
 		\begin{aligned}
 			\E\left[\left(h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_i)\right)^{2}\right]
-			& = V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
+			 & = V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
 		\end{aligned}
 	\end{equation}
+
 	Furthermore, as another consequence of the independence of the observations and the uncorrelatedness of Hoeffding projections of differing order, we find that
 	\begin{equation}
 		\begin{aligned}
 			\E\left[T_{i}^{2}\right]
-			& = \\
+			 & = \frac{1}{n-1} V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
+			+ \frac{n^2}{s_2^2}\sum_{j = 2}^{s_2}\binom{s_2}{j}^2\left\{
+			\binom{n}{j}^{-2}\binom{n-1}{j-1}V_{s_1, s_2}^{j}
+			+ \left[\binom{n}{j}^{-1} - \binom{n-1}{j}^{-1}\right]^2 \binom{n-1}{j-1}V_{s_1, s_2}^{j}
+			\right\}                                                                                                                 \\
 			%
-			& = {\color{red} LOREM IPSUM}
+			 & = \frac{1}{n-1} V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
+			+ \frac{n^2}{s_2^2}\sum_{j = 2}^{s_2}\binom{s_2}{j}^2
+			\left(\binom{n}{j}^{-2} + \left[\binom{n}{j}^{-1} - \binom{n-1}{j}^{-1}\right]^2\right) \binom{n-1}{j-1}V_{s_1, s_2}^{j} \\
+			%
+			 & = \frac{1}{n-1} V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
+			+ \frac{n^2}{s_2^2}\sum_{j = 2}^{s_2}\binom{s_2}{j}^2
+			\left(1 + \left[1 - \frac{n}{n - 2j}\right]^2\right)\binom{n}{j}^{-2} \binom{n-1}{j-1}V_{s_1, s_2}^{j}                   \\
+			%
+			 & = \frac{1}{n-1} V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
+			+ \frac{n^2}{s_2^2}\sum_{j = 2}^{s_2}\binom{s_2}{j}^2
+			\left(1 + \left[\frac{n-2j - n}{n - 2j}\right]^2\right)\binom{n}{j}^{-2} \binom{n-1}{j-1}V_{s_1, s_2}^{j}                   \\
+			%
+			 & = \frac{1}{n-1} V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
+			+ \frac{n^2}{s_2^2}\sum_{j = 2}^{s_2} \frac{j}{n} \binom{s_2}{j}^2
+			\left(1 + \left[\frac{-2j}{n - 2j}\right]^2\right)\binom{n}{j}^{-1} V_{s_1, s_2}^{j}\\
+			%
+			& = \frac{1}{n-1} V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
+			+ \frac{n^2}{s_2^2}\sum_{j = 2}^{s_2} \frac{j}{n} \binom{s_2}{j}
+			\left(1 + \frac{4 j^2}{\left(n - 2j\right)^2}\right)\binom{n}{j}^{-1} \left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]
 		\end{aligned}
 	\end{equation}
-	{\color{red} Continue HERE!}
+	Then for $s_2 = o(n)$ and $n$ sufficiently large, we have the following.
+	{\color{red} Continue HERE! There is a relatively simple (meaning similar to \citet{peng_bias_2021}) asymptotic bound that allows us to use the same trick.}
 \end{proof}
 
 \newpage
