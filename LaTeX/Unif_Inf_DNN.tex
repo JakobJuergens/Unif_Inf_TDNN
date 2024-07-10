@@ -1490,11 +1490,34 @@ Having developed theoretical results concerning uniform inference methods for th
 	Thus showing that the Jackknife variance estimator is a U-statistic of order $2s$.
 \end{proof}
 
+\newpage
+\subsection{Variance Estimator Consistency Theorems}
 \hrule
 
-\begin{lem}[Hoeffding Decomposition of Jackknife Variance Estimator]\label{lem:HDecomp_JK}\mbox{}\\*
+\begin{proof}[Proof of Theorem \ref{thm:PI_JK_Cons}]\mbox{}\\*
+	Recall the results from Lemmas \ref{lem:Var_TDNN_k} and \ref{lem:dem10}.
+	\begin{equation*}
+		\zeta_{s_1, s_2}^{s_2}\left(\mathbf{x}\right) \lesssim \mu^2(\mathbf{x}) + \sigma_{\varepsilon} + o(1)
+		\quad \text{and} \quad
+		\zeta_{s_1, s_2}^{1}\left(\mathbf{x}\right) \sim s_2^{-1}
+	\end{equation*}
+	Using these results, we can find the following.
+	\begin{equation}
+		\begin{aligned}
+			\frac{s_2}{n}\left(\frac{
+				\zeta_{s_1, s_2}^{s_2}\left(\mathbf{x}\right)}{s_2 \zeta_{s_1, s_2}^{1}\left(\mathbf{x}\right)} - 1\right)
+			 & \sim \frac{s_2}{n}\left(\mu^2(\mathbf{x}) + \sigma_{\varepsilon} + o(1) - 1\right)
+			\sim \frac{s_2}{n} \rightarrow_{p} 0
+		\end{aligned}
+	\end{equation}
+	The desired result immediately follows from Theorem \ref{thm:peng21_6}.
+\end{proof}
 
-\end{lem}
+\hrule
+
+\begin{proof}[Proof of Theorem \ref{thm:JK_Cons}]\mbox{}\\*
+
+\end{proof}
 
 \begin{proof}
 	Recall the definition of the Jackknife Variance estimator as described in Equation \ref{eq:JK_Var_Est}.
@@ -1603,7 +1626,13 @@ Having developed theoretical results concerning uniform inference methods for th
 			 & \leq \frac{1}{n-1} V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
 			+ \frac{8}{n}\sum_{j = 2}^{s_2} j
 			\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]
-			= {\color{red} IMPROVE HERE!}
+			%
+			\leq \frac{1}{n-1} V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
+			+ \frac{8 s_2}{n}\sum_{j = 2}^{s_2}
+			\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right] \\
+			%
+			& = \frac{1}{n-1} V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
+			+ \frac{8 s_2}{n}\left(\zeta_{s_1, s_2}^{s_2} - s_2 \zeta_{s_1, s_2}^{1}\right)
 		\end{aligned}
 	\end{equation}
 	Now, consider the following expression.
@@ -1618,6 +1647,9 @@ Having developed theoretical results concerning uniform inference methods for th
 			& = \frac{1}{n} + 8 \frac{s_2}{n} \frac{\zeta_{s_1, s_2}^{s_2} - s_2 \zeta_{s_1, s_2}^{1}}{\zeta_{s_1, s_2}^{1}}
 		\end{aligned}
 	\end{equation}
+
+	{\color{red} Use byproduct of Lemma C.1 in \citet{ritzwoller_uniform_2024}! (Eq. C.4)}
+
 	Recall the results of Lemmas \ref{lem:Var_TDNN_k} and \ref{lem:dem10}.
 	\begin{equation*}
 		\zeta_{s_1, s_2}^{s_2}\left(\mathbf{x}\right) \lesssim \mu^2(\mathbf{x}) + \sigma_{\varepsilon} + o(1)
@@ -1634,35 +1666,6 @@ Having developed theoretical results concerning uniform inference methods for th
 		{\color{red} LOREM IPSUM}
 	\end{equation}
 	and thus the Jackknife Variance estimator is consistent.
-\end{proof}
-
-\newpage
-\subsection{Variance Estimator Consistency Theorems}
-\hrule
-
-\begin{proof}[Proof of Theorem \ref{thm:PI_JK_Cons}]\mbox{}\\*
-	Recall the results from Lemmas \ref{lem:Var_TDNN_k} and \ref{lem:dem10}.
-	\begin{equation*}
-		\zeta_{s_1, s_2}^{s_2}\left(\mathbf{x}\right) \lesssim \mu^2(\mathbf{x}) + \sigma_{\varepsilon} + o(1)
-		\quad \text{and} \quad
-		\zeta_{s_1, s_2}^{1}\left(\mathbf{x}\right) \sim s_2^{-1}
-	\end{equation*}
-	Using these results, we can find the following.
-	\begin{equation}
-		\begin{aligned}
-			\frac{s_2}{n}\left(\frac{
-				\zeta_{s_1, s_2}^{s_2}\left(\mathbf{x}\right)}{s_2 \zeta_{s_1, s_2}^{1}\left(\mathbf{x}\right)} - 1\right)
-			 & \sim \frac{s_2}{n}\left(\mu^2(\mathbf{x}) + \sigma_{\varepsilon} + o(1) - 1\right)
-			\sim \frac{s_2}{n} \rightarrow_{p} 0
-		\end{aligned}
-	\end{equation}
-	The desired result immediately follows from Theorem \ref{thm:peng21_6}.
-\end{proof}
-
-\hrule
-
-\begin{proof}[Proof of Theorem \ref{thm:JK_Cons}]\mbox{}\\*
-
 \end{proof}
 
 \hrule
