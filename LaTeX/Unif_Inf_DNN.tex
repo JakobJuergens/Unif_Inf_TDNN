@@ -387,8 +387,9 @@ These projection terms can then be used to construct the following Hoeffding dec
 Standard results for U-statistics (see for example \citet{lee_u-statistics_2019}) now give us a number of useful results.
 First, an immediate result on the expectations of the Hoeffding-projection kernels.
 \begin{align}\label{eq:H_k_expectation}
-	\forall c = 1,2,\dotsc, j-1: \quad & \E_{D}\left[h_{s_1, s_2}^{(j)}\left(\mathbf{x}; D\right) \, | \, \mathbf{Z}_1 = \mathbf{z}_1, \dotsc, \mathbf{Z}_c = \mathbf{z}_c\right] = 0\\
-	& \E_{D}\left[h_{s_1, s_2}^{(j)}\left(\mathbf{x}; D\right)\right] = 0
+	\forall c = 1,2,\dotsc, j-1: \quad & \E_{D}\left[h_{s_1, s_2}^{(j)}\left(\mathbf{x}; D\right) \, | \, \mathbf{Z}_1 = \mathbf{z}_1, \dotsc, \mathbf{Z}_c = \mathbf{z}_c\right] = 0
+	\quad \text{and} \quad
+	\E_{D}\left[h_{s_1, s_2}^{(j)}\left(\mathbf{x}; D\right)\right] = 0
 \end{align}
 Second, we obtain a useful variance decomposition in terms of the Hoeffding-projection variances.
 \begin{align}\label{eq:Var_decomp}
@@ -399,6 +400,12 @@ Second, we obtain a useful variance decomposition in terms of the Hoeffding-proj
 	& = \binom{n}{j}^{-1} \Var_{D}\left(h_{s_1, s_2}^{(j)}\left(\mathbf{x}; D\right)\right)
 	=: \binom{n}{j}^{-1} V_{s_1, s_2}^{j}\left(\mathbf{x}\right)
 \end{align}
+Third, the following equivalent expression for the kernel variance.
+\begin{equation}\label{eq:k_var}
+	\zeta_{s_1, s_2}^{s_2}\left(\mathbf{x}\right)
+	= \Var_{D}\left(h_{s_1, s_2}\left(\mathbf{x}; D\right)\right)
+	= \sum_{j = 1}^{s_2} \binom{s_2}{j}V_{s_1, s_2}^{j}
+\end{equation}
 
 \newpage
 \section{Pointwise Inference for the TDNN Estimator}\label{sec:pw_inf}
@@ -1511,49 +1518,47 @@ Having developed theoretical results concerning uniform inference methods for th
 				- H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_{n}\right)\right)
 			\right)^2\\
 			%
+			& = \frac{n-1}{n} \sum_{i = 1}^{n}\left(
+				\sum_{j = 1}^{s_2}\binom{s_2}{j}\left(H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_{n}\right)\right)
+				- H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_{n, -i}\right)
+			\right)^2\\
+			%
 			& = \frac{n-1}{n} \sum_{i = 1}^{n}\left(\sum_{j = 1}^{s_2}\binom{s_2}{j}
-			\left( \binom{n-1}{j}^{-1}\sum_{\ell \in L_{j}\left([n]\backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\ell})
-				- \binom{n}{j}^{-1}\sum_{\iota \in L_{n,j}} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\iota})\right)
+			\left( \binom{n}{j}^{-1}\sum_{\iota \in L_{n,j}} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\iota})
+			- \binom{n-1}{j}^{-1}\sum_{\ell \in L_{j}\left([n]\backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\ell})\right)
 			\right)^2\\
 			%
 			& = \frac{n-1}{n} \sum_{i = 1}^{n}\left[
-				\frac{s_2}{n}h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_i)
-				- \sum_{j \neq i} \left(\frac{s_2}{n-1} - \frac{s_2}{n}\right) h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_j) \right.\\
-			& \quad \quad - \left.\sum_{j = 2}^{s_2}\binom{s_2}{j}
-			\left( \binom{n-1}{j}^{-1}\sum_{\ell \in L_{j}\left([n]\backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\ell})
-				- \binom{n}{j}^{-1}\sum_{\iota \in L_{n,j}} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\iota})\right)
+				\frac{s_2}{n} h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_i)
+				+ \sum_{j \neq i} \left(\frac{s_2}{n} - \frac{s_2}{n-1}\right) h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_j) \right.\\
+			& \quad \quad + \left.\sum_{j = 2}^{s_2}\binom{s_2}{j}
+			\left( \binom{n}{j}^{-1}\sum_{\iota \in L_{n,j}} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\iota})
+			- \binom{n-1}{j}^{-1}\sum_{\ell \in L_{j}\left([n]\backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\ell})\right)
 			\right]^2\\
 			%
-			& = \frac{n-1}{n} \frac{s_2^2}{n^2}\sum_{i = 1}^{n}\left[
-				h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_i)
-				- \frac{1}{n-1}\sum_{j \neq i}  h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_j) \right.\\
-			& \quad \quad - \left. \frac{n}{s_2}\sum_{j = 2}^{s_2}\binom{s_2}{j}
-			\left( \binom{n-1}{j}^{-1}\sum_{\ell \in L_{j}\left([n]\backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\ell})
-				- \binom{n}{j}^{-1}\sum_{\iota \in L_{n,j}} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\iota})\right)
-			\right]^2\\
+			& = \frac{n-1}{n} \sum_{i = 1}^{n}\left[
+				\frac{s_2}{n} h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_i)
+				+ \sum_{j \neq i} \left(\frac{s_2}{n} - \frac{s_2}{n-1}\right) h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_j) \right.\\
+			& \quad \quad + \left.\sum_{j = 2}^{s_2}\binom{s_2}{j}\left(
+			\binom{n}{j}^{-1}\sum_{\iota \in L_{j-1}\left([n] \backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\iota \cup \{i\}})
+			+ \left[\binom{n}{j}^{-1} - \binom{n-1}{j}^{-1}\right] \sum_{\ell \in L_{j}\left([n] \backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\ell})
+			\right)
+			\right]\\
 			%
-			& = \frac{n-1}{n} \frac{s_2^2}{n^2}\sum_{i = 1}^{n}\left[
-				h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_i)
-				- \frac{1}{n-1}\sum_{j \neq i}  h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_j) 
-				 - \frac{n}{s_2}\sum_{j = 2}^{s_2}\binom{s_2}{j}
-			\left(H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_{n, -i}\right)
-				- H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_{n}\right)\right)
-			\right]^2\\
+			& = {\color{red} LOREM IPSUM}\\
 			%
 			& =: \frac{n-1}{n}\frac{s_2^2}{n^2} \sum_{i = 1}^{n}\left[h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_i) + T_{i}\right]^2
 		\end{aligned}
 	\end{equation}
 	Observe that due to the independence of the observations and the uncorrelatedness of Hoeffding projections of differing orders, $h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_i)$ and $T_{i}$ are uncorrelated.
-	Now, continuing to follow the line of argument in \citet{peng_bias_2021}, we observe the following.
+	Now, continuing to follow the line of argument in \citet{peng_bias_2021}, first recall Equations \ref{eq:H_k_expectation} and \ref{eq:Var_decomp} and observe the immediate consequence.
 	\begin{equation}
 		\begin{aligned}
 			\E\left[\left(h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_i)\right)^{2}\right]
-			& = \\
-			%
-			& = 
+			& = V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
 		\end{aligned}
 	\end{equation}
-	Furthermore, we find that
+	Furthermore, as another consequence of the independence of the observations and the uncorrelatedness of Hoeffding projections of differing order, we find that
 	\begin{equation}
 		\begin{aligned}
 			\E\left[T_{i}^{2}\right]
