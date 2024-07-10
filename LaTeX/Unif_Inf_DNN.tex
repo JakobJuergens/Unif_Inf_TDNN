@@ -1565,31 +1565,75 @@ Having developed theoretical results concerning uniform inference methods for th
 			+ \frac{n^2}{s_2^2}\sum_{j = 2}^{s_2}\binom{s_2}{j}^2\left\{
 			\binom{n}{j}^{-2}\binom{n-1}{j-1}V_{s_1, s_2}^{j}
 			+ \left[\binom{n}{j}^{-1} - \binom{n-1}{j}^{-1}\right]^2 \binom{n-1}{j-1}V_{s_1, s_2}^{j}
-			\right\}                                                                                                                 \\
+			\right\}                                                                                                                         \\
 			%
 			 & = \frac{1}{n-1} V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
 			+ \frac{n^2}{s_2^2}\sum_{j = 2}^{s_2}\binom{s_2}{j}^2
-			\left(\binom{n}{j}^{-2} + \left[\binom{n}{j}^{-1} - \binom{n-1}{j}^{-1}\right]^2\right) \binom{n-1}{j-1}V_{s_1, s_2}^{j} \\
+			\left(\binom{n}{j}^{-2} + \left[\binom{n}{j}^{-1} - \binom{n-1}{j}^{-1}\right]^2\right) \binom{n-1}{j-1}V_{s_1, s_2}^{j}         \\
 			%
 			 & = \frac{1}{n-1} V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
 			+ \frac{n^2}{s_2^2}\sum_{j = 2}^{s_2}\binom{s_2}{j}^2
-			\left(1 + \left[1 - \frac{n}{n - 2j}\right]^2\right)\binom{n}{j}^{-2} \binom{n-1}{j-1}V_{s_1, s_2}^{j}                   \\
+			\left(1 + \left[1 - \frac{n}{n - 2j}\right]^2\right)\binom{n}{j}^{-2} \binom{n-1}{j-1}V_{s_1, s_2}^{j}                           \\
 			%
 			 & = \frac{1}{n-1} V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
 			+ \frac{n^2}{s_2^2}\sum_{j = 2}^{s_2}\binom{s_2}{j}^2
-			\left(1 + \left[\frac{n-2j - n}{n - 2j}\right]^2\right)\binom{n}{j}^{-2} \binom{n-1}{j-1}V_{s_1, s_2}^{j}                   \\
+			\left(1 + \left[\frac{n-2j - n}{n - 2j}\right]^2\right)\binom{n}{j}^{-2} \binom{n-1}{j-1}V_{s_1, s_2}^{j}                        \\
 			%
 			 & = \frac{1}{n-1} V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
 			+ \frac{n^2}{s_2^2}\sum_{j = 2}^{s_2} \frac{j}{n} \binom{s_2}{j}^2
-			\left(1 + \left[\frac{-2j}{n - 2j}\right]^2\right)\binom{n}{j}^{-1} V_{s_1, s_2}^{j}\\
+			\left(1 + \left[\frac{-2j}{n - 2j}\right]^2\right)\binom{n}{j}^{-1} V_{s_1, s_2}^{j}                                             \\
 			%
-			& = \frac{1}{n-1} V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
-			+ \frac{n^2}{s_2^2}\sum_{j = 2}^{s_2} \frac{j}{n} \binom{s_2}{j}
-			\left(1 + \frac{4 j^2}{\left(n - 2j\right)^2}\right)\binom{n}{j}^{-1} \left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]
+			 & = \frac{1}{n-1} V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
+			+ \sum_{j = 2}^{s_2} \frac{n j}{s_2^2}
+			\left(1 + \frac{4 j^2}{\left(n - 2j\right)^2}\right)\binom{s_2}{j} \binom{n}{j}^{-1} \left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right] \\
 		\end{aligned}
 	\end{equation}
-	Then for $s_2 = o(n)$ and $n$ sufficiently large, we have the following.
-	{\color{red} Continue HERE! There is a relatively simple (meaning similar to \citet{peng_bias_2021}) asymptotic bound that allows us to use the same trick.}
+	Then we have the following.
+	\begin{equation}
+		\begin{aligned}
+			\E\left[T_{i}^{2}\right]
+			%
+			 & \leq \frac{1}{n-1} V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
+			+ 2 \sum_{j = 2}^{s_2} \frac{n j}{s_2^2}\frac{s_2^j}{j!}\frac{4 j!}{n^{j}}
+			\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]
+			= \frac{1}{n-1} V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
+			+ 8 \sum_{j = 2}^{s_2} \frac{j}{s_2} \left(\frac{s_2}{n}\right)^{j-1}
+			\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                   \\
+			%
+			 & \leq \frac{1}{n-1} V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
+			+ \frac{8}{n}\sum_{j = 2}^{s_2} j
+			\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]
+			= {\color{red} IMPROVE HERE!}
+		\end{aligned}
+	\end{equation}
+	Now, consider the following expression.
+	\begin{equation}
+		\begin{aligned}
+			\frac{\E\left[T_i\right]}{V_{s_1, s_2}^{1}\left(\mathbf{x}\right)}
+			& \leq \frac{\frac{1}{n-1} V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
+			+ 8 \frac{s_2}{n}\left(\zeta_{s_1, s_2}^{s_2} - s_2 \zeta_{s_1, s_2}^{1}\right)}{V_{s_1, s_2}^{1}\left(\mathbf{x}\right)}
+			& \leq \frac{V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
+			+ 8 s_2\left(\zeta_{s_1, s_2}^{s_2} - s_2 \zeta_{s_1, s_2}^{1}\right)}{n V_{s_1, s_2}^{1}\left(\mathbf{x}\right)}\\
+			%
+			& = \frac{1}{n} + 8 \frac{s_2}{n} \frac{\zeta_{s_1, s_2}^{s_2} - s_2 \zeta_{s_1, s_2}^{1}}{\zeta_{s_1, s_2}^{1}}
+		\end{aligned}
+	\end{equation}
+	Recall the results of Lemmas \ref{lem:Var_TDNN_k} and \ref{lem:dem10}.
+	\begin{equation*}
+		\zeta_{s_1, s_2}^{s_2}\left(\mathbf{x}\right) \lesssim \mu^2(\mathbf{x}) + \sigma_{\varepsilon} + o(1)
+		\quad \text{and} \quad
+		\zeta_{s_1, s_2}^{1}\left(\mathbf{x}\right) \sim s_2^{-1}
+	\end{equation*}
+	Thus, if $s_2 = o(n^{1/2})$, we find the following.
+	\begin{equation}
+		\frac{\E\left[T_i\right]}{V_{s_1, s_2}^{1}\left(\mathbf{x}\right)} \rightarrow 0
+	\end{equation}
+	Therefore, we can conclude that $h_{s_1, s_2}^{(1)}\left(\mathbf{x}; \mathbf{Z}_i\right)$ dominates $T_i^2$ in the expression of interest.
+	This implies the following.
+	\begin{equation}
+		{\color{red} LOREM IPSUM}
+	\end{equation}
+	and thus the Jackknife Variance estimator is consistent.
 \end{proof}
 
 \newpage
