@@ -117,9 +117,10 @@ Due to the inherent connection of the Potential Nearest Neighbors (PNN) framewor
 The remainder of this paper is organized as follows.
 Section \ref{sec:TDNN} introduces the TDNN estimator as developed by \citet{demirkaya_optimal_2024} and presents some of the results this paper is based on.
 Section \ref{sec:pw_inf} uses recent theoretical developments to show that the distributional approximations provided by \citet{demirkaya_optimal_2024} can be justified under weaker assumptions on the chosen subsampling scales.
-Section \ref{unif_inf} extends results from \citet{ritzwoller_uniform_2024} to the TDNN estimator and thus introduces methods to construct uniform confidence bands for the TDNN estimator.
-Section \ref{Simulations} explores the performance of the developed uniform inference methods in a number of setups and Section \ref{Application} applies them to the context of {\color{red} LOREM IPSUM}.
-Section \ref{Conclusion} concludes.
+Section \ref{sec:JK_BS_IOUS} presents general results on the consistency of Jackknife and Bootstrap variance estimators for infinite-order U-statistics developed to obtain the results of the previous section.
+Section \ref{sec:unif_inf} extends results from \citet{ritzwoller_uniform_2024} to the TDNN estimator and thus introduces methods to construct uniform confidence bands for the TDNN estimator.
+Section \ref{sec:simulations} explores the performance of the developed uniform inference methods in a number of setups and Section \ref{sec:application} applies them to the context of {\color{red} LOREM IPSUM}.
+Section \ref{sec:conclusion} concludes.
 
 \subsection{Notation}
 In the following, $\rightsquigarrow$ denotes convergence in distribution.
@@ -479,23 +480,18 @@ It is relatively straightforward to show that this Theorem applies to the TDNN e
 	\end{equation}
 \end{thm}
 
-{\color{red}
-\begin{enumerate}
-	\item Consider the difference between JK and PI-JK and show that it converges to zero in the regime $s_2 = o(n)$
-	\item Consider the JK estimator as U-statistic and improve on the approach in Demirkaya
-	      (effectively Theory for JK for IOUS)
-	\item Consider the JK estimator as U-statistic and consider the Hoeffding and Hajek projections to obtain results
-	      (effectively following the approach in Peng, Mentch, Stefanski (2021))
-	      This seems most promising
-\end{enumerate}
-
 In an analogous fashion to Theorems 5 and 6 from \citet{demirkaya_optimal_2024}, we furthermore obtain the following consistency results for the presented variance estimators.
 As they point out, proving these results goes beyond the techniques presented in \citet{arvesen_jackknifing_1969}, instead relying on results for infinite-order U-statistics.
-In even greater detail, we want to improve on the relation shown in Equation (A.52) in the derivation of consistency of the Jackknife variance estimator.
+Following the ideas from \citet{peng_bias_2021}, we then obtain the following results on the Jackknife and Bootstrap variance estimators respectively.
+As part of the proof of these results, we obtain general results on the consistency of Jackknife and Bootstrap variance estimators for infinite-order U-statistics beyond the TDNN estimator.
 \begin{thm}[Jackknife Variance Estimator Consistency]\label{thm:JK_Cons}\mbox{}\\*
-	LOREM IPSUM
+	Let $0 < c_1 \leq s_1/s_2 \leq c_2 < 1$ and $s_2 = o(n)$, then
+	\begin{equation}
+		\frac{\hat{\omega}_{JK}^2\left(\mathbf{x}; \mathbf{D}_n\right)}{\omega^{2}\left(\mathbf{x}; \mathbf{D}_n\right)} \longrightarrow_{p} 1.
+	\end{equation}
 \end{thm}
 
+{\color{red}
 \begin{thm}[Bootstrap Variance Estimator Consistency]\label{thm:BS_Cons}\mbox{}\\*
 	LOREM IPSUM
 \end{thm}
@@ -510,7 +506,19 @@ In even greater detail, we want to improve on the relation shown in Equation (A.
 }
 
 \newpage
-\section{Uniform Inference for the TDNN Estimator}\label{unif_inf}
+\section{Jackknife and Bootstrap Variance Estimators for IOUS}\label{sec:JK_BS_IOUS}
+\hrule
+
+\begin{thm}[Consistency of Jackknife Variance Estimators for IOUS]\label{thm:JK_IOUS_Cons}\mbox{}\\*
+	
+\end{thm}
+
+\begin{thm}[Consistency of Bootstrap Variance Estimators for IOUS]\label{thm:BS_IOUS_Cons}\mbox{}\\*
+	
+\end{thm}
+
+\newpage
+\section{Uniform Inference for the TDNN Estimator}\label{sec:unif_inf}
 \hrule
 Absent from \citet{demirkaya_optimal_2024} is a way to construct uniformly valid confidence bands around the TDNN estimator.
 Luckily, as a byproduct of considering the methods from \citet{ritzwoller_uniform_2024}, procedures for uniform inference can be developed relatively easily.
@@ -763,7 +771,7 @@ The boundedness assumption is
 \subsection{Uniform Inference with the TDNN Estimator}
 
 \newpage
-\section{Simulations}\label{Simulations}
+\section{Simulations}\label{sec:simulations}
 \hrule
 
 Having developed theoretical results concerning uniform inference methods for the TDNN estimator, we will proceed by testing their properties in several simulation studies.
@@ -778,10 +786,18 @@ Having developed theoretical results concerning uniform inference methods for th
 {\color{red} LOREM IPSUM}
 
 
-\section{Application}\label{Application}
+\section{Application}\label{sec:application}
 \hrule
 
-\section{Conclusion}\label{Conclusion}
+{\color{red} Ideas:
+	\begin{enumerate}
+		\item Nonparametric IV (use TDNN for first stage)
+		\item ``Mostly Harmless Machine Learning: Learning Optimal Instruments in Linear IV Models'' (2021) by Jiafeng Chen, Daniel L. Chen, Greg Lewis
+		\item Use for Double-Debiased Machine Learning
+	\end{enumerate}
+}
+
+\section{Conclusion}\label{sec:conclusion}
 \hrule
 
 \newpage
@@ -1713,8 +1729,8 @@ Having developed theoretical results concerning uniform inference methods for th
 \end{proof}
 
 \newpage
-\section{Proofs for Results in Section \ref{unif_inf}}
+\section{Proofs for Results in Section \ref{sec:unif_inf}}
 \hrule
-\subsection{Useful Lemmas for Proofs for Results in Section \ref{unif_inf}}
+\subsection{Useful Lemmas for Proofs for Results in Section \ref{sec:unif_inf}}
 
 \end{document}
