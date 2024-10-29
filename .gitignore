@@ -1,6 +1,8 @@
 /Literature
 /LaTeX/**
 !/LaTeX/*.tex
+!/LaTeX/Parts/*.tex
+!/LaTeX/Parts/Other/*.tex
 !/LaTeX/*.pdf
 !/LaTeX/*.bib
 !/LaTeX/*.bbl
