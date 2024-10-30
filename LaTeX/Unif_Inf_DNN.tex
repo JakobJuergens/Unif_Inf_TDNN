@@ -17,6 +17,23 @@
 \usepackage{amssymb}
 \usepackage{amsmath}
 \numberwithin{equation}{section}
+%%%%% Boxes Setup %%%%%
+\usepackage[many]{tcolorbox}    	% for COLORED BOXES (tikz and xcolor included)
+\definecolor{main}{HTML}{dedcdc}    % setting main color to be used
+\definecolor{sub}{HTML}{dedcdc}     % setting sub color to be used
+\tcbset{
+    sharp corners,
+    colback = white,
+    before skip = 0.3cm,    % add extra space before the box
+    after skip = 0.3cm      % add extra space after the box
+}                           % setting global options for tcolorbox
+\newtcolorbox{boxD}{
+    colback = sub, 
+    colframe = main, 
+    boxrule = 0pt, 
+    toprule = 0pt, % top rule weight
+    bottomrule = 0pt % bottom rule weight
+}
 
 \usepackage{amsthm}
 \usepackage{mathtools}
@@ -43,6 +60,7 @@
 \newtheorem{lem}{Lemma}
 \numberwithin{lem}{section}
 \newtheorem{rmk}{Remark}
+\newtheorem{exmp}{Example}
 \newtheorem{cor}{Corollary}
 \numberwithin{cor}{section}
 % \newtheorem{prop}{Proposition}
@@ -74,18 +92,18 @@
 
 \begin{document}
 \singlespacing
-\title{Pointwise and Uniform Inference for the Two-Scale\\ Distributional Nearest Neighbor Estimator}
+\title{Simultaneous Inference for Conditional Average Treatment Effects using \\ Distributional Nearest Neighbor Estimation}
 \date{Last edited: \today}
 \author{Jakob R. Juergens \\ University of Wisconsin - Madison}
 \maketitle
 \hrule
 \onehalfspacing
 \begin{abstract}
-	Recent advances in the literature on non-parametric regression and uniform inference for infinite-order U-statistics have enabled us to consider the problem of uniform inference for a broader class of estimators.
-	One class of such estimators are bagged nearest neighbor estimators and among them specifically the Two-Scale Distributional Nearest Neighbor Estimator (TDNN) of \citet{demirkaya_optimal_2024}.
-	In this paper, we improve on existing results for pointwise inference using the TDNN estimator and develop uniform inference procedures based on recent work by \citet{ritzwoller_uniform_2024}.
-	As part of this work, we provide a complementary R package called \textit{tdnnR} that implements the presented methods.
-
+	This paper presents a computationally simple method of estimating heterogeneous treatment effects based on the Two-Scale Distributional Nearest Neighbor (TDNN) estimator of \citet{demirkaya_optimal_2024}.
+	As part of this analysis, I improve on conditions required for consistent variance estimation presented in the original paper and provide results for asymptotically valid pointwise inference in a nonparametric regression setup and extend the analysis to the estimation of conditional average treatment effects.
+	Building on the framework of \citet{ritzwoller_uniform_2024}, I develop uniformly valid confidence bands for the TDNN estimator.
+	I then show how to apply these to perform uniformly valid inference in both the nonparametric regression setup and the heterogeneous treatment effect setup.
+	A main contribution is the development of a computationally simple method that leverages the theoretical results of the aforementioned papers.
 	% \blfootnote{The author thanks Harold D. Chiang, Jack Porter {\color{red} ADD OTHERS} for invaluable feedback.}
 \end{abstract}
 \vspace{0.3cm}
@@ -94,7 +112,9 @@
 
 \vspace{-0.3cm}
 \begin{center}
-	{\small Supplementary Material and R Package available at: \url{https://github.com/JakobJuergens/Unif_Inf_TDNN}}
+	{\small Supplementary Material and R Package available at: {\color{red} Work in Progress}
+	% \url{https://github.com/JakobJuergens/Unif_Inf_TDNN}
+	}
 \end{center}
 \vspace{0.3cm}
 \hrule
@@ -103,708 +123,44 @@
 \thispagestyle{empty}
 
 \pagenumbering{arabic}
-
-\newpage
 \onehalfspacing
-\section{Introduction}
-\hrule
-Nearest Neighbor Estimators and their derivatives form a flexible class of estimators for a variety of purposes including nonparametric regression.
-Although widely used in practice for the latter purpose, some of their properties are still elusive when it comes to performing inference.
-	{\color{red} LOREM IPSUM}
-Due to the inherent connection of the Potential Nearest Neighbors (PNN) framework to Random Forests (RF), this work also contributes to contextualizing recent advances in inference techniques for random forests.
-	{\color{red} LOREM IPSUM}
-
-The remainder of this paper is organized as follows.
-Section \ref{sec:TDNN} introduces the TDNN estimator as developed by \citet{demirkaya_optimal_2024} and presents some of the results this paper is based on.
-Section \ref{sec:pw_inf} uses recent theoretical developments to show that the distributional approximations provided by \citet{demirkaya_optimal_2024} can be justified under weaker assumptions on the chosen subsampling scales.
-Section \ref{sec:JK_BS_IOUS} presents general results on the consistency of Jackknife and Bootstrap variance estimators for infinite-order U-statistics developed to obtain the results of the previous section.
-Section \ref{sec:unif_inf} extends results from \citet{ritzwoller_uniform_2024} to the TDNN estimator and thus introduces methods to construct uniform confidence bands for the TDNN estimator.
-Section \ref{sec:simulations} explores the performance of the developed uniform inference methods in a number of setups and Section \ref{sec:application} applies them to the context of {\color{red} LOREM IPSUM}.
-Section \ref{sec:conclusion} concludes.
-
-\subsection{Notation}
-In the following, $\rightsquigarrow$ denotes convergence in distribution.
-The norm $\| \cdot \|_{\psi_1}$ denotes the $\psi_1$-Orlicz norm.
-Recall that random variables are sub-exponential if and only if they have a finite $\psi_1$-Orlicz norm.
-Let $[n] = \{1, \dotsc, n\}$.
-To simplify notation going forward, we introduce two sets that will be used extensively.
-\begin{equation}
-	L_{n,s} = \left\{\left(l_1, \dotsc, l_s\right) \in [n]^{s} \, : \, \text{entries of vector are distinct} \right\}
-	\quad \text{and} \quad
-	I_{n,s} = \left\{\left(i_1, \dotsc, i_s\right) \in L_{n,s} \, : \, i_1 < \dotsc < i_s \right\}
-\end{equation}
-Similarly, given a finite index set $\mathcal{I} \subset \mathbb{N}$, define the following sets.
-\begin{equation}
-	L_{s}(\mathcal{I}) = \left\{\left(l_1, \dotsc, l_s\right) \in \mathcal{I}^{s} \, : \, \text{entries of vector are distinct} \right\}
-	\quad \text{and} \quad
-	I_{s}(\mathcal{I}) = \left\{\left(i_1, \dotsc, i_s\right) \in L_{s}(\mathcal{I}) \, : \, i_1 < \dotsc < i_s \right\}
-\end{equation}
-{\color{red} TO-DO:}
-\begin{itemize}
-	\item $\lesssim$ needs an explanation
-\end{itemize}
-
 
 \newpage
-\section{Two-Scale Distributional Nearest Neighbor Estimator}\label{sec:TDNN}
-\hrule
-As in \citet{demirkaya_optimal_2024}, consider a sample of independent and identically distributed observations
-\begin{equation}\label{DGP}
-	\mathbf{D}_n = \{\mathbf{Z}_i = (\mathbf{X}_i, Y_i)\}_{i = 1}^{n}
-	\quad \text{from the model} \quad
-	Y = \mu(\mathbf{X}) + \varepsilon,
-\end{equation}
-where $Y \in \mathbb{R}$ is the response, $\mathbf{X} \in \mathbb{R}^d$ is a feature vector of fixed dimension $d$, and $\mu(\mathbf{x})$ is the unknown mean regression function.
-$\varepsilon$ is the unobservable model error on which we impose the following conditions.
-\begin{equation}
-	\varepsilon \indep \mathbf{X}, \quad
-	\E\left[\varepsilon\right] = 0, \quad
-	\Var\left(\varepsilon\right) = \sigma_{\varepsilon}^2
-\end{equation}
-We will denote the distribution induced by this model by $P$ and thus $\mathbf{Z}_i \overset{\text{iid}}{\sim} P$.
-As we will embed the corresponding estimation problem in the context of subsampled conditional moment regression, note that this implies a conditional moment equation of the form
-\begin{equation}\label{CondMomEq}
-	M(\mathbf{x}; \mu)
-	= \E\left[m(\mathbf{Z}_i; \mu) \, | \, \mathbf{X}_i = \mathbf{x}\right]
-	= 0
-	\quad \text{where} \quad
-	m(\mathbf{Z}_i; \mu) = Y_i - \mu(\mathbf{X}_i).
-\end{equation}
-Due to the absence of nuisance parameters in the setting at hand, conditions such as local Neyman-orthogonality vacuously hold (uniformly).
-In practice, the non-parametric regression problem at hand can be approached by solving the corresponding empirical conditional moment equation.
-\begin{equation}\label{EmpCondMomEq}
-	M_n(\mathbf{x}; \mu, \mathbf{D}_n)
-	= \sum_{i = 1}^{n}K(\mathbf{x}, \mathbf{X}_i)m(\mathbf{Z}_i; \mu)
-	= 0
-\end{equation}
-In this equation, $K:\mathbb{R}^d \times \mathbb{R}^d \rightarrow \mathbb{R}$ is a data-dependent Kernel function measuring the ``distance'' between the point of interest and an observation.
-Notationally, this makes the local and data-dependent approach of this procedure explicit.
-
-\subsection{Distributional Nearest Neighbor Estimator}
-One estimator that fulfills the purpose of estimating $\mu$ nonparametrically is the Distributional Nearest Neighbor (DNN) estimator.
-With a name coined by \citet{demirkaya_optimal_2024}, the DNN estimator is based on important work by \citet{steele_exact_2009} and \citet{biau_rate_2010}.
-Given a sample as described above and a fixed feature vector $\mathbf{x}$, consider the ordered sample $\{(\mathbf{X}_{(1)}, Y_{(1)}), \dotsc, (\mathbf{X}_{(n)}, Y_{(n)})\}$ defined by
-\begin{equation}\label{ordering}
-	||\mathbf{X}_{(1)} - \mathbf{x}|| \leq ||\mathbf{X}_{(2)} - \mathbf{x}|| \leq \dotsc \leq ||\mathbf{X}_{(n)} - \mathbf{x}||
-\end{equation}
-where draws are broken according to the natural indices of the observations in a deterministic way.
-Let $\rk(\mathbf{x}; \mathbf{Z}_i, D)$ denote the \textit{rank} that is assigned to observation $i$ in a sample $D$ relative to a point of interest $\mathbf{x}$ in this fashion.
-By convention, let $\rk(\mathbf{x}; \mathbf{Z}_i, D) = \infty$ if $\mathbf{Z}_i \not\in D$.
-Similarly, let $Y_{(1)}(\mathbf{x}; D)$ indicate the response value of the closest neighbor in set $D$.
-Depending on the underlying norm that is used to calculate the distances between observations, it can be advisable to standardize the feature space before applying nearest-neighbor methods.
-Since this is highly context-dependent, it is impossible to give general advice on when to standardize.
-
-Given a subsampling scale $s$ satisfying $1 \leq s \leq n$, a generic set of subsample indices $\ell \in L_{n,s}$ and a corresponding generic subset of our data $D_{\ell} = \{\mathbf{Z}_i \, | \, i \in \ell\}$, we can consider an analogous ordering of $D_{\ell}$.
-This enables us to define a data-driven kernel function $\kappa$ following the notation of \citet{ritzwoller_uniform_2024}.
-\begin{equation}
-	\kappa(\mathbf{x}; \mathbf{Z}_i, D_{\ell}, \xi)
-	= \1\left(\rk(\mathbf{x}; \mathbf{Z}_i, D_{\ell}) = 1\right)
-\end{equation}
-Here, $\xi$ is an additional source of randomness in the construction of the base learner that comes into play when analyzing, for example, random forests as proposed by \citet{breiman_random_2001} using the CART-algorithm described in \citet{breiman_classification_2017}.
-As the DNN estimator does not incorporate such additional randomness, the term is omitted in further considerations.
-Noteworthy properties of $\kappa$ are its permutational symmetry in $D_{\ell}$ and that $\kappa$ does not consider the response variable when assigning weights to the observations under consideration.
-The latter immediately implies a property that has been called ``Honesty'' by \citet{wager_estimation_2018}.
-
-\begin{dfn}[Symmetry and Honesty - Adapted from \citet{ritzwoller_uniform_2024}]\label{Symmetry_Honesty}\mbox{}
-	\begin{enumerate}
-		\item The kernel $\kappa\left(\cdot, \cdot, D_{\ell}\right)$ is Honest in the sense that
-		      $$\kappa\left(\mathbf{x}, \mathbf{X}_i, D_{\ell}\right) \indep m\left(\mathbf{Z}_i ; \mu\right) \mid \mathbf{X}_i, D_{\ell,-i},$$
-		      where $\indep$ denotes conditional independence and $D_{\ell,-i} = \{\mathbf{Z}_l \, | \, l \in \ell \backslash \{i\}\}$.
-		\item The kernel $\kappa\left(\cdot, \cdot, D_{\ell}\right)$ is positive and satisfies the restriction
-		      $\sum_{i \in s} \kappa\left(\cdot, \mathbf{X}_i, D_{\ell}\right)=1$ almost surely.
-		      Moreover, the kernel $\kappa\left(\cdot, \mathbf{X}_i, D_{\ell}\right)$ is invariant to permutations of the data $D_{\ell}.$
-	\end{enumerate}
-\end{dfn}
-Using $\kappa$, it is straightforward to find an expression for the distance function $K$ in Equation \ref{EmpCondMomEq} corresponding to the DNN estimator.
-\begin{equation}
-	K(\mathbf{x}, \mathbf{X}_i)
-	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} \1(i \in \ell)\frac{\kappa(\mathbf{x}; \mathbf{Z}_i, D_{\ell})}{s!}
-	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} \frac{\1\left(\rk(\mathbf{x}; \mathbf{Z}_i, D_{\ell}) = 1\right)}{s!}
-\end{equation}
-Inserting into Equation \ref{EmpCondMomEq}, this gives us the following empirical conditional moment equation.
-\begin{equation}
-	\begin{aligned}
-		M_n(\mathbf{x}; \mu, \mathbf{D}_n)
-		 & = \sum_{i = 1}^{n}K(\mathbf{x}, \mathbf{X}_i)m(\mathbf{Z}_i; \mu)                                                                                                                  \\
-		 & = \sum_{i = 1}^{n}\left(\binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} \frac{\1\left(\rk(\mathbf{x}; \mathbf{Z}_i, D_{\ell}) = 1\right)}{s!}\right)\left(Y_i - \mu(\mathbf{X}_i)\right)
-		= 0
-	\end{aligned}
-\end{equation}
-Solving this empirical conditional moment equation then yields the DNN estimator $D_{n}^{s}(\mathbf{x})$ with subsampling scale $s$ estimating the conditional expectation function $\mu(\mathbf{x}) = \E\left[Y \, | \, \mathbf{X} = \mathbf{x}\right]$.
-After rearranging the terms, it is given by the following U-statistic.
-\begin{equation}\label{U_stat}
-	\tilde{\mu}_{s}(\mathbf{x}; \mathbf{D}_n)
-	%= \binom{n}{s}^{-1} \sum_{\iota \in I_{n,s}} h_{\mathbf{x}}(D_{\iota})
-	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} \frac{1}{s!} Y_{(1)}(\mathbf{x}; D_{\ell})
-	=: \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} h_{s}(\mathbf{x}; D_{\ell})
-\end{equation}
-
-From the empirical conditional moment equation, it becomes apparent that the DNN estimator is a Weighted Nearest Neighbor (WNN) estimator that automatically assigns suitable weights in a distributional fashion.
-Weighted nearest neighbor estimators in their general form have been studied in detail by {\color{red} ADD REFERENCES}.
-Among other properties, it has been shown that under smoothness assumptions and using a suitable weight vector their convergence rate is optimal with $O_p(n^{-\frac{2}{d+4}}).$
-Through an equivalent representation as an L-statistic developed by \citet{steele_exact_2009}, the estimator has a computationally simple way to be evaluated compared to the usual U-statistic approach.
-
-\subsection{Two-Scale Distributional Nearest Neighbor Esimator}
-Starting from this setup, \citet{demirkaya_optimal_2024} develop a novel bias-correction method for the DNN estimator that leads to appealing finite-sample properties of the resulting Two-Scale Distributional Nearest Neighbor (TDNN) estimator.
-Their method is based on an explicit formula for the first-order bias term of the DNN estimator, which in turn allows them to eliminate it through a clever combination of two DNN estimators.
-
-\begin{thm}[\citet{demirkaya_optimal_2024} - Theorem 1]\label{thm:dem1}\mbox{}\\*
-	Assume that the distribution of $\mathbf{X}$ has a density function $f(\cdot)$ with respect to the Lebesgue measure $\lambda$ on the Euclidean space $\mathbb{R}^d$.
-	Let $\mathbf{x} \in \operatorname{supp}(\mathbf{X})$ be a fixed feature vector.
-	If \dots
-	\begin{enumerate}
-		\item There exists some constant $\alpha>0$ such that $\mathbb{P}(\|\mathbf{X}-\mathbf{x}\| \geq R) \leq e^{-\alpha R}$ for each $R>0$.
-		\item The density $f(\cdot)$ is bounded away from 0 and $\infty, f(\cdot)$ and $\mu(\cdot)$ are four times continuously differentiable with bounded second, third, and fourth-order partial derivatives in a neighborhood of $\mathbf{x}$, and $\E[Y^2]<\infty$.
-		      Moreover, the model error $\varepsilon$ has zero mean and finite variance $\sigma_\epsilon^2>0$ and is independent of $\mathbf{X}$.
-		\item We have an i.i.d. sample $\left\{\left(\mathbf{X}_1, Y_1\right),\left(\mathbf{X}_2, Y_2\right), \dotsc,\left(\mathbf{X}_n, Y_n\right)\right\}$ of size $n$ from the model described in Equation \ref{DGP}.
-	\end{enumerate}
-	Then, for any fixed $\mathbf{x} \in$ $\operatorname{supp}(\mathbf{X}) \subset \mathbb{R}^d$, we have that as $s \rightarrow \infty$
-	\begin{equation}
-		\E\left[\tilde{\mu}_{s}(\mathbf{x}; \mathbf{D}_n)\right] = \mu(\mathbf{x})+B(s)
-	\end{equation}
-	with
-	\begin{align*}
-		B(s) & =\Gamma(2 / d+1) \frac{f(\mathbf{x}) \operatorname{tr}\left(\mu^{\prime \prime}(\mathbf{x})\right)+2 \mu^{\prime}(\mathbf{x})^T f^{\prime}(\mathbf{x})}{2 d V_d^{2 / d} f(\mathbf{x})^{1+2 / d}} s^{-2 / d}+R(s) \\
-		R(s) & = \begin{cases}O\left(s^{-3}\right),     & d=1      \\
-             O\left(s^{-4 / d}\right), & d \geq 2\end{cases}
-	\end{align*}
-	where\dots
-	\begin{multicols}{2}
-		\begin{itemize}
-			\item $V_d=\frac{d^{d / 2}}{\Gamma(1+d / 2)}$
-			\item $\Gamma(\cdot)$ is the gamma function
-			\item $\operatorname{tr}(\cdot)$ stands for the trace of a matrix
-			\item $f^{\prime}(\cdot)$ and $\mu^{\prime}(\cdot)$ denote the first-order gradients of $f(\cdot)$ and $\mu(\cdot)$, respectively
-			\item $f^{\prime \prime}(\cdot)$ and $\mu^{\prime \prime}(\cdot)$ represent the $d \times d$ Hessian matrices of $f(\cdot)$ and $\mu(\cdot)$, respectively
-		\end{itemize}
-	\end{multicols}
-\end{thm}
-Choosing two subsampling scales $1 \leq s_1 < s_2 \leq n$ and two corresponding weights
-\begin{equation}
-	w_1^{*}(s_1, s_2) = \frac{1}{1-(s_1/s_2)^{-2/d}}
-	\quad\text{and}\quad
-	w_2^{*}(s_1, s_2) = 1 - w_1^{*}(s_1, s_2)
-\end{equation}
-they define the corresponding TDNN estimator as follows.
-\begin{equation}
-	\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right)
-	= w_1^{*}(s_1, s_2)\tilde{\mu}_{s_1}\left(\mathbf{x}; \mathbf{D}_n\right) + w_2^{*}(s_1, s_2)\tilde{\mu}_{s_2}\left(\mathbf{x}; \mathbf{D}_n\right)
-\end{equation}
-As a direct consequence of Theorem \ref{thm:dem1}, this leads to the elimination of the first-order bias term leading to desirable finite-sample properties.
-Furthermore, the authors show that this construction improves the quality of the normal approximation.
-
-
-\begin{thm}[\citet{demirkaya_optimal_2024} - Theorem 3]\label{thm:dem3}\mbox{}\\*
-	Assume that Conditions (1) to (3) from Theorem \ref{thm:dem1} hold.
-	Furthermore, let $s_2 \rightarrow \infty$ with $s_2 = o(n)$ and $c_1 \leq s_1/s_2 \leq c_2$ for some constants $0 < c_1 < c_2 < 1$.
-	Then, for any fixed $\mathbf{x} \in \operatorname{supp}(\mathbf{X}) \subset \mathbb{R}^d,$ it holds that for some positive sequence $\sigma_n$ of order $(s_2/n)^{1/2}$,
-	\begin{equation}
-		\sigma_n^{-1} \left(\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right) - \mu(\mathbf{x}) - \Lambda\right) \rightsquigarrow \mathcal{N}(0,1)
-	\end{equation}
-	as $n \rightarrow \infty$, where
-	\begin{equation*}
-		\Lambda = \begin{cases}
-			O\left(s_1^{-4/d} + s_2^{-4/d}\right) & \text{for } d \geq 2 \\
-			O\left(s_1^{-3} + s_2^{-3}\right)     & \text{for } d = 1    \\
-		\end{cases}.
-	\end{equation*}
-\end{thm}
-
-\subsection{U-Statistic Representation for the DNN and TDNN Estimators}
-As the majority of the theoretical results in the original paper rely on representations as a U-statistic, it is necessary to introduce additional concepts and notation.
-Recalling Equation \ref{U_stat}, the DNN and TDNN estimators can be expressed in the following U-statistic form and are thus a type of generalized complete U-statistic as introduced by \citet{peng_rates_2022}.
-\begin{equation}
-	\tilde{\mu}_{s}(\mathbf{x}; \mathbf{D}_n)
-	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} h_{s}(\mathbf{x}; D_{\ell})
-	\quad \text{and} \quad
-	\hat{\mu}_{s_1, s_2}(\mathbf{x}; \mathbf{D}_n)
-	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s_2}} h_{s_1, s_2}(\mathbf{x}; D_{\ell})
-\end{equation}
-It is worth pointing out that in contrast to the DNN estimator, the kernel for the TDNN estimator is of order $s_2 > s_1$.
-The authors derive an explicit formula for the kernel that shows the connection between the DNN and TDNN estimators.
-This connection will prove useful going forward.
-\begin{lem}[Kernel of TDNN Estimator - Adapted from Lemma 8 of \citet{demirkaya_optimal_2024}]\label{lem:dem8}\mbox{}\\*
-	The kernel of the TDNN estimator takes the following form.
-	\begin{equation}
-		\begin{aligned}
-			h_{s_1, s_2}\left(\mathbf{x}; D\right)
-			 & = w_{1}^{*}\left[\binom{s_2}{s_1}^{-1}\sum_{\ell \in L_{s_2, s_1}} h_{s_1}\left(\mathbf{x}; D_{\ell}\right)\right] + w_{2}^{*} h_{s_2}\left(\mathbf{x}; D\right) \\
-			 & = w_{1}^{*} \tilde{\mu}_{s_1}\left(\mathbf{x}; D\right) + w_{2}^{*} h_{s_2}\left(\mathbf{x}; D\right)                                                            \\
-		\end{aligned}
-	\end{equation}
-\end{lem}
-Borrowing the notational conventions from \citet{lee_u-statistics_2019}, additionally, introduce the following notation.
-\begin{equation}\label{eq:psi_s_c}
-	\psi_{s}^{c}(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c})
-	= \E_{D}\left[h_{s}\left(\mathbf{x}; D\right) \, | \,  \mathbf{Z}_1 = \mathbf{z}_{1}, \dotsc, \mathbf{Z}_c = \mathbf{z}_{c}\right]
-\end{equation}
-\begin{equation}
-	h_{s}^{(1)}\left(\mathbf{x}; \mathbf{z}_{1}\right)
-	= \psi_{s}^{1}(\mathbf{x}; \mathbf{z}_{1}) - \mu(\mathbf{x})
-\end{equation}
-\begin{equation}
-	h_{s}^{(c)}\left(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}\right)
-	= \psi_{s}^{c}(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}) - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{n,j}}h_{s}^{(j)}(\mathbf{x}; \mathbf{z}_{\ell})\right) - \mu(\mathbf{x})
-	\quad \text{for } c = 2, \dotsc, s
-\end{equation}
-In contrast to the notational inspiration, the subsampling size $s$ is made explicit.
-Since we are dealing with an infinite-order U-statistic, $s$ will be diverging with $n$.
-Completely analogous, define the corresponding objects for the TDNN estimator.
-For the DNN estimator and any $1 \leq c \leq s$, define
-\begin{equation}\label{eq:xi_s_c}
-	\xi_{s}^{c}\left(\mathbf{x}\right)
-	= \Var_{1:c}\left(\psi_{s}^{c}(\mathbf{x}; \mathbf{Z}_{1}, \dotsc, \mathbf{Z}_{c})\right)
-\end{equation}
-where $\mathbf{Z}_{c+1}^{\prime}, \ldots, \mathbf{Z}_n^{\prime}$ are i.i.d. from $P$ and independent of $\mathbf{Z}_1, \ldots, \mathbf{Z}_n$ and thus
-$\xi_{s}^{s}\left(\mathbf{x}\right) = \Var\left(h_s\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_s\right)\right).$
-% Then, we have the following result from the original paper.
-Similarly, for the TDNN estimator and any $1 \leq c \leq s_2$, let
-\begin{equation}\label{eq:zeta_s1s2_c}
-	\zeta_{s_1, s_2}^{c}\left(\mathbf{x}\right)
-	= \Var_{1:c}\left(\psi_{s_1, s_2}^{c}(\mathbf{x}; \mathbf{Z}_{1}, \dotsc, \mathbf{Z}_{c})\right)
-\end{equation}
-with an analogous definition of $\mathbf{Z}'$.
-
-\subsection{Hoeffding-Decomposition}
-As a byproduct (or main purpose depending on the perspective) these terms can be used to derive the Hoeffding decomposition of the TDNN estimator.
-\begin{equation}\label{eq:H_projection}
-	\begin{aligned}
-		H_{s}^{c}\left(\mathbf{x}; \mathbf{D}_n\right)
-		= \binom{n}{c}^{-1} \sum_{\ell \in L_{n,c}} h^{(c)}_{s}(\mathbf{x}; D_{\ell})
-		\quad \text{and} \quad
-		H_{s_1, s_2}^{c}\left(\mathbf{x}; \mathbf{D}_n\right)
-		= \binom{n}{c}^{-1} \sum_{\ell \in L_{n,c}} h^{(c)}_{s_1, s_2}(\mathbf{x}; D_{\ell})
-	\end{aligned}
-\end{equation}
-These projection terms can then be used to construct the following Hoeffding decompositions.
-\begin{equation}\label{eq:H_Decomp}
-	\tilde{\mu}_{s}\left(\mathbf{x}; \mathbf{D}_n\right)
-	= \mu(\mathbf{x}) + \sum_{j = 1}^{s}\binom{s}{j}H_{s}^{j}\left(\mathbf{x}; \mathbf{D}_n\right)\\
-	\quad \text{and} \quad
-	\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right)
-	= \mu(\mathbf{x}) + \sum_{j = 1}^{s_2}\binom{s_2}{j}H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_n\right)
-\end{equation}
-
-Standard results for U-statistics (see for example \citet{lee_u-statistics_2019}) now give us a number of useful results.
-First, an immediate result on the expectations of the Hoeffding-projection kernels.
-\begin{align}\label{eq:H_k_expectation}
-	\forall c = 1,2,\dotsc, j-1: \quad & \E_{D}\left[h_{s_1, s_2}^{(j)}\left(\mathbf{x}; D\right) \, | \, \mathbf{Z}_1 = \mathbf{z}_1, \dotsc, \mathbf{Z}_c = \mathbf{z}_c\right] = 0
-	\quad \text{and} \quad
-	\E_{D}\left[h_{s_1, s_2}^{(j)}\left(\mathbf{x}; D\right)\right] = 0
-\end{align}
-Second, we obtain a useful variance decomposition in terms of the Hoeffding-projection variances.
-\begin{align}\label{eq:Var_decomp}
-	\Var_{D}\left(\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; D\right)\right)
-	 & = \sum_{j = 1}^{s_2} \binom{s_2}{j}^2 \Var_{D}\left(H_{s_1, s_2}^{j}\left(\mathbf{x}; D\right)\right) \\
-	%
-	\Var_{D}\left(H_{s_1, s_2}^{j}\left(\mathbf{x}; D\right)\right)
-	 & = \binom{n}{j}^{-1} \Var_{D}\left(h_{s_1, s_2}^{(j)}\left(\mathbf{x}; D\right)\right)
-	=: \binom{n}{j}^{-1} V_{s_1, s_2}^{j}\left(\mathbf{x}\right)
-\end{align}
-Third, the following equivalent expression for the kernel variance.
-\begin{equation}\label{eq:k_var}
-	\zeta_{s_1, s_2}^{s_2}\left(\mathbf{x}\right)
-	= \Var_{D}\left(h_{s_1, s_2}\left(\mathbf{x}; D\right)\right)
-	= \sum_{j = 1}^{s_2} \binom{s_2}{j}V_{s_1, s_2}^{j}
-\end{equation}
+\input{Parts/01_Introduction.tex}
 
 \newpage
-\section{Pointwise Inference for the TDNN Estimator}\label{sec:pw_inf}
-\hrule
-To perform inference, the authors introduce variance estimators based on the Jackknife and Bootstrap.
-However, as they point out, their consistency results rely on a likely suboptimal rate condition for the subsampling scale.
-While Theorem \ref{thm:dem3} allows $s_2$ to be of the order $o(n)$, the variance estimators rely on the considerably stronger condition that $s_2 = o(n^{1/3})$.
-Establishing consistency for their variance estimators under weaker assumptions on the subsampling rates could broaden the scope of the TDNN estimator for inferential purposes considerably.
-Another variance that is of particular interest in this context is the Pseudo-Infinitesimal Jackknife (PIJK) Variance Estimator for Generalized U-Statistics of \citet{peng_bias_2021}.
-Going forward, all results will be stated for the TDNN estimator.
-However, due to the underlying similarities between the U-statistic representations of the two estimators, much of this will apply to the DNN estimator analogously.
-
-\subsection{Variance Estimators}\label{Var_Ests}
-
-Define the following variance we need to estimate to perform pointwise inference at a point of interest $\mathbf{x}$.
-\begin{equation}\label{eq:TDNN_Var}
-	\omega^{2}\left(\mathbf{x}; \mathbf{D}_n\right)
-	= \Var_{D}\left(\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right)\right)
-\end{equation}
-We denote by $\mathbf{D}_{n, -i}$ the data set $\mathbf{D}_n$ after removing the $i$'th observation.
-Then, the proposed Jackknife variance estimator takes the following form.
-\begin{equation}\label{eq:JK_Var_Est}
-	\hat{\omega}_{JK}^2\left(\mathbf{x}; \mathbf{D}_n\right)
-	= \frac{n-1}{n} \sum_{i = 1}^{n}\left(\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n, -i}\right) - \hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}\right)\right)^2
-\end{equation}
-
-Next, denote the chosen number of bootstrap samples by $B \geq 1$ and for all $1 \leq b \leq B$, let $\mathbf{D}^{(b)}_n$ denote a bootstrap sample drawn from $\mathbf{D}_n$ uniformly and with replacement.
-Then, their bootstrap variance estimator is defined as follows.
-\begin{equation}\label{eq:BS_Var_Est}
-	\hat{\omega}_{BS}^2\left(\mathbf{x}; \mathbf{D}_n\right)
-	= \frac{1}{B - 1}\sum_{b = 1}^{B} \left(\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}^{(b)}\right) - \bar{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}\right)\right)^2
-\end{equation}
-Here, $\bar{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}\right)$ is defined in the following way.
-\begin{equation}
-	\bar{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}\right)
-	= \frac{1}{B} \sum_{b = 1}^{B} \hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}^{(b)}\right)
-\end{equation}
-In their resulting analysis, the authors show that under some mild assumptions and in the regime $s_2 = o(n^{1/3})$, these estimators are ratio consistent.
-In this section, we will loosen that restrictive condition to make use of the attractive performance of U-statistics with large subsampling rates in the context of inference.
-The PIJK variance estimator applied to the TDNN estimator is as follows.
-\begin{equation}\label{eq:PIJK_Var_Est}
-	\hat{\omega}_{PI}^2\left(\mathbf{x}; \mathbf{D}_n\right)
-	= \frac{s_2^2}{n^2}\sum_{i = 1}^{n}\left[\left(
-		\binom{n-1}{s-1}^{-1} \sum_{\ell \in L_{s_2-1}([n]\backslash\{i\})} h_{s_1, s_2}\left(\mathbf{x}; D_{\ell \cup \{i\}}\right)\right)
-		- \hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right)\right]^2
-\end{equation}
-
-{\color{red} LOREM IPSUM}
-
-\subsection{Subsampling Rate Improvements}
-
-Having introduced the PIJK variance estimator, we can consider whether the results from \citet{peng_bias_2021} apply to the TDNN estimator.
-Specifically, we are interested in applying the following theorem.
-\begin{lem}[\citet{peng_bias_2021} - Theorem 6]\label{thm:peng21_6}\mbox{}\\*
-	Let $X_1, \ldots, X_n$ be i.i.d. from $\mathrm{P}$ and $\mathrm{U}_{n, k, \omega}$ be a generalized complete $U$ statistic with kernel $s\left(X_1, \ldots, X_k ; \omega\right)$.
-
-	Let $\theta=\E[s], \zeta_{1, \omega}=\Var\left(\E\left[s \mid X_1\right]\right)$ and $\zeta_k=\Var(s)$.
-	If $\frac{k}{n}\left(\frac{\zeta_k}{k \zeta 1, \omega}-1\right) \rightarrow 0$, then
-	\begin{equation}
-		\frac{\mathrm{ps-IJ}_{U}^\omega}{\Var\left(\mathrm{U}_{n, k, \omega}\right)}
-		\longrightarrow_{p} 1 .
-	\end{equation}
-\end{lem}
-
-It is relatively straightforward to show that this Theorem applies to the TDNN estimator with $s_2 = o(n)$, giving us the following result.
-	{\color{red} I need to check this proof in detail again!}
-\begin{thm}[Pseudo-Infinitesimal Jackknife Variance Estimator Consistency]\label{thm:PI_JK_Cons}\mbox{}\\*
-	Let $0 < c_1 \leq s_1/s_2 \leq c_2 < 1$ and $s_2 = o(n)$, then
-	\begin{equation}
-		\frac{\hat{\omega}_{PI}^2\left(\mathbf{x}; \mathbf{D}_n\right)}{\omega^{2}\left(\mathbf{x}; \mathbf{D}_n\right)} \longrightarrow_{p} 1.
-	\end{equation}
-\end{thm}
-
-In an analogous fashion to Theorems 5 and 6 from \citet{demirkaya_optimal_2024}, we furthermore obtain the following consistency results for the presented variance estimators.
-As they point out, proving these results goes beyond the techniques presented in \citet{arvesen_jackknifing_1969}, instead relying on results for infinite-order U-statistics.
-Following the ideas from \citet{peng_bias_2021}, we then obtain the following results on the Jackknife and Bootstrap variance estimators respectively.
-As part of the proof of these results, we obtain general results on the consistency of Jackknife and Bootstrap variance estimators for infinite-order U-statistics beyond the TDNN estimator.
-\begin{thm}[Jackknife Variance Estimator Consistency]\label{thm:JK_Cons}\mbox{}\\*
-	Let $0 < c_1 \leq s_1/s_2 \leq c_2 < 1$ and $s_2 = o(n)$, then
-	\begin{equation}
-		\frac{\hat{\omega}_{JK}^2\left(\mathbf{x}; \mathbf{D}_n\right)}{\omega^{2}\left(\mathbf{x}; \mathbf{D}_n\right)} \longrightarrow_{p} 1.
-	\end{equation}
-\end{thm}
-
-{\color{red}
-\begin{thm}[Bootstrap Variance Estimator Consistency]\label{thm:BS_Cons}\mbox{}\\*
-	LOREM IPSUM
-\end{thm}
-}
-
-\subsection{Pointwise Inference with the TDNN Estimator}
-
-{\color{red}
-	\begin{thm}[Pointwise Inference with the TDNN Estimator]\label{thm:pw_inf_TDNN}\mbox{}\\*
-		LOREM IPSUM
-	\end{thm}
-}
+\input{Parts/02_Setup.tex}
 
 \newpage
-\section{Jackknife and Bootstrap Variance Estimators for IOUS}\label{sec:JK_BS_IOUS}
-\hrule
-
-\begin{thm}[Consistency of Jackknife Variance Estimators for IOUS]\label{thm:JK_IOUS_Cons}\mbox{}\\*
-	
-\end{thm}
-
-\begin{thm}[Consistency of Bootstrap Variance Estimators for IOUS]\label{thm:BS_IOUS_Cons}\mbox{}\\*
-	
-\end{thm}
+\input{Parts/03_TDNN.tex}
 
 \newpage
-\section{Uniform Inference for the TDNN Estimator}\label{sec:unif_inf}
-\hrule
-Absent from \citet{demirkaya_optimal_2024} is a way to construct uniformly valid confidence bands around the TDNN estimator.
-Luckily, as a byproduct of considering the methods from \citet{ritzwoller_uniform_2024}, procedures for uniform inference can be developed relatively easily.
-
-To consider this problem in detail we first introduce additional notation.
-Instead of a single point of interest, previously denoted by $\mathbf{x}$, we will consider a vector of $p$ points of interest denoted by $\mathbf{x}^{(p)} \in \left(\operatorname{supp}\left(\mathbf{X}\right)\right)^{p}$.
-Consequently, the $j$-th entry of $\mathbf{x}^{(p)}$ will be denoted by $\mathbf{x}^{(p)}_{j}$.
-In an abuse of notation, let functions (such as $\mu$ or the DNN/TDNN estimators) evaluated at $\mathbf{x}^{(p)}$ denote the vector of corresponding function values evaluated at the point, respectively.
-It should be pointed out that, due to the local definition of the kernel in the estimators, this does not translate to the evaluation of the same function at different points in the most immediate sense.
-To summarize the kind of object we want to construct, we define a uniform confidence region for the TDNN estimator in the following way following closely the notation of \citet{ritzwoller_uniform_2024}.
-
-
-\begin{dfn}[Uniform Confidence Regions]\mbox{}\\*
-	A confidence region for the TDNN (or DNN) estimators that is uniformly valid at the rate $r_{n,d}$ is a family of random intervals
-	\begin{equation}
-		\hat{\mathcal{C}}\left(\mathbf{x}^{(p)}\right)
-		:= \left\{\hat{C}(\mathbf{x}^{(p)}_{j})
-		= \left[c_{L}(\mathbf{x}^{(p)}_{j}), c_{U}(\mathbf{x}^{(p)}_{j})\right]\, : \, j \in [p]\right\}
-	\end{equation}
-	based on the observed data, such that
-
-	\begin{equation}
-		\sup_{P \in \mathbf{P}} \left| P\left(\mu(\mathbf{x}^{(d)}) \in \hat{\mathcal{C}}\left(\mathbf{x}^{(d)}\right)\right) \right| \leq r_{n,d}
-	\end{equation}
-	for some sequence $r_{n,d}$, where $\mathbf{P}$ is some statistical family containing $P$.
-\end{dfn}
-
-\subsection{Low-Level}
-In our pursuit of constructing uniform confidence regions for the TDNN estimator, we return to the results from \citet{ritzwoller_uniform_2024} in their high-dimensional form.
-
-\begin{thm}[\citet{ritzwoller_uniform_2024} - Theorem 4.1]\label{thm:rit4_1}\mbox{}\\*
-	For any sequence of kernel orders $b=b_n$, where
-	\begin{equation}
-		\frac{1}{n} \frac{\nu_j^2}{\sigma_{b, j}^2} \rightarrow 0
-		\quad \text{as} \quad
-		n \rightarrow \infty,
-	\end{equation}
-	we have that
-	\begin{equation}
-		\sqrt{\frac{n}{\sigma_{b, j}^2 b^2}} \binom{n}{b}^{-1} \sum_{\mathbf{s} \in \mathbf{S}_{n, b}} u\left(\mathbf{x}^{(p)}_{j} ; D_{\mathbf{s}}\right) \rightsquigarrow \mathcal{N}(0,1),
-		\quad \text{as} \quad
-		n \rightarrow \infty.
-	\end{equation}
-\end{thm}
-
-
-\begin{thm}[Adapted from \citet{ritzwoller_uniform_2024} - Theorem 4.2]\label{thm:rit4_2}\mbox{}\\*
-	Define the terms
-	\begin{equation}
-		\bar{\psi}_{s_2}^2
-		= \max_{j \in[p]}\left\{\nu_j^2- s_2 \sigma_{s_2, j}^2\right\}
-		%
-		\quad \text {and} \quad
-		%
-		\underline{\sigma}_{s_2}^2
-		= \min_{j \in[p]} \sigma_{s_2, j}^2.
-	\end{equation}
-	If the kernel function $h_{s_1, s_2}\left(\mathbf{x} ; D_{\ell}\right)$ satisfies the bound
-	\begin{equation}
-		\left\|h_{s_1, s_2}\left(\mathbf{x} ; D_{\ell}\right)\right\|_{\psi_1} \leq \phi
-	\end{equation}
-	for each $j$ in $[d]$, then
-	\begin{equation}
-		\sqrt{\frac{n}{s_2^2 \underline{\sigma}_{s_2}^2}}
-		\left\|\hat{\mu}_{s_1, s_2}(\mathbf{x}^{(p)}; \mathbf{D}_n) - \mu(\mathbf{x}^{(p)}) - \frac{s_2}{n} \sum_{i=1}^n h^{(1)}_{s_1, s_2}(\mathbf{x}^{(p)}; \mathbf{z}_{i})\right\|_{\infty}
-		%
-		= \sqrt{\frac{n}{s_2^2 \underline{\sigma}_{s_2}^2}} \left\|\operatorname{HR}_{s_1, s_2}(\mathbf{x}^{(p)}; \mathbf{D}_n)\right\|_{\infty}
-		%
-		\lesssim \xi_{n, s_2},
-	\end{equation}
-	where
-	\begin{equation}
-		\xi_{n, s_2}
-		= \left(\frac{C s_2 \log(p n)}{n}\right)^{s_2 / 2}\left(\left(\frac{n \bar{\psi}_{s_2}^2}{{s_2}^2 \underline{\sigma}_{s_2}^2}\right)^{1 / 2}+\left(\frac{\phi^2 s_2 \log ^4(p n)}{\underline{\sigma}_{s_2}^2}\right)^{1 / 2}\right),
-	\end{equation}
-	with probability greater than $1-C / n$.
-\end{thm}
-
-\subsection{High-Level}
-Recent advances in the field of uniform inference for infinite-order U-statistics, specifically \citet{ritzwoller_uniform_2024}, and careful analysis of the Hoeffding projections of different orders will be the cornerstones in developing uniform inference methods.
-The authors' approach to constructing uniform confidence regions is based on the half-sample bootstrap root.
-
-
-\begin{dfn}[Half-Sample Bootstrap Root Approximation - \citet{ritzwoller_uniform_2024}]\mbox{}\\*
-	The Half-Sample Bootstrap Root Approximation of the sampling distribution of the root
-	\begin{equation}
-		R\left(\mathbf{x}^{(p)}; \mathbf{D}_n\right)
-		:= \hat{\mu}\left(\mathbf{x}^{(p)}; \mathbf{D}_n\right) - \mu(\mathbf{x}^{(p)})
-	\end{equation}
-	is given by the conditional distribution of the half-sample bootstrap root
-	\begin{equation}
-		R^{*}\left(\mathbf{x}^{(p)}; \mathbf{D}_n\right)
-		:= \hat{\mu}\left(\mathbf{x}^{(p)}; D_l\right) - \hat{\mu}\left(\mathbf{x}^{(p)}; \mathbf{D}_n\right)
-	\end{equation}
-	where $l$ denotes a random element from $L_{n, n/2}$.
-\end{dfn}
-Next, to standardize the relevant quantities, we introduce a corresponding studentized process.
-\begin{equation}
-	\hat{\lambda}_{j}^{2}\left(\mathbf{x}^{(p)}; \mathbf{D}_n\right) = \Var\left(\sqrt{n} R^{*}(\mathbf{x}^{(p)}_{j}; \mathbf{D}_n) \, | \, \mathbf{D}_n\right)
-	\quad \text{and} \quad
-	\hat{\Lambda}_n\left(\mathbf{x}^{(p)}; \mathbf{D}_n\right) = \operatorname{diag}\left(\left\{\hat{\lambda}_{j}^{2}\left(\mathbf{x}^{(p)}; \mathbf{D}_n\right)\right\}_{j = 1}^{p}\right)
-\end{equation}
-\begin{equation}
-	\hat{S}^{*}\left(\mathbf{x}^{(p)}; \mathbf{D}_n\right)
-	:= \sqrt{n} \, \Big\| \left(\hat{\Lambda}_n\left(\mathbf{x}^{(p)}; \mathbf{D}_n\right)\right)^{-1/2} R^{*}\left(\mathbf{x}^{(p)}; \mathbf{D}_n\right)\Big\|_{2}
-\end{equation}
-Let $\operatorname{cv}\left(\alpha; \mathbf{D}_n\right)$ denote the $1-\alpha$ quantile of the distribution of $\hat{S}^{*}\left(\mathbf{x}^{(p)}; \mathbf{D}_n\right)$.
-As the authors point out specifically, and as indicated by the more explicit notation chosen in this presentation, this is a quantile of the conditional distribution given the data $\mathbf{D}_n$.
-Given this construction, the uniform confidence region developed in \citet{ritzwoller_uniform_2024} adapted to the TDNN estimator takes the following form.
-
-
-\begin{thm}[Uniform Confidence Region - \citet{ritzwoller_uniform_2024}]\mbox{}\\*
-	Define the intervals
-	\begin{equation}
-		\hat{\mathcal{C}}\left(\mathbf{x}^{(p)}_j; \mathbf{D}_n\right)
-		:= \hat{\mu}\left(\mathbf{x}^{(p)}_{j}; \mathbf{D}_n\right) \pm
-		n^{-1/2} \hat{\lambda}_{j}\left(\mathbf{x}^{(p)}; \mathbf{D}_n\right)\operatorname{cv}\left(\alpha; \mathbf{D}_n\right)
-	\end{equation}
-	The $\alpha$-level uniform confidence region for $\mu\left(\mathbf{x}^{(p)}\right)$ is given by $\hat{\mathcal{C}}\left(\mathbf{x}^{(p)}\right)$.
-\end{thm}
-
-To justify the use of this uniform confidence region, it remains to be shown if and how the other conditions for the inner workings of this procedure apply to the TDNN estimator.
-This is substantially simplified due to the absence of a nuisance parameter.
-Thus, consider the following conditions from \cite{ritzwoller_uniform_2024} that are simplified to fit the problem at hand.
-
-
-\begin{dfn}[Shrinkage and Incrementality - Adapted from \citet{ritzwoller_uniform_2024}]\mbox{}\\*
-	We say that the kernel $\kappa\left(\cdot, \cdot, D_{\ell}\right)$ has a uniform shrinkage rate $\epsilon_b$ if
-	\begin{equation}
-		\sup_{P \in \mathbf{P}} \sup_{j \in[p]}
-		\E\left[\max \left\{\left\|\mathbf{X}_i-\mathbf{x}^{(p)}_{j}\right\|_{2}: \kappa\left(\mathbf{x}^{(p)}_{j}, \mathbf{X}_i, D_{\ell}\right)>0\right\}\right]
-		\leq \epsilon_b .
-	\end{equation}
-	We say that a kernel $\kappa\left(\cdot, \cdot, D_{\ell}\right)$ is uniformly incremental if
-	\begin{equation}
-		\inf_{P \in \mathbf{P}} \sup_{j \in[p]}
-		\Var\left(\E\left[\sum_{i \in \ell} \kappa\left(\mathbf{x}^{(p)}_{j}, \mathbf{X}_i, D_{\ell}\right) m\left(\mathbf{Z}_i ; \mu\right) \mid l \in \ell, \mathbf{Z}_l = Z\right]\right)
-		\gtrsim b^{-1}
-	\end{equation}
-	where $Z$ is an independent random variable with distribution $P$.
-\end{dfn}
-
-Translating these properties to suit the TDNN regression problem, we obtain the following conditions that need to be verified.
-First, to verify uniform shrinkage at a rate $\epsilon_b$, the following remains to be shown.
-\begin{equation}
-	\sup_{P \in \mathbf{P}} \sup_{j \in[p]}
-	\E\left[\max \left\{\left\|\mathbf{X}_i-\mathbf{x}^{(p)}_{j}\right\|_{2}:
-	\rk(\mathbf{x}^{(p)}_{j}; \mathbf{X}_i, D_{\ell}) = 1\right\}\right]
-	\leq \epsilon_b
-\end{equation}
-Second, for uniform incrementality, we need to show the following.
-\begin{equation}
-	\begin{aligned}
-		  & \inf_{P \in \mathbf{P}} \sup_{j \in[p]}
-		\Var\left(\E\left[
-				\sum_{i \in \ell} \1\left(\rk(\mathbf{x}^{(p)}_{j}; \mathbf{X}_i, D_{\ell}) = 1\right) \left(Y_i - \mu\left(\mathbf{X}_i\right)\right) \mid l \in \ell, \mathbf{Z}_l = Z\right]
-		\right)                                     \\
-		%
-		= & \inf_{P \in \mathbf{P}} \sup_{j \in[p]}
-		\Var\left(
-		\sum_{i \in \ell}\E\left[\1\left(\rk(\mathbf{x}^{(p)}_{j}; \mathbf{X}_i, D_{\ell}) = 1\right) \varepsilon_i \mid l \in \ell, \mathbf{Z}_l = Z\right]
-		\right)                                     \\
-		%
-		= & \inf_{P \in \mathbf{P}} \sup_{j \in[p]}
-		\Var\left(
-		\sum_{i = 1}^{s}\E\left[\1\left(\rk(\mathbf{x}^{(p)}_{j}; \mathbf{X}_i, D_{1:s}) = 1\right) \varepsilon_i \mid l \in [s], \mathbf{Z}_l = Z\right]
-		\right)                                     \\
-		%
-		= & \inf_{P \in \mathbf{P}} \sup_{j \in[p]}
-		s^2 \cdot \Var\left(
-		\E\left[\1\left(\rk(\mathbf{x}^{(p)}_{j}; \mathbf{X}_1, D_{1:s}) = 1\right) \varepsilon_1 \mid l \in [s], \mathbf{Z}_l = Z\right]
-		\right)
-		\gtrsim b^{-1}
-	\end{aligned}
-\end{equation}
-
-To verify these assumptions, recent theory developed in \citet{peng_rates_2022} is of great help.
-Specifically, the following Proposition and its proof are helpful in showing the desired uniform incrementality property.
-
-	{\color{red} LOREM IPSUM}
-
-
-\begin{asm}[Boundedness - Adapted from \citet{ritzwoller_uniform_2024}]\mbox{}\\*
-	The absolute value of the function $m(\cdot; \mu)$ is bounded by the constant $(\theta+1) \phi$ almost surely.
-	\begin{equation}
-		|m(\mathbf{Z}_i ; \mu)|
-		= |Y_i - \mu(\mathbf{X}_i)|
-		= |\varepsilon_i|
-		\leq (\theta+1) \phi
-		\quad \text{a.s.}
-	\end{equation}
-\end{asm}
-To follow the notational conventions, we will further define the two functions $m^{(1)}(\mathbf{Z}_i; \mu) = - \mu(\mathbf{X}_i)$ and $m^{(2)}(\mathbf{Z}_i) = Y_i$.
-As the authors point out, the boundedness condition can easily be replaced by a condition on the subexponential norm.
-This, being more in line with the assumptions of \citet{demirkaya_optimal_2024}, is a desirable substitution.
-Thus, we will instead consider the following assumption and fill in parts of the proofs that hinge on boundedness for ease of exposition in the original paper.
-
-
-\begin{asm}[Sub-Exponential Norm Bound]\mbox{}\\*
-
-\end{asm}
-
-{\color{red} LOREM IPSUM}
-
-% 
-% \begin{assumption}[Consistency]
-
-% \end{assumption}
-
-% {\color{red} LOREM IPSUM}
-
-
-\begin{asm}[Moment Smoothness - Adapted from \citet{ritzwoller_uniform_2024}]\mbox{}\\*
-	Define the moments
-	\begin{equation}
-		M^{(1)}(\mathbf{x} ; \mu)
-		= \E\left[m^{(1)}\left(\mathbf{Z}_i ; \mu\right) \mid \mathbf{X}_i= \mathbf{x}\right]
-		\quad \text{and} \quad
-		M^{(2)}(\mathbf{x})
-		= \E\left[m^{(2)}\left(\mathbf{Z}_i\right) \mid \mathbf{X}_i = \mathbf{x}\right],
-	\end{equation}
-	associated with the functions $m^{(1)}(\cdot ; \mu)$ and $m^{(2)}(\cdot)$.
-	Plugging in yields the following functions.
-	\begin{equation}
-		M^{(1)}(\mathbf{x} ; \mu)
-		= -\mu(\mathbf{x})
-		\quad \text{and} \quad
-		M^{(2)}(\mathbf{x})
-		= \mu(\mathbf{x}).
-	\end{equation}
-	Both moments are uniformly Lipschitz in their first component, in the sense that
-	\begin{equation}
-		\forall \mathbf{x}, \mathbf{x}^{\prime} \in \operatorname{supp}\left(\mathbf{X}\right): \quad
-		\sup _{P \in \mathbf{P}}
-		\left|\mu(\mathbf{x})-\mu\left(\mathbf{x}^{\prime}\right)\right|
-		\lesssim\left\|\mathbf{x}-\mathbf{x}^{\prime}\right\|_{2}.
-	\end{equation}
-	and $M^{(1)}$ is bounded below in the following sense
-	\begin{equation}
-		\inf_{P \in \mathbf{P}} \inf_{j \in [p]} \Big|M^{(1)}\left(\mathbf{x}^{(p)}_{j}\right) \Big|
-		= \inf_{P \in \mathbf{P}} \inf_{j \in [p]} \Big|\mu\left(\mathbf{x}^{(p)}_{j}\right) \Big| \geq c
-	\end{equation}
-	for some positive constant $c$.
-\end{asm}
-
-The Lipschitz continuity part of this assumption translates directly into a Lipschitz continuity assumption on the unknown nonparametric regression function.
-The boundedness assumption is
-	{\color{red} LOREM IPSUM}
-
-\subsection{Uniform Inference with the TDNN Estimator}
+\input{Parts/04_PW_Inf.tex}
 
 \newpage
-\section{Simulations}\label{sec:simulations}
-\hrule
+\input{Parts/05_Unif_Inf.tex}
 
-Having developed theoretical results concerning uniform inference methods for the TDNN estimator, we will proceed by testing their properties in several simulation studies.
+\newpage
+\input{Parts/06_Simulations.tex}
 
-\begin{figure}[H]
-	\includegraphics[width = \textwidth]{../Code/Simulations/Graphics/TDNN_DNN.pdf}
-	\caption{Comparison of the DNN ($s = 20$) and TDNN ($s_1 = 20, s_2 = 50$) Estimators for different sample sizes.
-		The dashed line indicates the value of the unknown regression function at the point of interest.
-		Simulation Setup replicates Setting 1 from \citet{demirkaya_optimal_2024} for 10000 Monte Carlo Replications.}
-\end{figure}
+\newpage
+\input{Parts/07_Application.tex}
 
-{\color{red} LOREM IPSUM}
-
-
-\section{Application}\label{sec:application}
-\hrule
-
-{\color{red} Ideas:
-	\begin{enumerate}
-		\item Nonparametric IV (use TDNN for first stage)
-		\item ``Mostly Harmless Machine Learning: Learning Optimal Instruments in Linear IV Models'' (2021) by Jiafeng Chen, Daniel L. Chen, Greg Lewis
-		\item Use for Double-Debiased Machine Learning
-	\end{enumerate}
-}
-
-\section{Conclusion}\label{sec:conclusion}
-\hrule
+\newpage
+\input{Parts/08_Conclusion.tex}
 
 \newpage
 \printbibliography
 
 \newpage
 \appendix
+
+\newpage
+\input{Parts/A1_UStat.tex}
+
+\newpage
+\input{Parts/A2_Helpful_Results.tex}
+
 
 \newpage
 \section{Proofs for Results in Section \ref{sec:TDNN}}
@@ -814,41 +170,41 @@ Having developed theoretical results concerning uniform inference methods for th
 \section{Proofs for Results in Section \ref{sec:pw_inf}}
 \hrule
 
-\subsection{Useful Results}
+\subsection{Closed Form Representations}
 \hrule
 
-\begin{lem}[\citet{demirkaya_optimal_2024} - Lemma 12]\label{lem:dem12}\mbox{}\\*
-	Let $D = \{\mathbf{Z}_1, \dotsc, \mathbf{Z}_s\}$ an i.i.d. sample drawn from $P$.
-	The indicator functions $\kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right)$ satisfy the following properties.
-	\begin{enumerate}
-		\item For any $i \neq j$, we have $\kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right) \kappa\left(\mathbf{x}; \mathbf{Z}_j, D\right)=0$ with probability one;
-		\item $\sum_{i=1}^{s} \kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right)=1$;
-		\item $\forall i \in [s]: \quad \mathbb{E}_{1:s}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_i, D\right)\right]=s^{-1}$
-		\item $\mathbb{E}_{2: s}\left[\kappa\left(\mathbf{x}; \mathbf{Z}_1, D\right)\right]=\left\{1-\varphi\left(B\left(\mathbf{x},\left\|\mathbf{X}_1-\mathbf{x}\right\|\right)\right)\right\}^{s-1}$
-	\end{enumerate}
-	Here $\mathbb{E}_{i: s}$ denotes the expectation with respect to $\left\{\mathbf{Z}_i, \mathbf{Z}_{i+1}, \cdots, \mathbf{Z}_s\right\}$.
-	Furthermore, $\varphi$ denotes the probability measure on $\mathbb{R}^{d}$ induced by the random vector $\mathbf{X}$.
-\end{lem}
-
-\hrule
-
-\begin{lem}[\citet{demirkaya_optimal_2024} - Lemma 13]\label{lem:dem13}\mbox{}\\*
-	For any $L^1$ function $f$ that is continuous at $\mathbf{x}$, it holds that
+\begin{proof}[Proof of Theorem \ref{thm:JK_closed_form}]\mbox{}\\*
+	Recall the closed form representation of the DNN estimator as presented in Equation \ref{eq:DNN_closed_form}.
 	\begin{equation}
-		\lim _{s \rightarrow \infty} \E_1\left[f\left(\mathbf{X}_1\right) s \E_{2: s}\left[\kappa(\mathbf{x}; \mathbf{Z}_1, D)\right]\right]
-		= f(\mathbf{x}).
+		\tilde{\mu}_{s}(\mathbf{x}; \mathbf{D}_n)
+		= \binom{n}{s}^{-1} \sum_{i = 1}^{n - s + 1}\binom{n - i}{s - 1}Y_{(i)}
 	\end{equation}
-\end{lem}
-
-\hrule
-
-\begin{lem}[\citet{peng_bias_2021} - Lemma 1]\label{lem:peng1}\mbox{}\\*
-	Suppose that $\sum X_i^2 \xrightarrow{p} 1, \sum \mathbb{E}\left[X_i^2\right] \rightarrow 1$, and $\sum_{i=1}^n \mathbb{E}\left[Y_i^2\right] \rightarrow 0$, then
+	Plugging into the Jackknife variance estimator for the DNN estimator now gives us the following where we assume that $n$ is sufficiently large for $n - s + 1$ to be larger than $s$.
 	\begin{equation}
-		\sum\left[X_i+Y_i\right]^2 \xrightarrow{p} 1 \quad \text { and } \mathbb{E}\left[\sum\left(X_i+Y_i\right)^2\right] \rightarrow 1.
+		\begin{aligned}
+			\hat{\omega}_{\text{JK}}^{2}
+			 & = \frac{n - 1}{n}\sum_{i = 1}^{n} \left(\tilde{\mu}_{s}(\mathbf{x}; \mathbf{D}_{n, -i}) - \tilde{\mu}_{s}(\mathbf{x}; \mathbf{D}_n)\right)^2 \\
+			%
+			 & = \frac{n - 1}{n}\left\{\sum_{i = 1}^{s} \left(
+			\binom{n - 1}{s}^{-1}\left(\sum_{j = 1}^{i - 1} \binom{n - j - 1}{s - 1}Y_{(j)}
+			+ \sum_{j = i + 1}^{n - s + 1}\binom{n - j}{s - 1}Y_{(j)}\right)
+			- \binom{n}{s}^{-1} \sum_{j = 1}^{n - s + 1} \binom{n - j}{s - 1}Y_{(j)}
+			\right)^2 \right.                                                                                                                               \\
+			 & \left. \quad \quad +
+			\sum_{i = s + 1}^{n} \left(
+			\binom{n - 1}{s}^{-1}\sum_{j = 1}^{n - s + 1} \binom{n - j - 1}{s - 1}Y_{(j)}
+			- \binom{n}{s}^{-1} \sum_{j = 1}^{n - s + 1} \binom{n - j}{s - 1}Y_{(j)}
+			\right)^2\right\}                                                                                                                               \\
+			%
+			& = 
+		\end{aligned}
 	\end{equation}
-\end{lem}
+	The closed form of the Jackknife variance estimator for the TDNN estimator follows from the same approach.
 
+	{\color{red} LOREM IPSUM}
+\end{proof}
+
+\newpage
 \subsection{Kernel (Conditional) Expectations}
 \hrule
 
@@ -1385,141 +741,175 @@ Having developed theoretical results concerning uniform inference methods for th
 	\end{equation}
 \end{lem}
 
-\subsection{Jackknife Lemmas}
-\hrule
+% \subsection{Jackknife Lemmas}
+% \hrule
 
-\begin{lem}[\citet{lee_u-statistics_2019} - Chapter 5, Theorem 1]\label{thm:lee_ch5_1}\mbox{}\\*
-	Let $U_n$ be a U-statistic of degree $s$ based on a kernel $\psi_s$.
-	Then, the Jackknife Variance estimator takes the following form.
-	\begin{equation}
-		\hat{\omega}^{2}_{JK}\left(\mathbf{x}; \mathbf{D}_n\right)
-		= \frac{n-1}{n^2}\binom{n-1}{s}^{-2}\sum_{c = 0}^{s}\left(cn - s^2\right)S_c
-	\end{equation}
-	where the quantities $S_c$ are defined by
-	\begin{equation}
-		S_c
-		= \sum_{\substack{\iota, \iota' \in L_{n,s}, \\ \, |\iota \cap \iota'| = c}}
-		\psi_{s}(D_{\iota})\psi_{s}(D_{\iota'}).
-	\end{equation}
-\end{lem}
+% \begin{lem}[\citet{lee_u-statistics_2019} - Chapter 5, Theorem 1]\label{thm:lee_ch5_1}\mbox{}\\*
+% 	Let $U_n$ be a U-statistic of degree $s$ based on a kernel $\psi_s$.
+% 	Then, the Jackknife Variance estimator takes the following form.
+% 	\begin{equation}
+% 		\hat{\omega}^{2}_{JK}\left(\mathbf{x}; \mathbf{D}_n\right)
+% 		= \frac{n-1}{n^2}\binom{n-1}{s}^{-2}\sum_{c = 0}^{s}\left(cn - s^2\right)S_c
+% 	\end{equation}
+% 	where the quantities $S_c$ are defined by
+% 	\begin{equation}
+% 		S_c
+% 		= \sum_{\substack{\iota, \iota' \in L_{n,s}, \\ \, |\iota \cap \iota'| = c}}
+% 		\psi_{s}(D_{\iota})\psi_{s}(D_{\iota'}).
+% 	\end{equation}
+% \end{lem}
 
-\hrule
+% \hrule
 
-\begin{lem}[Jackknife Variance Estimator as U-Statistic]\label{lem:JK_as_U_Stat}\mbox{}\\*
-	The Jackknife Variance Estimator as described in Lemma \ref{thm:lee_ch5_1} can be expressed as a U-statistic of order $2s$.
-	\begin{equation}
-		\hat{\omega}^{2}_{JK}\left(\mathbf{x}; \mathbf{D}_n\right)
-		= \binom{n}{2s}^{-1} \sum_{\ell \in L_{n, 2 s}}J_{s}\left(\mathbf{x}; n, D_\ell\right)
-	\end{equation}
-	with
-	\begin{equation}
-		J_{s}\left(\mathbf{x}; n, D\right)
-		:= A(n, s)
-		\sum_{c = 0}^{s} \frac{cn - s^2}{B(n, s, c)}
-		\sum_{\varkappa \in L_{2 s, c}}
-		\sum_{\substack{\varsigma, \varpi \in L_{s - c}([2 s] \backslash \varkappa),\\
-				\varsigma \cap \varpi = \emptyset}}
-		j_{s}\left(\mathbf{x}; \varkappa, \varsigma, \varpi, D\right)
-	\end{equation}
-	where
-	\begin{equation}
-		j_{s}\left(\mathbf{x}; \varkappa, \varsigma, \varpi, D\right) =
-		h_{s}(\mathbf{x}; D_{\varkappa \cup \varsigma}) \cdot
-		h_{s}(\mathbf{x};D_{\varkappa \cup \varpi})
-	\end{equation}
-	and
-	\begin{equation}
-		A(n, s) := \frac{n-1}{n^2} \binom{n}{2s} \binom{n-1}{s}^{-2}
-		\quad \text{and} \quad
-		B(n, s, c) := \binom{n-2s+c}{2s - c}{\color{red} \text{???}}
-	\end{equation}
-\end{lem}
+% \begin{lem}[Jackknife Variance Estimator as U-Statistic]\label{lem:JK_as_U_Stat}\mbox{}\\*
+% 	The Jackknife Variance Estimator as described in Lemma \ref{thm:lee_ch5_1} can be expressed as a U-statistic of order $2s$.
+% 	\begin{equation}
+% 		\hat{\omega}^{2}_{JK}\left(\mathbf{x}; \mathbf{D}_n\right)
+% 		= \binom{n}{2s}^{-1} \sum_{\ell \in L_{n, 2 s}}J_{s}\left(\mathbf{x}; n, D_\ell\right)
+% 	\end{equation}
+% 	with
+% 	\begin{equation}
+% 		J_{s}\left(\mathbf{x}; n, D\right)
+% 		:= A(n, s)
+% 		\sum_{c = 0}^{s} \frac{cn - s^2}{B(n, s, c)}
+% 		\sum_{\varkappa \in L_{2 s, c}}
+% 		\sum_{\substack{\varsigma, \varpi \in L_{s - c}([2 s] \backslash \varkappa),\\
+% 				\varsigma \cap \varpi = \emptyset}}
+% 		j_{s}\left(\mathbf{x}; \varkappa, \varsigma, \varpi, D\right)
+% 	\end{equation}
+% 	where
+% 	\begin{equation}
+% 		j_{s}\left(\mathbf{x}; \varkappa, \varsigma, \varpi, D\right) =
+% 		h_{s}(\mathbf{x}; D_{\varkappa \cup \varsigma}) \cdot
+% 		h_{s}(\mathbf{x};D_{\varkappa \cup \varpi})
+% 	\end{equation}
+% 	and
+% 	\begin{equation}
+% 		A(n, s) := \frac{n-1}{n^2} \binom{n}{2s} \binom{n-1}{s}^{-2}
+% 		\quad \text{and} \quad
+% 		B(n, s, c) := \binom{n-2s+c}{2s - c}{\color{red} \text{???}}
+% 	\end{equation}
+% \end{lem}
 
-\begin{proof}[Proof of Lemma \ref{lem:JK_as_U_Stat}]
-	Taking Lemma \ref{thm:lee_ch5_1} as given, we find that the Jackknife variance estimator for the TDNN estimator can be expressed in the following form.
-	\begin{equation}
-		\hat{\omega}^{2}_{JK}
-		= \frac{n-1}{n^2}\binom{n-1}{s}^{-2}
-		\left(\sum_{c = 0}^{s}\left(cn - s^2\right)
-		\sum_{\substack{\ell, \iota \in L_{n,s}, \\ \, |\ell \cap \iota| = c}} h_{s}(\mathbf{x}; D_{\ell})h_{s}(\mathbf{x};D_{\iota})\right)
-	\end{equation}
-	Taking now the kernel as described in Lemma \ref{lem:JK_as_U_Stat}, we can make the following observation.
-	\begin{equation}
-		\begin{aligned}
-			\hat{\omega}^{2}_{JK}
-			%
-			 & = \frac{n-1}{n^2}\binom{n-1}{s}^{-2}
-			\left(\sum_{c = 0}^{s}\left(cn - s^2\right)
-			\sum_{\substack{\iota, \iota' \in L_{n,s},                                                              \\ \, |\iota' \cap \iota| = c}} h_{s}(\mathbf{x}; D_{\iota})h_{s}(\mathbf{x};D_{\iota'})\right) \\
-			%
-			 & = \binom{n}{2 s}^{-1} A(n, s)
-			\left(
-			\sum_{\iota', \iota \in L_{n,s}}
-			\left(|\iota' \cap \iota|n - s^2\right) h_{s}(\mathbf{x}; D_{\iota})h_{s}(\mathbf{x};D_{\iota'})\right) \\
-			%
-			 & = \binom{n}{2 s}^{-1} A(n, s)
-			\left(
-			\sum_{\iota', \iota \in L_{n,s}}
-			\frac{
-			\sum_{\ell \in L_{n, 2s}}
-			\1\left(\iota, \iota' \subseteq \ell\right)
-			\left(|\iota' \cap \iota|n - s^2\right) h_{s}(\mathbf{x}; D_{\iota})h_{s}(\mathbf{x};D_{\iota'})}
-			{\sum_{\ell \in L_{n, 2s_2}}\1\left(\iota, \iota' \subseteq \ell\right)}\right)                         \\
-			%
-			 & = \binom{n}{2 s}^{-1} A(n, s)
-			\left(
-			\sum_{\ell \in L_{n, 2s}}
-			\sum_{\iota', \iota \in L_{n,s}}
-			\frac{\1\left(\iota, \iota' \subseteq \ell\right)}{B(n,s,|\iota \cap \iota'|)}
-			\left(|\iota' \cap \iota|n - s^2\right) h_{s}(\mathbf{x}; D_{\iota})h_{s}(\mathbf{x};D_{\iota'})
-			\right)                                                                                                 \\
-			%
-			 & = \binom{n}{2 s}^{-1} A(n, s)
-			\left(
-			\sum_{\ell \in L_{n, 2s}}
-			\sum_{\iota', \iota \in L_{s}(\ell)}
-			\left(|\iota' \cap \iota|n - s^2\right)
-			\frac{h_{s}(\mathbf{x}; D_{\iota})h_{s}(\mathbf{x};D_{\iota'})}
-			{B(n,s,|\iota \cap \iota'|)}
-			\right)                                                                                                 \\
-			%
-			 & = \binom{n}{2 s}^{-1} A(n, s)
-			\left(
-			\sum_{c = 0}^{s}\frac{cn - s^2}{B(n,s,c)}
-			\sum_{\ell \in L_{n, 2s}}
-			\sum_{\substack{\iota', \iota \in L_{s}(\ell),                                                          \\ |\iota \cap \iota'| = c}}
-			h_{s}(\mathbf{x}; D_{\iota})h_{s}(\mathbf{x};D_{\iota'})
-			\right)                                                                                                 \\
-			%
-			 & = \binom{n}{2 s}^{-1}
-			\sum_{\ell \in L_{n, 2s}} \left(A(n, s)
-			\sum_{c = 0}^{s}\frac{cn - s^2}{B(n,s,c)}
-			\sum_{\substack{\iota', \iota \in L_{s}(\ell),                                                          \\ |\iota \cap \iota'| = c}}
-			h_{s}(\mathbf{x}; D_{\iota})h_{s}(\mathbf{x};D_{\iota'})
-			\right)                                                                                                 \\
-			%
-			 & = \binom{n}{2 s}^{-1}
-			\sum_{\ell \in L_{n, 2s}}\left(
-			A(n, s)
-			\sum_{c = 0}^{s} \frac{cn - s^2}{B(n, s, c)}
-			\sum_{\varkappa \in L_{2 s, c}}
-			\sum_{\substack{\varsigma, \varpi \in L_{s - c}([2 s] \backslash \varkappa),                            \\
-					\varsigma \cap \varpi = \emptyset}}
-			j_{s}\left(\mathbf{x}; \varkappa, \varsigma, \varpi, D_{\ell}\right)\right)                             \\
-			%
-			 & = \binom{n}{2 s}^{-1}
-			\sum_{\ell \in L_{n, 2s}}
-			J_{s}\left(\mathbf{x}; n, D_{\ell}\right)
-		\end{aligned}
-	\end{equation}
-	Thus showing that the Jackknife variance estimator is a U-statistic of order $2s$.
-\end{proof}
+% \begin{proof}[Proof of Lemma \ref{lem:JK_as_U_Stat}]
+% 	Taking Lemma \ref{thm:lee_ch5_1} as given, we find that the Jackknife variance estimator for the TDNN estimator can be expressed in the following form.
+% 	\begin{equation}
+% 		\hat{\omega}^{2}_{JK}
+% 		= \frac{n-1}{n^2}\binom{n-1}{s}^{-2}
+% 		\left(\sum_{c = 0}^{s}\left(cn - s^2\right)
+% 		\sum_{\substack{\ell, \iota \in L_{n,s}, \\ \, |\ell \cap \iota| = c}} h_{s}(\mathbf{x}; D_{\ell})h_{s}(\mathbf{x};D_{\iota})\right)
+% 	\end{equation}
+% 	Taking now the kernel as described in Lemma \ref{lem:JK_as_U_Stat}, we can make the following observation.
+% 	\begin{equation}
+% 		\begin{aligned}
+% 			\hat{\omega}^{2}_{JK}
+% 			%
+% 			 & = \frac{n-1}{n^2}\binom{n-1}{s}^{-2}
+% 			\left(\sum_{c = 0}^{s}\left(cn - s^2\right)
+% 			\sum_{\substack{\iota, \iota' \in L_{n,s},                                                              \\ \, |\iota' \cap \iota| = c}} h_{s}(\mathbf{x}; D_{\iota})h_{s}(\mathbf{x};D_{\iota'})\right) \\
+% 			%
+% 			 & = \binom{n}{2 s}^{-1} A(n, s)
+% 			\left(
+% 			\sum_{\iota', \iota \in L_{n,s}}
+% 			\left(|\iota' \cap \iota|n - s^2\right) h_{s}(\mathbf{x}; D_{\iota})h_{s}(\mathbf{x};D_{\iota'})\right) \\
+% 			%
+% 			 & = \binom{n}{2 s}^{-1} A(n, s)
+% 			\left(
+% 			\sum_{\iota', \iota \in L_{n,s}}
+% 			\frac{
+% 			\sum_{\ell \in L_{n, 2s}}
+% 			\1\left(\iota, \iota' \subseteq \ell\right)
+% 			\left(|\iota' \cap \iota|n - s^2\right) h_{s}(\mathbf{x}; D_{\iota})h_{s}(\mathbf{x};D_{\iota'})}
+% 			{\sum_{\ell \in L_{n, 2s_2}}\1\left(\iota, \iota' \subseteq \ell\right)}\right)                         \\
+% 			%
+% 			 & = \binom{n}{2 s}^{-1} A(n, s)
+% 			\left(
+% 			\sum_{\ell \in L_{n, 2s}}
+% 			\sum_{\iota', \iota \in L_{n,s}}
+% 			\frac{\1\left(\iota, \iota' \subseteq \ell\right)}{B(n,s,|\iota \cap \iota'|)}
+% 			\left(|\iota' \cap \iota|n - s^2\right) h_{s}(\mathbf{x}; D_{\iota})h_{s}(\mathbf{x};D_{\iota'})
+% 			\right)                                                                                                 \\
+% 			%
+% 			 & = \binom{n}{2 s}^{-1} A(n, s)
+% 			\left(
+% 			\sum_{\ell \in L_{n, 2s}}
+% 			\sum_{\iota', \iota \in L_{s}(\ell)}
+% 			\left(|\iota' \cap \iota|n - s^2\right)
+% 			\frac{h_{s}(\mathbf{x}; D_{\iota})h_{s}(\mathbf{x};D_{\iota'})}
+% 			{B(n,s,|\iota \cap \iota'|)}
+% 			\right)                                                                                                 \\
+% 			%
+% 			 & = \binom{n}{2 s}^{-1} A(n, s)
+% 			\left(
+% 			\sum_{c = 0}^{s}\frac{cn - s^2}{B(n,s,c)}
+% 			\sum_{\ell \in L_{n, 2s}}
+% 			\sum_{\substack{\iota', \iota \in L_{s}(\ell),                                                          \\ |\iota \cap \iota'| = c}}
+% 			h_{s}(\mathbf{x}; D_{\iota})h_{s}(\mathbf{x};D_{\iota'})
+% 			\right)                                                                                                 \\
+% 			%
+% 			 & = \binom{n}{2 s}^{-1}
+% 			\sum_{\ell \in L_{n, 2s}} \left(A(n, s)
+% 			\sum_{c = 0}^{s}\frac{cn - s^2}{B(n,s,c)}
+% 			\sum_{\substack{\iota', \iota \in L_{s}(\ell),                                                          \\ |\iota \cap \iota'| = c}}
+% 			h_{s}(\mathbf{x}; D_{\iota})h_{s}(\mathbf{x};D_{\iota'})
+% 			\right)                                                                                                 \\
+% 			%
+% 			 & = \binom{n}{2 s}^{-1}
+% 			\sum_{\ell \in L_{n, 2s}}\left(
+% 			A(n, s)
+% 			\sum_{c = 0}^{s} \frac{cn - s^2}{B(n, s, c)}
+% 			\sum_{\varkappa \in L_{2 s, c}}
+% 			\sum_{\substack{\varsigma, \varpi \in L_{s - c}([2 s] \backslash \varkappa),                            \\
+% 					\varsigma \cap \varpi = \emptyset}}
+% 			j_{s}\left(\mathbf{x}; \varkappa, \varsigma, \varpi, D_{\ell}\right)\right)                             \\
+% 			%
+% 			 & = \binom{n}{2 s}^{-1}
+% 			\sum_{\ell \in L_{n, 2s}}
+% 			J_{s}\left(\mathbf{x}; n, D_{\ell}\right)
+% 		\end{aligned}
+% 	\end{equation}
+% 	Thus showing that the Jackknife variance estimator is a U-statistic of order $2s$.
+% \end{proof}
 
 \newpage
 \subsection{Variance Estimator Consistency Theorems}
 \hrule
 
-\begin{proof}[Proof of Theorem \ref{thm:PI_JK_Cons}]\mbox{}\\*
+\begin{lem}[Asymptotic Dominance of H\'ajek Projection]\label{lem:Hajek_Dominance}\mbox{}\\*
+	Let $U_{s}\left(\mathbf{D}_{[n]}\right)$ be a non-randomized complete generalized U-statistic with kernel $h_s$.
+	Let the kernel variance terms $\zeta_{s}^{s}$ and $\zeta_{s}^{1}$ be defined in analogy to Section \ref{sec:TDNN}.
+	Assume that the following condition holds.
+	\begin{equation}
+		\frac{s}{n}\left(\frac{\zeta_{s}^{s}}{s \zeta_{s}^{1}} - 1\right) \rightarrow 0
+	\end{equation}
+	Then, asymptotically, the H\'ajek projection term dominates the variance of the U-statistic in the following sense.
+	\begin{equation}
+		\frac{n}{s^2}\frac{\Var\left(\mathrm{U}_{s}\left(\mathbf{D}_{[n]}\right)\right)}{\zeta_{s}^{1}}
+		\rightarrow 1.
+	\end{equation}
+\end{lem}
+
+\begin{proof}
+	\begin{equation}
+		\begin{aligned}
+			1 \leq \frac{n}{s^2}\frac{\Var\left(\mathrm{U}_{s}\left(\mathbf{D}_{[n]}\right)\right)}{\zeta_{s}^{1}}
+			 & = \left(\frac{s^2}{n} \zeta_{s}^{1}\right)^{-1} \sum_{j=1}^{s}\binom{s}{j}^2\binom{n}{j}^{-1} V_{s}^{j}     \\
+			%
+			 & \leq 1 + \left(\frac{s^2}{n} \zeta_{s}^{1}\right)^{-1} \frac{s^2}{n^2} \sum_{j=2}^{s}\binom{s}{j} V_{s}^{j} \\
+			%
+			 & \leq 1 + \frac{s}{n}\left(\frac{\zeta_{s}^{s}}{s\zeta_{s}^{1}} - 1\right)
+			\rightarrow 1.
+		\end{aligned}
+	\end{equation}
+\end{proof}
+
+\hrule
+
+\begin{lem}[H\'ajek Dominance for TDNN Estimator]\label{lem:TDNN_Hajek_Dominance}\mbox{}\\*
+	Let $0 < c_1 \leq s_1/s_2 \leq c_2 < 1$ and $s_2 = o(n)$, then under Assumptions \ref{asm:DGP}, \ref{asm:subexp_tails} and \ref{asm:smoothness}, then the TDNN estimator fulfills the asymptotic H\'ajek dominance condition shown in Lemma \ref{lem:Hajek_Dominance}.
+\end{lem}
+
+\begin{proof}
 	Recall the results from Lemmas \ref{lem:Var_TDNN_k} and \ref{lem:dem10}.
 	\begin{equation*}
 		\zeta_{s_1, s_2}^{s_2}\left(\mathbf{x}\right) \lesssim \mu^2(\mathbf{x}) + \sigma_{\varepsilon} + o(1)
@@ -1532,193 +922,390 @@ Having developed theoretical results concerning uniform inference methods for th
 			\frac{s_2}{n}\left(\frac{
 				\zeta_{s_1, s_2}^{s_2}\left(\mathbf{x}\right)}{s_2 \zeta_{s_1, s_2}^{1}\left(\mathbf{x}\right)} - 1\right)
 			 & \sim \frac{s_2}{n}\left(\mu^2(\mathbf{x}) + \sigma_{\varepsilon} + o(1) - 1\right)
-			\sim \frac{s_2}{n} \rightarrow_{p} 0
+			\sim \frac{s_2}{n} \rightarrow 0
 		\end{aligned}
 	\end{equation}
-	The desired result immediately follows from Theorem \ref{thm:peng21_6}.
+\end{proof}
+\hrule 
+
+\begin{proof}[Proof of Theorem \ref{thm:PI_JK_Cons}]\mbox{}\\*
+	The desired result immediately follows from an application of Theorem 6 from \citet{peng_bias_2021}.
 \end{proof}
 
-\hrule
-
+\newpage
 \begin{proof}[Proof of Theorem \ref{thm:JK_Cons}]\mbox{}\\*
-
-\end{proof}
-
-\begin{proof}
-	Recall the definition of the Jackknife Variance estimator as described in Equation \ref{eq:JK_Var_Est}.
+	Recall the definition of the Jackknife Variance estimator.
 	\begin{equation}
 		\hat{\omega}_{JK}^2\left(\mathbf{x}; \mathbf{D}_n\right)
 		= \frac{n-1}{n} \sum_{i = 1}^{n}\left(\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n, -i}\right) - \hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}\right)\right)^2
 	\end{equation}
 
-	Now, using the Hoeffding decomposition of the TDNN estimator, we can reformulate this expression in the following way.
-	This reformulation is akin to the proof of Theorem 6 in \citet{peng_bias_2021} and exploits a similar structure in the estimator.
+	Using the Hoeffding-decomposition of the original U-statistic, we can reformulate this expression in the following way.
 	\begin{equation}
 		\begin{aligned}
 			\hat{\omega}_{JK}^2\left(\mathbf{x}; \mathbf{D}_n\right)
 			 & = \frac{n-1}{n} \sum_{i = 1}^{n}\left(
-			\sum_{j = 1}^{s_2}\binom{s_2}{j}H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_{n, -i}\right)
-			- \sum_{j = 1}^{s_2}\binom{s_2}{j}H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_{n}\right)
-			\right)^2                                                                                                                \\
+			\sum_{j = 1}^{s_2}\binom{s_2}{j} H_{s_1, s_2}^{j}\left(\mathbf{D}_{n, -i}\right)
+			- \sum_{j = 1}^{s_2}\binom{s_2}{j}H_{s_1, s_2}^{j}
+			\right)^2                                                                                                    \\
 			%
-			 & = \frac{n-1}{n} \sum_{i = 1}^{n}\left(
-			\sum_{j = 1}^{s_2}\binom{s_2}{j}\left(H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_{n, -i}\right)
-				- H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_{n}\right)\right)
-			\right)^2                                                                                                                \\
+			 & = \frac{n-1}{n} \sum_{j = 1}^{n}\left(
+			\sum_{j = 1}^{s_2}\binom{s_2}{j}\left(H_{s_1, s_2}^{j}
+				- H_{s_1, s_2}^{j}\left(\mathbf{D}_{n, -i}\right)\right)
+			\right)^2                                                                                                    \\
 			%
-			 & = \frac{n-1}{n} \sum_{i = 1}^{n}\left(
-			\sum_{j = 1}^{s_2}\binom{s_2}{j}\left(H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_{n}\right)
-				- H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_{n, -i}\right)\right)
-			\right)^2                                                                                                                \\
+			 & = \frac{n-1}{n} \sum_{j = 1}^{n}\left(\sum_{j = 1}^{s_2}\binom{s_2}{j}
+			\left( \binom{n}{j}^{-1}\sum_{\iota \in L_{n,j}} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\iota})
+			- \binom{n - 1}{j}^{-1}\sum_{\ell \in L_{j}\left([n]\backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\ell})\right)
+			\right)^2                                                                                                    \\
 			%
-			 & = \frac{n-1}{n} \sum_{i = 1}^{n}\left(\sum_{j = 1}^{s_2}\binom{s_2}{j}
-			\left( \binom{n}{j}^{-1}\sum_{\iota \in L_{n,j}} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\iota})
-			- \binom{n-1}{j}^{-1}\sum_{\ell \in L_{j}\left([n]\backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\ell})\right)
-			\right)^2                                                                                                                \\
-			%
-			 & = \frac{n-1}{n} \sum_{i = 1}^{n}\left[
-				\frac{s_2}{n} h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_i)
-			+ \sum_{j \neq i} \left(\frac{s_2}{n} - \frac{s_2}{n-1}\right) h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_j) \right.      \\
+			 & = \frac{n-1}{n} \sum_{j = 1}^{n}\left[
+				\frac{s_2}{n} h^{(1)}_{s_1, s_2}(\mathbf{Z}_{i})
+			+ \sum_{j \neq i} \left(\frac{s_2}{n} - \frac{s_2}{n - 1}\right) h^{(1)}_{s_1, s_2}(\mathbf{Z}_{j}) \right.  \\
 			 & \quad \quad + \left.\sum_{j = 2}^{s_2}\binom{s_2}{j}
-				\left( \binom{n}{j}^{-1}\sum_{\iota \in L_{n,j}} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\iota})
-				- \binom{n-1}{j}^{-1}\sum_{\ell \in L_{j}\left([n]\backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\ell})\right)
-			\right]^2                                                                                                                \\
+				\left( \binom{n}{j}^{-1}\sum_{\iota \in L_{n,j}} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\iota})
+				- \binom{n - 1}{j}^{-1}\sum_{\ell \in L_{j}\left([n]\backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\ell})\right)
+			\right]^2                                                                                                    \\
 			%
-			 & = \frac{n-1}{n} \frac{s_2^2}{n^2}\sum_{i = 1}^{n}\left[
-				h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_i)
-			- \frac{1}{n-1} \sum_{j \neq i} h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_j) \right.                                     \\
-			 & \quad \quad + \left. \frac{n}{s_2}\sum_{j = 2}^{s_2}\binom{s_2}{j}\left(
-				\binom{n}{j}^{-1}\sum_{\iota \in L_{j-1}\left([n] \backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\iota \cup \{i\}})
-				+ \left[\binom{n}{j}^{-1} - \binom{n-1}{j}^{-1}\right] \sum_{\ell \in L_{j}\left([n] \backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{x}; D_{\ell})
+			 & = \frac{n-1}{n} \frac{s^2}{n^2}\sum_{j = 1}^{n}\left[
+				h^{(1)}_{s_1, s_2}(\mathbf{Z}_{i})
+			- \frac{1}{n-1} \sum_{j \neq i} h^{(1)}_{s_1, s_2}(\mathbf{Z}_{j}) \right.                                   \\
+			 & \quad \quad + \left. \frac{n}{s}\sum_{j = 2}^{s_2}\binom{s_2}{j}\left(
+				\binom{n}{j}^{-1}\sum_{\iota \in L_{j-1}\left([n] \backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\iota \cup \{i\}})
+				+ \left[\binom{n}{j}^{-1} - \binom{n - 1}{j}^{-1}\right] \sum_{\ell \in L_{j}\left([n] \backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\ell})
 				\right)
-			\right]                                                                                                                  \\
+			\right]                                                                                                      \\
 			%
-			 & =: \frac{n-1}{n}\frac{s_2^2}{n^2} \sum_{i = 1}^{n}\left[h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_i) + T_{i}\right]^2
+			 & =: \frac{n-1}{n}\frac{s^2}{n^2} \sum_{j = 1}^{n}\left[h^{(1)}_{s_1, s_2}(\mathbf{Z}_{i}) + T_{i}\right]^2
 		\end{aligned}
 	\end{equation}
-	Observe that due to the independence of the observations and the uncorrelatedness of Hoeffding projections of differing orders, $h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_i)$ and $T_{i}$ are uncorrelated and both have mean zero.
-	Now, continuing to follow the line of argument in \citet{peng_bias_2021}, first recall Equations \ref{eq:H_k_expectation} and \ref{eq:Var_decomp} and observe the immediate consequence.
+	Observe that due to the independence of the observations and the uncorrelatedness of Hoeffding projections of differing orders, $h^{(1)}_{s_1, s_2}(\mathbf{Z}_{i})$ and $T_{i}$ are uncorrelated and both have mean zero.
+	Now, continuing to follow the line of argument in \citet{peng_bias_2021}, observe the following.
 	\begin{equation}
 		\begin{aligned}
-			\E\left[\left(h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_i)\right)^{2}\right]
-			 & = V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
+			\E\left[\left(h^{(1)}_{s_1, s_2}(\mathbf{Z}_{i})\right)^{2}\right]
+			 & = V_{s_1, s_2}^{1}
+			= \zeta_{s_1, s_2}^{1}
 		\end{aligned}
 	\end{equation}
 
-	Furthermore, as another consequence of the independence of the observations and the uncorrelatedness of Hoeffding projections of differing order, we find that
+	Furthermore, as a consequence of the independence of the observations and the uncorrelatedness of Hoeffding projections of differing order, we find that
 	\begin{equation}
 		\begin{aligned}
 			\E\left[T_{i}^{2}\right]
-			 & = \frac{1}{n-1} V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
+			 & = \frac{1}{n-1} V_{s_1, s_2}^{1}
 			+ \frac{n^2}{s_2^2}\sum_{j = 2}^{s_2}\binom{s_2}{j}^2\left\{
 			\binom{n}{j}^{-2}\binom{n-1}{j-1}V_{s_1, s_2}^{j}
-			+ \left[\binom{n}{j}^{-1} - \binom{n-1}{j}^{-1}\right]^2 \binom{n-1}{j-1}V_{s_1, s_2}^{j}
+			+ \left[\binom{n}{j}^{-1} - \binom{n - 1}{j}^{-1}\right]^2 \binom{n-1}{j}V_{s_1, s_2}^{j}
 			\right\}                                                                                                                         \\
 			%
-			 & = \frac{1}{n-1} V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
-			+ \frac{n^2}{s_2^2}\sum_{j = 2}^{s_2}\binom{s_2}{j}^2
-			\left(\binom{n}{j}^{-2} + \left[\binom{n}{j}^{-1} - \binom{n-1}{j}^{-1}\right]^2\right) \binom{n-1}{j-1}V_{s_1, s_2}^{j}         \\
+			 & = \frac{1}{n-1} V_{s_1, s_2}^{1}
+			+ \frac{n^2}{s_2^2}\sum_{j = 2}^{s_2}\binom{s_2}{j}^2\left\{
+			\binom{n}{j}^{-2}\frac{j}{n - j}\binom{n-1}{j}V_{s_1, s_2}^{j}
+			+ \binom{n}{j}^{-2}\left[1 - \binom{n}{j}\binom{n - 1}{j}^{-1}\right]^2 \binom{n-1}{j}V_{s_1, s_2}^{j}
+			\right\}                                                                                                                         \\
 			%
-			 & = \frac{1}{n-1} V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
-			+ \frac{n^2}{s_2^2}\sum_{j = 2}^{s_2}\binom{s_2}{j}^2
-			\left(1 + \left[1 - \frac{n}{n - 2j}\right]^2\right)\binom{n}{j}^{-2} \binom{n-1}{j-1}V_{s_1, s_2}^{j}                           \\
+			 & = \frac{1}{n-1} V_{s_1, s_2}^{1}
+			+ \frac{n^2}{s_2^2}\sum_{j = 2}^{s_2}\binom{s_2}{j}^2\binom{n}{j}^{-2}
+			\left(\frac{j}{n - j} + \left(1 - \frac{n}{n - j}\right)^2\right) \binom{n-1}{j}V_{s_1, s_2}^{j}                                 \\
 			%
-			 & = \frac{1}{n-1} V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
-			+ \frac{n^2}{s_2^2}\sum_{j = 2}^{s_2}\binom{s_2}{j}^2
-			\left(1 + \left[\frac{n-2j - n}{n - 2j}\right]^2\right)\binom{n}{j}^{-2} \binom{n-1}{j-1}V_{s_1, s_2}^{j}                        \\
+			 & = \frac{1}{n-1} V_{s_1, s_2}^{1}
+			+ \frac{n^2}{s_2^2}\sum_{j = 2}^{s_2}\binom{s_2}{j}
+			\binom{n}{j}^{-2}\binom{n-1}{j} \cdot \left(\frac{j}{n - j} + \frac{j^2}{(n - j)^2}\right)
+			\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                                                      \\
 			%
-			 & = \frac{1}{n-1} V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
-			+ \frac{n^2}{s_2^2}\sum_{j = 2}^{s_2} \frac{j}{n} \binom{s_2}{j}^2
-			\left(1 + \left[\frac{-2j}{n - 2j}\right]^2\right)\binom{n}{j}^{-1} V_{s_1, s_2}^{j}                                             \\
+			 & = \frac{1}{n-1} V_{s_1, s_2}^{1}
+			+ \frac{n^2}{s_2^2}\sum_{j = 2}^{s_2}\binom{s_2}{j}\binom{n}{j}^{-1}
+			\frac{n - j}{n} \cdot \frac{j}{n}\left(\frac{n}{n - j} + \frac{j n}{(n - j)^2}\right)
+			\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                                                      \\
 			%
-			 & = \frac{1}{n-1} V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
-			+ \sum_{j = 2}^{s_2} \frac{n j}{s_2^2}
-			\left(1 + \frac{4 j^2}{\left(n - 2j\right)^2}\right)\binom{s_2}{j} \binom{n}{j}^{-1} \left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right] \\
-		\end{aligned}
-	\end{equation}
-	Then we have the following.
-	\begin{equation}
-		\begin{aligned}
-			\E\left[T_{i}^{2}\right]
+			 & =  \frac{1}{n-1} V_{s_1, s_2}^{1}
+			+ \sum_{j = 2}^{s_2}\frac{j}{s_2}
+			\binom{s_2 - 1}{j - 1}\binom{n-1}{j-1}^{-1}
+			\frac{n - j}{n} \left(\frac{n}{n - j} + \frac{j}{n}\right)
+			\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                                                      \\
 			%
-			 & \leq \frac{1}{n-1} V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
-			+ 2 \sum_{j = 2}^{s_2} \frac{j}{s_2}\frac{n}{s_2}\left(\frac{s_2 e}{j}\frac{j}{n}\right)^{j}
+			 & \leq \frac{1}{n-1} V_{s_1, s_2}^{1}
+			+ \sum_{j = 2}^{s_2}\frac{j}{s_2} \left(e \frac{s_2 - 1}{n - 1}\right)^{j-1}
+			\frac{n - j}{n}\left(\frac{n}{n - j} + \frac{j}{n}\right)
+			\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                                                      \\
+			%
+			 & \lesssim \frac{1}{n-1} V_{s_1, s_2}^{1}
+			+ 2 \sum_{j = 2}^{s_2}\frac{j}{s_2} \left(e \frac{s_2 - 1}{n - 1}\right)^{j-1}
+			\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                                                      \\
+			%
+			 & \leq \frac{1}{n-1} V_{s_1, s_2}^{1}
+			+ 2e \sum_{j = 2}^{s_2}\frac{1}{s_2} \frac{s_2 - 1}{n - 1}\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]
+			+ 2  \sum_{j = 2}^{s_2}\frac{j - 1}{s_2} \left(e \frac{s_2 - 1}{n - 1}\right)^{j-1}  \left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right] \\
+			%
+			 & \leq \frac{1}{n-1} V_{s_1, s_2}^{1}
+			+ \frac{2e}{n - 1} \sum_{j = 2}^{s_2}\frac{s_2 - 1}{s_2}
 			\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]
+			+ 2 \sum_{j = 2}^{s_2}\frac{j-1}{s_2} \left(e \frac{s_2 - 1}{n - 1}\right)^{j-1}\zeta_{s_1, s_2}^{s_2}                           \\
 			%
-			= \frac{1}{n-1} V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
-			+ 2e \sum_{j = 2}^{s_2} \frac{j}{s_2} \left(\frac{e s_2}{n}\right)^{j-1}
-			\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                                                                \\
+			 & = \frac{1}{n-1} V_{s_1, s_2}^{1}
+			+ \frac{2e}{n} \sum_{j = 2}^{s_2}\frac{n (s_2 - 1)}{(n - 1)s_2}
+			\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]
+			+ 2\zeta_{s_1, s_2}^{s_2} \sum_{j = 2}^{s_2}\frac{j-1}{s_2} \left(e \frac{s_2 - 1}{n - 1}\right)^{j-1}                           \\
 			%
-			 & \leq \frac{1}{n-1} V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
-			+ \frac{2 e}{n}\sum_{j = 2}^{s_2}\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]
-			+ \frac{2 e}{n}\sum_{j = 2}^{s_2} (j-1)\left(\frac{s_2 e}{n}\right)^{j-1}
-			\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                                                                \\
+			 & \leq \frac{1}{n-1} V_{s_1, s_2}^{1}
+			+ \frac{2e}{n} \sum_{j = 2}^{s_2}\binom{s_2}{j}V_{s_1, s_2}^{j}
+			+ \frac{2\zeta_{s_1, s_2}^{s_2}}{s_2} \sum_{j = 1}^{\infty}j \left(e \frac{s_2 - 1}{n - 1}\right)^{j}                            \\
 			%
-			 & \leq \frac{1}{n-1} V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
-			+ \frac{2e}{n}\left(\zeta_{s_1, s_2}^{s_2} - s_2 \zeta_{s_1, s_2}^{1}\right)
-			+ \frac{2e}{n}\sum_{j = 2}^{s_2} (j-1)\left(\frac{s_2e}{n}\right)^{j-1}\zeta_{s_1, s_2}^{s_2}                                              \\
+			 & \leq \frac{1}{n-1} V_{s_1, s_2}^{1}
+			+ \frac{2e}{n} \sum_{j = 2}^{s_2}\binom{s_2}{j}V_{s_1, s_2}^{j}
+			+ \frac{2 \zeta_{s_1, s_2}^{s_2}}{s_2}\sum_{j = 1}^{\infty}j \left(e \frac{s_2}{n}\right)^{j}                                    \\
 			%
-			 & \leq \frac{1}{n-1} V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
-			+ \frac{2e}{n}\left(\zeta_{s_1, s_2}^{s_2} - s_2 \zeta_{s_1, s_2}^{1}\right)
-			+ \frac{2e}{n}\zeta_{s_1, s_2}^{s_2}\sum_{j = 1}^{\infty} j \left(\frac{s_2 e}{n}\right)^{j}                                               \\
+			 & = \frac{1}{n-1} \zeta_{s_1, s_2}^{1}
+			+ \frac{2e}{n} \left(\zeta_{s_1, s_2}^{s_2} - s_2 \zeta_{s_1, s_2}^{1}\right)
+			+ \frac{2 e n}{\left(n - e s_2\right)^2} \zeta_{s_1, s_2}^{s_2}                                                                  \\
 			%
-			 & = \frac{1}{n-1} V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
-			+ \frac{2e}{n}\left(\zeta_{s_1, s_2}^{s_2} - s_2 \zeta_{s_1, s_2}^{1}\right)
-			+ \frac{2 s_2}{n^2}\zeta_{s_1, s_2}^{s_2}\frac{e^2}{\left(\frac{s_2 e}{n} - 1\right)^2}                                                    \\
-			%
-			 & \lesssim \frac{1}{n-1} V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
-			+ \frac{2e}{n}\left(\zeta_{s_1, s_2}^{s_2} - s_2 \zeta_{s_1, s_2}^{1}\right)
-			+ \frac{2 s_2}{n^2}\frac{e^2}{\left(\frac{s_2 e}{n} - 1\right)^2} \, \cdot \, \left(\mu^2(\mathbf{x}) + \sigma_{\varepsilon} + o(1)\right) \\
-			%
-			 & \lesssim \frac{1}{n-1} V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
-			+ \frac{2e}{n}\left(\zeta_{s_1, s_2}^{s_2} - s_2 \zeta_{s_1, s_2}^{1}\right)
-			+ o(1)
+			 & = \left(\frac{1}{n-1} + \frac{2 e s_2 n}{\left(n - e s_2\right)^2}\right) \zeta_{s_1, s_2}^{1}
+			+ 2e\left(\frac{1}{n} + \frac{n}{\left(n - e s_2\right)^2}\right) \left(\zeta_{s_1, s_2}^{s_2} - s_2 \zeta_{s_1, s_2}^{1}\right)
 		\end{aligned}
 	\end{equation}
 	Recall the results of Lemmas \ref{lem:Var_TDNN_k} and \ref{lem:dem10}.
-	\begin{equation*}
+	\begin{equation}
 		\zeta_{s_1, s_2}^{s_2}\left(\mathbf{x}\right) \lesssim \mu^2(\mathbf{x}) + \sigma_{\varepsilon} + o(1)
 		\quad \text{and} \quad
 		\zeta_{s_1, s_2}^{1}\left(\mathbf{x}\right) \sim s_2^{-1}
-	\end{equation*}
-	Using these findings, consider the following expression.
+	\end{equation}
+	This immediately implies that $\frac{s_2}{n}\left(\frac{\zeta_{s_1, s_2}^{s_2}}{s_2 \zeta_{s_1, s_2}^{1}} - 1\right) \rightarrow 0$.
+	Using this result and the previous asymptotic upper bound, we can find the following.
 	\begin{equation}
 		\begin{aligned}
-			\frac{\E\left[T_i^2\right]}{V_{s_1, s_2}^{1}\left(\mathbf{x}\right)}
-			= \frac{\E\left[T_i^2\right]}{\zeta_{s_1, s_2}^{1}\left(\mathbf{x}\right)}
-			 & \lesssim \frac{\frac{1}{n-1} V_{s_1, s_2}^{1}\left(\mathbf{x}\right)
-				+ \frac{2e}{n}\left(\zeta_{s_1, s_2}^{s_2} - s_2 \zeta_{s_1, s_2}^{1}\right)
-			+ o(1)}{\zeta_{s_1, s_2}^{1}\left(\mathbf{x}\right)}                    \\
+			\frac{\E\left[T_{i}^{2}\right]}{V_{s_1, s_2}^{1}}
+			 & \leq \frac{\left(\frac{1}{n-1} + \frac{2 e s_2 n}{\left(n - e s_2\right)^2}\right) \zeta_{s_1, s_2}^{1}
+			+ 2e\left(\frac{1}{n} + \frac{n}{\left(n - e s_2\right)^2}\right) \left(\zeta_{s_1, s_2}^{s_2} - s_2 \zeta_{s_1, s_2}^{1}\right)}{\zeta_{s_1, s_2}^{1}} \\
 			%
-			 & \leq \frac{\zeta_{s_1, s_2}^{1}\left(\mathbf{x}\right)
-				+ 2e\left(\zeta_{s_1, s_2}^{s_2} - s_2 \zeta_{s_1, s_2}^{1}\right)
-			+ o(1)}{\left(n-1\right)\zeta_{s_1, s_2}^{1}\left(\mathbf{x}\right)}    \\
-			%
-			 & = \frac{1}{n-1}
-			+ \frac{2e}{n-1}\frac{\zeta_{s_1, s_2}^{s_2} - s_2 \zeta_{s_1, s_2}^{1}}{\zeta_{s_1, s_2}^{1}\left(\mathbf{x}\right)}
-			+ o(1)
-			\rightarrow 0.
+			 & = \frac{1}{n-1} + \frac{2 e s_2 n}{\left(n - e s_2\right)^2}
+			+ 2e\left(\frac{1}{n} + \frac{n}{\left(n - e s_2\right)^2}\right) \left(\frac{\zeta_{s_1, s_2}^{s_2} - s_2 \zeta_{s_1, s_2}^{1}}{\zeta_{s_1, s_2}^{1}}\right)
+			\rightarrow 0
 		\end{aligned}
 	\end{equation}
-
-	Therefore, we can conclude that $h_{s_1, s_2}^{(1)}\left(\mathbf{x}; \mathbf{Z}_i\right)$ dominates $T_i^2$ in the expression of interest.
+	Therefore, we can conclude that $h_{s}^{(1)}\left(\mathbf{Z}_{i}\right)$ dominates $T_i^2$ in the expression of interest.
 	Using Lemma \ref{lem:peng1}, we can thus conclude the following.
 	\begin{equation}
 		\begin{aligned}
 			\frac{\frac{n}{s_2^2}\hat{\omega}^{2}_{JK}\left(\mathbf{x}; \mathbf{D}_n\right)}{V_{s_1, s_2}^{1}\left(\mathbf{x}\right)}
-			& \rightarrow_{p} \frac{n - 1}{n}\frac{1}{n}\sum_{i = 1}^{n}\frac{\left(h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_i)\right)^{2}}{V_{s_1, s_2}^{1}\left(\mathbf{x}\right)}\\\
+			 & \rightarrow_{p} \frac{n - 1}{n}\frac{1}{n}\sum_{i = 1}^{n}\frac{\left(h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_i)\right)^{2}}{V_{s_1, s_2}^{1}\left(\mathbf{x}\right)} \\\
 			%
-			& \rightarrow_{p} \frac{n - 1}{n}\frac{\E\left[\left(h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_i)\right)^{2}\right]}{V_{s_1, s_2}^{1}\left(\mathbf{x}\right)}
+			 & \rightarrow_{p} \frac{n - 1}{n}\frac{\E\left[\left(h^{(1)}_{s_1, s_2}(\mathbf{x}; \mathbf{Z}_i)\right)^{2}\right]}{V_{s_1, s_2}^{1}\left(\mathbf{x}\right)}
 			\rightarrow 1
 		\end{aligned}
 	\end{equation}
-	{\color{red} Continue as in \citet{peng_bias_2021} - shows ratio consistency of JK Var estimator}
+	The desired rate-consistency then immediately follows from an application of Lemma \ref{lem:Hajek_Dominance}.
 \end{proof}
 
-\hrule
+\newpage
+\begin{proof}[Proof of Theorem \ref{thm:JKD_Cons}]\mbox{}\\*
+	Consider first the case absent additional randomization in the form of $\omega$ and recall the definition of the delete-d Jackknife Variance estimator.
+	\begin{equation}
+		\hat{\omega}_{JKD}^2\left(\mathbf{x}; d, \mathbf{D}_n\right)
+		= \frac{n-d}{d}\binom{n}{d}^{-1} \sum_{\ell \in L_{n,d}}
+		\left(\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n, -\ell}\right)
+		- \hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}\right)
+		\right)^2
+	\end{equation}
+	Now, as in the proof for the conventional Jackknife variance estimator, we make use of the Hoeffding-decomposition in the following way.
+	\begin{equation}
+		\begin{aligned}
+			\hat{\omega}_{JKD}^2\left(\mathbf{x}; d, \mathbf{D}_n\right)
+			 & = \frac{n-d}{d}\binom{n}{d}^{-1} \sum_{\ell \in L_{n, d}}
+			\left(\sum_{j = 1}^{s_2}\binom{s_2}{j} \left(H_{P_{t}}^{j} - H_{P_{t}}^{j}\left(\mathbf{D}_{n, -\ell}\right)\right)\right)^2 \\
+			%
+			 & = \frac{n-d}{d}\binom{n}{d}^{-1} \sum_{\ell \in L_{n, d}}
+			\left(\sum_{j = 1}^{s_2}\binom{s_2}{j}
+			\left( \binom{n}{j}^{-1}\sum_{\iota \in L_{n,j}} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\iota})
+			- \binom{n-d}{j}^{-1}\sum_{\iota \in L_{j}\left([n]\backslash \ell\right)} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\iota})\right)
+			\right)^2                                                                                                                    \\
+			%
+			 & = \frac{n-d}{d}\binom{n}{d}^{-1} \sum_{\ell \in L_{n, d}}\left[
+				\frac{s_2}{n}\sum_{i \in \ell} h^{(1)}_{s_1, s_2}(\mathbf{Z}_{i})
+				+ \sum_{i \in [n] \backslash \ell} \left(\frac{s_2}{n} - \frac{s_2}{n - d}\right) h^{(1)}_{s_1, s_2}(\mathbf{Z}_{i})
+			\right.                                                                                                                      \\
+			 & \quad \quad + \left.\sum_{j = 2}^{s_2}\binom{s_2}{j}
+				\left( \binom{n}{j}^{-1}\sum_{\iota \in L_{n,j}} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\iota})
+				- \binom{n-d}{j}^{-1}\sum_{\iota \in L_{j}\left([n]\backslash \ell\right)} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\iota})\right)
+			\right]^2                                                                                                                    \\
+			%         
+			 & = \frac{n-d}{d}\binom{n}{d}^{-1}\left(\frac{s_2}{n}\right)^2 \sum_{\ell \in L_{n, d}}\left[
+				\sum_{i \in \ell} h^{(1)}_{s_1, s_2}(\mathbf{Z}_{i})
+				- \frac{d}{n - d}\sum_{i \in [n] \backslash \ell} h^{(1)}_{s_1, s_2}(\mathbf{Z}_{i})
+			\right.                                                                                                                      \\
+			 & \quad \quad + \left. \frac{n}{s_2}\sum_{j = 2}^{s_2}\binom{s_2}{j}
+				\left( \binom{n}{j}^{-1}\sum_{\iota \in L_{n,j}} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\iota})
+				- \binom{n-d}{j}^{-1}\sum_{\iota \in L_{j}\left([n]\backslash \ell\right)} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\iota})\right)
+			\right]^2                                                                                                                    \\
+			%                                                                                                       \\
+			 & =: (n-d)\binom{n}{d}^{-1}\left(\frac{s_2}{n}\right)^2 \sum_{\ell \in L_{n, d}}\left[
+				\frac{1}{\sqrt{d}}\sum_{i \in \ell} h^{(1)}_{s_1, s_2}(\mathbf{Z}_{i}) + T_{\ell}\right]^2
+		\end{aligned}
+	\end{equation}
 
-\begin{proof}[Proof of Theorem \ref{thm:BS_Cons}]\mbox{}\\*
+	We want to proceed in an analogous way to the proof of the pure Jackknife result.
+	Thus, we want to show that $\sum_{i \in \ell} h^{(1)}_{s_1, s_2}(\mathbf{Z}_{i})$ dominates $T_{\ell}$ in the sense of Lemma \ref{lem:peng1}.
+	Luckily, since Lemma \ref{lem:peng1} does not depend on any particular independence assumptions of summands etc. this is a relatively straightforward adaptation of the strategy shown in the proof of Theorem \ref{thm:JK_Cons}.
+	Thus, consider the following for an arbitrary fixed index-subset $\ell$ with cardinality $d$.
+	\begin{equation}
+		\begin{aligned}
+			\E\left[\left(\frac{1}{\sqrt{d}}\sum_{i \in \ell} h^{(1)}_{s_1, s_2}(\mathbf{Z}_{i})\right)^2\right]
+			 & = \frac{1}{d}\E\left[\sum_{i \in \ell}\sum_{j \in \ell} h^{(1)}_{s_1, s_2}(\mathbf{Z}_{i})h^{(1)}_{s_1, s_2}(\mathbf{Z}_{j})\right]
+			= \frac{1}{d}\sum_{i \in \ell}\sum_{j \in \ell} \E\left[h^{(1)}_{s_1, s_2}(\mathbf{Z}_{i})h^{(1)}_{s_1, s_2}(\mathbf{Z}_{j})\right]    \\
+			%
+			 & = \frac{\left| \ell \right|}{d} \cdot \E\left[\left(h^{(1)}_{s_1, s_2}(Z_{1})\right)^2\right]
+			= \zeta_{P_{t}, 1}
+		\end{aligned}
+	\end{equation}
 
+	\newpage
+	For the error term we introduce a case distinction.
+	Case one corresponds to parameter choices where $s_2 \geq d$ and thus takes the following form.
+	\begin{equation}
+		\begin{aligned}
+			T_{\ell}
+			 & = \frac{\sqrt{d}}{n - d}\sum_{i \in [n] \backslash \ell} h^{(1)}_{s_1, s_2}(\mathbf{Z}_{i})             \\
+			 & \quad \quad + \frac{n}{s_2\sqrt{d}} \left\{\sum_{j = 2}^{d}\binom{s_2}{j}\left(\binom{n}{j}^{-1}\left(
+			\sum_{a = 1}^{j}\sum_{\substack{\varkappa \in L_{a}\left(\ell\right)                                       \\ \varrho \in L_{j - a}\left([n]\backslash \ell\right)}} h^{(j)}_{s_1, s_2}(D_{\varkappa \cup \varrho})\right)
+			+ \left(\binom{n}{j}^{-1} - \binom{n-d}{j}^{-1}\right)
+			\sum_{\iota \in L_{j}\left([n]\backslash \ell\right)} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\iota})\right)\right. \\
+			 & \quad \quad +\left.  \sum_{j = d + 1}^{s_2}\binom{s_2}{j}
+			\left( \binom{n}{j}^{-1}\left(
+			\sum_{a = 1}^{d}\sum_{\substack{\varkappa \in L_{a}\left(\ell\right)                                       \\ \varrho \in L_{j - a}\left([n]\backslash \ell\right)}} h^{(j)}_{s_1, s_2}(D_{\varkappa \cup \varrho})\right)
+			+ \left(\binom{n}{j}^{-1} - \binom{n-d}{j}^{-1}\right)\sum_{\iota \in L_{j}\left([n]\backslash \ell\right)} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\iota})\right)
+			\right\}
+		\end{aligned}
+	\end{equation}
+	Case two covers setups of the form $s_2 < d$ and thus takes the following form.
+	\begin{equation}
+		\begin{aligned}
+			T_{\ell}
+			 & = \frac{\sqrt{d}}{n - d}\sum_{i \in [n] \backslash \ell} h^{(1)}_{s_1, s_2}(\mathbf{Z}_{i})         \\
+			 & \quad \quad + \frac{n}{s_2 \sqrt{d}}  \sum_{j = 2}^{s_2}\binom{s_2}{j}\left(\binom{n}{j}^{-1}\left(
+			\sum_{a = 1}^{j}\sum_{\substack{\varkappa \in L_{a}\left(\ell\right)                                   \\ \varrho \in L_{j - a}\left([n]\backslash \ell\right)}} h^{(j)}_{s_1, s_2}(D_{\varkappa \cup \varrho})\right)
+			+ \left(\binom{n}{j}^{-1} - \binom{n-d}{j}^{-1}\right)
+			\sum_{\iota \in L_{j}\left([n]\backslash \ell\right)} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\iota})\right)    \\
+		\end{aligned}
+	\end{equation}
+
+	Having separated these two cases, we continue by investigating the expectation of their respective squares.
+	Beginning with case one, we find the following.
+	\begin{equation}
+		\begin{aligned}
+			\E\left[\left(T_{\ell}\right)^2\right]
+			 & = \frac{d}{n - d} V_{s_1, s_2}^{1}                                                                                                          \\
+			 & \quad \quad + \frac{n^2}{s_2^2 d}\sum_{j = 2}^{d}\binom{s_2}{j}^2
+			\left(\binom{n}{j}^{-2}\sum_{a = 1}^{j}\left[\binom{d}{a}\binom{n - d}{j - a}\right]
+			+ \left[\binom{n}{j}^{-1} - \binom{n-d}{j}^{-1}\right]^{2} \binom{n - d}{j}\right)V_{s_1, s_2}^{j}                                             \\
+			 & \quad \quad + \frac{n^2}{s_2^2 d}\sum_{j = d + 1}^{s_2}\binom{s_2}{j}^2
+			\left(\binom{n}{j}^{-2}\sum_{a = 1}^{d}\left[\binom{d}{a}\binom{n - d}{j - a}\right]
+			+ \left[\binom{n}{j}^{-1} - \binom{n-d}{j}^{-1}\right]^{2}\binom{n - d}{j}\right)V_{s_1, s_2}^{j}                                              \\
+			%
+			 & \overset{(\star)}{=} \frac{d}{n - d} V_{s_1, s_2}^{1}                                                                                       \\
+			 & \quad \quad + \frac{n^2}{s_2^2 d}\sum_{j = 2}^{d}\binom{s_2}{j}^2\binom{n}{j}^{-2}
+			\left(\binom{n}{j} - \binom{n - d}{j}
+			+ \left[1 - \binom{n}{j}\binom{n-d}{j}^{-1}\right]^{2}\binom{n - d}{j} \right)V_{s_1, s_2}^{j}                                                 \\
+			 & \quad \quad + \frac{n}{s_2 d}\sum_{j = d + 1}^{s_2}\frac{\binom{s_2 - 1}{j - 1}}{\binom{n - 1}{j - 1}}\frac{\binom{n - d}{j}}{\binom{n}{j}}
+			\left(\sum_{a = 1}^{d}\frac{\binom{d}{a}\binom{n - d}{j - a}}{\binom{n - d}{j}}
+			+ \left[1 - \binom{n}{j}\binom{n-d}{j}^{-1}\right]^{2}\right)\binom{s_2}{j}V_{s_1, s_2}^{j}
+		\end{aligned}
+	\end{equation}
+	The equality marked by $(\star)$ holds by the Chu-Vandermonde identity - specifically with respect to the equivalent expression for the sum in the second term.
+
+	Continuing the analysis, we find the following.
+	\begin{equation}
+		\begin{aligned}
+			\E\left[\left(T_{\ell}\right)^2\right]
+			 & = \frac{d}{n - d} V_{s_1, s_2}^{1}                                                                                                                        \\
+			 & \quad \quad + \frac{n}{s_2 d}\sum_{j = 2}^{d}\frac{\binom{s_2 - 1}{j - 1}\binom{n - d}{j}}{\binom{n - 1}{j - 1}\binom{n}{j}}
+			\left(\binom{n}{j}\binom{n - d}{j}^{-1} - 1
+			+ \left[1 - \binom{n}{j}\binom{n-d}{j}^{-1}\right]^{2} \right)\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                    \\
+			 & \quad \quad + \frac{n}{s_2 d}\sum_{j = d + 1}^{s_2}\frac{\binom{s_2 - 1}{j - 1}\binom{n - d}{j}}{\binom{n - 1}{j - 1}\binom{n}{j}}
+			\left(\frac{\binom{n}{j}}{\binom{n - d}{j}}\sum_{a = 1}^{d}\frac{\binom{d}{a}\binom{n - d}{j - a}}{\binom{n}{j}}
+			+ \left[1 - \binom{n}{j}\binom{n-d}{j}^{-1}\right]^{2}\right)\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                     \\
+			%
+			 & = \frac{d}{n - d} V_{s_1, s_2}^{1}                                                                                                                        \\
+			 & \quad \quad + \frac{n}{s_2 d}\sum_{j = 2}^{d}\frac{\binom{s_2 - 1}{j - 1}\binom{n - d}{j}}{\binom{n - 1}{j - 1}\binom{n}{j}}
+			\left(\binom{n}{j}^{2}\binom{n-d}{j}^{-2} - \binom{n}{j}\binom{n-d}{j}^{-1}\right)\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                \\
+			 & \quad \quad + \frac{n}{s_2 d}\sum_{j = d + 1}^{s_2}\frac{\binom{s_2 - 1}{j - 1}\binom{n - d}{j}}{\binom{n - 1}{j - 1}\binom{n}{j}}
+			\left(\frac{\binom{n}{j}}{\binom{n - d}{j}\binom{n}{d}}\sum_{a = 1}^{d}\binom{j}{a}\binom{n - j}{d - a}
+			+ \left[1 - \binom{n}{j}\binom{n-d}{j}^{-1}\right]^{2}\right)\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                     \\
+			%
+			 & \overset{(\star\star)}{=} \frac{d}{n - d} V_{s_1, s_2}^{1}                                                                                                \\
+			 & \quad \quad + \frac{n}{s_2 d}\sum_{j = 2}^{d}\frac{\binom{s_2 - 1}{j - 1}}{\binom{n - 1}{j - 1}}
+			\left(\binom{n}{j}\binom{n-d}{j}^{-1} - 1\right)\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                                  \\
+			 & \quad \quad + \frac{n}{s_2 d}\sum_{j = d + 1}^{s_2}\frac{\binom{s_2 - 1}{j - 1}\binom{n - d}{j}}{\binom{n - 1}{j - 1}\binom{n}{j}}
+			\left(\frac{\binom{n}{j}}{\binom{n - d}{j}}\left[1 - \binom{n - j}{d}\binom{n}{d}^{-1}\right]
+			+ \left[1 - \binom{n}{j}\binom{n-d}{j}^{-1}\right]^{2}\right)\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                     \\
+			%
+			 & = \frac{d}{n - d} V_{s_1, s_2}^{1} + \frac{n}{s_2}\sum_{j = 2}^{d}\frac{\binom{s_2 - 1}{j - 1}}{\binom{n - 1}{j - 1}}
+			\left(\binom{n}{j}\binom{n-d}{j}^{-1} - 1\right)\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                                  \\
+			 & \quad \quad + \frac{n}{s_2 d}\sum_{j = d + 1}^{s_2}\frac{\binom{s_2 - 1}{j - 1}\binom{n - d}{j}}{\binom{n - 1}{j - 1}\binom{n}{j}}
+			\left(\frac{\binom{n}{j}}{\binom{n - d}{j}} - 1
+			+ \left[1 - \binom{n}{j}\binom{n-d}{j}^{-1}\right]^{2}\right)\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                     \\
+			%
+			 & = \frac{d}{n - d} V_{s_1, s_2}^{1} + \frac{n}{s_2 d}\sum_{j = 2}^{s_2}\frac{\binom{s_2 - 1}{j - 1}}{\binom{n - 1}{j - 1}}
+			\left(\binom{n}{j}\binom{n-d}{j}^{-1} - 1\right)\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                                  \\
+			%
+			 & = \frac{d}{n - d} V_{s_1, s_2}^{1} + \frac{n}{s_2 d}\sum_{j = 2}^{s_2}\frac{\binom{s_2 - 1}{j - 1}}{\binom{n - 1}{j - 1}}
+			\left(\prod_{i = 0}^{d - 1}\left(1 + \frac{j}{n - i - j}\right) - 1\right)\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                        \\
+			%
+			 & \overset{(\star\star\star)}{\leq} \frac{d}{n - d} V_{s_1, s_2}^{1} + \frac{n}{s_2 d}\sum_{j = 2}^{s_2}\frac{\binom{s_2 - 1}{j - 1}}{\binom{n - 1}{j - 1}}
+			\frac{\sum_{i = 0}^{d - 1}\frac{j}{n - i - j}}{1 - \sum_{i = 0}^{d - 1}\frac{j}{n - i - j}}\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                       \\
+			%
+			 & \leq \frac{d}{n - d} V_{s_1, s_2}^{1} + \frac{n}{s_2 d}\sum_{j = 2}^{s_2}\frac{\binom{s_2 - 1}{j - 1}}{\binom{n - 1}{j - 1}}
+			\frac{j (n - j)}{(n - d - j + 1)(n - d - 2 j)}\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                                    \\
+			%
+			 & \leq \frac{d}{n - d} V_{s_1, s_2}^{1} + \frac{n}{s_2 d}\sum_{j = 2}^{s_2}\left(\frac{e (s_2 - 1)}{n - 1}\right)^{j-1}
+			\frac{j (n - 2)}{(n - d - s_2 + 1)(n - d - 2s_t)}\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]
+		\end{aligned}
+	\end{equation}
+	The equality marked by $(\star\star)$ holds by the Chu-Vandermonde identity applied to the third summand, whereas the inequality marked by the equality marked by $(\star\star\star)$ follows from a Weierstrass-Product type inequality.
+	Furthermore, this derivation shows that we do not really need to distinguish between the two described cases for the error term.
+
+	Proceeding this way allows us to continue our analysis similar to the proof for the simple leave-one-out Jackknife.
+	\begin{equation}
+		\begin{aligned}
+			\E\left[\left(T_{\ell}\right)^2\right]
+			 & \lesssim \frac{d}{n - d} V_{s_1, s_2}^{1} + \frac{n}{s_2 d}\sum_{j = 2}^{s_2}\left(\frac{e (s_2 - 1)}{n - 1}\right)^{j-1}
+			\frac{j (n - 2)}{(n - d - s_2 + 1)(n - d - 2s_t)}\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                   \\
+			%
+			 & = \frac{d}{n - d} V_{s_1, s_2}^{1} + \frac{ 2 e \cdot n (n - 2)}{(n - 1)(n - d - s_2 + 1)(n - d - 2s_t)d}
+			\sum_{j = 2}^{s_2}\frac{j}{s_2} \left(\frac{e (s_2 - 1)}{n - 1}\right)^{j-1}
+			\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                                                                    \\
+			%
+			 & \lesssim \frac{d}{n - d} V_{s_1, s_2}^{1} + \frac{4e}{(n - d - s_2)s_2 d}
+			\sum_{j = 2}^{s_2}j  \left(\frac{e (s_2 - 1)}{n - 1}\right)^{j-1}
+			\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                                                                    \\
+			%
+			 & \leq  \frac{d}{n - d} V_{s_1, s_2}^{1}
+			+ \frac{4e}{(n - d - s_2)s_2 d} \sum_{j = 2}^{s_2}\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]
+			+ \frac{4e}{(n - d - s_2)s_2 d} \sum_{j = 2}^{s_2}(j-1)\left(\frac{e (s_2 - 1)}{n - 1}\right)^{j-1}\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right] \\
+			%
+			 & \leq  \frac{d}{n - d} V_{s_1, s_2}^{1}
+			+ \frac{4e}{(n - d - s_2)s_2 d} \sum_{j = 2}^{s_2}\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]
+			+ \frac{4e \cdot \zeta_{s_1, s_2}^{s_2}}{(n - d - s_2)s_2 d} \sum_{j = 1}^{\infty}j\left(\frac{e (s_2 - 1)}{n - 1}\right)^{j}                  \\
+			%
+			 & = \frac{d}{n - d} \zeta_{s_1, s_2}^{1}
+			+ \frac{4e}{(n - d - s_2)s_2 d} \left(\zeta_{s_1, s_2}^{s_2} - s_2 \zeta_{s_1, s_2}^{1}\right)
+			+ \frac{4e \cdot \zeta_{s_1, s_2}^{s_2}}{(n - d - s_2)s_2 d} \cdot \frac{e (s_2 - 1)(n - 1)}{\left(n - 1 - e (s_2 - 1)\right)^2}               \\
+			%
+			 & = \left(\frac{d}{n - d} + \frac{e (s_2 - 1)(n - 1)}{\left(n - 1 - e (s_2 - 1)\right)^2}\right) \zeta_{s_1, s_2}^{1}
+			+ \frac{4e}{(n - d - s_2)s_2 d}\left(1 + \frac{e (s_2 - 1)(n - 1)}{\left(n - 1 - e (s_2 - 1)\right)^2}\right) \left(\zeta_{s_1, s_2}^{s_2} - s_2 \zeta_{s_1, s_2}^{1}\right)
+		\end{aligned}
+	\end{equation}
+
+	We continue as in the default Jackknife case.
+	\begin{equation}
+		\begin{aligned}
+			\frac{\E\left[T_{\ell}^2\right]}{V_{s_1, s_2}^{1}}
+			 & \leq \frac{d}{n - d} + \frac{e (s_2 - 1)(n - 1)}{\left(n - 1 - e (s_2 - 1)\right)^2}
+			+ \frac{4e}{(n - d - s_2)s_2 d}\left(1 + \frac{e (s_2 - 1)(n - 1)}{\left(n - 1 - e (s_2 - 1)\right)^2}\right) \frac{\zeta_{s_1, s_2}^{s_2} - s_2 \zeta_{s_1, s_2}^{1}}{\zeta_{s_1, s_2}^{1}} \\
+			%
+			 & \rightarrow 0.
+		\end{aligned}
+	\end{equation}
+	Now, following the exact same logic as in the proof for the consistency of the Jackknife variance estimator, we obtain consistency of the delete-d Jackknife variance estimator.
 \end{proof}
 
 \newpage
@@ -1728,9 +1315,12 @@ Having developed theoretical results concerning uniform inference methods for th
 
 \end{proof}
 
+\begin{proof}[Proof of Theorem \ref{thm:pw_inf_TDNN_HTE}]\mbox{}\\*
+
+\end{proof}
+
 \newpage
 \section{Proofs for Results in Section \ref{sec:unif_inf}}
 \hrule
-\subsection{Useful Lemmas for Proofs for Results in Section \ref{sec:unif_inf}}
 
 \end{document}

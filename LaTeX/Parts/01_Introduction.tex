@@ -1,0 +1,29 @@
+\section{Introduction}
+\hrule
+	{\color{red} LOREM IPSUM}
+
+After a short notation section, the remainder of this paper is organized as follows.
+{\color{red} LOREM IPSUM}
+
+\subsection{Notation}
+\hrule
+Let $[n] = \{1, \dotsc, n\}$.
+Given a finite index set $\mathcal{I} \subset \mathbb{N}$, I introduce the following notational conventions.
+\begin{equation}
+	L_{s}(\mathcal{I}) = \left\{\left(l_1, \dotsc, l_s\right) \in \mathcal{I}^{s} \, \middle| \, \forall i \neq j: \; l_i \neq l_j\right\}
+	\quad \text{and} \quad
+	L_{n,s} = L_s\left([n]\right)
+\end{equation}
+For a data set $D_{[n]} = \left(\mathbf{Z}_1, \dotsc, \mathbf{Z}_{n}\right)$ and a vector $\ell \in L_{n,s}$, denote by $D_{[n], -\ell}$ the data set where the observations corresponding to indices in $\ell$ have been removed.
+To simplify the notation in the case that a single observation (say the $i'th$ observation) is removed, I use the notation $D_{n, -i}$.
+Similarly, given such a data set $D_{[n]}$ and index vector $\ell$, denote by $D_{\ell}$ the data set only consisting of the observations in $D_{[n]}$ corresponding to indices in $\ell$.
+In an abuse of notation, when considering two index vectors $\ell$ and $\iota$ that do not share any entries, I denote by $\ell \cup \iota$ the concatenation of the two vectors, e.g. if $\ell = (8,2,5)$ and $\iota = (1,6)$, then $\ell \cup \iota = (8,2,5,1,6)$.
+
+In the following, $\rightsquigarrow$ denotes convergence in distribution, while $\rightarrow_{p}$ denotes convergence in probability and $\rightarrow_{a.s.}$ denotes almost sure convergence.
+The norm $\| \cdot \|_{\psi_1}$ denotes the $\psi_1$-Orlicz norm.
+Recall that random variables are sub-exponential if and only if they have a finite $\psi_1$-Orlicz norm.
+
+{\color{red} TO-DO:}
+\begin{itemize}
+	\item $\lesssim$ needs an explanation
+\end{itemize}

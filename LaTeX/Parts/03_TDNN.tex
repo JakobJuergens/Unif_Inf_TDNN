@@ -1,0 +1,240 @@
+\section{Two-Scale Distributional Nearest Neighbor Estimator}\label{sec:TDNN}
+\hrule
+While less economically enticing, I will introduce the TDNN estimator using the simple nonparametric regression setup first.
+I will do this by first considering the simpler (one-scale) distributional nearest neighbor estimator, which naturally extends to its two-scale variant as shown in \citet{demirkaya_optimal_2024}.
+Then, having established the method, I will commence by adapting it to tackle the problem of estimating heterogeneous treatment effects.
+As I will embed both estimation problems in the context of subsampled conditional moment regression to then build uniform inference procedures based on \citet{ritzwoller_uniform_2024}, the approach might at first seem unnatural.
+However, due to the constructions that follow in section \ref{sec:unif_inf}, this approach will be well worth the slightly cumbersome initial presentation.
+
+\subsection{DNN and TDNN in Nonparametric Regression}
+\hrule
+We can rephrase the nonparametric regression problem in terms of estimating specific conditional moments.
+In the case at hand, this means that our problem can be phrased in the following way.
+\begin{equation}\label{CondMomEq}
+	M(\mathbf{x}; \mu)
+	= \E\left[m(\mathbf{Z}_i; \mu) \, | \, \mathbf{X}_i = \mathbf{x}\right]
+	= 0
+	\quad \text{where} \quad
+	m(\mathbf{Z}_i; \mu) = Y_i - \mu(\mathbf{X}_i).
+\end{equation}
+Due to the absence of nuisance parameters, conditions such as local Neyman-orthogonality vacuously hold.
+I point this out to highlight a contrast that we will encounter when studying the treatment effect setting.
+In the simpler non-parametric regression setting, we can approached the problem by solving the corresponding empirical conditional moment equation.
+\begin{equation}\label{EmpCondMomEq}
+	M_n(\mathbf{x}; \mu, \mathbf{D}_n)
+	= \sum_{i = 1}^{n}K(\mathbf{x}, \mathbf{X}_i)m(\mathbf{Z}_i; \mu)
+	= 0
+\end{equation}
+In this equation, $K:\mathbb{R}^d \times \mathbb{R}^d \rightarrow \mathbb{R}$ is a data-dependent Kernel function measuring the ``distance'' between the point of interest and an observation.
+Notationally, this makes the local and data-dependent approach of this procedure explicit.
+One estimator that fulfills the purpose of estimating $\mu$ nonparametrically is the Distributional Nearest Neighbor (DNN) estimator.
+With a name coined by \citet{demirkaya_optimal_2024}, the DNN estimator is based on important work by \citet{steele_exact_2009} and \citet{biau_rate_2010}.
+Given a sample as described in Assumption \ref{asm:npr_dgp} and a fixed feature vector $\mathbf{x}$, we first order the sample based on the distance to the point of interest.
+\begin{equation}\label{eq:ordering}
+	||\mathbf{X}_{(1)} - \mathbf{x}|| \leq ||\mathbf{X}_{(2)} - \mathbf{x}|| \leq \dotsc \leq ||\mathbf{X}_{(n)} - \mathbf{x}||
+\end{equation}
+Here draws are broken according to the natural indices of the observations in a deterministic way to simplify the derivations going forward.
+This ordering implies an associated ordering on the response variables and we denote by $Y_{(i)}$ the response corresponding to $\mathbf{X}_{(i)}$.
+Let $\rk(\mathbf{x}; \mathbf{X}_i, D)$ denote the \textit{rank} that is assigned to observation $i$ in a sample $D$ relative to a point of interest $\mathbf{x}$, setting $\rk(\mathbf{x}; \mathbf{X}_i, D) = \infty$ if $\mathbf{Z}_i \not\in D$.
+Similarly, let $Y_{(1)}(\mathbf{x}; D)$ indicate the response value of the closest neighbor in set $D$.
+This enables us to define a data-driven kernel function $\kappa$ following the notation of \citet{ritzwoller_uniform_2024}.
+\begin{equation}
+	\kappa(\mathbf{x}; \mathbf{Z}_i, D, \xi)
+	= \1\left(\rk(\mathbf{x}; \mathbf{X}_i, D) = 1\right)
+\end{equation}
+Here, $\xi$ is an additional source of randomness in the construction of the base learner that comes into play when analyzing, for example, random forests as proposed by \citet{breiman_random_2001} using the CART-algorithm described in \citet{breiman_classification_2017}.
+As the DNN estimator does not incorporate such additional randomness, the term is omitted in further considerations.
+In future research, additional randomness such as, for example, column subsampling could be considered, in turn making the addition of $\xi$ necessary again.
+Using $\kappa$, it is straightforward to find an expression for the distance function $K$ in Equation \ref{EmpCondMomEq} corresponding to the DNN estimator.
+\begin{equation}\label{eq:data_distance}
+	K(\mathbf{x}, \mathbf{X}_i)
+	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} \1(i \in \ell)\frac{\kappa(\mathbf{x}; \mathbf{Z}_i, D_{\ell})}{s!}
+	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} \frac{\1\left(\rk(\mathbf{x}; \mathbf{Z}_i, D_{\ell}) = 1\right)}{s!}
+\end{equation}
+Inserting into Equation \ref{EmpCondMomEq}, this gives us the following empirical conditional moment equation.
+\begin{equation}
+	\begin{aligned}
+		M_n(\mathbf{x}; \mu, \mathbf{D}_n)                                                                                                               
+		= \sum_{i = 1}^{n}\left(\binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} \frac{\1\left(\rk(\mathbf{x}; \mathbf{Z}_i, D_{\ell}) = 1\right)}{s!}\right)\left(Y_i - \mu(\mathbf{X}_i)\right)
+		= 0
+	\end{aligned}
+\end{equation}
+Solving this empirical conditional moment equation then yields the DNN estimator $\tilde{\mu}_{s}(\mathbf{x})$ with subsampling scale $s$.
+Defining the kernel function, $h_{s}(\mathbf{x}; D_{\ell}) := (s!)^{-1} Y_{(1)}(\mathbf{x}; D_{\ell})$, it is given by the following U-statistic.
+\begin{equation}\label{eq:U_stat}
+	\tilde{\mu}_{s}(\mathbf{x}; \mathbf{D}_n)
+	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} h_{s}(\mathbf{x}; D_{\ell})
+\end{equation}
+\citet{steele_exact_2009} shows that the DNN estimator has a simple closed form representation based on the original ordered sample.
+\begin{equation}\label{eq:DNN_closed_form}
+	\tilde{\mu}_{s}(\mathbf{x}; \mathbf{D}_n)
+	= \binom{n}{s}^{-1} \sum_{i = 1}^{n - s + 1}\binom{n - i}{s - 1}Y_{(i)}
+\end{equation}
+This representation will allow me to derive computationally simple representations for the practical use of the procedures presented in this paper.
+This is in contrast to most U-statistic based methods that inherently rely on evaluating the kernel on individual subsets, incurring a potentially prohibitive computational cost.
+As part of their paper, \citet{demirkaya_optimal_2024} develop an explicit expression for the first-order bias term of the DNN estimator and the following distributional approximation result.
+\begin{boxD}
+	\begin{thm}[\citet{demirkaya_optimal_2024} - Theorem 1]\label{thm:dem1}\mbox{}\\*
+		Assume that we observe data as described in Assumption \ref{asm:npr_dgp} and that Assumption \ref{asm:technical} holds.
+		Then, for any fixed $\mathbf{x} \in \mathcal{X}$, we have that as $s \rightarrow \infty$
+		\begin{equation}
+			\E\left[\tilde{\mu}_{s}(\mathbf{x}; \mathbf{D}_n)\right] 
+			= \mu(\mathbf{x}) + B(s) + R(s)
+		\end{equation}
+		with
+		\begin{align}
+			B(s) =\Gamma(2 / d+1) \frac{f(\mathbf{x}) \operatorname{tr}\left(\mu^{\prime \prime}(\mathbf{x})\right)+2 \mu^{\prime}(\mathbf{x})^T f^{\prime}(\mathbf{x})}{2 d V_d^{2 / d} f(\mathbf{x})^{1+2 / d}} s^{-2 / d}
+			\quad \text{and} \quad
+			R(s) = \begin{cases}O\left(s^{-3}\right),     & d=1      \\
+				 O\left(s^{-4 / d}\right), & d \geq 2\end{cases}
+		\end{align}
+		where\dots
+		\begin{multicols}{2}
+			\begin{itemize}
+				\item $V_d=\frac{d^{d / 2}}{\Gamma(1+d / 2)}$
+				\item $\Gamma(\cdot)$ is the gamma function
+				\item $\operatorname{tr}(\cdot)$ stands for the trace of a matrix
+				\item $f^{\prime}(\cdot)$ and $\mu^{\prime}(\cdot)$ denote the first-order gradients of $f(\cdot)$ and $\mu(\cdot)$, respectively
+				\item $f^{\prime \prime}(\cdot)$ and $\mu^{\prime \prime}(\cdot)$ represent the $d \times d$ Hessian matrices of $f(\cdot)$ and $\mu(\cdot)$, respectively
+			\end{itemize}
+		\end{multicols}
+	\end{thm}
+\end{boxD}
+
+Starting from this setup, \citet{demirkaya_optimal_2024} develop a novel bias-correction method for the DNN estimator that leads to appealing finite-sample properties of the resulting Two-Scale Distributional Nearest Neighbor (TDNN) estimator.
+Their method is based on the explicit formula for the first-order bias term of the DNN estimator, which in turn allows them to eliminate it through a clever combination of two DNN estimators.
+Choosing two subsampling scales $1 \leq s_1 < s_2 \leq n$ and two corresponding weights
+\begin{equation}
+	w_1^{*}(s_1, s_2) = \frac{1}{1-(s_1/s_2)^{-2/d}}
+	\quad\text{and}\quad
+	w_2^{*}(s_1, s_2) = 1 - w_1^{*}(s_1, s_2)
+\end{equation}
+they define the corresponding TDNN estimator as follows.
+\begin{equation}
+	\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right)
+	= w_1^{*}(s_1, s_2)\tilde{\mu}_{s_1}\left(\mathbf{x}; \mathbf{D}_n\right) + w_2^{*}(s_1, s_2)\tilde{\mu}_{s_2}\left(\mathbf{x}; \mathbf{D}_n\right)
+\end{equation}
+This leads to the elimination of the first-order bias term shown in Theorem \ref{thm:dem1} leading to desirable finite-sample properties.
+Furthermore, the authors show that this construction improves the quality of the normal approximation.
+
+\begin{boxD}
+	\begin{asm}[Bounded Ratio of Kernel-Orders]\label{asm:kernel_order_ratio}\mbox{}\\*
+		There is a constant $\mathfrak{c} \in (0,1/2)$ such that the ratio of the kernel orders is bounded in the following way.
+		\begin{equation}
+			\forall n: \quad 0 < \mathfrak{c} \leq s_1 / s_2 \leq 1 - \mathfrak{c} < 1.
+		\end{equation}
+	\end{asm}
+\end{boxD}
+
+\begin{boxD}
+\begin{thm}[\citet{demirkaya_optimal_2024} - Theorem 3]\label{thm:dem3}\mbox{}\\*
+	Assume that we observe data as described in Assumption \ref{asm:npr_dgp} and that Assumption \ref{asm:technical} holds.
+	Furthermore, let $s_1, s_2 \rightarrow \infty$ with $s_1 = o(n)$ and $s_2 = o(n)$ be such that Assumption \ref{asm:kernel_order_ratio} holds for some $\mathfrak{c} \in (0, 1/2)$.
+	Then, for any fixed $\mathbf{x} \in \operatorname{supp}(\mathbf{X}) \subset \mathbb{R}^d,$ it holds that for some positive sequence $\sigma_n$ of order $(s_2/n)^{1/2}$,
+	\begin{equation}
+		\sigma_n^{-1} \left(\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right) - \mu(\mathbf{x}) - \Lambda\right) \rightsquigarrow \mathcal{N}(0,1)
+	\end{equation}
+	as $n \rightarrow \infty$, where
+	\begin{equation*}
+		\Lambda = \begin{cases}
+			O\left(s_1^{-4/d} + s_2^{-4/d}\right) & \text{for } d \geq 2 \\
+			O\left(s_1^{-3} + s_2^{-3}\right)     & \text{for } d = 1    \\
+		\end{cases}.
+	\end{equation*}
+\end{thm}
+\end{boxD}
+
+\subsection{DNN and TDNN in Heterogeneous Treatment Effect Estimation}
+\hrule
+Motivated by the nonparametric regression setup, we set out to apply the underlying idea in the context of heterogeneous treatment effects.
+Similar to before, we start by specifying a moment corresponding to our object of interest taking into account the additional factors that come into play.
+Due to the presence of a high-dimensional nuisance parameter in the form of the function $q$, it is natural to apply the concepts of Double/Debiased Machine Learning (DML).
+This approach closely follows the leading example of \citet{ritzwoller_uniform_2024}.
+The main goal at this stage is to construct a highly practical method based on their ideas that leverages the computational simplicity of the distributional nearest neighbor framework.\\
+
+While considering the problem of point-estimation of a conditional average treatment effect given a feature vector $\mathbf{x}$, $\operatorname{CATE}(\mathbf{x}) = \E\left[Y_{i}\left(W_i = 1\right) - Y_{i}\left(W_i = 0\right) \, \middle| \, \mathbf{X}_i = \mathbf{x}\right]$, we will employ a Neyman-orthogonal score function to curtail the influence of the nuisance parameters on our estimation.
+\begin{equation}
+	\begin{aligned}
+		M(\mathbf{x}; \operatorname{CATE}, \mu, p) 
+		& = \E\left[m\left(\mathbf{Z_i}; \operatorname{CATE}, \mu, p\right) \, \middle| \, \mathbf{X}_i = \mathbf{x}\right]
+		= 0
+		\quad \text{where} \quad \\
+		m\left(\mathbf{Z_i}; \operatorname{CATE}, \mu, p\right) 
+		& = \mu_1\left(\mathbf{X}_i\right) - \mu_0\left(\mathbf{X}_i\right) + \beta\left(W_i, \mathbf{X}_i\right)\left(Y_i - \mu_{W_i}\left(\mathbf{X}_i\right)\right) - \operatorname{CATE}\left(\mathbf{X}_i\right)
+	\end{aligned}
+\end{equation}
+
+Here, we make use of the following notation, that is common in the potential outcomes framework, and the well-known Horvitz-Thompson weight.
+\begin{equation}
+	\text{for }  w = 1,2: \quad \mu_w\left(\mathbf{x}\right) = \E\left[Y_i \, \middle| \, W_i = w, \; \mathbf{X}_i = \mathbf{x}\right]
+	\quad \text{and} \quad
+	\beta\left(w, \mathbf{x}\right) = \frac{w}{\pi\left(\mathbf{x}\right)} - \frac{1 - w}{1 - \pi\left(\mathbf{x}\right)}
+\end{equation}
+Proceeding in an analogous fashion to the nonparametric regression setup leads us to the following empirical moment equation, where $\hat{\mu}$ and $\hat{\pi}$ are first-stage estimators and $K$ is the data-driven kernel function defined in Equation \ref{eq:data_distance}.
+\begin{equation}
+	\begin{aligned}
+		M_{n}\left(\mathbf{x}; \hat{\mu}, \hat{\pi}\right)
+		= \sum_{i = 1}^{n} K(\mathbf{x}, \mathbf{X}_i) m\left(\mathbf{Z_i}; \hat{\mu}, \hat{\pi}\right)
+		= 0
+	\end{aligned}
+\end{equation}
+However, due to the presence of infinite-dimensional nuisance parameters, it becomes attractive to proceed by using this weighted empirical moment equation embedded into the DML2 estimator of \citet{chernozhukov_doubledebiased_2018}.
+Applying these ideas to the context of estimating the CATE has been previously explored, for example by \citet{semenova_debiased_2021}
+For the sake of simplicity, I will assume that $m = n/K$, i.e. the desired number of observations in each fold, is an integer going forward.
+\begin{boxD}
+	\begin{dfn}{(T)DNN-DML2 CATE-Estimator}\label{def:CATE_DNN_DML}\mbox{}\\*
+		To estimate the Conditional Average Treatment Effect at a point of interest $\mathbf{x} \in \mathcal{X}$, we proceed as follows.
+		\begin{enumerate}
+			\item Take a $K$-fold random partition $\mathcal{I} = \left(I_k\right)_{k = 1}^{K}$ of the observation indices $[n]$ such that the size of each fold $I_k$ is $m = n/K$.
+			For each $k \in [K]$, define $I_{k}^{C} = [n] \backslash I_k$.
+			Furthermore, for the observation being assigned rank $i \in [n]$, denote by $k(i)$ the fold that the observation appears in.
+			\item For each $k \in [K]$, use the DNN estimator on the data set $\mathbf{D}_{I_k^C}$\dots
+			\begin{enumerate}
+				\item to estimate the nuisance parameters $\mu_0$ and $\mu_1$:
+				\begin{equation}
+					\hat{\mu}_{k,s}^{w}\left(x\right) = \hat{\mu}_{w,s}\left(x; \mathbf{D}_{I_k^{C}}^{(w)}\right) \quad \text{for } w=0,1	
+				\end{equation}
+				\item if $\pi$ is unknown, i.e. we are not in a randomized experiment setting, additionally estimate $\pi$
+				\begin{equation}
+					\hat{\pi}_{k,s}\left(x\right) = \hat{\mu}_{s}\left(x; \mathbf{D}_{I_k^{C}}\right) \quad \text{where the predicted variable is $W$}	
+				\end{equation}
+			\end{enumerate}
+			\item Construct the estimator  $\widehat{\operatorname{CATE}}\left(\mathbf{x}\right)$ as the solution to the following equation.
+			\begin{equation}
+				\begin{aligned}
+					0 \quad = \quad & \sum_{k = 1}^{K} \sum_{i \in I_k} K(\mathbf{x}, \mathbf{X}_i) m\left(\mathbf{Z_i}; \widehat{\operatorname{CATE}}\left(\mathbf{x}\right), \hat{\mu}_{k,s}, \hat{\pi}_{k,s}\right)\\
+					%
+					= \quad & \sum_{i = 1}^{n - s + 1} \left[\frac{\binom{n-i}{s-1}}{\binom{n}{s}} \sum_{k = 1}^{K} \1\left(i \in I_{k}\right)  m\left(\mathbf{Z_{(i)}}; \widehat{\operatorname{CATE}}\left(\mathbf{x}\right), \hat{\mu}_{k,s}, \hat{\pi}_{k,s}\right)\right]\\
+					%
+					= \quad & \sum_{i = 1}^{n - s + 1} \left[\frac{\binom{n-i}{s-1}}{\binom{n}{s}} m\left(\mathbf{Z_{(i)}}; \widehat{\operatorname{CATE}}\left(\mathbf{x}\right), \hat{\mu}_{k(i),s}, \hat{\pi}_{k(i),s}\right)\right]
+				\end{aligned}
+			\end{equation}
+		\end{enumerate}
+	\end{dfn}	
+\end{boxD}
+This description shows the case of the DNN estimator.
+The corresponding TDNN-based estimator is defined analogously, employing the TDNN estimator in the first-stage estimation procedure and using the corresponding weights of the TDNN-estimator in the second stage.
+Observe, that the weights $K(\mathbf{x}, \mathbf{X}_i)$ chosen in the second step are chosen according to the full sample.
+Plugging in for the score function in the equation that defines the estimator, we can observe the following.
+\begin{equation}
+	\begin{aligned}
+		\widehat{\operatorname{CATE}}\left(\mathbf{x}\right) & = \sum_{i = 1}^{n - s + 1} \frac{\binom{n-i}{s-1}}{\binom{n}{s}} 
+		\left[\hat{\mu}_{k(i),s}^{1}\left(\mathbf{X}_{(i)}\right) - \hat{\mu}_{k(i),s}^{0}\left(\mathbf{X}_{(i)}\right) + \hat{\beta}_{k(i),s}\left(W_{(i)}, \mathbf{X}_{(i)}\right)\left(Y_{(i)} - \hat{\mu}^{W_{(i)}}_{k(i),s}\left(\mathbf{X}_{(i)}\right)\right)\right]
+	\end{aligned}
+\end{equation}
+Thus, given first-stage estimates of the nuisance parameters, we have a closed form representation of the CATE-estimator for a given partition of $[n]$.
+Furthermore, given these first-stage estimates, the evaluation of the CATE-estimator at a different point of interest is merely a reweighting of the terms corresponding to different observations.
+Considering the first stage estimates, we can recognize that the estimation of $\mu^{0}$ and $\mu^{1}$ is effectively a nonparametric regression problem as previously described where we used the reduced data sets $\mathbf{D}^{(0)}$ and $\mathbf{D}^{(1)}$, respectively.
+In contrast, the estimation of $\pi$ that is necessary in nearly all contexts but randomized experiments can be described further due to the binary outcome.
+For that purpose, let $\mathbf{Z}_{(i|k)}$ denote the $i$'th closest observation in fold $k$ akin to the construction shown in Equation \ref{eq:ordering} relative to $\mathbf{x}$ but with respect to the data in fold $k$.
+\begin{equation}
+	\begin{aligned}
+		\hat{\pi}_{k,s}\left(\mathbf{x}\right) 
+		= \sum_{i = 1}^{n - m - s + 1} \frac{\binom{n - m - i}{s - 1}}{\binom{n - m}{s}} W_{(i|k)}
+	\end{aligned}
+\end{equation}
+What these equations show is that the main computational cost associated with these methods comes from having to construct multiple orderings of the sample of interest.
+The essential strength of this approach: It is not necessary to solve any complex optimization problems to obtain the estimator.
+Furthermore, due to the prevalence of constructing orderings of data with respect to the euclidean norm, this is a well-studied problem with efficient algorithms available of the shelf.
+
+{\color{red} LOREM IPSUM}

@@ -1,0 +1,102 @@
+\section{Setup}\label{sec:setup}
+\hrule
+Throughout this paper, we will consider two distinct setups.
+The first is a pure nonparametric regression setup closely mirroring the structure of \citet{demirkaya_optimal_2024}.
+This setup will be very useful to illustrate the inner workings of the estimator of interest and serve as a leading example for the theoretical results.
+\begin{boxD}
+	\begin{asm}[Nonparametric Regression DGP]\label{asm:npr_dgp}\mbox{}\\*
+		The observed data consists of an i.i.d. sample taking the following form.
+		\begin{equation}\label{DGP1}
+			\mathbf{D}_n = \{\mathbf{Z}_i = (\mathbf{X}_i, Y_i)\}_{i = 1}^{n}
+			\quad \text{from the model} \quad
+			Y = \mu(\mathbf{X}) + \varepsilon,
+		\end{equation}
+		where $Y \in \mathbb{R}$ is the response, $\mathbf{X} \in \mathcal{X} \subset \mathbb{R}^k$ is a feature vector of fixed dimension $k$ distributed according to a density function $f$, and $\mu(\mathbf{x})$ is the unknown mean regression function.
+		$\varepsilon$ is the unobservable model error on which we impose the following conditions.
+		\begin{equation}
+			\E\left[\varepsilon \, \middle| \, \mathbf{X}\right] = 0, \quad
+			\Var\left(\varepsilon \, \middle| \, \mathbf{X} = \mathbf{x}\right) = \sigma_{\varepsilon}^2\left(\mathbf{x}\right)
+		\end{equation}
+		Let the distribution induced by this model be denoted by $P$ and thus $\mathbf{Z}_i = \left(\mathbf{X}_i, Y_i\right) \overset{\text{iid}}{\sim} P$.
+	\end{asm}
+\end{boxD}
+In contrast to this rather statistical setup, I will consider a setting with more immediate econometric relevance: estimation of and inference on heterogeneous treatment effects in the potential outcomes framework.
+This serves as a more immediately applicable version of the theoretical setup presented in \citet{ritzwoller_uniform_2024} and brings their results closes to practitioners in the field of economics.
+\begin{boxD}
+	\begin{asm}[Heterogeneous Treatment Effect DGP]\label{asm:hte_dgp}\mbox{}\\*
+		The observed data consists of an i.i.d. sample taking the following form.
+		\begin{equation}\label{DGP2}
+			\begin{aligned}
+				\mathbf{D}_n & = \{\mathbf{Z}_i = (\mathbf{X}_i, W_i, Y_i)\}_{i = 1}^{n}
+				\quad \text{from the model} \quad
+				Y = \1(W = 0)\mu_{0}(\mathbf{X}) + \1(W = 1)\mu_1(\mathbf{X}) + \varepsilon,	\\
+				W_i & \sim \operatorname{Bern}\left(\pi\left(\mathbf{X}_i\right)\right)
+			\end{aligned}
+		\end{equation}
+		where $Y \in \mathbb{R}$ is the response, $W \in \{0,1\}$ is an observed treatment indicator, $\mathbf{X} \in \mathcal{X} \subset \mathbb{R}^k$ is a feature vector of fixed dimension $k$ distributed according to a density function $f$ and $\varepsilon$ is the unobservable model error on which we impose the following conditions.
+		\begin{equation}
+			\varepsilon \indep W \, | \, \mathbf{X}, \quad
+			\E\left[\varepsilon \, | \, \mathbf{X}\right] = 0, \quad
+			\Var\left(\varepsilon \, | \, \mathbf{X} = \mathbf{x}\right) = \sigma_{\varepsilon}^2\left(\mathbf{x}\right)
+		\end{equation}
+		Furthermore, $\mu_0:\mathcal{X} \rightarrow \mathbb{R}$ and $\mu_1:\mathcal{X} \rightarrow \mathbb{R}$ are the two unknown potential outcome functions and $\pi:\mathcal{X} \rightarrow [0,1]$ is a function describing the probability of treatment uptake, effectively corresponding to the propensity score.
+		Let the distribution induced by this model be denoted by $Q$ and thus $\mathbf{Z}_i = \left(\mathbf{X}_i, W_i, Y_i\right) \overset{\text{iid}}{\sim} Q$.
+	\end{asm}
+\end{boxD}
+In this second setting, I will use the notation $\mathbf{D}^{(0)}$ and $\mathbf{D}^{(1)}$ to refer to the data subsets containing only observations with $W = 0$ and $W = 1$, respectively.
+Clearly, this model can be interpreted in the context of the potential outcomes framework in the usual manner.
+To emphasize this interpretation, consider the following two specific contexts in applied research.
+\begin{boxD}
+	\begin{exmp}[Randomized Experiment Analysis]\mbox{}\\*
+		{\color{red} LOREM IPSUM}
+		% Consider a government agency evaluating a proposal to extend access to a job-training program.
+		% Individuals are eligible to participate in the program depending on their characteristics $\mathbf{X}$.
+		% Whether individuals choose to participate given they are eligible, i.e. the function $p$, cannot be influenced by the agency directly and serves as a nuisance parameter in the estimation problem of treatment effects.\\
+
+		% To evaluate the average effect of such changes on individuals with characteristics $\mathbf{x}$, we need to estimate the conditional average treatment effect.
+		% Uniformly valid confidence bands for these treatment effects would allow the agency to evaluate the program in an informed way with respect to the whole potentially treated subspace of characteristics.
+	\end{exmp}
+\end{boxD}
+
+\begin{boxD}
+	\begin{exmp}[Natural Experiment Analysis]\mbox{}\\*
+		{\color{red} LOREM IPSUM}
+	\end{exmp}
+\end{boxD}
+
+Throughout this paper, I will additionally rely on a number of assumptions that are more technical in nature.
+\begin{boxD}
+	\begin{asm}[Technical Assumptions]\label{asm:technical}\mbox{}\\*
+		In both settings (Assumption \ref{asm:npr_dgp} and Assumption \ref{asm:hte_dgp}) the following conditions hold:
+		\begin{itemize}
+			\item The feature space $\mathcal{X} = \operatorname{supp}(X)$ is a bounded, compact subset of $\mathbb{R}^k$
+			\item The density $f(\cdot)$ is bounded away from 0 and $\infty$
+			\item $f(\cdot)$ are $\mu(\cdot)$ are four times continuously differentiable with bounded second, third, and fourth-order partial derivatives in a neighborhood of $\mathbf{x}$
+			\item $\E\left[Y^2\right]<\infty$
+		\end{itemize}
+		In the Heterogeneous Treatment Effect setting (Assumption \ref{asm:hte_dgp}), the following additional condition holds:
+		\begin{itemize}
+			\item $\mu_0(\cdot)$ and $\mu_1(\cdot)$ are four times continuously differentiable with bounded second, third, and fourth-order partial derivatives in a neighborhood of $\mathbf{x}$
+		\end{itemize}
+	\end{asm}
+\end{boxD}
+\begin{boxD}
+	\begin{asm}[Error Distribution Assumptions]\label{asm:sg_errors}\mbox{}\\*
+		\begin{itemize}
+			\item Uniformly subgaussian
+			\item Assumptions on $\sigma^2_{\varepsilon}\left(\mathbf{x}\right)$ and its derivative
+		\end{itemize}
+		{\color{red} LOREM IPSUM}
+	\end{asm}
+\end{boxD}
+There is potential to relax these assumptions at the cost of requiring both less interpretable conditions and more technically sophisticated proofs.
+Furthermore, to assure that there is a sufficient number of treated and untreated observations local to each point of interest asymptotically, we require the following condition on the treatment assignment and uptake mechanism.
+\begin{boxD}
+	\begin{asm}[Non-Trivial Treatment Overlap]\label{asm:treatment_overlap}\mbox{}\\*
+		In the Heterogeneous Treatment Effect Setup (Assumption \ref{asm:hte_dgp}), we assume that there exist a constant $\mathfrak{p} \in (0, 1/2)$ such that
+		\begin{equation}
+			\forall \mathbf{x} \in \mathcal{X}: \quad 
+			0 < \mathfrak{p} \leq \pi\left(\mathbf{x}\right) \leq 1 - \mathfrak{p} < 1.
+		\end{equation}
+	\end{asm}
+\end{boxD}

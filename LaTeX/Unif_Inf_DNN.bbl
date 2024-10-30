@@ -1,5 +1,5 @@
 % $ biblatex auxiliary file $
-% $ biblatex bbl format version 3.2 $
+% $ biblatex bbl format version 3.3 $
 % Do not modify the above lines!
 %
 % This is an auxiliary file used by the 'biblatex' package.
@@ -18,8 +18,8 @@
 
 
 \refsection{0}
-  \datalist[entry]{nyt/global//global/global}
-    \entry{arvesen_jackknifing_1969}{article}{}
+  \datalist[entry]{nyt/global//global/global/global}
+    \entry{arvesen_jackknifing_1969}{article}{}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=a56dda22b4e07fb27fdaba6723c3a3b7}{%
            family={Arvesen},
@@ -30,14 +30,16 @@
       }
       \strng{namehash}{a56dda22b4e07fb27fdaba6723c3a3b7}
       \strng{fullhash}{a56dda22b4e07fb27fdaba6723c3a3b7}
+      \strng{fullhashraw}{a56dda22b4e07fb27fdaba6723c3a3b7}
       \strng{bibnamehash}{a56dda22b4e07fb27fdaba6723c3a3b7}
       \strng{authorbibnamehash}{a56dda22b4e07fb27fdaba6723c3a3b7}
       \strng{authornamehash}{a56dda22b4e07fb27fdaba6723c3a3b7}
       \strng{authorfullhash}{a56dda22b4e07fb27fdaba6723c3a3b7}
+      \strng{authorfullhashraw}{a56dda22b4e07fb27fdaba6723c3a3b7}
       \field{sortinit}{A}
       \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
       \field{extradatescope}{labelyear}
-      \field{labeldatesource}{year}
+      \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{The Annals of Mathematical Statistics}
@@ -52,7 +54,7 @@
       \verb 10.1214/aoms/1177697287
       \endverb
     \endentry
-    \entry{biau_rate_2010}{article}{}
+    \entry{biau_rate_2010}{article}{}{}
       \name{author}{2}{}{%
         {{un=0,uniquepart=base,hash=d905131276d4431aea7b505a2b27db2f}{%
            family={Biau},
@@ -69,14 +71,16 @@
       }
       \strng{namehash}{375c9b9b33f390f487482deb29eeea06}
       \strng{fullhash}{375c9b9b33f390f487482deb29eeea06}
+      \strng{fullhashraw}{375c9b9b33f390f487482deb29eeea06}
       \strng{bibnamehash}{375c9b9b33f390f487482deb29eeea06}
       \strng{authorbibnamehash}{375c9b9b33f390f487482deb29eeea06}
       \strng{authornamehash}{375c9b9b33f390f487482deb29eeea06}
       \strng{authorfullhash}{375c9b9b33f390f487482deb29eeea06}
+      \strng{authorfullhashraw}{375c9b9b33f390f487482deb29eeea06}
       \field{sortinit}{B}
       \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
       \field{extradatescope}{labelyear}
-      \field{labeldatesource}{year}
+      \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{The Journal of Machine Learning Research}
@@ -87,7 +91,7 @@
       \field{pages}{687\bibrangedash 712}
       \range{pages}{26}
     \endentry
-    \entry{breiman_random_2001}{article}{}
+    \entry{breiman_random_2001}{article}{}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=132b7100417675d55d5d4d8b244f7a34}{%
            family={Breiman},
@@ -98,14 +102,16 @@
       }
       \strng{namehash}{132b7100417675d55d5d4d8b244f7a34}
       \strng{fullhash}{132b7100417675d55d5d4d8b244f7a34}
+      \strng{fullhashraw}{132b7100417675d55d5d4d8b244f7a34}
       \strng{bibnamehash}{132b7100417675d55d5d4d8b244f7a34}
       \strng{authorbibnamehash}{132b7100417675d55d5d4d8b244f7a34}
       \strng{authornamehash}{132b7100417675d55d5d4d8b244f7a34}
       \strng{authorfullhash}{132b7100417675d55d5d4d8b244f7a34}
+      \strng{authorfullhashraw}{132b7100417675d55d5d4d8b244f7a34}
       \field{sortinit}{B}
       \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
       \field{extradatescope}{labelyear}
-      \field{labeldatesource}{year}
+      \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Machine Learning}
@@ -120,7 +126,7 @@
       \verb 10.1023/A:1010933404324
       \endverb
     \endentry
-    \entry{breiman_classification_2017}{book}{}
+    \entry{breiman_classification_2017}{book}{}{}
       \name{author}{4}{ul=1}{%
         {{un=0,uniquepart=base,hash=132b7100417675d55d5d4d8b244f7a34}{%
            family={Breiman},
@@ -156,14 +162,16 @@
       }
       \strng{namehash}{3a2470c8fd470cc40d886536285a6eb3}
       \strng{fullhash}{37f267790381e9c48a0f1fdd5ea9651e}
+      \strng{fullhashraw}{37f267790381e9c48a0f1fdd5ea9651e}
       \strng{bibnamehash}{3a2470c8fd470cc40d886536285a6eb3}
       \strng{authorbibnamehash}{3a2470c8fd470cc40d886536285a6eb3}
       \strng{authornamehash}{3a2470c8fd470cc40d886536285a6eb3}
       \strng{authorfullhash}{37f267790381e9c48a0f1fdd5ea9651e}
+      \strng{authorfullhashraw}{37f267790381e9c48a0f1fdd5ea9651e}
       \field{sortinit}{B}
       \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
       \field{extradatescope}{labelyear}
-      \field{labeldatesource}{year}
+      \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{isbn}{978-1-315-13947-0}
@@ -174,7 +182,78 @@
       \verb 10.1201/9781315139470
       \endverb
     \endentry
-    \entry{demirkaya_optimal_2024}{article}{}
+    \entry{chernozhukov_doubledebiased_2018}{article}{}{}
+      \name{author}{7}{}{%
+        {{un=0,uniquepart=base,hash=c75cbe2cefd1e532f636a50892605d06}{%
+           family={Chernozhukov},
+           familyi={C\bibinitperiod},
+           given={Victor},
+           giveni={V\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ef4b66d2ca2dde47ec1b0afa98306775}{%
+           family={Chetverikov},
+           familyi={C\bibinitperiod},
+           given={Denis},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d3c2cc443c71254678269de10d61d61c}{%
+           family={Demirer},
+           familyi={D\bibinitperiod},
+           given={Mert},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=7e6b0ea4eee38822cdb0a4361e98752c}{%
+           family={Duflo},
+           familyi={D\bibinitperiod},
+           given={Esther},
+           giveni={E\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=b38b53cdfa3ce5b62046f22663d5cc6f}{%
+           family={Hansen},
+           familyi={H\bibinitperiod},
+           given={Christian},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=9c98526d9f1775b95096664c9cf0c633}{%
+           family={Newey},
+           familyi={N\bibinitperiod},
+           given={Whitney},
+           giveni={W\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=bf615cc72310078c444f0c653a1fc5e7}{%
+           family={Robins},
+           familyi={R\bibinitperiod},
+           given={James},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{e8ad45c8076487daa445bfbeb4e02a04}
+      \strng{fullhash}{7892f5fdea2b46a0fb4e6c031c27c781}
+      \strng{fullhashraw}{7892f5fdea2b46a0fb4e6c031c27c781}
+      \strng{bibnamehash}{e8ad45c8076487daa445bfbeb4e02a04}
+      \strng{authorbibnamehash}{e8ad45c8076487daa445bfbeb4e02a04}
+      \strng{authornamehash}{e8ad45c8076487daa445bfbeb4e02a04}
+      \strng{authorfullhash}{7892f5fdea2b46a0fb4e6c031c27c781}
+      \strng{authorfullhashraw}{7892f5fdea2b46a0fb4e6c031c27c781}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The Econometrics Journal}
+      \field{month}{2}
+      \field{number}{1}
+      \field{title}{Double/debiased machine learning for treatment and structural parameters}
+      \field{volume}{21}
+      \field{year}{2018}
+      \field{pages}{C1\bibrangedash C68}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1111/ectj.12097
+      \endverb
+    \endentry
+    \entry{demirkaya_optimal_2024}{article}{}{}
       \name{author}{6}{}{%
         {{un=0,uniquepart=base,hash=2b48b0983710378ce0bc9010163b46af}{%
            family={Demirkaya},
@@ -215,14 +294,16 @@
       }
       \strng{namehash}{84bffa369faa31b1c5d7097ab6220104}
       \strng{fullhash}{2d477f98c2cfe21eed7652736b492dc8}
+      \strng{fullhashraw}{2d477f98c2cfe21eed7652736b492dc8}
       \strng{bibnamehash}{84bffa369faa31b1c5d7097ab6220104}
       \strng{authorbibnamehash}{84bffa369faa31b1c5d7097ab6220104}
       \strng{authornamehash}{84bffa369faa31b1c5d7097ab6220104}
       \strng{authorfullhash}{2d477f98c2cfe21eed7652736b492dc8}
+      \strng{authorfullhashraw}{2d477f98c2cfe21eed7652736b492dc8}
       \field{sortinit}{D}
       \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
       \field{extradatescope}{labelyear}
-      \field{labeldatesource}{year}
+      \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Journal of the American Statistical Association}
@@ -237,7 +318,7 @@
       \verb 10.1080/01621459.2022.2115375
       \endverb
     \endentry
-    \entry{lee_u-statistics_2019}{book}{}
+    \entry{lee_u-statistics_2019}{book}{}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=2bcf6cad251d975b02d256f56b7281d6}{%
            family={Lee},
@@ -254,14 +335,16 @@
       }
       \strng{namehash}{2bcf6cad251d975b02d256f56b7281d6}
       \strng{fullhash}{2bcf6cad251d975b02d256f56b7281d6}
+      \strng{fullhashraw}{2bcf6cad251d975b02d256f56b7281d6}
       \strng{bibnamehash}{2bcf6cad251d975b02d256f56b7281d6}
       \strng{authorbibnamehash}{2bcf6cad251d975b02d256f56b7281d6}
       \strng{authornamehash}{2bcf6cad251d975b02d256f56b7281d6}
       \strng{authorfullhash}{2bcf6cad251d975b02d256f56b7281d6}
+      \strng{authorfullhashraw}{2bcf6cad251d975b02d256f56b7281d6}
       \field{sortinit}{L}
       \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
       \field{extradatescope}{labelyear}
-      \field{labeldatesource}{year}
+      \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{shorttitle}
       \field{isbn}{978-0-203-73452-0}
@@ -273,7 +356,7 @@
       \verb 10.1201/9780203734520
       \endverb
     \endentry
-    \entry{peng_rates_2022}{article}{}
+    \entry{peng_rates_2022}{article}{}{}
       \name{author}{3}{}{%
         {{un=0,uniquepart=base,hash=0ffbf7da53582dbc0a920a400eddc057}{%
            family={Peng},
@@ -296,14 +379,16 @@
       }
       \strng{namehash}{142449543f9679940960a838d9b77eae}
       \strng{fullhash}{142449543f9679940960a838d9b77eae}
+      \strng{fullhashraw}{142449543f9679940960a838d9b77eae}
       \strng{bibnamehash}{142449543f9679940960a838d9b77eae}
       \strng{authorbibnamehash}{142449543f9679940960a838d9b77eae}
       \strng{authornamehash}{142449543f9679940960a838d9b77eae}
       \strng{authorfullhash}{142449543f9679940960a838d9b77eae}
+      \strng{authorfullhashraw}{142449543f9679940960a838d9b77eae}
       \field{sortinit}{P}
       \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
       \field{extradatescope}{labelyear}
-      \field{labeldatesource}{year}
+      \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Electronic Journal of Statistics}
@@ -318,7 +403,7 @@
       \verb 10.1214/21-EJS1958
       \endverb
     \endentry
-    \entry{peng_bias_2021}{misc}{}
+    \entry{peng_bias_2021}{misc}{}{}
       \name{author}{3}{}{%
         {{un=0,uniquepart=base,hash=0ffbf7da53582dbc0a920a400eddc057}{%
            family={Peng},
@@ -344,14 +429,16 @@
       }
       \strng{namehash}{dd598c44c68b01a6d858f3abd17526d5}
       \strng{fullhash}{dd598c44c68b01a6d858f3abd17526d5}
+      \strng{fullhashraw}{dd598c44c68b01a6d858f3abd17526d5}
       \strng{bibnamehash}{dd598c44c68b01a6d858f3abd17526d5}
       \strng{authorbibnamehash}{dd598c44c68b01a6d858f3abd17526d5}
       \strng{authornamehash}{dd598c44c68b01a6d858f3abd17526d5}
       \strng{authorfullhash}{dd598c44c68b01a6d858f3abd17526d5}
+      \strng{authorfullhashraw}{dd598c44c68b01a6d858f3abd17526d5}
       \field{sortinit}{P}
       \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
       \field{extradatescope}{labelyear}
-      \field{labeldatesource}{year}
+      \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{month}{6}
@@ -362,7 +449,7 @@
       \verb 10.48550/arXiv.2106.05918
       \endverb
     \endentry
-    \entry{ritzwoller_uniform_2024}{misc}{}
+    \entry{ritzwoller_uniform_2024}{misc}{}{}
       \name{author}{2}{}{%
         {{un=0,uniquepart=base,hash=4d6a912596e242b0cc13cd623ebb5e3f}{%
            family={Ritzwoller},
@@ -382,14 +469,16 @@
       }
       \strng{namehash}{04822a1dff3956e0aa8be2d94fdd90e3}
       \strng{fullhash}{04822a1dff3956e0aa8be2d94fdd90e3}
+      \strng{fullhashraw}{04822a1dff3956e0aa8be2d94fdd90e3}
       \strng{bibnamehash}{04822a1dff3956e0aa8be2d94fdd90e3}
       \strng{authorbibnamehash}{04822a1dff3956e0aa8be2d94fdd90e3}
       \strng{authornamehash}{04822a1dff3956e0aa8be2d94fdd90e3}
       \strng{authorfullhash}{04822a1dff3956e0aa8be2d94fdd90e3}
+      \strng{authorfullhashraw}{04822a1dff3956e0aa8be2d94fdd90e3}
       \field{sortinit}{R}
       \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
       \field{extradatescope}{labelyear}
-      \field{labeldatesource}{year}
+      \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{month}{5}
@@ -399,7 +488,51 @@
       \verb 10.48550/arXiv.2405.07860
       \endverb
     \endentry
-    \entry{steele_exact_2009}{article}{}
+    \entry{semenova_debiased_2021}{article}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=2c89c4ee946e74fb529d0d7257d1353d}{%
+           family={Semenova},
+           familyi={S\bibinitperiod},
+           given={Vira},
+           giveni={V\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c75cbe2cefd1e532f636a50892605d06}{%
+           family={Chernozhukov},
+           familyi={C\bibinitperiod},
+           given={Victor},
+           giveni={V\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \strng{namehash}{e7c1fa2bb015bd60e1bf1449f3d82346}
+      \strng{fullhash}{e7c1fa2bb015bd60e1bf1449f3d82346}
+      \strng{fullhashraw}{e7c1fa2bb015bd60e1bf1449f3d82346}
+      \strng{bibnamehash}{e7c1fa2bb015bd60e1bf1449f3d82346}
+      \strng{authorbibnamehash}{e7c1fa2bb015bd60e1bf1449f3d82346}
+      \strng{authornamehash}{e7c1fa2bb015bd60e1bf1449f3d82346}
+      \strng{authorfullhash}{e7c1fa2bb015bd60e1bf1449f3d82346}
+      \strng{authorfullhashraw}{e7c1fa2bb015bd60e1bf1449f3d82346}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The Econometrics Journal}
+      \field{month}{6}
+      \field{number}{2}
+      \field{title}{Debiased machine learning of conditional average treatment effects and other causal functions}
+      \field{volume}{24}
+      \field{year}{2021}
+      \field{pages}{264\bibrangedash 289}
+      \range{pages}{26}
+      \verb{doi}
+      \verb 10.1093/ectj/utaa027
+      \endverb
+    \endentry
+    \entry{steele_exact_2009}{article}{}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=6baf55f8936b01e7e62c1a8f966b2daf}{%
            family={Steele},
@@ -410,14 +543,16 @@
       }
       \strng{namehash}{6baf55f8936b01e7e62c1a8f966b2daf}
       \strng{fullhash}{6baf55f8936b01e7e62c1a8f966b2daf}
+      \strng{fullhashraw}{6baf55f8936b01e7e62c1a8f966b2daf}
       \strng{bibnamehash}{6baf55f8936b01e7e62c1a8f966b2daf}
       \strng{authorbibnamehash}{6baf55f8936b01e7e62c1a8f966b2daf}
       \strng{authornamehash}{6baf55f8936b01e7e62c1a8f966b2daf}
       \strng{authorfullhash}{6baf55f8936b01e7e62c1a8f966b2daf}
+      \strng{authorfullhashraw}{6baf55f8936b01e7e62c1a8f966b2daf}
       \field{sortinit}{S}
       \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
       \field{extradatescope}{labelyear}
-      \field{labeldatesource}{year}
+      \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Machine Learning}
@@ -432,7 +567,7 @@
       \verb 10.1007/s10994-008-5096-0
       \endverb
     \endentry
-    \entry{wager_estimation_2018}{article}{}
+    \entry{wager_estimation_2018}{article}{}{}
       \name{author}{2}{}{%
         {{un=0,uniquepart=base,hash=e22c2c3bb1bd12e43f46c07ea788b581}{%
            family={Wager},
@@ -449,14 +584,16 @@
       }
       \strng{namehash}{d4c64d08a4af7035a4061fd6e82a6d2d}
       \strng{fullhash}{d4c64d08a4af7035a4061fd6e82a6d2d}
+      \strng{fullhashraw}{d4c64d08a4af7035a4061fd6e82a6d2d}
       \strng{bibnamehash}{d4c64d08a4af7035a4061fd6e82a6d2d}
       \strng{authorbibnamehash}{d4c64d08a4af7035a4061fd6e82a6d2d}
       \strng{authornamehash}{d4c64d08a4af7035a4061fd6e82a6d2d}
       \strng{authorfullhash}{d4c64d08a4af7035a4061fd6e82a6d2d}
+      \strng{authorfullhashraw}{d4c64d08a4af7035a4061fd6e82a6d2d}
       \field{sortinit}{W}
       \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
       \field{extradatescope}{labelyear}
-      \field{labeldatesource}{year}
+      \field{labeldatesource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Many scientific and engineering challenges—ranging from personalized medicine to customized marketing recommendations—require an understanding of treatment effect heterogeneity. In this article, we develop a nonparametric causal forest for estimating heterogeneous treatment effects that extends Breiman’s widely used random forest algorithm. In the potential outcomes framework with unconfoundedness, we show that causal forests are pointwise consistent for the true treatment effect and have an asymptotically Gaussian and centered sampling distribution. We also discuss a practical method for constructing asymptotic confidence intervals for the true treatment effect that are centered at the causal forest estimates. Our theoretical results rely on a generic Gaussian theory for a large family of random forest algorithms. To our knowledge, this is the first set of results that allows any type of random forest, including classification and regression forests, to be used for provably valid statistical inference. In experiments, we find causal forests to be substantially more powerful than classical methods based on nearest-neighbor matching, especially in the presence of irrelevant covariates.}

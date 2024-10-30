@@ -1,0 +1,165 @@
+\section{Pointwise Inference for the TDNN Estimator}\label{sec:pw_inf}
+\hrule
+To perform inference in the regression setup, \citet{demirkaya_optimal_2024} introduce variance estimators based on the Jackknife and Bootstrap.
+However, as they point out, their consistency results rely on a likely suboptimal rate condition for the subsampling scale.
+While Theorem \ref{thm:dem3} allows $s_2$ to be of the order $o(n)$, the variance estimators rely on the considerably stronger condition that $s_2 = o(n^{1/3})$.
+Establishing consistent variance estimation under weaker assumptions on the subsampling rates could broaden the scope of the TDNN estimator for inferential purposes considerably.
+Furthermore, it can contribute to a better balance between variance and bias as the choice of the kernel orders is crucial when considering the finite sample properties of the estimator.
+In this paper, I will focus specifically on variance estimators based on the Jackknife and show consistency results under $s = o(n)$.
+This is motivated by the closed form representation of the estimators in question leading to computationally simple formulas for the exact Jackknife variance estimators.
+
+\subsection{Jackknife Variance Estimators for Nonparametric Regression}\label{Var_Ests}
+\hrule
+
+Define the following variance we need to estimate to perform pointwise inference at a point of interest $\mathbf{x}$.
+\begin{equation}\label{eq:TDNN_Var}
+	\omega^{2}\left(\mathbf{x}; \mathbf{D}_n\right)
+	= \Var_{D}\left(\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right)\right)
+\end{equation}
+We denote by $\mathbf{D}_{n, -i}$ the data set $\mathbf{D}_n$ after removing the $i$'th observation.
+Then, the proposed Jackknife variance estimator takes the following form.
+\begin{equation}\label{eq:JK_Var_Est}
+	\hat{\omega}_{JK}^2\left(\mathbf{x}; \mathbf{D}_n\right)
+	= \frac{n-1}{n} \sum_{i = 1}^{n}\left(\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n, -i}\right) - \hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}\right)\right)^2
+\end{equation}
+
+\begin{boxD}
+	\begin{thm}[Closed Form Expression for the Jackknife-Variance Estimator]\label{thm:JK_closed_form}\mbox{}\\*
+		The Jackknife variance estimator for the DNN estimator has the following convenient closed-form representations.
+		\begin{equation}
+			{\color{red} LOREM IPSUM}
+		\end{equation}
+		Similarly, the Jackknife variance estimator for the TDNN estimator admits the following representation.
+		\begin{equation}
+			{\color{red} LOREM IPSUM}
+		\end{equation}
+	\end{thm}
+\end{boxD}
+
+\begin{equation}\label{eq:JKD_Var_Est}
+	\hat{\omega}_{JKD}^2\left(\mathbf{x}; d, \mathbf{D}_n\right)
+	= \frac{n-d}{d}\binom{n}{d}^{-1} \sum_{\ell \in L_{n,d}}
+	\left(\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n, -\ell}\right)
+	- \hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}\right)
+	\right)^2
+\end{equation}
+
+In this section, we will loosen that restrictive condition to make use of the attractive performance of U-statistics with large subsampling rates in the context of inference.
+The PIJK variance estimator applied to the TDNN estimator is as follows.
+\begin{equation}\label{eq:PIJK_Var_Est}
+	\hat{\omega}_{PI}^2\left(\mathbf{x}; \mathbf{D}_n\right)
+	= \frac{s_2^2}{n^2}\sum_{i = 1}^{n}\left[\left(
+		\binom{n-1}{s-1}^{-1} \sum_{\ell \in L_{s_2-1}([n]\backslash\{i\})} h_{s_1, s_2}\left(\mathbf{x}; D_{\ell \cup \{i\}}\right)\right)
+		- \hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right)\right]^2
+\end{equation}
+
+{\color{red} LOREM IPSUM}
+
+Analysing the kernel of the TDNN estimators, it can be shown that the conditions of Theorem 6 of \citet{peng_bias_2021} apply under the regime $s_2 = o(n)$.
+Thus, we obtain the following result.
+% \begin{boxD}
+% 	\begin{lem}[\citet{peng_bias_2021} - Theorem 6]\label{thm:peng21_6}\mbox{}\\*
+% 		Let $X_1, \ldots, X_n$ be i.i.d. from $\mathrm{P}$ and $\mathrm{U}_{n, k, \omega}$ be a generalized complete $U$ statistic with kernel $s\left(X_1, \ldots, X_k ; \omega\right)$.
+	
+% 		Let $\theta=\E[s], \zeta_{1, \omega}=\Var\left(\E\left[s \mid X_1\right]\right)$ and $\zeta_k=\Var(s)$.
+% 		If $\frac{k}{n}\left(\frac{\zeta_k}{k \zeta 1, \omega}-1\right) \rightarrow 0$, then
+% 		\begin{equation}
+% 			\frac{\mathrm{ps-IJ}_{U}^\omega}{\Var\left(\mathrm{U}_{n, k, \omega}\right)}
+% 			\longrightarrow_{p} 1 .
+% 		\end{equation}
+% 	\end{lem}
+% \end{boxD}
+\begin{boxD}
+	\begin{thm}[Pseudo-Infinitesimal Jackknife Variance Estimator Consistency]\label{thm:PI_JK_Cons}\mbox{}\\*
+		Let $0 < c_1 \leq s_1/s_2 \leq c_2 < 1$ and $s_2 = o(n)$, then
+		\begin{equation}
+			\frac{\hat{\omega}_{PI}^2\left(\mathbf{x}; \mathbf{D}_n\right)}{\omega^{2}\left(\mathbf{x}; \mathbf{D}_n\right)} \longrightarrow_{p} 1.
+		\end{equation}
+	\end{thm}
+\end{boxD}
+
+
+In an analogous fashion to Theorems 5 and 6 from \citet{demirkaya_optimal_2024}, we furthermore obtain the following consistency results for the presented variance estimators.
+As they point out, proving these results goes beyond the techniques presented in \citet{arvesen_jackknifing_1969}, instead relying on results for infinite-order U-statistics.
+Following the ideas from \citet{peng_bias_2021}, we then obtain the following results on the Jackknife and Bootstrap variance estimators respectively.
+As part of the proof of these results, we obtain general results on the consistency of Jackknife and Bootstrap variance estimators for infinite-order U-statistics beyond the TDNN estimator.
+\begin{boxD}
+	\begin{thm}[Jackknife Variance Estimator Consistency]\label{thm:JK_Cons}\mbox{}\\*
+		Let $0 < c_1 \leq s_1/s_2 \leq c_2 < 1$ and $s_2 = o(n)$, then
+		\begin{equation}
+			\frac{\hat{\omega}_{JK}^2\left(\mathbf{x}; \mathbf{D}_n\right)}{\omega^{2}\left(\mathbf{x}; \mathbf{D}_n\right)} \longrightarrow_{p} 1.
+		\end{equation}
+	\end{thm}
+\end{boxD}
+
+\begin{boxD}
+	\begin{thm}[delete-d Jackknife Variance Estimator Consistency]\label{thm:JKD_Cons}\mbox{}\\*
+		Let $0 < c_1 \leq s_1/s_2 \leq c_2 < 1$, $s_2 = o(n)$, and $d = o(n)$, then
+		\begin{equation}
+			\frac{\hat{\omega}_{JKD}^2\left(\mathbf{x}; d, \mathbf{D}_n\right)}{\omega^{2}\left(\mathbf{x}; \mathbf{D}_n\right)} \longrightarrow_{p} 1.
+		\end{equation}
+	\end{thm}
+\end{boxD}
+
+\subsection{Variance Estimation for the (T)DNN-DML2 CATE Estimator}\label{CATE_Var_Ests}
+\hrule
+
+{\color{red}
+Ideas:
+\begin{itemize}
+	\item Ignoring the occurrence of left-out observation in nuisance parameter estimation and do basic Jackknife - does this lead to bias?
+	\item Leave Fold-Out Bootstrap with slowly diverging number of folds ($k \rightarrow \infty, \;m = o(n)$) - Effectively a variant of delete-d bootstrap
+	\item Leave out two folds in the estimator's first step. 
+	Then use each previously left out fold for Jackknife construction to eliminate contamination from nuisance parameters
+	\item Modify approach presented in \citet{ritzwoller_uniform_2024} Appendix F.4 - modified half-sample k-fold cross-split bootstrap root
+\end{itemize}
+}
+
+A fitting variance estimator given the context of this paper in the literature can be obtained by modifying a construction presented in \citet{ritzwoller_uniform_2024}.
+Specifically, the procedure is based on a variation of the approach presented in Appendix F.4 of the aforementioned paper and makes use of a carefully constructed bootstrap-root.
+Thus, we need to introduce some additional notation.
+\begin{boxD}
+	\begin{dfn}[Crossfitting Half-Sample]\label{def:CF_HSample}\mbox{}\\*
+		{\color{red} LOREM IPSUM}
+	\end{dfn}
+\end{boxD}
+This bootstrap root will take the following structure.
+\begin{equation}
+	R^{*}_{n,s}\left(\mathbf{x}\right)
+	= \overline{\operatorname{CATE}}_{H(\mathcal{I})}\left(\mathbf{x}\right)
+	- \widehat{\operatorname{CATE}}\left(\mathbf{x}\right)
+\end{equation}
+Here, $\overline{\operatorname{CATE}}_{H\left(\mathcal{I}\right)}\left(\mathbf{x}\right)$ is the solution to the following equation, where $\mathcal{I}$ is a fixed partition of $[n]$ and $H$ is a fixed half-sample corresponding to $\mathcal{I}$.
+\begin{equation}
+	\begin{aligned}
+		0 & = \sum_{k = 1}^{K} \sum_{i \in H_k} K(\mathbf{x}, \mathbf{X}_i \, | \, H) m\left(\mathbf{Z_i}; \overline{CATE}_{H\left(\mathcal{I}\right)}\left(\mathbf{x}\right), \hat{\mu}_{k,s}, \hat{\pi}_{k,s}\right)\\
+		%
+	 	& = \sum_{i = 1}^{n/2 - s + 1} \left[\frac{\binom{n/2-i}{s-1}}{\binom{n/2}{s}} m\left(\mathbf{Z}_{(i \, | \, H)}; \overline{\operatorname{CATE}}_{H\left(\mathcal{I}\right)}\left(\mathbf{x}\right), \hat{\mu}_{k(i \, | \, H),s}, \hat{\pi}_{k(i\, | \, H),s}\right)\right]
+	\end{aligned}
+\end{equation}
+Plugging in for the moment under consideration once more, we find the following.
+\begin{equation}
+	\begin{aligned}
+		{\color{red} LOREM IPSUM}
+	\end{aligned}
+\end{equation}
+
+\begin{boxD}
+	\begin{thm}[Consistent Variance Estimation for the (T)DNN-DML2 CATE Estimator]\label{thm:CATE_DNN_DML_Var_Est}\mbox{}\\*
+		{\color{red} LOREM IPSUM}
+	\end{thm}
+\end{boxD}
+
+\subsection{Pointwise Inference with the TDNN Estimator}
+\hrule
+\begin{boxD}
+	\begin{thm}[Pointwise Inference in Nonparametric Regression]\label{thm:pw_inf_TDNN}\mbox{}\\*
+		{\color{red} LOREM IPSUM}
+	\end{thm}
+\end{boxD}
+
+\begin{boxD}
+	\begin{thm}[Pointwise Inference in Heterogeneous Treatment Effect Estimation]\label{thm:pw_inf_TDNN_HTE}\mbox{}\\*
+		{\color{red} LOREM IPSUM}
+	\end{thm}
+\end{boxD}
