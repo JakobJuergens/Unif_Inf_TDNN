@@ -7,12 +7,19 @@
 #' @param data The data set containing the observations.
 #' As a matrix containing the response value in the first column.
 #' @param s The subsampling scale.
+#' @param presorted True or False whether the data is sorted according to its
+#' distance to the point of interest (default value = FALSE)
+#' @param standardize True or False whether to standardize (default value = FALSE)
+#' @param asymp_approx_weights True or False whether to use an asymptotic
+#' approximation for the weights (default value = FALSE)
 #' @return A number.
 #'
 #' @export
 DNN <- function(x, data, s,
                 presorted = FALSE, standardize = FALSE,
+                asymp_approx_weights = TRUE,
                 verbose = FALSE) {
+
   # Check inputs for executing function
   point_check(x)
   data_check(data)
@@ -43,12 +50,30 @@ DNN <- function(x, data, s,
   res <- 0
   factor <- 1
   prefactor <- 1 / choose(n, s)
-  for (i in 1:(n - s + 1)) {
-    index <- n - s + 2 - i
-    res <- res + factor * Y[index]
-    factor <- factor * ((n - index + 1) / i)
+
+  # using exact weights
+  if(asymp_approx_weights == FALSE){
+    for (i in 1:(n - s + 1)) {
+      index <- n - s + 2 - i
+      res <- res + factor * Y[index]
+      factor <- factor * ((n - index + 1) / i)
+    }
+    res <- prefactor * res
   }
-  res <- prefactor * res
+
+  # using approximate weights
+  if(asymp_approx_weights == TRUE){
+    alpha <- s/n
+    factor <- 0
+
+    for (i in 1:(n - s + 1)) {
+      if(alpha*(1-alpha)^(i-1) == 0){break}
+      res <- res + alpha*(1-alpha)^(i-1) * Y[i]
+      factor <- factor + alpha*(1-alpha)^(i-1)
+    }
+
+    res <- res/factor
+  }
 
   # return calculated result
   return(res)

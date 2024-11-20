@@ -4,11 +4,11 @@
 As the majority of the theoretical results in \citet{demirkaya_optimal_2024} rely on representations as a U-statistic, it is helpful to introduce additional concepts and notation at this stage.
 Recalling Equation \ref{eq:U_stat}, the DNN and TDNN estimators can be expressed in the following U-statistic form and are thus a type of generalized complete U-statistic as introduced by \citet{peng_rates_2022}.
 \begin{equation}
-	\tilde{\mu}_{s}(\mathbf{x}; \mathbf{D}_n)
-	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} h_{s}(\mathbf{x}; D_{\ell})
+	\tilde{\mu}_{s}(x; \mathbf{D}_n)
+	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} h_{s}(x; D_{\ell})
 	\quad \text{and} \quad
-	\hat{\mu}_{s_1, s_2}(\mathbf{x}; \mathbf{D}_n)
-	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s_2}} h_{s_1, s_2}(\mathbf{x}; D_{\ell})
+	\hat{\mu}_{s_1, s_2}(x; \mathbf{D}_n)
+	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s_2}} h_{s_1, s_2}(x; D_{\ell})
 \end{equation}
 It is worth pointing out that in contrast to the DNN estimator, the kernel for the TDNN estimator is of order $s_2 > s_1$.
 The authors derive an explicit formula for the kernel that shows the connection between the DNN and TDNN estimators.
@@ -18,25 +18,25 @@ This connection will prove useful going forward.
 		The kernel of the TDNN estimator takes the following form.
 		\begin{equation}
 			\begin{aligned}
-				h_{s_1, s_2}\left(\mathbf{x}; D\right)
-				 & = w_{1}^{*}\left[\binom{s_2}{s_1}^{-1}\sum_{\ell \in L_{s_2, s_1}} h_{s_1}\left(\mathbf{x}; D_{\ell}\right)\right] + w_{2}^{*} h_{s_2}\left(\mathbf{x}; D\right) \\
-				 & = w_{1}^{*} \tilde{\mu}_{s_1}\left(\mathbf{x}; D\right) + w_{2}^{*} h_{s_2}\left(\mathbf{x}; D\right)                                                            \\
+				h_{s_1, s_2}\left(x; D\right)
+				 & = w_{1}^{*}\left[\binom{s_2}{s_1}^{-1}\sum_{\ell \in L_{s_2, s_1}} h_{s_1}\left(x; D_{\ell}\right)\right] + w_{2}^{*} h_{s_2}\left(x; D\right) \\
+				 & = w_{1}^{*} \tilde{\mu}_{s_1}\left(x; D\right) + w_{2}^{*} h_{s_2}\left(x; D\right)                                                            \\
 			\end{aligned}
 		\end{equation}
 	\end{lem}
 \end{boxD}
 Borrowing the notational conventions from \citet{lee_u-statistics_2019}, additionally, introduce the following notation.
 \begin{equation}\label{eq:psi_s_c}
-	\psi_{s}^{c}(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c})
-	= \E_{D}\left[h_{s}\left(\mathbf{x}; D\right) \, | \,  \mathbf{Z}_1 = \mathbf{z}_{1}, \dotsc, \mathbf{Z}_c = \mathbf{z}_{c}\right]
+	\psi_{s}^{c}(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c})
+	= \E_{D}\left[h_{s}\left(x; D\right) \, | \,  Z_1 = \mathbf{z}_{1}, \dotsc, Z_c = \mathbf{z}_{c}\right]
 \end{equation}
 \begin{equation}
-	h_{s}^{(1)}\left(\mathbf{x}; \mathbf{z}_{1}\right)
-	= \psi_{s}^{1}(\mathbf{x}; \mathbf{z}_{1}) - \mu(\mathbf{x})
+	h_{s}^{(1)}\left(x; \mathbf{z}_{1}\right)
+	= \psi_{s}^{1}(x; \mathbf{z}_{1}) - \mu(x)
 \end{equation}
 \begin{equation}
-	h_{s}^{(c)}\left(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}\right)
-	= \psi_{s}^{c}(\mathbf{x}; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}) - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{n,j}}h_{s}^{(j)}(\mathbf{x}; \mathbf{z}_{\ell})\right) - \mu(\mathbf{x})
+	h_{s}^{(c)}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}\right)
+	= \psi_{s}^{c}(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}) - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{n,j}}h_{s}^{(j)}(x; \mathbf{z}_{\ell})\right) - \mu(x)
 	\quad \text{for } c = 2, \dotsc, s
 \end{equation}
 In contrast to the notational inspiration, the subsampling size $s$ is made explicit.
@@ -44,58 +44,58 @@ Since we are dealing with an infinite-order U-statistic, $s$ will be diverging w
 Completely analogous, define the corresponding objects for the TDNN estimator.
 For the DNN estimator and any $1 \leq c \leq s$, define
 \begin{equation}\label{eq:xi_s_c}
-	\xi_{s}^{c}\left(\mathbf{x}\right)
-	= \Var_{1:c}\left(\psi_{s}^{c}(\mathbf{x}; \mathbf{Z}_{1}, \dotsc, \mathbf{Z}_{c})\right)
+	\xi_{s}^{c}\left(x\right)
+	= \Var_{1:c}\left(\psi_{s}^{c}(x; Z_{1}, \dotsc, Z_{c})\right)
 \end{equation}
-where $\mathbf{Z}_{c+1}^{\prime}, \ldots, \mathbf{Z}_n^{\prime}$ are i.i.d. from $P$ and independent of $\mathbf{Z}_1, \ldots, \mathbf{Z}_n$ and thus
-$\xi_{s}^{s}\left(\mathbf{x}\right) = \Var\left(h_s\left(\mathbf{x}; \mathbf{Z}_1, \ldots, \mathbf{Z}_s\right)\right).$
+where $Z_{c+1}^{\prime}, \ldots, Z_n^{\prime}$ are i.i.d. from $P$ and independent of $Z_1, \ldots, Z_n$ and thus
+$\xi_{s}^{s}\left(x\right) = \Var\left(h_s\left(x; Z_1, \ldots, Z_s\right)\right).$
 % Then, we have the following result from the original paper.
 Similarly, for the TDNN estimator and any $1 \leq c \leq s_2$, let
 \begin{equation}\label{eq:zeta_s1s2_c}
-	\zeta_{s_1, s_2}^{c}\left(\mathbf{x}\right)
-	= \Var_{1:c}\left(\psi_{s_1, s_2}^{c}(\mathbf{x}; \mathbf{Z}_{1}, \dotsc, \mathbf{Z}_{c})\right)
+	\zeta_{s_1, s_2}^{c}\left(x\right)
+	= \Var_{1:c}\left(\psi_{s_1, s_2}^{c}(x; Z_{1}, \dotsc, Z_{c})\right)
 \end{equation}
-with an analogous definition of $\mathbf{Z}'$.
+with an analogous definition of $Z^{\prime}$.
 
 \subsection{Hoeffding-Decomposition}
 As a byproduct (or main purpose depending on the perspective) these terms can be used to derive the Hoeffding decomposition of the TDNN estimator.
 \begin{equation}\label{eq:H_projection}
 	\begin{aligned}
-		H_{s}^{c}\left(\mathbf{x}; \mathbf{D}_n\right)
-		= \binom{n}{c}^{-1} \sum_{\ell \in L_{n,c}} h^{(c)}_{s}(\mathbf{x}; D_{\ell})
+		H_{s}^{c}\left(x; \mathbf{D}_n\right)
+		= \binom{n}{c}^{-1} \sum_{\ell \in L_{n,c}} h^{(c)}_{s}(x; D_{\ell})
 		\quad \text{and} \quad
-		H_{s_1, s_2}^{c}\left(\mathbf{x}; \mathbf{D}_n\right)
-		= \binom{n}{c}^{-1} \sum_{\ell \in L_{n,c}} h^{(c)}_{s_1, s_2}(\mathbf{x}; D_{\ell})
+		H_{s_1, s_2}^{c}\left(x; \mathbf{D}_n\right)
+		= \binom{n}{c}^{-1} \sum_{\ell \in L_{n,c}} h^{(c)}_{s_1, s_2}(x; D_{\ell})
 	\end{aligned}
 \end{equation}
 These projection terms can then be used to construct the following Hoeffding decompositions.
 \begin{equation}\label{eq:H_Decomp}
-	\tilde{\mu}_{s}\left(\mathbf{x}; \mathbf{D}_n\right)
-	= \mu(\mathbf{x}) + \sum_{j = 1}^{s}\binom{s}{j}H_{s}^{j}\left(\mathbf{x}; \mathbf{D}_n\right)\\
+	\tilde{\mu}_{s}\left(x; \mathbf{D}_n\right)
+	= \mu(x) + \sum_{j = 1}^{s}\binom{s}{j}H_{s}^{j}\left(x; \mathbf{D}_n\right)\\
 	\quad \text{and} \quad
-	\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right)
-	= \mu(\mathbf{x}) + \sum_{j = 1}^{s_2}\binom{s_2}{j}H_{s_1, s_2}^{j}\left(\mathbf{x}; \mathbf{D}_n\right)
+	\hat{\mu}_{s_1, s_2}\left(x; \mathbf{D}_n\right)
+	= \mu(x) + \sum_{j = 1}^{s_2}\binom{s_2}{j}H_{s_1, s_2}^{j}\left(x; \mathbf{D}_n\right)
 \end{equation}
 
 Standard results for U-statistics (see for example \citet{lee_u-statistics_2019}) now give us a number of useful results.
 First, an immediate result on the expectations of the Hoeffding-projection kernels.
 \begin{align}\label{eq:H_k_expectation}
-	\forall c = 1,2,\dotsc, j-1: \quad & \E_{D}\left[h_{s_1, s_2}^{(j)}\left(\mathbf{x}; D\right) \, | \, \mathbf{Z}_1 = \mathbf{z}_1, \dotsc, \mathbf{Z}_c = \mathbf{z}_c\right] = 0
+	\forall c = 1,2,\dotsc, j-1: \quad & \E_{D}\left[h_{s_1, s_2}^{(j)}\left(x; D\right) \, | \, Z_1 = \mathbf{z}_1, \dotsc, Z_c = \mathbf{z}_c\right] = 0
 	\quad \text{and} \quad
-	\E_{D}\left[h_{s_1, s_2}^{(j)}\left(\mathbf{x}; D\right)\right] = 0
+	\E_{D}\left[h_{s_1, s_2}^{(j)}\left(x; D\right)\right] = 0
 \end{align}
 Second, we obtain a useful variance decomposition in terms of the Hoeffding-projection variances.
 \begin{align}\label{eq:Var_decomp}
-	\Var_{D}\left(\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; D\right)\right)
-	 & = \sum_{j = 1}^{s_2} \binom{s_2}{j}^2 \Var_{D}\left(H_{s_1, s_2}^{j}\left(\mathbf{x}; D\right)\right) \\
+	\Var_{D}\left(\hat{\mu}_{s_1, s_2}\left(x; D\right)\right)
+	 & = \sum_{j = 1}^{s_2} \binom{s_2}{j}^2 \Var_{D}\left(H_{s_1, s_2}^{j}\left(x; D\right)\right) \\
 	%
-	\Var_{D}\left(H_{s_1, s_2}^{j}\left(\mathbf{x}; D\right)\right)
-	 & = \binom{n}{j}^{-1} \Var_{D}\left(h_{s_1, s_2}^{(j)}\left(\mathbf{x}; D\right)\right)
-	=: \binom{n}{j}^{-1} V_{s_1, s_2}^{j}\left(\mathbf{x}\right)
+	\Var_{D}\left(H_{s_1, s_2}^{j}\left(x; D\right)\right)
+	 & = \binom{n}{j}^{-1} \Var_{D}\left(h_{s_1, s_2}^{(j)}\left(x; D\right)\right)
+	=: \binom{n}{j}^{-1} V_{s_1, s_2}^{j}\left(x\right)
 \end{align}
 Third, the following equivalent expression for the kernel variance.
 \begin{equation}\label{eq:k_var}
-	\zeta_{s_1, s_2}^{s_2}\left(\mathbf{x}\right)
-	= \Var_{D}\left(h_{s_1, s_2}\left(\mathbf{x}; D\right)\right)
+	\zeta_{s_1, s_2}^{s_2}\left(x\right)
+	= \Var_{D}\left(h_{s_1, s_2}\left(x; D\right)\right)
 	= \sum_{j = 1}^{s_2} \binom{s_2}{j}V_{s_1, s_2}^{j}
 \end{equation}

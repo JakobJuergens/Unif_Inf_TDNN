@@ -11,16 +11,16 @@ This is motivated by the closed form representation of the estimators in questio
 \subsection{Jackknife Variance Estimators for Nonparametric Regression}\label{Var_Ests}
 \hrule
 
-Define the following variance we need to estimate to perform pointwise inference at a point of interest $\mathbf{x}$.
+Define the following variance we need to estimate to perform pointwise inference at a point of interest $x$.
 \begin{equation}\label{eq:TDNN_Var}
-	\omega^{2}\left(\mathbf{x}; \mathbf{D}_n\right)
-	= \Var_{D}\left(\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right)\right)
+	\omega^{2}\left(x\right)
+	= \Var_{D}\left(\hat{\mu}_{s_1, s_2}\left(x; \mathbf{D}_n\right)\right)
 \end{equation}
 We denote by $\mathbf{D}_{n, -i}$ the data set $\mathbf{D}_n$ after removing the $i$'th observation.
 Then, the proposed Jackknife variance estimator takes the following form.
 \begin{equation}\label{eq:JK_Var_Est}
-	\hat{\omega}_{JK}^2\left(\mathbf{x}; \mathbf{D}_n\right)
-	= \frac{n-1}{n} \sum_{i = 1}^{n}\left(\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n, -i}\right) - \hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}\right)\right)^2
+	\hat{\omega}_{JK}^2\left(x; \mathbf{D}_n\right)
+	= \frac{n-1}{n} \sum_{i = 1}^{n}\left(\hat{\mu}_{s_1, s_2}\left(x; \mathbf{D}_{n, -i}\right) - \hat{\mu}_{s_1, s_2}\left(x; \mathbf{D}_{n}\right)\right)^2
 \end{equation}
 
 \begin{boxD}
@@ -36,21 +36,27 @@ Then, the proposed Jackknife variance estimator takes the following form.
 	\end{thm}
 \end{boxD}
 
+As a generalization to the Jackknife, we can also consider the delete-d Jackknife that builds on the same working principle.
+Instead of removing one observation at a time, we remove $d$ observations and average over all possible d-subsets removals.
+This leads to the following representation.
 \begin{equation}\label{eq:JKD_Var_Est}
-	\hat{\omega}_{JKD}^2\left(\mathbf{x}; d, \mathbf{D}_n\right)
+	\hat{\omega}_{JKD}^2\left(x; d, \mathbf{D}_n\right)
 	= \frac{n-d}{d}\binom{n}{d}^{-1} \sum_{\ell \in L_{n,d}}
-	\left(\hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n, -\ell}\right)
-	- \hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_{n}\right)
+	\left(\hat{\mu}_{s_1, s_2}\left(x; \mathbf{D}_{n, -\ell}\right)
+	- \hat{\mu}_{s_1, s_2}\left(x; \mathbf{D}_{n}\right)
 	\right)^2
 \end{equation}
+Similar to the Jackknife, it is possible to derive a closed form representation for the delete-d Jackknife.
+The derivation would proceed along the exact same lines as in the Jackknife case.
+However, due to the unwieldiness of the closed form, I refrain from deriving it.
 
 In this section, we will loosen that restrictive condition to make use of the attractive performance of U-statistics with large subsampling rates in the context of inference.
 The PIJK variance estimator applied to the TDNN estimator is as follows.
 \begin{equation}\label{eq:PIJK_Var_Est}
-	\hat{\omega}_{PI}^2\left(\mathbf{x}; \mathbf{D}_n\right)
+	\hat{\omega}_{PI}^2\left(x; \mathbf{D}_n\right)
 	= \frac{s_2^2}{n^2}\sum_{i = 1}^{n}\left[\left(
-		\binom{n-1}{s-1}^{-1} \sum_{\ell \in L_{s_2-1}([n]\backslash\{i\})} h_{s_1, s_2}\left(\mathbf{x}; D_{\ell \cup \{i\}}\right)\right)
-		- \hat{\mu}_{s_1, s_2}\left(\mathbf{x}; \mathbf{D}_n\right)\right]^2
+		\binom{n-1}{s-1}^{-1} \sum_{\ell \in L_{s_2-1}([n]\backslash\{i\})} h_{s_1, s_2}\left(x; D_{\ell \cup \{i\}}\right)\right)
+		- \hat{\mu}_{s_1, s_2}\left(x; \mathbf{D}_n\right)\right]^2
 \end{equation}
 
 {\color{red} LOREM IPSUM}
@@ -71,9 +77,9 @@ Thus, we obtain the following result.
 % \end{boxD}
 \begin{boxD}
 	\begin{thm}[Pseudo-Infinitesimal Jackknife Variance Estimator Consistency]\label{thm:PI_JK_Cons}\mbox{}\\*
-		Let $0 < c_1 \leq s_1/s_2 \leq c_2 < 1$ and $s_2 = o(n)$, then
+		Let $0 < \mathfrak{c} \leq s_1/s_2 \leq 1 - \mathfrak{c} < 1$ and $s_2 = o(n)$, then
 		\begin{equation}
-			\frac{\hat{\omega}_{PI}^2\left(\mathbf{x}; \mathbf{D}_n\right)}{\omega^{2}\left(\mathbf{x}; \mathbf{D}_n\right)} \longrightarrow_{p} 1.
+			\frac{\hat{\omega}_{PI}^2\left(x; \mathbf{D}_n\right)}{\omega^{2}\left(x; \mathbf{D}_n\right)} \longrightarrow_{p} 1.
 		\end{equation}
 	\end{thm}
 \end{boxD}
@@ -85,18 +91,18 @@ Following the ideas from \citet{peng_bias_2021}, we then obtain the following re
 As part of the proof of these results, we obtain general results on the consistency of Jackknife and Bootstrap variance estimators for infinite-order U-statistics beyond the TDNN estimator.
 \begin{boxD}
 	\begin{thm}[Jackknife Variance Estimator Consistency]\label{thm:JK_Cons}\mbox{}\\*
-		Let $0 < c_1 \leq s_1/s_2 \leq c_2 < 1$ and $s_2 = o(n)$, then
+		Let $0 < \mathfrak{c} \leq s_1/s_2 \leq 1 - \mathfrak{c} < 1$ and $s_2 = o(n)$, then
 		\begin{equation}
-			\frac{\hat{\omega}_{JK}^2\left(\mathbf{x}; \mathbf{D}_n\right)}{\omega^{2}\left(\mathbf{x}; \mathbf{D}_n\right)} \longrightarrow_{p} 1.
+			\frac{\hat{\omega}_{JK}^2\left(x; \mathbf{D}_n\right)}{\omega^{2}\left(x; \mathbf{D}_n\right)} \longrightarrow_{p} 1.
 		\end{equation}
 	\end{thm}
 \end{boxD}
 
 \begin{boxD}
 	\begin{thm}[delete-d Jackknife Variance Estimator Consistency]\label{thm:JKD_Cons}\mbox{}\\*
-		Let $0 < c_1 \leq s_1/s_2 \leq c_2 < 1$, $s_2 = o(n)$, and $d = o(n)$, then
+		Let $0 < \mathfrak{c} \leq s_1/s_2 \leq 1 - \mathfrak{c} < 1$, $s_2 = o(n)$, and $d = o(n)$, then
 		\begin{equation}
-			\frac{\hat{\omega}_{JKD}^2\left(\mathbf{x}; d, \mathbf{D}_n\right)}{\omega^{2}\left(\mathbf{x}; \mathbf{D}_n\right)} \longrightarrow_{p} 1.
+			\frac{\hat{\omega}_{JKD}^2\left(x; d, \mathbf{D}_n\right)}{\omega^{2}\left(x; \mathbf{D}_n\right)} \longrightarrow_{p} 1.
 		\end{equation}
 	\end{thm}
 \end{boxD}
@@ -117,30 +123,49 @@ Ideas:
 
 A fitting variance estimator given the context of this paper in the literature can be obtained by modifying a construction presented in \citet{ritzwoller_uniform_2024}.
 Specifically, the procedure is based on a variation of the approach presented in Appendix F.4 of the aforementioned paper and makes use of a carefully constructed bootstrap-root.
-Thus, we need to introduce some additional notation.
+Thus, we need to introduce some additional notation, where, for simplicity, we assume that $m$, i.e. the number of observations in each $I_k$, is even.
 \begin{boxD}
 	\begin{dfn}[Crossfitting Half-Sample]\label{def:CF_HSample}\mbox{}\\*
-		{\color{red} LOREM IPSUM}
+		Given a K-fold partition $\mathcal{I} = \left(I_k\right)_{k = 1}^{K}$ of $[n]$, a corresponding half sample of $\mathcal{I}$ is a collection of subsets $\mathcal{H} = \left(H_{k}\right)_{k = 1}^{K}$ such that for all $k \in [K]$, the following holds.
+		\begin{equation}
+			|H_k| = \frac{|I_k|}{2}= m/2
+			\quad \text{and} \quad
+			H_k \subset I_k
+		\end{equation}
+		The set of all such half-samples of $\mathcal{I}$ is denoted by $\mathfrak{H}\left(\mathcal{I}\right)$.
 	\end{dfn}
 \end{boxD}
 This bootstrap root will take the following structure.
 \begin{equation}
-	R^{*}_{n,s}\left(\mathbf{x}\right)
-	= \overline{\operatorname{CATE}}_{H(\mathcal{I})}\left(\mathbf{x}\right)
-	- \widehat{\operatorname{CATE}}\left(\mathbf{x}\right)
+	R^{*}_{n,s}\left(x; \mathbf{D}_{[n]}, \mathcal{I}\right)
+	= \overline{\operatorname{CATE}}_{\mathcal{H}}\left(x\right)
+	- \widehat{\operatorname{CATE}}\left(x\right)
 \end{equation}
-Here, $\overline{\operatorname{CATE}}_{H\left(\mathcal{I}\right)}\left(\mathbf{x}\right)$ is the solution to the following equation, where $\mathcal{I}$ is a fixed partition of $[n]$ and $H$ is a fixed half-sample corresponding to $\mathcal{I}$.
+Here, $\overline{\operatorname{CATE}}_{\mathcal{H}}\left(x\right)$ is the solution to the following equation, where $\mathcal{I}$ is a fixed partition of $[n]$ and $\mathcal{H}$ is a fixed half-sample corresponding to $\mathcal{I}$.
+In analogy to the previously established notation, we let $K(x, X_{i} \, | \, \mathcal{H})$ denote the kernel as previously established but with respect to the chosen half-sample and $Z_{(i \, | \, \mathcal{H})}$ denote the $i$'th closest observation to the point of interest $\mathbf{x}$ that is contained in $\mathcal{H}$.
+Furthermore, $k(i \, | \, \mathcal{H})$ denotes the fold $k \in [K]$ that the $i$'th closest observation in $\mathcal{H}$ is contained in.
 \begin{equation}
 	\begin{aligned}
-		0 & = \sum_{k = 1}^{K} \sum_{i \in H_k} K(\mathbf{x}, \mathbf{X}_i \, | \, H) m\left(\mathbf{Z_i}; \overline{CATE}_{H\left(\mathcal{I}\right)}\left(\mathbf{x}\right), \hat{\mu}_{k,s}, \hat{\pi}_{k,s}\right)\\
+		0 & = \sum_{k = 1}^{K} \sum_{i \in H_k} K(x, X_{i} \, | \, \mathcal{H}) m\left(Z_{i}; \overline{CATE}_{\mathcal{H}}\left(x\right), \hat{\mu}_{k,s}, \hat{\pi}_{k,s}\right)\\
 		%
-	 	& = \sum_{i = 1}^{n/2 - s + 1} \left[\frac{\binom{n/2-i}{s-1}}{\binom{n/2}{s}} m\left(\mathbf{Z}_{(i \, | \, H)}; \overline{\operatorname{CATE}}_{H\left(\mathcal{I}\right)}\left(\mathbf{x}\right), \hat{\mu}_{k(i \, | \, H),s}, \hat{\pi}_{k(i\, | \, H),s}\right)\right]
+	 	& = \sum_{i = 1}^{n/2 - s + 1} \left[\frac{\binom{n/2-i}{s-1}}{\binom{n/2}{s}} m\left(Z_{(i \, | \, \mathcal{H})}; \overline{\operatorname{CATE}}_{\mathcal{H}}\left(x\right), \hat{\mu}_{k(i \, | \, \mathcal{H}),s}, \hat{\pi}_{k(i\, | \, \mathcal{H}),s}\right)\right]
 	\end{aligned}
 \end{equation}
 Plugging in for the moment under consideration once more, we find the following.
 \begin{equation}
 	\begin{aligned}
-		{\color{red} LOREM IPSUM}
+		\overline{\operatorname{CATE}}_{\mathcal{H}}\left(x\right) 
+		& = \sum_{i = 1}^{n/2 - s + 1} \frac{\binom{n/2-i}{s-1}}{\binom{n/2}{s}} 
+		\left[\hat{\mu}_{k(i \, | \, \mathcal{H}),s}^{1}\left(X_{(i \, | \, \mathcal{H})}\right) 
+		- \hat{\mu}_{k(i \, | \, \mathcal{H}),s}^{0}\left(X_{(i \, | \, \mathcal{H})}\right) \right.\\
+		& \left. \quad + \hat{\beta}_{k(i \, | \, \mathcal{H}),s}\left(W_{(i \, | \, \mathcal{H})}, X_{(i \, | \, \mathcal{H})}\right)\left(Y_{(i \, | \, \mathcal{H})} - \mu_{W_{(i \, | \, \mathcal{H})}}\left(X_{(i \, | \, \mathcal{H})}\right)\right)\right]
+	\end{aligned}
+\end{equation}
+Recognizing the similarity to $\widehat{\operatorname{CATE}}\left(x\right)$, we can further simplify in the following way.
+\begin{equation}
+	\begin{aligned}
+		R^{*}_{n,s}\left(x; \mathbf{D}_{[n]}, \mathcal{I}\right)
+		& = {\color{red} LOREM IPSUM}
 	\end{aligned}
 \end{equation}
 

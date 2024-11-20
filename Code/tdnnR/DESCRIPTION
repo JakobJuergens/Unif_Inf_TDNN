@@ -13,7 +13,7 @@ Description: This package implements the DNN and TDNN estimators described in De
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Imports:
     philentropy,
     purrr

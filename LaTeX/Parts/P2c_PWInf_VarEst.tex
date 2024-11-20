@@ -1,0 +1,453 @@
+\subsection{Variance Estimator Consistency Theorems}
+\hrule
+
+\begin{lem}[Asymptotic Dominance of H\'ajek Projection]\label{lem:Hajek_Dominance}\mbox{}\\*
+	Let $U_{s}\left(\mathbf{D}_{[n]}\right)$ be a non-randomized complete generalized U-statistic with kernel $h_s$.
+	Let the kernel variance terms $\zeta_{s}^{s}$ and $\zeta_{s}^{1}$ be defined in analogy to Section \ref{sec:TDNN}.
+	Assume that the following condition holds.
+	\begin{equation}
+		\frac{s}{n}\left(\frac{\zeta_{s}^{s}}{s \zeta_{s}^{1}} - 1\right) \rightarrow 0
+	\end{equation}
+	Then, asymptotically, the H\'ajek projection term dominates the variance of the U-statistic in the following sense.
+	\begin{equation}
+		\frac{n}{s^2}\frac{\Var\left(\mathrm{U}_{s}\left(\mathbf{D}_{[n]}\right)\right)}{\zeta_{s}^{1}}
+		\rightarrow 1.
+	\end{equation}
+\end{lem}
+\hrule
+\begin{proof}
+	\begin{equation}
+		\begin{aligned}
+			1 \leq \frac{n}{s^2}\frac{\Var\left(\mathrm{U}_{s}\left(\mathbf{D}_{[n]}\right)\right)}{\zeta_{s}^{1}}
+			 & = \left(\frac{s^2}{n} \zeta_{s}^{1}\right)^{-1} \sum_{j=1}^{s}\binom{s}{j}^2\binom{n}{j}^{-1} V_{s}^{j}     \\
+			%
+			 & \leq 1 + \left(\frac{s^2}{n} \zeta_{s}^{1}\right)^{-1} \frac{s^2}{n^2} \sum_{j=2}^{s}\binom{s}{j} V_{s}^{j} \\
+			%
+			 & \leq 1 + \frac{s}{n}\left(\frac{\zeta_{s}^{s}}{s\zeta_{s}^{1}} - 1\right)
+			\rightarrow 1.
+		\end{aligned}
+	\end{equation}
+\end{proof}
+
+\hrule
+
+\begin{lem}[H\'ajek Dominance for TDNN Estimator]\label{lem:TDNN_Hajek_Dominance}\mbox{}\\*
+	Let $0 < \mathfrak{c} \leq s_1/s_2 \leq 1 - \mathfrak{c} < 1$ and $s_2 = o(n)$, then under Assumptions \ref{asm:DGP}, \ref{asm:subexp_tails} and \ref{asm:smoothness}, then the TDNN estimator fulfills the asymptotic H\'ajek dominance condition shown in Lemma \ref{lem:Hajek_Dominance}.
+\end{lem}
+\hrule
+\begin{proof}
+	Recall the results from Lemmas \ref{lem:Var_TDNN_k} and \ref{lem:dem10}.
+	\begin{equation*}
+		\zeta_{s_1, s_2}^{s_2}\left(x\right) \lesssim \mu^2(x) + \sigma_{\varepsilon} + o(1)
+		\quad \text{and} \quad
+		\zeta_{s_1, s_2}^{1}\left(x\right) \sim s_2^{-1}
+	\end{equation*}
+	Using these results, we can find the following.
+	\begin{equation}
+		\begin{aligned}
+			\frac{s_2}{n}\left(\frac{
+				\zeta_{s_1, s_2}^{s_2}\left(x\right)}{s_2 \zeta_{s_1, s_2}^{1}\left(x\right)} - 1\right)
+			 & \sim \frac{s_2}{n}\left(\mu^2(x) + \sigma_{\varepsilon} + o(1) - 1\right)
+			\sim \frac{s_2}{n} \rightarrow 0
+		\end{aligned}
+	\end{equation}
+\end{proof}
+\hrule
+
+\begin{proof}[Proof of Theorem \ref{thm:PI_JK_Cons}]\mbox{}\\*
+	The desired result immediately follows from an application of Theorem 6 from \citet{peng_bias_2021}.
+\end{proof}
+
+\newpage
+\begin{proof}[Proof of Theorem \ref{thm:JK_Cons}]\mbox{}\\*
+	Recall the definition of the Jackknife Variance estimator.
+	\begin{equation}
+		\hat{\omega}_{JK}^2\left(x; \mathbf{D}_n\right)
+		= \frac{n-1}{n} \sum_{i = 1}^{n}\left(\hat{\mu}_{s_1, s_2}\left(x; \mathbf{D}_{n, -i}\right) - \hat{\mu}_{s_1, s_2}\left(x; \mathbf{D}_{n}\right)\right)^2
+	\end{equation}
+
+	Using the Hoeffding-decomposition of the original U-statistic, we can
+	reformulate this expression in the following way.
+	\begin{equation}
+		\begin{aligned}
+			\hat{\omega}_{JK}^2\left(x; \mathbf{D}_n\right)
+			 & = \frac{n-1}{n} \sum_{i = 1}^{n}\left(
+			\sum_{j = 1}^{s_2}\binom{s_2}{j} H_{s_1, s_2}^{j}\left(\mathbf{D}_{n, -i}\right)
+			- \sum_{j = 1}^{s_2}\binom{s_2}{j}H_{s_1, s_2}^{j}
+			\right)^2                                                                                                    \\
+			%
+			 & = \frac{n-1}{n} \sum_{j = 1}^{n}\left(
+			\sum_{j = 1}^{s_2}\binom{s_2}{j}\left(H_{s_1, s_2}^{j}
+				- H_{s_1, s_2}^{j}\left(\mathbf{D}_{n, -i}\right)\right)
+			\right)^2                                                                                                    \\
+			%
+			 & = \frac{n-1}{n} \sum_{j = 1}^{n}\left(\sum_{j = 1}^{s_2}\binom{s_2}{j}
+			\left( \binom{n}{j}^{-1}\sum_{\iota \in L_{n,j}} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\iota})
+			- \binom{n - 1}{j}^{-1}\sum_{\ell \in L_{j}\left([n]\backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\ell})\right)
+			\right)^2                                                                                                    \\
+			%
+			 & = \frac{n-1}{n} \sum_{j = 1}^{n}\left[
+				\frac{s_2}{n} h^{(1)}_{s_1, s_2}(Z_{i})
+			+ \sum_{j \neq i} \left(\frac{s_2}{n} - \frac{s_2}{n - 1}\right) h^{(1)}_{s_1, s_2}(Z_{j}) \right.  \\
+			 & \quad \quad + \left.\sum_{j = 2}^{s_2}\binom{s_2}{j}
+				\left( \binom{n}{j}^{-1}\sum_{\iota \in L_{n,j}} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\iota})
+				- \binom{n - 1}{j}^{-1}\sum_{\ell \in L_{j}\left([n]\backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\ell})\right)
+			\right]^2                                                                                                    \\
+			%
+			 & = \frac{n-1}{n} \frac{s^2}{n^2}\sum_{j = 1}^{n}\left[
+				h^{(1)}_{s_1, s_2}(Z_{i})
+			- \frac{1}{n-1} \sum_{j \neq i} h^{(1)}_{s_1, s_2}(Z_{j}) \right.                                   \\
+			 & \quad \quad + \left. \frac{n}{s}\sum_{j = 2}^{s_2}\binom{s_2}{j}\left(
+				\binom{n}{j}^{-1}\sum_{\iota \in L_{j-1}\left([n] \backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\iota \cup \{i\}})
+				+ \left[\binom{n}{j}^{-1} - \binom{n - 1}{j}^{-1}\right] \sum_{\ell \in L_{j}\left([n] \backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\ell})
+				\right)
+			\right]                                                                                                      \\
+			%
+			 & =: \frac{n-1}{n}\frac{s^2}{n^2} \sum_{j = 1}^{n}\left[h^{(1)}_{s_1, s_2}(Z_{i}) + T_{i}\right]^2
+		\end{aligned}
+	\end{equation}
+	Observe that due to the independence of the observations and the uncorrelatedness of Hoeffding projections of differing orders, $h^{(1)}_{s_1, s_2}(Z_{i})$ and $T_{i}$ are uncorrelated and both have mean zero.
+	Now, continuing to follow the line of argument in \citet{peng_bias_2021}, observe the following.
+	\begin{equation}
+		\begin{aligned}
+			\E\left[\left(h^{(1)}_{s_1, s_2}(Z_{i})\right)^{2}\right]
+			 & = V_{s_1, s_2}^{1}
+			= \zeta_{s_1, s_2}^{1}
+		\end{aligned}
+	\end{equation}
+
+	Furthermore, as a consequence of the independence of the observations and the
+	uncorrelatedness of Hoeffding projections of differing order, we find that
+	\begin{equation}
+		\begin{aligned}
+			\E\left[T_{i}^{2}\right]
+			 & = \frac{1}{n-1} V_{s_1, s_2}^{1}
+			+ \frac{n^2}{s_2^2}\sum_{j = 2}^{s_2}\binom{s_2}{j}^2\left\{
+			\binom{n}{j}^{-2}\binom{n-1}{j-1}V_{s_1, s_2}^{j}
+			+ \left[\binom{n}{j}^{-1} - \binom{n - 1}{j}^{-1}\right]^2 \binom{n-1}{j}V_{s_1, s_2}^{j}
+			\right\}                                                                                                                         \\
+			%
+			 & = \frac{1}{n-1} V_{s_1, s_2}^{1}
+			+ \frac{n^2}{s_2^2}\sum_{j = 2}^{s_2}\binom{s_2}{j}^2\left\{
+			\binom{n}{j}^{-2}\frac{j}{n - j}\binom{n-1}{j}V_{s_1, s_2}^{j}
+			+ \binom{n}{j}^{-2}\left[1 - \binom{n}{j}\binom{n - 1}{j}^{-1}\right]^2 \binom{n-1}{j}V_{s_1, s_2}^{j}
+			\right\}                                                                                                                         \\
+			%
+			 & = \frac{1}{n-1} V_{s_1, s_2}^{1}
+			+ \frac{n^2}{s_2^2}\sum_{j = 2}^{s_2}\binom{s_2}{j}^2\binom{n}{j}^{-2}
+			\left(\frac{j}{n - j} + \left(1 - \frac{n}{n - j}\right)^2\right) \binom{n-1}{j}V_{s_1, s_2}^{j}                                 \\
+			%
+			 & = \frac{1}{n-1} V_{s_1, s_2}^{1}
+			+ \frac{n^2}{s_2^2}\sum_{j = 2}^{s_2}\binom{s_2}{j}
+			\binom{n}{j}^{-2}\binom{n-1}{j} \cdot \left(\frac{j}{n - j} + \frac{j^2}{(n - j)^2}\right)
+			\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                                                      \\
+			%
+			 & = \frac{1}{n-1} V_{s_1, s_2}^{1}
+			+ \frac{n^2}{s_2^2}\sum_{j = 2}^{s_2}\binom{s_2}{j}\binom{n}{j}^{-1}
+			\frac{n - j}{n} \cdot \frac{j}{n}\left(\frac{n}{n - j} + \frac{j n}{(n - j)^2}\right)
+			\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                                                      \\
+			%
+			 & =  \frac{1}{n-1} V_{s_1, s_2}^{1}
+			+ \sum_{j = 2}^{s_2}\frac{j}{s_2}
+			\binom{s_2 - 1}{j - 1}\binom{n-1}{j-1}^{-1}
+			\frac{n - j}{n} \left(\frac{n}{n - j} + \frac{j}{n}\right)
+			\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                                                      \\
+			%
+			 & \leq \frac{1}{n-1} V_{s_1, s_2}^{1}
+			+ \sum_{j = 2}^{s_2}\frac{j}{s_2} \left(e \frac{s_2 - 1}{n - 1}\right)^{j-1}
+			\frac{n - j}{n}\left(\frac{n}{n - j} + \frac{j}{n}\right)
+			\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                                                      \\
+			%
+			 & \lesssim \frac{1}{n-1} V_{s_1, s_2}^{1}
+			+ 2 \sum_{j = 2}^{s_2}\frac{j}{s_2} \left(e \frac{s_2 - 1}{n - 1}\right)^{j-1}
+			\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                                                      \\
+			%
+			 & \leq \frac{1}{n-1} V_{s_1, s_2}^{1}
+			+ 2e \sum_{j = 2}^{s_2}\frac{1}{s_2} \frac{s_2 - 1}{n - 1}\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]
+			+ 2  \sum_{j = 2}^{s_2}\frac{j - 1}{s_2} \left(e \frac{s_2 - 1}{n - 1}\right)^{j-1}  \left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right] \\
+			%
+			 & \leq \frac{1}{n-1} V_{s_1, s_2}^{1}
+			+ \frac{2e}{n - 1} \sum_{j = 2}^{s_2}\frac{s_2 - 1}{s_2}
+			\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]
+			+ 2 \sum_{j = 2}^{s_2}\frac{j-1}{s_2} \left(e \frac{s_2 - 1}{n - 1}\right)^{j-1}\zeta_{s_1, s_2}^{s_2}                           \\
+			%
+			 & = \frac{1}{n-1} V_{s_1, s_2}^{1}
+			+ \frac{2e}{n} \sum_{j = 2}^{s_2}\frac{n (s_2 - 1)}{(n - 1)s_2}
+			\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]
+			+ 2\zeta_{s_1, s_2}^{s_2} \sum_{j = 2}^{s_2}\frac{j-1}{s_2} \left(e \frac{s_2 - 1}{n - 1}\right)^{j-1}                           \\
+			%
+			 & \leq \frac{1}{n-1} V_{s_1, s_2}^{1}
+			+ \frac{2e}{n} \sum_{j = 2}^{s_2}\binom{s_2}{j}V_{s_1, s_2}^{j}
+			+ \frac{2\zeta_{s_1, s_2}^{s_2}}{s_2} \sum_{j = 1}^{\infty}j \left(e \frac{s_2 - 1}{n - 1}\right)^{j}                            \\
+			%
+			 & \leq \frac{1}{n-1} V_{s_1, s_2}^{1}
+			+ \frac{2e}{n} \sum_{j = 2}^{s_2}\binom{s_2}{j}V_{s_1, s_2}^{j}
+			+ \frac{2 \zeta_{s_1, s_2}^{s_2}}{s_2}\sum_{j = 1}^{\infty}j \left(e \frac{s_2}{n}\right)^{j}                                    \\
+			%
+			 & = \frac{1}{n-1} \zeta_{s_1, s_2}^{1}
+			+ \frac{2e}{n} \left(\zeta_{s_1, s_2}^{s_2} - s_2 \zeta_{s_1, s_2}^{1}\right)
+			+ \frac{2 e n}{\left(n - e s_2\right)^2} \zeta_{s_1, s_2}^{s_2}                                                                  \\
+			%
+			 & = \left(\frac{1}{n-1} + \frac{2 e s_2 n}{\left(n - e s_2\right)^2}\right) \zeta_{s_1, s_2}^{1}
+			+ 2e\left(\frac{1}{n} + \frac{n}{\left(n - e s_2\right)^2}\right) \left(\zeta_{s_1, s_2}^{s_2} - s_2 \zeta_{s_1, s_2}^{1}\right)
+		\end{aligned}
+	\end{equation}
+	Recall the results of Lemmas \ref{lem:Var_TDNN_k} and \ref{lem:dem10}.
+	\begin{equation}
+		\zeta_{s_1, s_2}^{s_2}\left(x\right) \lesssim \mu^2(x) + \sigma_{\varepsilon} + o(1)
+		\quad \text{and} \quad
+		\zeta_{s_1, s_2}^{1}\left(x\right) \sim s_2^{-1}
+	\end{equation}
+	This immediately implies that $\frac{s_2}{n}\left(\frac{\zeta_{s_1, s_2}^{s_2}}{s_2 \zeta_{s_1, s_2}^{1}} - 1\right) \rightarrow 0$.
+	Using this result and the previous asymptotic upper bound, we can find the following.
+	\begin{equation}
+		\begin{aligned}
+			\frac{\E\left[T_{i}^{2}\right]}{V_{s_1, s_2}^{1}}
+			 & \leq \frac{\left(\frac{1}{n-1} + \frac{2 e s_2 n}{\left(n - e s_2\right)^2}\right) \zeta_{s_1, s_2}^{1}
+			+ 2e\left(\frac{1}{n} + \frac{n}{\left(n - e s_2\right)^2}\right) \left(\zeta_{s_1, s_2}^{s_2} - s_2 \zeta_{s_1, s_2}^{1}\right)}{\zeta_{s_1, s_2}^{1}} \\
+			%
+			 & = \frac{1}{n-1} + \frac{2 e s_2 n}{\left(n - e s_2\right)^2}
+			+ 2e\left(\frac{1}{n} + \frac{n}{\left(n - e s_2\right)^2}\right) \left(\frac{\zeta_{s_1, s_2}^{s_2} - s_2 \zeta_{s_1, s_2}^{1}}{\zeta_{s_1, s_2}^{1}}\right)
+			\rightarrow 0
+		\end{aligned}
+	\end{equation}
+	Therefore, we can conclude that $h_{s}^{(1)}\left(Z_{i}\right)$ dominates $T_i^2$ in the expression of interest.
+	Using Lemma \ref{lem:peng1}, we can thus conclude the following.
+	\begin{equation}
+		\begin{aligned}
+			\frac{\frac{n}{s_2^2}\hat{\omega}^{2}_{JK}\left(x; \mathbf{D}_n\right)}{V_{s_1, s_2}^{1}\left(x\right)}
+			 & \rightarrow_{p} \frac{n - 1}{n}\frac{1}{n}\sum_{i = 1}^{n}\frac{\left(h^{(1)}_{s_1, s_2}(x; Z_{i})\right)^{2}}{V_{s_1, s_2}^{1}\left(x\right)} \\\
+			%
+			 & \rightarrow_{p} \frac{n - 1}{n}\frac{\E\left[\left(h^{(1)}_{s_1, s_2}(x; Z_{i})\right)^{2}\right]}{V_{s_1, s_2}^{1}\left(x\right)}
+			\rightarrow 1
+		\end{aligned}
+	\end{equation}
+	The desired rate-consistency then immediately follows from an application of Lemma \ref{lem:Hajek_Dominance}.
+\end{proof}
+
+\newpage
+\begin{proof}[Proof of Theorem \ref{thm:JKD_Cons}]\mbox{}\\*
+	Consider first the case absent additional randomization in the form of $\omega$ and recall the definition of the delete-d Jackknife Variance estimator.
+	\begin{equation}
+		\hat{\omega}_{JKD}^2\left(x; d, \mathbf{D}_n\right)
+		= \frac{n-d}{d}\binom{n}{d}^{-1} \sum_{\ell \in L_{n,d}}
+		\left(\hat{\mu}_{s_1, s_2}\left(x; \mathbf{D}_{n, -\ell}\right)
+		- \hat{\mu}_{s_1, s_2}\left(x; \mathbf{D}_{n}\right)
+		\right)^2
+	\end{equation}
+	Now, as in the proof for the conventional Jackknife variance estimator, we make use of the Hoeffding-decomposition in the following way.
+	\begin{equation}
+		\begin{aligned}
+			\hat{\omega}_{JKD}^2\left(x; d, \mathbf{D}_n\right)
+			 & = \frac{n-d}{d}\binom{n}{d}^{-1} \sum_{\ell \in L_{n, d}}
+			\left(\sum_{j = 1}^{s_2}\binom{s_2}{j} \left(H_{P_{t}}^{j} - H_{P_{t}}^{j}\left(\mathbf{D}_{n, -\ell}\right)\right)\right)^2 \\
+			%
+			 & = \frac{n-d}{d}\binom{n}{d}^{-1} \sum_{\ell \in L_{n, d}}
+			\left(\sum_{j = 1}^{s_2}\binom{s_2}{j}
+			\left( \binom{n}{j}^{-1}\sum_{\iota \in L_{n,j}} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\iota})
+			- \binom{n-d}{j}^{-1}\sum_{\iota \in L_{j}\left([n]\backslash \ell\right)} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\iota})\right)
+			\right)^2                                                                                                                    \\
+			%
+			 & = \frac{n-d}{d}\binom{n}{d}^{-1} \sum_{\ell \in L_{n, d}}\left[
+				\frac{s_2}{n}\sum_{i \in \ell} h^{(1)}_{s_1, s_2}(Z_{i})
+				+ \sum_{i \in [n] \backslash \ell} \left(\frac{s_2}{n} - \frac{s_2}{n - d}\right) h^{(1)}_{s_1, s_2}(Z_{i})
+			\right.                                                                                                                      \\
+			 & \quad \quad + \left.\sum_{j = 2}^{s_2}\binom{s_2}{j}
+				\left( \binom{n}{j}^{-1}\sum_{\iota \in L_{n,j}} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\iota})
+				- \binom{n-d}{j}^{-1}\sum_{\iota \in L_{j}\left([n]\backslash \ell\right)} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\iota})\right)
+			\right]^2                                                                                                                    \\
+			%         
+			 & = \frac{n-d}{d}\binom{n}{d}^{-1}\left(\frac{s_2}{n}\right)^2 \sum_{\ell \in L_{n, d}}\left[
+				\sum_{i \in \ell} h^{(1)}_{s_1, s_2}(Z_{i})
+				- \frac{d}{n - d}\sum_{i \in [n] \backslash \ell} h^{(1)}_{s_1, s_2}(Z_{i})
+			\right.                                                                                                                      \\
+			 & \quad \quad + \left. \frac{n}{s_2}\sum_{j = 2}^{s_2}\binom{s_2}{j}
+				\left( \binom{n}{j}^{-1}\sum_{\iota \in L_{n,j}} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\iota})
+				- \binom{n-d}{j}^{-1}\sum_{\iota \in L_{j}\left([n]\backslash \ell\right)} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\iota})\right)
+			\right]^2                                                                                                                    \\
+			%                                                                                                       \\
+			 & =: (n-d)\binom{n}{d}^{-1}\left(\frac{s_2}{n}\right)^2 \sum_{\ell \in L_{n, d}}\left[
+				\frac{1}{\sqrt{d}}\sum_{i \in \ell} h^{(1)}_{s_1, s_2}(Z_{i}) + T_{\ell}\right]^2
+		\end{aligned}
+	\end{equation}
+
+	We want to proceed in an analogous way to the proof of the pure Jackknife
+	result. Thus, we want to show that $\sum_{i \in \ell} h^{(1)}_{s_1,
+				s_2}(Z_{i})$ dominates $T_{\ell}$ in the sense of Lemma
+	\ref{lem:peng1}. Luckily, since Lemma \ref{lem:peng1} does not depend on any
+	particular independence assumptions of summands etc. this is a relatively
+	straightforward adaptation of the strategy shown in the proof of Theorem
+	\ref{thm:JK_Cons}. Thus, consider the following for an arbitrary fixed
+	index-subset $\ell$ with cardinality $d$.
+	\begin{equation}
+		\begin{aligned}
+			\E\left[\left(\frac{1}{\sqrt{d}}\sum_{i \in \ell} h^{(1)}_{s_1, s_2}(Z_{i})\right)^2\right]
+			 & = \frac{1}{d}\E\left[\sum_{i \in \ell}\sum_{j \in \ell} h^{(1)}_{s_1, s_2}(Z_{i})h^{(1)}_{s_1, s_2}(Z_{j})\right]
+			= \frac{1}{d}\sum_{i \in \ell}\sum_{j \in \ell} \E\left[h^{(1)}_{s_1, s_2}(Z_{i})h^{(1)}_{s_1, s_2}(Z_{j})\right]    \\
+			%
+			 & = \frac{\left| \ell \right|}{d} \cdot \E\left[\left(h^{(1)}_{s_1, s_2}(Z_{1})\right)^2\right]
+			= \zeta_{P_{t}, 1}
+		\end{aligned}
+	\end{equation}
+
+	\newpage
+	For the error term we introduce a case distinction.
+	Case one corresponds to parameter choices where $s_2 \geq d$ and thus takes the following form.
+	\begin{equation}
+		\begin{aligned}
+			T_{\ell}
+			 & = \frac{\sqrt{d}}{n - d}\sum_{i \in [n] \backslash \ell} h^{(1)}_{s_1, s_2}(Z_{i})             \\
+			 & \quad \quad + \frac{n}{s_2\sqrt{d}} \left\{\sum_{j = 2}^{d}\binom{s_2}{j}\left(\binom{n}{j}^{-1}\left(
+			\sum_{a = 1}^{j}\sum_{\substack{\varkappa \in L_{a}\left(\ell\right)                                       \\ \varrho \in L_{j - a}\left([n]\backslash \ell\right)}} h^{(j)}_{s_1, s_2}(D_{\varkappa \cup \varrho})\right)
+			+ \left(\binom{n}{j}^{-1} - \binom{n-d}{j}^{-1}\right)
+			\sum_{\iota \in L_{j}\left([n]\backslash \ell\right)} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\iota})\right)\right. \\
+			 & \quad \quad +\left.  \sum_{j = d + 1}^{s_2}\binom{s_2}{j}
+			\left( \binom{n}{j}^{-1}\left(
+			\sum_{a = 1}^{d}\sum_{\substack{\varkappa \in L_{a}\left(\ell\right)                                       \\ \varrho \in L_{j - a}\left([n]\backslash \ell\right)}} h^{(j)}_{s_1, s_2}(D_{\varkappa \cup \varrho})\right)
+			+ \left(\binom{n}{j}^{-1} - \binom{n-d}{j}^{-1}\right)\sum_{\iota \in L_{j}\left([n]\backslash \ell\right)} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\iota})\right)
+			\right\}
+		\end{aligned}
+	\end{equation}
+	Case two covers setups of the form $s_2 < d$ and thus takes the following form.
+	\begin{equation}
+		\begin{aligned}
+			T_{\ell}
+			 & = \frac{\sqrt{d}}{n - d}\sum_{i \in [n] \backslash \ell} h^{(1)}_{s_1, s_2}(Z_{i})         \\
+			 & \quad \quad + \frac{n}{s_2 \sqrt{d}}  \sum_{j = 2}^{s_2}\binom{s_2}{j}\left(\binom{n}{j}^{-1}\left(
+			\sum_{a = 1}^{j}\sum_{\substack{\varkappa \in L_{a}\left(\ell\right)                                   \\ \varrho \in L_{j - a}\left([n]\backslash \ell\right)}} h^{(j)}_{s_1, s_2}(D_{\varkappa \cup \varrho})\right)
+			+ \left(\binom{n}{j}^{-1} - \binom{n-d}{j}^{-1}\right)
+			\sum_{\iota \in L_{j}\left([n]\backslash \ell\right)} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\iota})\right)    \\
+		\end{aligned}
+	\end{equation}
+
+	Having separated these two cases, we continue by investigating the expectation
+	of their respective squares. Beginning with case one, we find the following.
+	\begin{equation}
+		\begin{aligned}
+			\E\left[\left(T_{\ell}\right)^2\right]
+			 & = \frac{d}{n - d} V_{s_1, s_2}^{1}                                                                                                          \\
+			 & \quad \quad + \frac{n^2}{s_2^2 d}\sum_{j = 2}^{d}\binom{s_2}{j}^2
+			\left(\binom{n}{j}^{-2}\sum_{a = 1}^{j}\left[\binom{d}{a}\binom{n - d}{j - a}\right]
+			+ \left[\binom{n}{j}^{-1} - \binom{n-d}{j}^{-1}\right]^{2} \binom{n - d}{j}\right)V_{s_1, s_2}^{j}                                             \\
+			 & \quad \quad + \frac{n^2}{s_2^2 d}\sum_{j = d + 1}^{s_2}\binom{s_2}{j}^2
+			\left(\binom{n}{j}^{-2}\sum_{a = 1}^{d}\left[\binom{d}{a}\binom{n - d}{j - a}\right]
+			+ \left[\binom{n}{j}^{-1} - \binom{n-d}{j}^{-1}\right]^{2}\binom{n - d}{j}\right)V_{s_1, s_2}^{j}                                              \\
+			%
+			 & \overset{(\star)}{=} \frac{d}{n - d} V_{s_1, s_2}^{1}                                                                                       \\
+			 & \quad \quad + \frac{n^2}{s_2^2 d}\sum_{j = 2}^{d}\binom{s_2}{j}^2\binom{n}{j}^{-2}
+			\left(\binom{n}{j} - \binom{n - d}{j}
+			+ \left[1 - \binom{n}{j}\binom{n-d}{j}^{-1}\right]^{2}\binom{n - d}{j} \right)V_{s_1, s_2}^{j}                                                 \\
+			 & \quad \quad + \frac{n}{s_2 d}\sum_{j = d + 1}^{s_2}\frac{\binom{s_2 - 1}{j - 1}}{\binom{n - 1}{j - 1}}\frac{\binom{n - d}{j}}{\binom{n}{j}}
+			\left(\sum_{a = 1}^{d}\frac{\binom{d}{a}\binom{n - d}{j - a}}{\binom{n - d}{j}}
+			+ \left[1 - \binom{n}{j}\binom{n-d}{j}^{-1}\right]^{2}\right)\binom{s_2}{j}V_{s_1, s_2}^{j}
+		\end{aligned}
+	\end{equation}
+	The equality marked by $(\star)$ holds by the Chu-Vandermonde identity - specifically with respect to the equivalent expression for the sum in the second term.
+
+	Continuing the analysis, we find the following.
+	\begin{equation}
+		\begin{aligned}
+			\E\left[\left(T_{\ell}\right)^2\right]
+			 & = \frac{d}{n - d} V_{s_1, s_2}^{1}                                                                                                                        \\
+			 & \quad \quad + \frac{n}{s_2 d}\sum_{j = 2}^{d}\frac{\binom{s_2 - 1}{j - 1}\binom{n - d}{j}}{\binom{n - 1}{j - 1}\binom{n}{j}}
+			\left(\binom{n}{j}\binom{n - d}{j}^{-1} - 1
+			+ \left[1 - \binom{n}{j}\binom{n-d}{j}^{-1}\right]^{2} \right)\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                    \\
+			 & \quad \quad + \frac{n}{s_2 d}\sum_{j = d + 1}^{s_2}\frac{\binom{s_2 - 1}{j - 1}\binom{n - d}{j}}{\binom{n - 1}{j - 1}\binom{n}{j}}
+			\left(\frac{\binom{n}{j}}{\binom{n - d}{j}}\sum_{a = 1}^{d}\frac{\binom{d}{a}\binom{n - d}{j - a}}{\binom{n}{j}}
+			+ \left[1 - \binom{n}{j}\binom{n-d}{j}^{-1}\right]^{2}\right)\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                     \\
+			%
+			 & = \frac{d}{n - d} V_{s_1, s_2}^{1}                                                                                                                        \\
+			 & \quad \quad + \frac{n}{s_2 d}\sum_{j = 2}^{d}\frac{\binom{s_2 - 1}{j - 1}\binom{n - d}{j}}{\binom{n - 1}{j - 1}\binom{n}{j}}
+			\left(\binom{n}{j}^{2}\binom{n-d}{j}^{-2} - \binom{n}{j}\binom{n-d}{j}^{-1}\right)\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                \\
+			 & \quad \quad + \frac{n}{s_2 d}\sum_{j = d + 1}^{s_2}\frac{\binom{s_2 - 1}{j - 1}\binom{n - d}{j}}{\binom{n - 1}{j - 1}\binom{n}{j}}
+			\left(\frac{\binom{n}{j}}{\binom{n - d}{j}\binom{n}{d}}\sum_{a = 1}^{d}\binom{j}{a}\binom{n - j}{d - a}
+			+ \left[1 - \binom{n}{j}\binom{n-d}{j}^{-1}\right]^{2}\right)\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                     \\
+			%
+			 & \overset{(\star\star)}{=} \frac{d}{n - d} V_{s_1, s_2}^{1}                                                                                                \\
+			 & \quad \quad + \frac{n}{s_2 d}\sum_{j = 2}^{d}\frac{\binom{s_2 - 1}{j - 1}}{\binom{n - 1}{j - 1}}
+			\left(\binom{n}{j}\binom{n-d}{j}^{-1} - 1\right)\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                                  \\
+			 & \quad \quad + \frac{n}{s_2 d}\sum_{j = d + 1}^{s_2}\frac{\binom{s_2 - 1}{j - 1}\binom{n - d}{j}}{\binom{n - 1}{j - 1}\binom{n}{j}}
+			\left(\frac{\binom{n}{j}}{\binom{n - d}{j}}\left[1 - \binom{n - j}{d}\binom{n}{d}^{-1}\right]
+			+ \left[1 - \binom{n}{j}\binom{n-d}{j}^{-1}\right]^{2}\right)\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                     \\
+			%
+			 & = \frac{d}{n - d} V_{s_1, s_2}^{1} + \frac{n}{s_2}\sum_{j = 2}^{d}\frac{\binom{s_2 - 1}{j - 1}}{\binom{n - 1}{j - 1}}
+			\left(\binom{n}{j}\binom{n-d}{j}^{-1} - 1\right)\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                                  \\
+			 & \quad \quad + \frac{n}{s_2 d}\sum_{j = d + 1}^{s_2}\frac{\binom{s_2 - 1}{j - 1}\binom{n - d}{j}}{\binom{n - 1}{j - 1}\binom{n}{j}}
+			\left(\frac{\binom{n}{j}}{\binom{n - d}{j}} - 1
+			+ \left[1 - \binom{n}{j}\binom{n-d}{j}^{-1}\right]^{2}\right)\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                     \\
+			%
+			 & = \frac{d}{n - d} V_{s_1, s_2}^{1} + \frac{n}{s_2 d}\sum_{j = 2}^{s_2}\frac{\binom{s_2 - 1}{j - 1}}{\binom{n - 1}{j - 1}}
+			\left(\binom{n}{j}\binom{n-d}{j}^{-1} - 1\right)\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                                  \\
+			%
+			 & = \frac{d}{n - d} V_{s_1, s_2}^{1} + \frac{n}{s_2 d}\sum_{j = 2}^{s_2}\frac{\binom{s_2 - 1}{j - 1}}{\binom{n - 1}{j - 1}}
+			\left(\prod_{i = 0}^{d - 1}\left(1 + \frac{j}{n - i - j}\right) - 1\right)\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                        \\
+			%
+			 & \overset{(\star\star\star)}{\leq} \frac{d}{n - d} V_{s_1, s_2}^{1} + \frac{n}{s_2 d}\sum_{j = 2}^{s_2}\frac{\binom{s_2 - 1}{j - 1}}{\binom{n - 1}{j - 1}}
+			\frac{\sum_{i = 0}^{d - 1}\frac{j}{n - i - j}}{1 - \sum_{i = 0}^{d - 1}\frac{j}{n - i - j}}\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                       \\
+			%
+			 & \leq \frac{d}{n - d} V_{s_1, s_2}^{1} + \frac{n}{s_2 d}\sum_{j = 2}^{s_2}\frac{\binom{s_2 - 1}{j - 1}}{\binom{n - 1}{j - 1}}
+			\frac{j (n - j)}{(n - d - j + 1)(n - d - 2 j)}\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                                    \\
+			%
+			 & \leq \frac{d}{n - d} V_{s_1, s_2}^{1} + \frac{n}{s_2 d}\sum_{j = 2}^{s_2}\left(\frac{e (s_2 - 1)}{n - 1}\right)^{j-1}
+			\frac{j (n - 2)}{(n - d - s_2 + 1)(n - d - 2s_t)}\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]
+		\end{aligned}
+	\end{equation}
+	The equality marked by $(\star\star)$ holds by the Chu-Vandermonde identity applied to the third summand, whereas the inequality marked by the equality marked by $(\star\star\star)$ follows from a Weierstrass-Product type inequality.
+	Furthermore, this derivation shows that we do not really need to distinguish between the two described cases for the error term.
+
+	Proceeding this way allows us to continue our analysis similar to the proof for
+	the simple leave-one-out Jackknife.
+	\begin{equation}
+		\begin{aligned}
+			\E\left[\left(T_{\ell}\right)^2\right]
+			 & \lesssim \frac{d}{n - d} V_{s_1, s_2}^{1} + \frac{n}{s_2 d}\sum_{j = 2}^{s_2}\left(\frac{e (s_2 - 1)}{n - 1}\right)^{j-1}
+			\frac{j (n - 2)}{(n - d - s_2 + 1)(n - d - 2s_t)}\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                   \\
+			%
+			 & = \frac{d}{n - d} V_{s_1, s_2}^{1} + \frac{ 2 e \cdot n (n - 2)}{(n - 1)(n - d - s_2 + 1)(n - d - 2s_t)d}
+			\sum_{j = 2}^{s_2}\frac{j}{s_2} \left(\frac{e (s_2 - 1)}{n - 1}\right)^{j-1}
+			\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                                                                    \\
+			%
+			 & \lesssim \frac{d}{n - d} V_{s_1, s_2}^{1} + \frac{4e}{(n - d - s_2)s_2 d}
+			\sum_{j = 2}^{s_2}j  \left(\frac{e (s_2 - 1)}{n - 1}\right)^{j-1}
+			\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]                                                                                                    \\
+			%
+			 & \leq  \frac{d}{n - d} V_{s_1, s_2}^{1}
+			+ \frac{4e}{(n - d - s_2)s_2 d} \sum_{j = 2}^{s_2}\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]
+			+ \frac{4e}{(n - d - s_2)s_2 d} \sum_{j = 2}^{s_2}(j-1)\left(\frac{e (s_2 - 1)}{n - 1}\right)^{j-1}\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right] \\
+			%
+			 & \leq  \frac{d}{n - d} V_{s_1, s_2}^{1}
+			+ \frac{4e}{(n - d - s_2)s_2 d} \sum_{j = 2}^{s_2}\left[\binom{s_2}{j}V_{s_1, s_2}^{j}\right]
+			+ \frac{4e \cdot \zeta_{s_1, s_2}^{s_2}}{(n - d - s_2)s_2 d} \sum_{j = 1}^{\infty}j\left(\frac{e (s_2 - 1)}{n - 1}\right)^{j}                  \\
+			%
+			 & = \frac{d}{n - d} \zeta_{s_1, s_2}^{1}
+			+ \frac{4e}{(n - d - s_2)s_2 d} \left(\zeta_{s_1, s_2}^{s_2} - s_2 \zeta_{s_1, s_2}^{1}\right)
+			+ \frac{4e \cdot \zeta_{s_1, s_2}^{s_2}}{(n - d - s_2)s_2 d} \cdot \frac{e (s_2 - 1)(n - 1)}{\left(n - 1 - e (s_2 - 1)\right)^2}               \\
+			%
+			 & = \left(\frac{d}{n - d} + \frac{e (s_2 - 1)(n - 1)}{\left(n - 1 - e (s_2 - 1)\right)^2}\right) \zeta_{s_1, s_2}^{1}
+			+ \frac{4e}{(n - d - s_2)s_2 d}\left(1 + \frac{e (s_2 - 1)(n - 1)}{\left(n - 1 - e (s_2 - 1)\right)^2}\right) \left(\zeta_{s_1, s_2}^{s_2} - s_2 \zeta_{s_1, s_2}^{1}\right)
+		\end{aligned}
+	\end{equation}
+
+	We continue as in the default Jackknife case.
+	\begin{equation}
+		\begin{aligned}
+			\frac{\E\left[T_{\ell}^2\right]}{V_{s_1, s_2}^{1}}
+			 & \leq \frac{d}{n - d} + \frac{e (s_2 - 1)(n - 1)}{\left(n - 1 - e (s_2 - 1)\right)^2}
+			+ \frac{4e}{(n - d - s_2)s_2 d}\left(1 + \frac{e (s_2 - 1)(n - 1)}{\left(n - 1 - e (s_2 - 1)\right)^2}\right) \frac{\zeta_{s_1, s_2}^{s_2} - s_2 \zeta_{s_1, s_2}^{1}}{\zeta_{s_1, s_2}^{1}} \\
+			%
+			 & \rightarrow 0.
+		\end{aligned}
+	\end{equation}
+	Now, following the exact same logic as in the proof for the consistency of the Jackknife variance estimator, we obtain consistency of the delete-d Jackknife variance estimator.
+\end{proof}
+
+\newpage
+\subsection{Pointwise Inference Results}
+
+\begin{proof}[Proof of Theorem \ref{thm:pw_inf_TDNN}]\mbox{}\\*
+
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{thm:pw_inf_TDNN_HTE}]\mbox{}\\*
+
+\end{proof}

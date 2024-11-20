@@ -8,11 +8,11 @@ The latter immediately implies a property that has been called ``Honesty'' by \c
 	\begin{dfn}[Symmetry and Honesty - Adapted from \citet{ritzwoller_uniform_2024}]\label{Symmetry_Honesty}\mbox{}
 		\begin{enumerate}
 			\item The kernel $\kappa\left(\cdot, \cdot, D_{\ell}\right)$ is Honest in the sense that
-				  $$\kappa\left(\mathbf{x}, \mathbf{X}_i, D_{\ell}\right) \indep m\left(\mathbf{Z}_i ; \mu\right) \mid \mathbf{X}_i, D_{\ell,-i},$$
+				  $$\kappa\left(x, X_{i}, D_{\ell}\right) \indep m\left(Z_{i} ; \mu\right) \mid X_{i}, D_{\ell,-i},$$
 				  where $\indep$ denotes conditional independence.
 			\item The kernel $\kappa\left(\cdot, \cdot, D_{\ell}\right)$ is positive and satisfies the restriction
-				  $\sum_{i \in s} \kappa\left(\cdot, \mathbf{X}_i, D_{\ell}\right)=1$ almost surely.
-				  Moreover, the kernel $\kappa\left(\cdot, \mathbf{X}_i, D_{\ell}\right)$ is invariant to permutations of the data $D_{\ell}.$
+				  $\sum_{i \in s} \kappa\left(\cdot, X_{i}, D_{\ell}\right)=1$ almost surely.
+				  Moreover, the kernel $\kappa\left(\cdot, X_{i}, D_{\ell}\right)$ is invariant to permutations of the data $D_{\ell}.$
 		\end{enumerate}
 	\end{dfn}
 \end{boxD}
@@ -22,9 +22,9 @@ Absent from \citet{demirkaya_optimal_2024} is a way to construct uniformly valid
 Luckily, as a byproduct of considering the methods from \citet{ritzwoller_uniform_2024}, procedures for uniform inference can be developed relatively easily.
 
 To consider this problem in detail we first introduce additional notation.
-Instead of a single point of interest, previously denoted by $\mathbf{x}$, we will consider a vector of $p$ points of interest denoted by $\mathbf{x}^{(p)} \in \left(\operatorname{supp}\left(\mathbf{X}\right)\right)^{p}$.
-Consequently, the $j$-th entry of $\mathbf{x}^{(p)}$ will be denoted by $\mathbf{x}^{(p)}_{j}$.
-In an abuse of notation, let functions (such as $\mu$ or the DNN/TDNN estimators) evaluated at $\mathbf{x}^{(p)}$ denote the vector of corresponding function values evaluated at the point, respectively.
+Instead of a single point of interest, previously denoted by $x$, we will consider a vector of $p$ points of interest denoted by $x^{(p)} \in \left(\operatorname{supp}\left(X\right)\right)^{p}$.
+Consequently, the $j$-th entry of $x^{(p)}$ will be denoted by $x^{(p)}_{j}$.
+In an abuse of notation, let functions (such as $\mu$ or the DNN/TDNN estimators) evaluated at $x^{(p)}$ denote the vector of corresponding function values evaluated at the point, respectively.
 It should be pointed out that, due to the local definition of the kernel in the estimators, this does not translate to the evaluation of the same function at different points in the most immediate sense.
 To summarize the kind of object we want to construct, we define a uniform confidence region for the TDNN estimator in the following way following closely the notation of \citet{ritzwoller_uniform_2024}.
 
@@ -32,14 +32,14 @@ To summarize the kind of object we want to construct, we define a uniform confid
 	\begin{dfn}[Uniform Confidence Regions]\mbox{}\\*
 		A confidence region for the TDNN (or DNN) estimators that is uniformly valid at the rate $r_{n,d}$ is a family of random intervals
 		\begin{equation}
-			\hat{\mathcal{C}}\left(\mathbf{x}^{(p)}\right)
-			:= \left\{\hat{C}(\mathbf{x}^{(p)}_{j})
-			= \left[c_{L}(\mathbf{x}^{(p)}_{j}), c_{U}(\mathbf{x}^{(p)}_{j})\right]\, : \, j \in [p]\right\}
+			\hat{\mathcal{C}}\left(x^{(p)}\right)
+			:= \left\{\hat{C}(x^{(p)}_{j})
+			= \left[c_{L}(x^{(p)}_{j}), c_{U}(x^{(p)}_{j})\right]\, : \, j \in [p]\right\}
 		\end{equation}
 		based on the observed data, such that
 	
 		\begin{equation}
-			\sup_{P \in \mathbf{P}} \left| P\left(\mu(\mathbf{x}^{(d)}) \in \hat{\mathcal{C}}\left(\mathbf{x}^{(d)}\right)\right) \right| \leq r_{n,d}
+			\sup_{P \in \mathbf{P}} \left| P\left(\mu(x^{(d)}) \in \hat{\mathcal{C}}\left(x^{(d)}\right)\right) \right| \leq r_{n,d}
 		\end{equation}
 		for some sequence $r_{n,d}$, where $\mathbf{P}$ is some statistical family containing $P$.
 	\end{dfn}
@@ -58,7 +58,7 @@ In our pursuit of constructing uniform confidence regions for the TDNN estimator
 		\end{equation}
 		we have that
 		\begin{equation}
-			\sqrt{\frac{n}{\sigma_{b, j}^2 b^2}} \binom{n}{b}^{-1} \sum_{\mathbf{s} \in \mathbf{S}_{n, b}} u\left(\mathbf{x}^{(p)}_{j} ; D_{\mathbf{s}}\right) \rightsquigarrow \mathcal{N}(0,1),
+			\sqrt{\frac{n}{\sigma_{b, j}^2 b^2}} \binom{n}{b}^{-1} \sum_{\mathbf{s} \in \mathbf{S}_{n, b}} u\left(x^{(p)}_{j} ; D_{\mathbf{s}}\right) \rightsquigarrow \mathcal{N}(0,1),
 			\quad \text{as} \quad
 			n \rightarrow \infty.
 		\end{equation}
@@ -77,16 +77,16 @@ In our pursuit of constructing uniform confidence regions for the TDNN estimator
 			\underline{\sigma}_{s_2}^2
 			= \min_{j \in[p]} \sigma_{s_2, j}^2.
 		\end{equation}
-		If the kernel function $h_{s_1, s_2}\left(\mathbf{x} ; D_{\ell}\right)$ satisfies the bound
+		If the kernel function $h_{s_1, s_2}\left(x ; D_{\ell}\right)$ satisfies the bound
 		\begin{equation}
-			\left\|h_{s_1, s_2}\left(\mathbf{x} ; D_{\ell}\right)\right\|_{\psi_1} \leq \phi
+			\left\|h_{s_1, s_2}\left(x ; D_{\ell}\right)\right\|_{\psi_1} \leq \phi
 		\end{equation}
 		for each $j$ in $[d]$, then
 		\begin{equation}
 			\sqrt{\frac{n}{s_2^2 \underline{\sigma}_{s_2}^2}}
-			\left\|\hat{\mu}_{s_1, s_2}(\mathbf{x}^{(p)}; \mathbf{D}_n) - \mu(\mathbf{x}^{(p)}) - \frac{s_2}{n} \sum_{i=1}^n h^{(1)}_{s_1, s_2}(\mathbf{x}^{(p)}; \mathbf{z}_{i})\right\|_{\infty}
+			\left\|\hat{\mu}_{s_1, s_2}(x^{(p)}; \mathbf{D}_n) - \mu(x^{(p)}) - \frac{s_2}{n} \sum_{i=1}^n h^{(1)}_{s_1, s_2}(x^{(p)}; \mathbf{z}_{i})\right\|_{\infty}
 			%
-			= \sqrt{\frac{n}{s_2^2 \underline{\sigma}_{s_2}^2}} \left\|\operatorname{HR}_{s_1, s_2}(\mathbf{x}^{(p)}; \mathbf{D}_n)\right\|_{\infty}
+			= \sqrt{\frac{n}{s_2^2 \underline{\sigma}_{s_2}^2}} \left\|\operatorname{HR}_{s_1, s_2}(x^{(p)}; \mathbf{D}_n)\right\|_{\infty}
 			%
 			\lesssim \xi_{n, s_2},
 		\end{equation}
@@ -107,13 +107,13 @@ The authors' approach to constructing uniform confidence regions is based on the
 	\begin{dfn}[Half-Sample Bootstrap Root Approximation - \citet{ritzwoller_uniform_2024}]\mbox{}\\*
 		The Half-Sample Bootstrap Root Approximation of the sampling distribution of the root
 		\begin{equation}
-			R\left(\mathbf{x}^{(p)}; \mathbf{D}_n\right)
-			:= \hat{\mu}\left(\mathbf{x}^{(p)}; \mathbf{D}_n\right) - \mu(\mathbf{x}^{(p)})
+			R\left(x^{(p)}; \mathbf{D}_n\right)
+			:= \hat{\mu}\left(x^{(p)}; \mathbf{D}_n\right) - \mu(x^{(p)})
 		\end{equation}
 		is given by the conditional distribution of the half-sample bootstrap root
 		\begin{equation}
-			R^{*}\left(\mathbf{x}^{(p)}; \mathbf{D}_n\right)
-			:= \hat{\mu}\left(\mathbf{x}^{(p)}; D_l\right) - \hat{\mu}\left(\mathbf{x}^{(p)}; \mathbf{D}_n\right)
+			R^{*}\left(x^{(p)}; \mathbf{D}_n\right)
+			:= \hat{\mu}\left(x^{(p)}; D_l\right) - \hat{\mu}\left(x^{(p)}; \mathbf{D}_n\right)
 		\end{equation}
 		where $l$ denotes a random element from $L_{n, n/2}$.
 	\end{dfn}
@@ -121,15 +121,15 @@ The authors' approach to constructing uniform confidence regions is based on the
 
 Next, to standardize the relevant quantities, we introduce a corresponding studentized process.
 \begin{equation}
-	\hat{\lambda}_{j}^{2}\left(\mathbf{x}^{(p)}; \mathbf{D}_n\right) = \Var\left(\sqrt{n} R^{*}(\mathbf{x}^{(p)}_{j}; \mathbf{D}_n) \, | \, \mathbf{D}_n\right)
+	\hat{\lambda}_{j}^{2}\left(x^{(p)}; \mathbf{D}_n\right) = \Var\left(\sqrt{n} R^{*}(x^{(p)}_{j}; \mathbf{D}_n) \, | \, \mathbf{D}_n\right)
 	\quad \text{and} \quad
-	\hat{\Lambda}_n\left(\mathbf{x}^{(p)}; \mathbf{D}_n\right) = \operatorname{diag}\left(\left\{\hat{\lambda}_{j}^{2}\left(\mathbf{x}^{(p)}; \mathbf{D}_n\right)\right\}_{j = 1}^{p}\right)
+	\hat{\Lambda}_n\left(x^{(p)}; \mathbf{D}_n\right) = \operatorname{diag}\left(\left\{\hat{\lambda}_{j}^{2}\left(x^{(p)}; \mathbf{D}_n\right)\right\}_{j = 1}^{p}\right)
 \end{equation}
 \begin{equation}
-	\hat{S}^{*}\left(\mathbf{x}^{(p)}; \mathbf{D}_n\right)
-	:= \sqrt{n} \, \Big\| \left(\hat{\Lambda}_n\left(\mathbf{x}^{(p)}; \mathbf{D}_n\right)\right)^{-1/2} R^{*}\left(\mathbf{x}^{(p)}; \mathbf{D}_n\right)\Big\|_{2}
+	\hat{S}^{*}\left(x^{(p)}; \mathbf{D}_n\right)
+	:= \sqrt{n} \, \Big\| \left(\hat{\Lambda}_n\left(x^{(p)}; \mathbf{D}_n\right)\right)^{-1/2} R^{*}\left(x^{(p)}; \mathbf{D}_n\right)\Big\|_{2}
 \end{equation}
-Let $\operatorname{cv}\left(\alpha; \mathbf{D}_n\right)$ denote the $1-\alpha$ quantile of the distribution of $\hat{S}^{*}\left(\mathbf{x}^{(p)}; \mathbf{D}_n\right)$.
+Let $\operatorname{cv}\left(\alpha; \mathbf{D}_n\right)$ denote the $1-\alpha$ quantile of the distribution of $\hat{S}^{*}\left(x^{(p)}; \mathbf{D}_n\right)$.
 As the authors point out specifically, and as indicated by the more explicit notation chosen in this presentation, this is a quantile of the conditional distribution given the data $\mathbf{D}_n$.
 Given this construction, the uniform confidence region developed in \citet{ritzwoller_uniform_2024} adapted to the TDNN estimator takes the following form.
 
@@ -137,11 +137,11 @@ Given this construction, the uniform confidence region developed in \citet{ritzw
 	\begin{thm}[Uniform Confidence Region - \citet{ritzwoller_uniform_2024}]\mbox{}\\*
 		Define the intervals
 		\begin{equation}
-			\hat{\mathcal{C}}\left(\mathbf{x}^{(p)}_j; \mathbf{D}_n\right)
-			:= \hat{\mu}\left(\mathbf{x}^{(p)}_{j}; \mathbf{D}_n\right) \pm
-			n^{-1/2} \hat{\lambda}_{j}\left(\mathbf{x}^{(p)}; \mathbf{D}_n\right)\operatorname{cv}\left(\alpha; \mathbf{D}_n\right)
+			\hat{\mathcal{C}}\left(x^{(p)}_j; \mathbf{D}_n\right)
+			:= \hat{\mu}\left(x^{(p)}_{j}; \mathbf{D}_n\right) \pm
+			n^{-1/2} \hat{\lambda}_{j}\left(x^{(p)}; \mathbf{D}_n\right)\operatorname{cv}\left(\alpha; \mathbf{D}_n\right)
 		\end{equation}
-		The $\alpha$-level uniform confidence region for $\mu\left(\mathbf{x}^{(p)}\right)$ is given by $\hat{\mathcal{C}}\left(\mathbf{x}^{(p)}\right)$.
+		The $\alpha$-level uniform confidence region for $\mu\left(x^{(p)}\right)$ is given by $\hat{\mathcal{C}}\left(x^{(p)}\right)$.
 	\end{thm}
 \end{boxD}
 
@@ -154,13 +154,13 @@ Thus, consider the following conditions from \cite{ritzwoller_uniform_2024} that
 		We say that the kernel $\kappa\left(\cdot, \cdot, D_{\ell}\right)$ has a uniform shrinkage rate $\epsilon_b$ if
 		\begin{equation}
 			\sup_{P \in \mathbf{P}} \sup_{j \in[p]}
-			\E\left[\max \left\{\left\|\mathbf{X}_i-\mathbf{x}^{(p)}_{j}\right\|_{2}: \kappa\left(\mathbf{x}^{(p)}_{j}, \mathbf{X}_i, D_{\ell}\right)>0\right\}\right]
+			\E\left[\max \left\{\left\|X_{i}-x^{(p)}_{j}\right\|_{2}: \kappa\left(x^{(p)}_{j}, X_{i}, D_{\ell}\right)>0\right\}\right]
 			\leq \epsilon_b .
 		\end{equation}
 		We say that a kernel $\kappa\left(\cdot, \cdot, D_{\ell}\right)$ is uniformly incremental if
 		\begin{equation}
 			\inf_{P \in \mathbf{P}} \sup_{j \in[p]}
-			\Var\left(\E\left[\sum_{i \in \ell} \kappa\left(\mathbf{x}^{(p)}_{j}, \mathbf{X}_i, D_{\ell}\right) m\left(\mathbf{Z}_i ; \mu\right) \mid l \in \ell, \mathbf{Z}_l = Z\right]\right)
+			\Var\left(\E\left[\sum_{i \in \ell} \kappa\left(x^{(p)}_{j}, X_{i}, D_{\ell}\right) m\left(Z_{i} ; \mu\right) \mid l \in \ell, Z_l = Z\right]\right)
 			\gtrsim b^{-1}
 		\end{equation}
 		where $Z$ is an independent random variable with distribution $P$.
@@ -171,8 +171,8 @@ Translating these properties to suit the TDNN regression problem, we obtain the 
 First, to verify uniform shrinkage at a rate $\epsilon_b$, the following remains to be shown.
 \begin{equation}
 	\sup_{P \in \mathbf{P}} \sup_{j \in[p]}
-	\E\left[\max \left\{\left\|\mathbf{X}_i-\mathbf{x}^{(p)}_{j}\right\|_{2}:
-	\rk(\mathbf{x}^{(p)}_{j}; \mathbf{X}_i, D_{\ell}) = 1\right\}\right]
+	\E\left[\max \left\{\left\|X_{i}-x^{(p)}_{j}\right\|_{2}:
+	\rk(x^{(p)}_{j}; X_{i}, D_{\ell}) = 1\right\}\right]
 	\leq \epsilon_b
 \end{equation}
 Second, for uniform incrementality, we need to show the following.
@@ -180,22 +180,22 @@ Second, for uniform incrementality, we need to show the following.
 	\begin{aligned}
 		  & \inf_{P \in \mathbf{P}} \sup_{j \in[p]}
 		\Var\left(\E\left[
-				\sum_{i \in \ell} \1\left(\rk(\mathbf{x}^{(p)}_{j}; \mathbf{X}_i, D_{\ell}) = 1\right) \left(Y_i - \mu\left(\mathbf{X}_i\right)\right) \mid l \in \ell, \mathbf{Z}_l = Z\right]
+				\sum_{i \in \ell} \1\left(\rk(x^{(p)}_{j}; X_{i}, D_{\ell}) = 1\right) \left(Y_{i} - \mu\left(X_{i}\right)\right) \mid l \in \ell, Z_l = Z\right]
 		\right)                                     \\
 		%
 		= & \inf_{P \in \mathbf{P}} \sup_{j \in[p]}
 		\Var\left(
-		\sum_{i \in \ell}\E\left[\1\left(\rk(\mathbf{x}^{(p)}_{j}; \mathbf{X}_i, D_{\ell}) = 1\right) \varepsilon_i \mid l \in \ell, \mathbf{Z}_l = Z\right]
+		\sum_{i \in \ell}\E\left[\1\left(\rk(x^{(p)}_{j}; X_{i}, D_{\ell}) = 1\right) \varepsilon_i \mid l \in \ell, Z_l = Z\right]
 		\right)                                     \\
 		%
 		= & \inf_{P \in \mathbf{P}} \sup_{j \in[p]}
 		\Var\left(
-		\sum_{i = 1}^{s}\E\left[\1\left(\rk(\mathbf{x}^{(p)}_{j}; \mathbf{X}_i, D_{1:s}) = 1\right) \varepsilon_i \mid l \in [s], \mathbf{Z}_l = Z\right]
+		\sum_{i = 1}^{s}\E\left[\1\left(\rk(x^{(p)}_{j}; X_{i}, D_{1:s}) = 1\right) \varepsilon_i \mid l \in [s], Z_l = Z\right]
 		\right)                                     \\
 		%
 		= & \inf_{P \in \mathbf{P}} \sup_{j \in[p]}
 		s^2 \cdot \Var\left(
-		\E\left[\1\left(\rk(\mathbf{x}^{(p)}_{j}; \mathbf{X}_1, D_{1:s}) = 1\right) \varepsilon_1 \mid l \in [s], \mathbf{Z}_l = Z\right]
+		\E\left[\1\left(\rk(x^{(p)}_{j}; X_1, D_{1:s}) = 1\right) \varepsilon_1 \mid l \in [s], Z_l = Z\right]
 		\right)
 		\gtrsim b^{-1}
 	\end{aligned}
@@ -210,15 +210,15 @@ Specifically, the following Proposition and its proof are helpful in showing the
 	\begin{asm}[Boundedness - Adapted from \citet{ritzwoller_uniform_2024}]\mbox{}\\*
 		The absolute value of the function $m(\cdot; \mu)$ is bounded by the constant $(\theta+1) \phi$ almost surely.
 		\begin{equation}
-			|m(\mathbf{Z}_i ; \mu)|
-			= |Y_i - \mu(\mathbf{X}_i)|
+			|m(Z_{i} ; \mu)|
+			= |Y_{i} - \mu(X_{i})|
 			= |\varepsilon_i|
 			\leq (\theta+1) \phi
 			\quad \text{a.s.}
 		\end{equation}
 	\end{asm}
 \end{boxD}
-To follow the notational conventions, we will further define the two functions $m^{(1)}(\mathbf{Z}_i; \mu) = - \mu(\mathbf{X}_i)$ and $m^{(2)}(\mathbf{Z}_i) = Y_i$.
+To follow the notational conventions, we will further define the two functions $m^{(1)}(Z_{i}; \mu) = - \mu(X_{i})$ and $m^{(2)}(Z_{i}) = Y_{i}$.
 As the authors point out, the boundedness condition can easily be replaced by a condition on the subexponential norm.
 This, being more in line with the assumptions of \citet{demirkaya_optimal_2024}, is a desirable substitution.
 Thus, we will instead consider the following assumption and fill in parts of the proofs that hinge on boundedness for ease of exposition in the original paper.
@@ -243,32 +243,32 @@ Thus, we will instead consider the following assumption and fill in parts of the
 	\begin{asm}[Moment Smoothness - Adapted from \citet{ritzwoller_uniform_2024}]\mbox{}\\*
 		Define the moments
 		\begin{equation}
-			M^{(1)}(\mathbf{x} ; \mu)
-			= \E\left[m^{(1)}\left(\mathbf{Z}_i ; \mu\right) \mid \mathbf{X}_i= \mathbf{x}\right]
+			M^{(1)}(x ; \mu)
+			= \E\left[m^{(1)}\left(Z_{i} ; \mu\right) \mid X_{i}= x\right]
 			\quad \text{and} \quad
-			M^{(2)}(\mathbf{x})
-			= \E\left[m^{(2)}\left(\mathbf{Z}_i\right) \mid \mathbf{X}_i = \mathbf{x}\right],
+			M^{(2)}(x)
+			= \E\left[m^{(2)}\left(Z_{i}\right) \mid X_{i} = x\right],
 		\end{equation}
 		associated with the functions $m^{(1)}(\cdot ; \mu)$ and $m^{(2)}(\cdot)$.
 		Plugging in yields the following functions.
 		\begin{equation}
-			M^{(1)}(\mathbf{x} ; \mu)
-			= -\mu(\mathbf{x})
+			M^{(1)}(x ; \mu)
+			= -\mu(x)
 			\quad \text{and} \quad
-			M^{(2)}(\mathbf{x})
-			= \mu(\mathbf{x}).
+			M^{(2)}(x)
+			= \mu(x).
 		\end{equation}
 		Both moments are uniformly Lipschitz in their first component, in the sense that
 		\begin{equation}
-			\forall \mathbf{x}, \mathbf{x}^{\prime} \in \operatorname{supp}\left(\mathbf{X}\right): \quad
+			\forall x, x^{\prime} \in \operatorname{supp}\left(X\right): \quad
 			\sup _{P \in \mathbf{P}}
-			\left|\mu(\mathbf{x})-\mu\left(\mathbf{x}^{\prime}\right)\right|
-			\lesssim\left\|\mathbf{x}-\mathbf{x}^{\prime}\right\|_{2}.
+			\left|\mu(x)-\mu\left(x^{\prime}\right)\right|
+			\lesssim\left\|x-x^{\prime}\right\|_{2}.
 		\end{equation}
 		and $M^{(1)}$ is bounded below in the following sense
 		\begin{equation}
-			\inf_{P \in \mathbf{P}} \inf_{j \in [p]} \Big|M^{(1)}\left(\mathbf{x}^{(p)}_{j}\right) \Big|
-			= \inf_{P \in \mathbf{P}} \inf_{j \in [p]} \Big|\mu\left(\mathbf{x}^{(p)}_{j}\right) \Big| \geq c
+			\inf_{P \in \mathbf{P}} \inf_{j \in [p]} \Big|M^{(1)}\left(x^{(p)}_{j}\right) \Big|
+			= \inf_{P \in \mathbf{P}} \inf_{j \in [p]} \Big|\mu\left(x^{(p)}_{j}\right) \Big| \geq c
 		\end{equation}
 		for some positive constant $c$.
 	\end{asm}

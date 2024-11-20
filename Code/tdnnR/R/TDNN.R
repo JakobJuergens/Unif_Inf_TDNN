@@ -13,7 +13,7 @@
 #' @export
 TDNN <- function(x, data, s1, s2,
                  presorted = FALSE, standardize = FALSE,
-                 verbose = FALSE) {
+                 asymp_approx_weights = TRUE, verbose = FALSE) {
   # Check inputs for executing function
   point_check(x)
   data_check(data)
@@ -61,41 +61,43 @@ TDNN <- function(x, data, s1, s2,
   # Calculate the two DNN estimators
   res1 <- 0
   res2 <- 0
-  factor1 <- 1
-  factor2 <- 1
 
-  for (i in 1:(s2 - s1)) {
-    index <- n - s1 + 2 - i
-    res1 <- res1 + factor1 * Y[index]
-    factor1 <- factor1 * ((n - index + 1) / i)
+  if(asymp_approx_weights == FALSE){
+    factor1 <- 1
+    factor2 <- 1
+
+    for (i in 1:(s2 - s1)) {
+      index <- n - s1 + 2 - i
+      res1 <- res1 + factor1 * Y[index]
+      factor1 <- factor1 * ((n - index + 1) / i)
+    }
+
+    for (i in 1:(n - s2 + 1)) {
+      index <- n - s2 + 2 - i
+
+      res1 <- res1 + factor1 * Y[index]
+      res2 <- res2 + factor2 * Y[index]
+
+      factor1 <- factor1 * ((n - index + 1) / (i + s2 - s1))
+      factor2 <- factor2 * ((n - index + 1) / i)
+    }
+
+    if (verbose) {
+      print(paste0("res1 = ", res1, ", res2 = ", res2))
+    }
+
+    # At this point the factors are (n-1 choose s-1)
+    # so we ca simplify for the prefactors
+    prefactor1 <- (factor1 * (1 + n / s1))^(-1)
+    prefactor2 <- (factor2 * (1 + n / s2))^(-1)
+
+    if (verbose) {
+      print(paste0("prefactor1 = ", prefactor1, ", prefactor2 = ", prefactor2))
+    }
+
+    res1 <- prefactor1 * res1
+    res2 <- prefactor2 * res2
   }
-
-  for (i in 1:(n - s2 + 1)) {
-    index <- n - s2 + 2 - i
-
-    res1 <- res1 + factor1 * Y[index]
-    res2 <- res2 + factor2 * Y[index]
-
-    factor1 <- factor1 * ((n - index + 1) / (i + s2 - s1))
-    factor2 <- factor2 * ((n - index + 1) / i)
-  }
-
-  if (verbose) {
-    print(paste0("res1 = ", res1, ", res2 = ", res2))
-  }
-
-  # At this point the factors are (n-1 choose s-1)
-  # so we ca simplify for the prefactors
-  prefactor1 <- (factor1 * (1 + n / s1))^(-1)
-  prefactor2 <- (factor2 * (1 + n / s2))^(-1)
-
-  if (verbose) {
-    print(paste0("prefactor1 = ", prefactor1, ", prefactor2 = ", prefactor2))
-  }
-
-  res1 <- prefactor1 * res1
-  res2 <- prefactor2 * res2
-
   # Combine results
   res <- w1 * res1 + w2 * res2
 
