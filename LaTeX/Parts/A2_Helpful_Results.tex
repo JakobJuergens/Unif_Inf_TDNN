@@ -8,7 +8,8 @@
 		\item For any $i \neq j$, we have $\kappa\left(x; Z_{i}, D\right) \kappa\left(x; Z_{j}, D\right)=0$ with probability one;
 		\item $\sum_{i=1}^{s} \kappa\left(x; Z_{i}, D\right)=1$;
 		\item $\forall i \in [s]: \quad \E_{1:s}\left[\kappa\left(x; Z_{i}, D\right)\right]=s^{-1}$
-		\item $\E_{2: s}\left[\kappa\left(x; Z_1, D\right)\right]=\left\{1-\varphi\left(B\left(x,\left\|X_1-x\right\|\right)\right)\right\}^{s-1}$
+		\item $\E_{2: s}\left[\kappa\left(x; Z_1, D\right)\right]
+		= \left\{1-\varphi\left(B\left(x,\left\|X_1-x\right\|\right)\right)\right\}^{s-1}$
 	\end{enumerate}
 	Here $\E_{i: s}$ denotes the expectation with respect to $\left\{Z_{i}, Z_{i+1}, \dotsc, Z_s\right\}$.
 	Furthermore, $\varphi$ denotes the probability measure on $\mathbb{R}^{d}$ induced by the random vector $X$.
@@ -159,40 +160,95 @@
 
 \hrule
 
-\begin{lem}\label{lem:kern_ineq}\mbox{}\\*
+\begin{lem}\label{lem:kern_ineq1}\mbox{}\\*
 	Fix sample size $n$, subsampling scale $s$, and $c$ such that $0 < c \leq s \leq n$.
 	Let $D = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}, \dotsc Z_s \right\}$ be an i.i.d.\ data set drawn from $P$ as described in Setup~\ref{asm:npr_dgp}.
 	Let $D^{\prime} = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$ be a second data set that shares the first $c$ observations with $D$.
 	The remaining $s - c$ observations of $D^{\prime}$, i.e.\ $\left\{Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$, are i.i.d.\ draws from $P$ that are independent of $D$.
 
-	Then, the following inequality holds.
+	Then, the following inequalities hold.
 	\begin{equation}
 		\begin{aligned}
 			\E_{D, D^{\prime}}\left[Y_{1}Y_{c+1}^{\prime} \, c(s-c) \, \kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]
-			& \leq {\color{red} LOREM IPSUM}
+			& \lesssim  \frac{c(s-c)}{s^2}\mu^2(x) + o(1)
+			\quad \text{as} \quad s \rightarrow \infty.
+		\end{aligned}
+	\end{equation}
+	\begin{equation}
+		\begin{aligned}
+			\E_{D, D^{\prime}}\left[Y_{1}Y_{1} \, c(s-c) \, \kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{1}^{\prime}, D^{\prime}\right)\right]
+			& \lesssim  {\color{red} LOREM IPSUM}
+		\end{aligned}
+	\end{equation}
+	\begin{equation}
+		\begin{aligned}
+			\E_{D, D^{\prime}}\left[Y_{c+1}Y_{c+1}^{\prime} \, c(s-c) \, \kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]
+			& \lesssim  {\color{red} LOREM IPSUM}
 		\end{aligned}
 	\end{equation}
 
-	Similarly, in the CATE estimation setting (Setup~\ref{asm:hte_dgp}), i.e.\ replacing observations drawn from $P$ by observations drawn from $Q$, the following inequality holds.
-	\begin{equation}
-		\begin{aligned}
-			\E_{D, D^{\prime}}\left[m\left(Z_{1}; \mu, \pi\right) m\left(Z_{c+1}^{\prime}; \mu, \pi\right) \, c(s-c) \, \kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]
-			& \leq {\color{red} LOREM IPSUM}
-		\end{aligned}
-	\end{equation}
+	Similarly, consider the CATE estimation setting (Setup~\ref{asm:hte_dgp}), i.e.\ replacing observations drawn from $P$ by observations drawn from $Q$.
+	Then, analogous inequalities hold, where we replace\dots
+	\begin{multicols}{2}
+		\begin{itemize}
+			\item $Y_i$ by $m(Z_{i}, \mu, \pi)$
+			\item $\mu^2(x)$ by $\left(\mu_1\left(x\right) - \mu_{0}\left(x\right)\right)^2$
+			\item $\sigma^{2}_{\varepsilon}(x)$ by $\frac{\sigma_{\varepsilon}^2\left(x\right)}{\pi(x)\left(1 - \pi(x)\right)}$
+			\item $\overline{\sigma}^{2}_{\varepsilon}$ by $\frac{\overline{\sigma}^2_{\varepsilon}}{\mathfrak{p}\left(1 - \mathfrak{p}\right)}$
+		\end{itemize}   	
+	\end{multicols}
 \end{lem}
 
 \hrule
 
-\begin{proof}[Proof of Lemma~\ref{lem:kern_ineq}]\mbox{}\\*
+\begin{proof}[Proof of Lemma~\ref{lem:kern_ineq1}]\mbox{}\\*
 	Consider first the following argument.
 	\begin{equation}
 		\begin{aligned}
-			& \E_{D, D^{\prime}}\left[Y_{1}Y_{c+1}^{\prime} \, c(s-c) \, \kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]
-			= {\color{red} LOREM IPSUM}
+			& \E_{D, D^{\prime}}\left[Y_{1}Y_{c+1}^{\prime} \, c(s-c) \, \kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]\\
+			& \quad = \E_{1, c+1}\left[\mu(X_1) \mu(X_{c+1}^{\prime}) \, c(s-c) \, 
+			\E\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; X_1, X_{c+1}^{\prime}\right]\right]\\
+			%
+			& \leq \frac{c(s-c)}{s^2} \cdot \E_{1, c+1}\left[\left|\mu(X_1)\right| \left|\mu(X_{c+1}^{\prime})\right| \, s^2 \, 
+			\underbrace{\E\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; X_1, X_{c+1}^{\prime}\right]}_{(A)}\right]\\
 		\end{aligned}
 	\end{equation}
-	{\color{red} LOREM IPSUM}
+	Analyzing term $(A)$ individually, we find the following.
+	\begin{equation}
+		\begin{aligned}
+			(A) 
+			& = \E\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; X_1, X_{c+1}^{\prime}\right] \\
+			%
+			& = \E\left[\left(\prod_{i = 2}^{s}\1\left(\|X_1 - x\| < \|X_{i} - x\|\right)\right)
+			\left(\prod_{i = 1}^{c}\1\left(\|X_i - x\| > \|X_{c+1}^{\prime} - x\|\right)\right) 
+			\left(\prod_{i = c+2}^{s}\1\left(\|X_i^{\prime} - x\| > \|X_{c+1}^{\prime} - x\|\right)\right) \; \middle| \; X_1, X_{c+1}^{\prime}\right]\\
+			%
+			& = \1\left(\|X_1 - x\| > \|X_{c+1}^{\prime} - x\|\right) \cdot \E\left[\prod_{i = 2}^{c}\1\left(\|X_{i} - x\| > \max\left\{\|X_{1} - x\|, \|X_{c+1}^{\prime} - x\|\right\}\right) \; \middle| \; X_1, X_{c+1}^{\prime}\right]\\
+			& \quad \quad  \cdot \E\left[\prod_{i = c+1}^{s}\1\left(\|X_i - x\| > \|X_{1} - x\|\right) \; \middle| \; X_{1}\right]
+			\cdot \E\left[\prod_{i = c+2}^{s}\1\left(\|X_i^{\prime} - x\| > \|X_{c+1}^{\prime} - x\|\right) \; \middle| \; X_{c+1}^{\prime}\right]\\
+			%
+			& \leq \E\left[\kappa\left(x; Z_{1}, D\right) \; \middle| \; X_1\right] 
+			\cdot \E\left[\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; X_{c+1}^{\prime}\right]
+		\end{aligned}
+	\end{equation}
+	Plugging back into the expression of interest, we find the desired result.
+	\begin{equation}
+		\begin{aligned}
+			& \E_{D, D^{\prime}}\left[Y_{1}Y_{c+1}^{\prime} \, c(s-c) \, \kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]\\
+			%
+			& \quad \leq \frac{c(s-c)}{s^2} \cdot \E_{1, c+1}\left[\left|\mu(X_1)\right| \left|\mu(X_{c+1}^{\prime})\right| \, s^2 \, 
+			\E\left[\kappa\left(x; Z_{1}, D\right) \; \middle| \; X_1\right] 
+			\cdot \E\left[\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; X_{c+1}^{\prime}\right]\right]\\
+			%
+			& \quad = \frac{c(s-c)}{s^2} \cdot \E_{1}\left[\left|\mu(X_1)\right| \, s \, \E\left[\kappa\left(x; Z_{1}, D\right) \; \middle| \; X_1\right]\right]
+			\E_{c+1}\left[\left|\mu(X_{c+1})\right| \, s \, \E\left[\kappa\left(x; Z_{c+1}^{\prime}, D\right) \; \middle| \; X_{c+1}^{\prime}\right]\right]\\
+			%
+			& \quad = \frac{c(s-c)}{s^2} \cdot \left(\E_{1}\left[\left|\mu(X_1)\right| \, s \, \E\left[\kappa\left(x; Z_{1}, D\right) \; \middle| \; X_1\right]\right]\right)^2
+			\overset{\text{(Lem~\ref{lem:limit_res})}}{\lesssim}  \frac{c(s-c)}{s^2}\mu^2(x) + o(1)
+			\quad \text{as} \quad s \rightarrow \infty.
+		\end{aligned}
+	\end{equation}
+	An analogous argument gives us the desired result for the CATE setup.
 \end{proof}
 
 \hrule
