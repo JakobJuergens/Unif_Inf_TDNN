@@ -5,7 +5,7 @@ The first is a pure nonparametric regression setup closely mirroring the structu
 This setup will be very useful to illustrate the inner workings of the estimator of interest and serve as a leading example for the theoretical results.
 \begin{boxD}
 	\begin{asm}[Nonparametric Regression DGP]\label{asm:npr_dgp}\mbox{}\\*
-		The observed data consists of an i.i.d. sample taking the following form.
+		The observed data consists of an i.i.d.\ sample taking the following form.
 		\begin{equation}\label{DGP1}
 			\mathbf{D}_n = \{Z_{i} = (X_{i}, Y_{i})\}_{i = 1}^{n}
 			\quad \text{from the model} \quad
@@ -24,7 +24,7 @@ In contrast to this rather statistical setup, I will consider a setting with mor
 This serves as a more immediately applicable version of the theoretical setup presented in \citet{ritzwoller_uniform_2024} and brings their results closes to practitioners in the field of economics.
 \begin{boxD}
 	\begin{asm}[Heterogeneous Treatment Effect DGP]\label{asm:hte_dgp}\mbox{}\\*
-		The observed data consists of an i.i.d. sample taking the following form.
+		The observed data consists of an i.i.d.\ sample taking the following form.
 		\begin{equation}\label{DGP2}
 			\begin{aligned}
 				\mathbf{D}_n & = \{Z_{i} = (X_{i}, W_{i}, Y_{i})\}_{i = 1}^{n}
@@ -56,13 +56,13 @@ Clearly, this model can be interpreted in the context of the potential outcomes 
 Throughout this paper, I will additionally rely on a number of assumptions that are more technical in nature.
 \begin{boxD}
 	\begin{asm}[Technical Assumptions]\label{asm:technical}\mbox{}\\*
-		In both settings (Assumption \ref{asm:npr_dgp} and Assumption \ref{asm:hte_dgp}) the following conditions hold:
+		In both settings (Assumption~\ref{asm:npr_dgp} and Assumption~\ref{asm:hte_dgp}) the following conditions hold:
 		\begin{itemize}
 			\item The feature space $\mathcal{X} = \operatorname{supp}(X)$ is a bounded, compact subset of $\mathbb{R}^k$
 			\item The density $f(\cdot)$ is bounded away from 0 and $\infty$
 			\item $f(\cdot)$ are $\mu(\cdot)$ are four times continuously differentiable with bounded second, third, and fourth-order partial derivatives in a neighborhood of $x$
 		\end{itemize}
-		In the Heterogeneous Treatment Effect setting (Assumption \ref{asm:hte_dgp}), the following additional condition holds:
+		In the Heterogeneous Treatment Effect setting (Assumption~\ref{asm:hte_dgp}), the following additional condition holds:
 		\begin{itemize}
 			\item $\mu_0(\cdot)$ and $\mu_1(\cdot)$ are four times continuously differentiable with bounded second, third, and fourth-order partial derivatives in a neighborhood of $x$
 		\end{itemize}
@@ -72,7 +72,7 @@ There is potential to relax these assumptions at the cost of requiring both less
 Additionally, we require a rather standard assumption in localized regression approaches, namely that the variance changes continuously.
 \begin{boxD}
 	\begin{asm}[Error Distribution Assumptions]\label{asm:errors}\mbox{}\\*
-		The error terms $\varepsilon$ defined in Setup \ref{asm:npr_dgp} and Setup \ref{asm:hte_dgp}, respectively, have continuously varying variance.
+		The error terms $\varepsilon$ defined in Setup~\ref{asm:npr_dgp} and Setup~\ref{asm:hte_dgp}, respectively, have continuously varying variance.
 		In other terms,	$\sigma^2_{\varepsilon}: \mathcal{X} \rightarrow \mathbb{R}_{>0}$ is a continuous function.
 	\end{asm}
 \end{boxD}
@@ -81,7 +81,7 @@ Additionally, due to the assumptions on the regression functions, this ensures t
 Furthermore, to assure that there is a sufficient number of treated and untreated observations local to each point of interest asymptotically, we require the following condition on the treatment assignment and uptake mechanism.
 \begin{boxD}
 	\begin{asm}[Non-Trivial Treatment Overlap]\label{asm:treatment_overlap}\mbox{}\\*
-		In the Heterogeneous Treatment Effect Setup (Assumption \ref{asm:hte_dgp}), we assume that there exist a constant $\mathfrak{p} \in (0, 1/2)$ such that
+		In the Heterogeneous Treatment Effect Setup (Assumption~\ref{asm:hte_dgp}), we assume that there exist a constant $\mathfrak{p} \in (0, 1/2)$ such that
 		\begin{equation}
 			\forall x \in \mathcal{X}: \quad 
 			0 < \mathfrak{p} \leq \pi\left(x\right) \leq 1 - \mathfrak{p} < 1.

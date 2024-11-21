@@ -6,7 +6,7 @@ Similar to the previous part, we will first consider the nonparametric regressio
 \vspace{0.5cm}
 \hrule
 \begin{lem}[Adapted from \citet{demirkaya_optimal_2024}]\label{lem:omega_s}\mbox{}\\*
-	Let $D = \{Z_1, \dotsc, Z_{s}\}$ be a vector of i.i.d. random variables drawn from $P$.
+	Let $D = \{Z_1, \dotsc, Z_{s}\}$ be a vector of i.i.d.\ random variables drawn from $P$.
 	Furthermore, let
 	\begin{equation}
 		\Omega_{s}\left(x\right)
@@ -21,7 +21,7 @@ Similar to the previous part, we will first consider the nonparametric regressio
 	\end{equation}
 \end{lem}
 \hrule
-\begin{proof}[Proof of Lemma \ref{lem:omega_s}]\mbox{}\\*
+\begin{proof}[Proof of Lemma~\ref{lem:omega_s}]\mbox{}\\*
 	\begin{equation}
 		\begin{aligned}
 			\Omega_{s}\left(x\right)
@@ -31,19 +31,18 @@ Similar to the previous part, we will first consider the nonparametric regressio
 			%
 			 & = \E_{D}\left[s \kappa\left(x; Z_{1}, D\right)Y_{1}^2\right]
 			= \E_{1}\left[Y_{1}^2 s \E_{2:s}\left[\kappa\left(x; Z_{1}, D\right)\right]\right]                   
-			\overset{\text{(Lem \ref{lem:limit_res})}}{\longrightarrow} \mu^2(x) + \sigma_{\varepsilon}^2(x)
+			\overset{\text{(Lem~\ref{lem:limit_res})}}{\longrightarrow} \mu^2(x) + \sigma_{\varepsilon}^2(x)
 			 \quad \text{as} \quad s \rightarrow \infty
 		\end{aligned}
 	\end{equation}
 	Thus, we obtain the desired result.
-	Going forward, we will rely on some of the steps shown in this proof implicitly to shorten the presentation of arguments.
 \end{proof}
 
 \hrule
 
 \begin{lem}\label{lem:omega_sc}\mbox{}\\*
-	Let $D = \{Z_1, \dotsc, Z_{s}\}$ be a vector of i.i.d. random variables drawn from $P$.
-	Let $D^{\prime} = \{Z_1, \dotsc, Z_{c}, Z_{c+1}^{\prime}, \dotsc,  Z_{s}^{\prime}\}$ where $Z_{c+1}^{\prime}, \dotsc,  Z_{s}^{\prime}$ are i.i.d. draws from $P$ that are independent of $D$.
+	Let $D = \{Z_1, \dotsc, Z_{s}\}$ be a vector of i.i.d.\ random variables drawn from $P$.
+	Let $D^{\prime} = \{Z_1, \dotsc, Z_{c}, Z_{c+1}^{\prime}, \dotsc,  Z_{s}^{\prime}\}$ where $Z_{c+1}^{\prime}, \dotsc,  Z_{s}^{\prime}$ are i.i.d.\ draws from $P$ that are independent of $D$.
 	Furthermore, let
 	\begin{equation}
 		\Omega_{s}^{c}\left(x\right)
@@ -64,7 +63,7 @@ Similar to the previous part, we will first consider the nonparametric regressio
 	\end{equation}
 \end{lem}
 \hrule
-\begin{proof}[Proof of Lemma \ref{lem:omega_sc}]
+\begin{proof}[Proof of Lemma~\ref{lem:omega_sc}]
 	\begin{equation}
 		\begin{aligned}
 			\Omega_{s}^{c}\left(x\right)
@@ -89,7 +88,7 @@ Similar to the previous part, we will first consider the nonparametric regressio
 		\end{aligned}
 	\end{equation}
 	Starting from this decomposition, we will analyze the terms one by one.
-	First, by Lemma \ref{lem:limit_res}, we find the following.
+	First, by Lemma~\ref{lem:limit_res}, we find the following.
 	\begin{equation}
 		\begin{aligned}
             (A) & = 
@@ -97,7 +96,7 @@ Similar to the previous part, we will first consider the nonparametric regressio
 			= (c/s) \E_{1}\left[Y_1^2 s \E_{2:s}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{1}, D^{\prime}\right)\right]\right] \\
 			%
 			 & \leq (c/s) \E_{1}\left[Y_1^2 s\E_{2:s}\left[\kappa\left(x; Z_{1}, D\right)\right]\right]                  
-			\overset{\text{(Lem \ref{lem:limit_res})}}{\lesssim} (c/s)\left(\mu^2(x) + \sigma_{\varepsilon}(x)\right) + o(1)\\
+			\overset{\text{(Lem~\ref{lem:limit_res})}}{\lesssim} (c/s)\left(\mu^2(x) + \sigma_{\varepsilon}(x)\right) + o(1)\\
 		\end{aligned}
 	\end{equation}
 	Similarly, we can find that:
@@ -146,12 +145,12 @@ Similar to the previous part, we will first consider the nonparametric regressio
 			\lesssim \frac{(s-c)^2}{s^2}\mu^2(x) + o(1)
 		\end{aligned}
 	\end{equation}
-	The result of Lemma \ref{lem:omega_sc} follows immediately by summing up the asymptotic bounds for the individual terms.
+	The result of Lemma~\ref{lem:omega_sc} follows immediately by summing up the asymptotic bounds for the individual terms.
 \end{proof}
 
 \newpage
 \begin{lem}\label{lem:upsilon_s}\mbox{}\\*
-	Let $D = \{Z_1, \dotsc, Z_{s_2}\}$ be a vector of i.i.d. random variables drawn from $P$ for $s_2 > s_1$.
+	Let $D = \{Z_1, \dotsc, Z_{s_2}\}$ be a vector of i.i.d.\ random variables drawn from $P$ for $s_2 > s_1$.
 	Furthermore, let
 	\begin{equation}
 		\Upsilon_{s_1, s_2}\left(x\right)
@@ -168,7 +167,7 @@ Similar to the previous part, we will first consider the nonparametric regressio
 	\end{equation}
 \end{lem}
 \hrule
-\begin{proof}[Proof of Lemma \ref{lem:upsilon_s}]
+\begin{proof}[Proof of Lemma~\ref{lem:upsilon_s}]
 	\begin{equation}
 		\begin{aligned}
 			\Upsilon_{s_1, s_2}\left(x\right)
@@ -204,8 +203,8 @@ Similar to the previous part, we will first consider the nonparametric regressio
 
 \newpage
 \begin{lem}\label{lem:upsilon_sc}\mbox{}\\*
-	Let $D = \{Z_1, \dotsc, Z_{s_2}\}$ be a vector of i.i.d. random variables drawn from $P$ for $s_2 > s_1$.
-	Let $D^{\prime} = \{Z_1, \dotsc, Z_{c}, Z_{c+1}^{\prime}, \dotsc,  Z_{s_1}^{\prime}\}$ where $Z_{c+1}^{\prime}, \dotsc,  Z_{s_1}^{\prime}$ are i.i.d. draws from $P$ that are independent of $D$.
+	Let $D = \{Z_1, \dotsc, Z_{s_2}\}$ be a vector of i.i.d.\ random variables drawn from $P$ for $s_2 > s_1$.
+	Let $D^{\prime} = \{Z_1, \dotsc, Z_{c}, Z_{c+1}^{\prime}, \dotsc,  Z_{s_1}^{\prime}\}$ where $Z_{c+1}^{\prime}, \dotsc,  Z_{s_1}^{\prime}$ are i.i.d.\ draws from $P$ that are independent of $D$.
 	Furthermore, let
 	\begin{equation}
 		\Upsilon_{s_1, s_2}^{c}\left(x\right)
@@ -233,7 +232,7 @@ Similar to the previous part, we will first consider the nonparametric regressio
 	\end{equation}
 \end{lem}
 \hrule
-\begin{proof}[Proof of Lemma \ref{lem:upsilon_sc}]
+\begin{proof}[Proof of Lemma~\ref{lem:upsilon_sc}]
 	\begin{equation}
 		\begin{aligned}
 			\Upsilon_{s_1, s_2}^{c}\left(x\right)
@@ -336,7 +335,7 @@ Similar to the previous part, we will first consider the nonparametric regressio
 	\end{equation}
 \end{lem}
 \hrule
-\begin{proof}[Proof of Lemma \ref{lem:Var_TDNN_k}]
+\begin{proof}[Proof of Lemma~\ref{lem:Var_TDNN_k}]
 	Consider first the following decomposition.
 	\begin{equation}
 		\begin{aligned}
@@ -371,7 +370,7 @@ Similar to the previous part, we will first consider the nonparametric regressio
 		\end{aligned}
 	\end{equation}
 
-	Recall that by Lemma \ref{lem:omega_s}, we have the following.
+	Recall that by Lemma~\ref{lem:omega_s}, we have the following.
 	\begin{equation}
 		\begin{aligned}
 			\Omega_{s_2}

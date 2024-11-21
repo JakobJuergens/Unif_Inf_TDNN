@@ -4,7 +4,7 @@ While less economically enticing, I will introduce the TDNN estimator using the 
 I will do this by first considering the simpler (one-scale) distributional nearest neighbor estimator, which naturally extends to its two-scale variant as shown in \citet{demirkaya_optimal_2024}.
 Then, having established the method, I will commence by adapting it to tackle the problem of estimating heterogeneous treatment effects.
 As I will embed both estimation problems in the context of subsampled conditional moment regression to then build uniform inference procedures based on \citet{ritzwoller_uniform_2024}, the approach might at first seem unnatural.
-However, due to the constructions that follow in section \ref{sec:unif_inf}, this approach will be well worth the slightly cumbersome initial presentation.
+However, due to the constructions that follow in Section~\ref{sec:unif_inf}, this approach will be well worth the slightly cumbersome initial presentation.
 
 \subsection{DNN and TDNN in Nonparametric Regression}
 \hrule
@@ -29,7 +29,7 @@ In this equation, $K:\mathbb{R}^d \times \mathbb{R}^d \rightarrow \mathbb{R}$ is
 Notationally, this makes the local and data-dependent approach of this procedure explicit.
 One estimator that fulfills the purpose of estimating $\mu$ nonparametrically is the Distributional Nearest Neighbor (DNN) estimator.
 With a name coined by \citet{demirkaya_optimal_2024}, the DNN estimator is based on important work by \citet{steele_exact_2009} and \citet{biau_rate_2010}.
-Given a sample as described in Assumption \ref{asm:npr_dgp} and a fixed feature vector $x$, we first order the sample based on the distance to the point of interest.
+Given a sample as described in Assumption~\ref{asm:npr_dgp} and a fixed feature vector $x$, we first order the sample based on the distance to the point of interest.
 \begin{equation}\label{eq:ordering}
 	||X_{(1)} - x||_2
 	\leq ||X_{(2)} - x||_2
@@ -50,13 +50,13 @@ This enables us to define a data-driven kernel function $\kappa$ following the n
 Here, $\xi$ is an additional source of randomness in the construction of the base learner that comes into play when analyzing, for example, random forests as proposed by \citet{breiman_random_2001} using the CART-algorithm described in \citet{breiman_classification_2017}.
 As the DNN estimator does not incorporate such additional randomness, the term is omitted in further considerations.
 In future research, additional randomness such as, for example, column subsampling could be considered, in turn making the addition of $\xi$ necessary again.
-Using $\kappa$, it is straightforward to find an expression for the distance function $K$ in Equation \ref{EmpCondMomEq} corresponding to the DNN estimator.
+Using $\kappa$, it is straightforward to find an expression for the distance function $K$ in Equation~\ref{EmpCondMomEq} corresponding to the DNN estimator.
 \begin{equation}\label{eq:data_distance}
 	K(x, X_{i})
 	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} \1(i \in \ell)\frac{\kappa(x; Z_{i}, D_{\ell})}{s!}
 	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} \frac{\1\left(\rk(x; Z_{i}, D_{\ell}) = 1\right)}{s!}
 \end{equation}
-Inserting into Equation \ref{EmpCondMomEq}, this gives us the following empirical conditional moment equation.
+Inserting into Equation~\ref{EmpCondMomEq}, this gives us the following empirical conditional moment equation.
 \begin{equation}
 	\begin{aligned}
 		M_n(x; \mu, \mathbf{D}_n)
@@ -86,7 +86,7 @@ For this purpose let $\alpha_{s} = s/n$ leading to the following approximation o
 As part of their paper, \citet{demirkaya_optimal_2024} develop an explicit expression for the first-order bias term of the DNN estimator and the following distributional approximation result.
 \begin{boxD}
 	\begin{thm}[\citet{demirkaya_optimal_2024} - Theorem 2]\label{thm:dem2}\mbox{}\\*
-		Assume that we observe data as described in Assumption \ref{asm:npr_dgp} and that Assumption \ref{asm:technical} holds.
+		Assume that we observe data as described in Assumption~\ref{asm:npr_dgp} and that Assumption~\ref{asm:technical} holds.
 		Then, for any fixed $x \in \mathcal{X}$, we have that for some positive sequence $\omega_n$ of order $\sqrt{s/n}$
 		\begin{equation}
 			\frac{\tilde{\mu}_{s}(x; \mathbf{D}_n) - \mu(x) - B(s) - R(s)}{\omega_n}
@@ -134,7 +134,7 @@ they define the corresponding TDNN estimator as follows.
 	\hat{\mu}_{s_1, s_2}\left(x; \mathbf{D}_n\right)
 	= W_{1}^{*}(s_1, s_2)\tilde{\mu}_{s_1}\left(x; \mathbf{D}_n\right) + w_2^{*}(s_1, s_2)\tilde{\mu}_{s_2}\left(x; \mathbf{D}_n\right)
 \end{equation}
-This leads to the elimination of the first-order bias term shown in Theorem \ref{thm:dem2} leading to desirable finite-sample properties.
+This leads to the elimination of the first-order bias term shown in Theorem~\ref{thm:dem2} leading to desirable finite-sample properties.
 Furthermore, the authors show that this construction improves the quality of the normal approximation.
 
 \begin{boxD}
@@ -149,9 +149,9 @@ We make this assumption to avoid edge cases, where asymptotically the TDNN estim
 As this edge case is irrelevant in practice as it would be simpler to employ the corresponding DNN estimator in the first place, this is not a practically substantial restriction.
 \begin{boxD}
 	\begin{thm}[\citet{demirkaya_optimal_2024} - Theorem 3]\label{thm:dem3}\mbox{}\\*
-		Assume that we observe data as described in Assumption \ref{asm:npr_dgp} and that Assumption \ref{asm:technical} holds.
-		Furthermore, let $s_1, s_2 \rightarrow \infty$ with $s_1 = o(n)$ and $s_2 = o(n)$ be such that Assumption \ref{asm:kernel_order_ratio} holds for some $\mathfrak{c} \in (0, 1/2)$.
-		Then, for any fixed $x \in \operatorname{supp}(X) \subset \mathbb{R}^d,$ it holds that for some positive sequence $\sigma_n$ of order $(s_2/n)^{1/2}$,
+		Assume that we observe data as described in Assumption~\ref{asm:npr_dgp} and that Assumption~\ref{asm:technical} holds.
+		Furthermore, let $s_1, s_2 \rightarrow \infty$ with $s_1 = o(n)$ and $s_2 = o(n)$ be such that Assumption~\ref{asm:kernel_order_ratio} holds for some $\mathfrak{c} \in (0, 1/2)$.
+		Then, for any fixed $x \in \operatorname{supp}(X) \subset \mathbb{R}^d$, it holds that for some positive sequence $\sigma_n$ of order $(s_2/n)^{1/2}$,
 		\begin{equation}
 			\sigma_n^{-1} \left(\hat{\mu}_{s_1, s_2}\left(x; \mathbf{D}_n\right) - \mu(x) - \Lambda\right) \rightsquigarrow \mathcal{N}(0,1)
 		\end{equation}
@@ -160,7 +160,7 @@ As this edge case is irrelevant in practice as it would be simpler to employ the
 			\Lambda = \begin{cases}
 				O\left(s_1^{-4/d} + s_2^{-4/d}\right) & \text{for } d \geq 2 \\
 				O\left(s_1^{-3} + s_2^{-3}\right)     & \text{for } d = 1    \\
-			\end{cases}.
+			\end{cases} .
 		\end{equation*}
 	\end{thm}
 \end{boxD}
@@ -198,7 +198,7 @@ outcomes framework, and the well-known Horvitz-Thompson weight.
 \end{equation}
 As a shorthand notation, we will furthermore use $m\left(Z_{i}; \mu, \pi\right) = m\left(Z_{i}; \operatorname{CATE}, \mu, \pi\right) + \operatorname{CATE}\left(X_{i}\right)$.
 This notation will mainly be used to shorten the presentation of proofs in the appendix.
-Proceeding in an analogous fashion to the nonparametric regression setup leads us to the following empirical moment equation, where $\hat{\mu}$ and $\hat{\pi}$ are first-stage estimators and $K$ is the data-driven kernel function defined in Equation \ref{eq:data_distance}.
+Proceeding in an analogous fashion to the nonparametric regression setup leads us to the following empirical moment equation, where $\hat{\mu}$ and $\hat{\pi}$ are first-stage estimators and $K$ is the data-driven kernel function defined in Equation~\ref{eq:data_distance}.
 \begin{equation}
 	\begin{aligned}
 		M_{n}\left(x; \hat{\mu}, \hat{\pi}\right)
@@ -208,7 +208,7 @@ Proceeding in an analogous fashion to the nonparametric regression setup leads u
 \end{equation}
 However, due to the presence of infinite-dimensional nuisance parameters, it becomes attractive to proceed by using this weighted empirical moment equation embedded into the DML2 estimator of \citet{chernozhukov_doubledebiased_2018}.
 Applying these ideas to the context of estimating the CATE has been previously explored, for example by \citet{semenova_debiased_2021}
-For the sake of simplicity, I will assume that $m = n/K$, i.e. the desired number of observations in each fold, is an integer going forward.
+For the sake of simplicity, I will assume that $m = n/K$, i.e.\ the desired number of observations in each fold, is an integer going forward.
 \begin{boxD}
 	\begin{dfn}{(T)DNN-DML2 CATE-Estimator}\label{def:CATE_DNN_DML}\mbox{}\\*
 		To estimate the Conditional Average Treatment Effect at a point of interest $x \in \mathcal{X}$, we proceed as follows.
@@ -225,7 +225,7 @@ For the sake of simplicity, I will assume that $m = n/K$, i.e. the desired numbe
 				            \begin{equation}
 					            \hat{\mu}_{k,s}^{w}\left(x\right) = \hat{\mu}_{w,s}\left(x; \mathbf{D}_{I_k^{C}}^{(w)}\right) \quad \text{for } w=0,1
 				            \end{equation}
-				      \item if $\pi$ is unknown, i.e. we are not in a randomized experiment setting,
+				      \item if $\pi$ is unknown, i.e.\ we are not in a randomized experiment setting,
 				            additionally estimate $\pi$
 				            \begin{equation}
 					            \hat{\pi}_{k,s}\left(x\right) = \hat{\mu}_{s}\left(x; \mathbf{D}_{I_k^{C}}\right) \quad \text{where the predicted variable is $W$}
@@ -259,7 +259,7 @@ Thus, given first-stage estimates of the nuisance parameters, we have a closed f
 Furthermore, given these first-stage estimates, the evaluation of the CATE-estimator at a different point of interest is merely a reweighting of the terms corresponding to different observations.
 Considering the first stage estimates, we can recognize that the estimation of $\mu^{0}$ and $\mu^{1}$ is effectively a nonparametric regression problem as previously described where we used the reduced data sets $\mathbf{D}^{(0)}$ and $\mathbf{D}^{(1)}$, respectively.
 In contrast, the estimation of $\pi$ that is necessary in nearly all contexts but randomized experiments can be described further due to the binary outcome.
-For that purpose, let $Z_{(i|k)}$ denote the $i$'th closest observation in fold $k$ akin to the construction shown in Equation \ref{eq:ordering} relative to $x$ but with respect to the data in fold $k$.
+For that purpose, let $Z_{(i|k)}$ denote the $i$'th closest observation in fold $k$ akin to the construction shown in Equation~\ref{eq:ordering} relative to $x$ but with respect to the data in fold $k$.
 \begin{equation}
 	\begin{aligned}
 		\hat{\pi}_{k,s}\left(x\right)

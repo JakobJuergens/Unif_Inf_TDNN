@@ -2,7 +2,7 @@
 \hrule
 
 As the majority of the theoretical results in \citet{demirkaya_optimal_2024} rely on representations as a U-statistic, it is helpful to introduce additional concepts and notation at this stage.
-Recalling Equation \ref{eq:U_stat}, the DNN and TDNN estimators can be expressed in the following U-statistic form and are thus a type of generalized complete U-statistic as introduced by \citet{peng_rates_2022}.
+Recalling Equation~\ref{eq:U_stat}, the DNN and TDNN estimators can be expressed in the following U-statistic form and are thus a type of generalized complete U-statistic as introduced by \citet{peng_rates_2022}.
 \begin{equation}
 	\tilde{\mu}_{s}(x; \mathbf{D}_n)
 	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} h_{s}(x; D_{\ell})
@@ -47,8 +47,8 @@ For the DNN estimator and any $1 \leq c \leq s$, define
 	\xi_{s}^{c}\left(x\right)
 	= \Var_{1:c}\left(\psi_{s}^{c}(x; Z_{1}, \dotsc, Z_{c})\right)
 \end{equation}
-where $Z_{c+1}^{\prime}, \ldots, Z_n^{\prime}$ are i.i.d. from $P$ and independent of $Z_1, \ldots, Z_n$ and thus
-$\xi_{s}^{s}\left(x\right) = \Var\left(h_s\left(x; Z_1, \ldots, Z_s\right)\right).$
+where $Z_{c+1}^{\prime}, \ldots, Z_n^{\prime}$ are i.i.d.\ from $P$ and independent of $Z_1, \ldots, Z_n$ and thus
+$\xi_{s}^{s}\left(x\right) = \Var\left(h_s\left(x; Z_1, \ldots, Z_s\right)\right)$.
 % Then, we have the following result from the original paper.
 Similarly, for the TDNN estimator and any $1 \leq c \leq s_2$, let
 \begin{equation}\label{eq:zeta_s1s2_c}

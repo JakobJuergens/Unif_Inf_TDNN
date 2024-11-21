@@ -1,11 +1,11 @@
-\section{Proofs for Results in Section \ref{sec:pw_inf}}
+\section{Proofs for Results in Section~\ref{sec:pw_inf}}
 \hrule
 
 \subsection{Closed Form Representations}
 \hrule
 
-\begin{proof}[Proof of Theorem \ref{thm:JK_closed_form}]\mbox{}\\*
-	Recall the closed form representation of the DNN estimator as presented in Equation \ref{eq:DNN_closed_form}.
+\begin{proof}[Proof of Theorem~\ref{thm:JK_closed_form}]\mbox{}\\*
+	Recall the closed form representation of the DNN estimator as presented in Equation~\ref{eq:DNN_closed_form}.
 	\begin{equation}
 		\tilde{\mu}_{s}(x; \mathbf{D}_n)
 		= \binom{n}{s}^{-1} \sum_{i = 1}^{n - s + 1}\binom{n - i}{s - 1}Y_{(i)}
@@ -54,7 +54,7 @@ First, we start with the nonparametric regression setup.
 	\end{equation}
 \end{lem}
 \hrule
-\begin{proof}[Proof of Lemma \ref{lem:DNN_k_exp}]
+\begin{proof}[Proof of Lemma~\ref{lem:DNN_k_exp}]
 	\begin{equation}
 		\begin{aligned}
 			\E_D\left[h_s\left(x; D\right)\right]
@@ -82,7 +82,7 @@ First, we start with the nonparametric regression setup.
 	\end{equation}
 \end{lem}
 \hrule
-\begin{proof}[Proof of Lemma \ref{lem:psi_s_1}]
+\begin{proof}[Proof of Lemma~\ref{lem:psi_s_1}]
 	\begin{equation}
 		\begin{aligned}
 			\psi_{s}^{1}\left(x; z_1\right)
@@ -122,7 +122,7 @@ As the first stage is effectively covered by the nonparametric regression setup,
 	\end{equation}
 \end{lem}
 \hrule
-\begin{proof}[Proof of Lemma \ref{lem:CATE_DNN_k_exp}]
+\begin{proof}[Proof of Lemma~\ref{lem:CATE_DNN_k_exp}]
 	\begin{equation}
 		\begin{aligned}
 			\E_D\left[h_s\left(x; D\right)\right]
@@ -154,7 +154,7 @@ As the first stage is effectively covered by the nonparametric regression setup,
 	\end{equation}
 \end{lem}
 \hrule
-\begin{proof}[Proof of Lemma \ref{lem:CATE_chi_s_1}]
+\begin{proof}[Proof of Lemma~\ref{lem:CATE_chi_s_1}]
 	\begin{equation}
 		\begin{aligned}
 			\psi_{s}^{1}\left(x; z_1\right)
@@ -177,7 +177,7 @@ As the first stage is effectively covered by the nonparametric regression setup,
 
 % \begin{lem}[TDNN Haj\'ek Kernel Expectation]\label{lem:psi_s1s2_1}\mbox{}\\*
 % 	Let $z_1 = (x_1, y_1)$ denote a specific realization of $Z$ and $x$ denote a point of interest.
-% 	Let $D = \left\{Z_1, \dotsc, Z_{s_2} \right\}$ and $D^{\prime} = \left\{Z_1^{\prime}, \dotsc, Z_{s_1}^{\prime} \right\}$ denote two independent and i.i.d. samples drawn from $P$.
+% 	Let $D = \left\{Z_1, \dotsc, Z_{s_2} \right\}$ and $D^{\prime} = \left\{Z_1^{\prime}, \dotsc, Z_{s_1}^{\prime} \right\}$ denote two independent and i.i.d.\ samples drawn from $P$.
 % 	Furthermore, let $X \sim P$ and $X \indep D,D^{\prime}$.
 % 	Then
 % 	\begin{equation}
@@ -193,7 +193,7 @@ As the first stage is effectively covered by the nonparametric regression setup,
 % 	\end{equation}
 % \end{lem}
 
-% \begin{proof}[Proof of Lemma \ref{lem:psi_s1s2_1}]
+% \begin{proof}[Proof of Lemma~\ref{lem:psi_s1s2_1}]
 % 	\begin{equation}
 % 		\begin{aligned}
 % 			\psi_{s_1, s_2}^{1}\left(x; z_1\right)
@@ -226,7 +226,7 @@ As the first stage is effectively covered by the nonparametric regression setup,
 % 			\right) + w_{2}^{*} \psi_{s_2}^{1}\left(x; \mathbf{z_1}\right)
 % 		\end{aligned}
 % 	\end{equation}
-% 	Using Lemmas \ref{lem:DNN_k_exp} and \ref{lem:psi_s_1}, we can further simplify this term significantly.
+% 	Using Lemmas~\ref{lem:DNN_k_exp} and \ref{lem:psi_s_1}, we can further simplify this term significantly.
 % 	\begin{equation}
 % 		\begin{aligned}
 % 			\psi_{s_1, s_2}^{1}\left(x; z_1\right)

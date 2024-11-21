@@ -6,7 +6,7 @@ Similar to the previous part, we will first consider the nonparametric regressio
 \vspace{0.5cm}
 \hrule
 \begin{lem}[Adapted from \citet{demirkaya_optimal_2024}]\label{lem:omega_s}\mbox{}\\*
-	Let $D = \{Z_1, \dotsc, Z_{s}\}$ be a vector of i.i.d. random variables drawn from $P$.
+	Let $D = \{Z_1, \dotsc, Z_{s}\}$ be a vector of i.i.d.\ random variables drawn from $P$.
 	Furthermore, let
 	\begin{equation}
 		\Omega_{s}\left(x\right)
@@ -21,7 +21,7 @@ Similar to the previous part, we will first consider the nonparametric regressio
 	\end{equation}
 \end{lem}
 \hrule
-\begin{proof}[Proof of Lemma \ref{lem:omega_s}]\mbox{}\\*
+\begin{proof}[Proof of Lemma~\ref{lem:omega_s}]\mbox{}\\*
 	\begin{equation}
 		\begin{aligned}
 			\Omega_{s}\left(x\right)
@@ -37,7 +37,7 @@ Similar to the previous part, we will first consider the nonparametric regressio
 			+ \underbrace{\E_{1}\left[\varepsilon_1^{2} s \E_{2:s}\left[\kappa\left(x; Z_{1}, D\right)\right]\right]}_{(C)}
 		\end{aligned}
 	\end{equation}
-	Using Lemma \ref{lem:dem13}, we can now make the following observation concerning the first term.
+	Using Lemma~\ref{lem:dem13}, we can now make the following observation concerning the first term.
 	\begin{equation}
 		(A)
 		= \E_{1}\left[\mu^2\left(X_1\right) s \E_{2:s}\left[\kappa\left(x; Z_{1}, D\right)\right]\right]
@@ -70,8 +70,8 @@ Similar to the previous part, we will first consider the nonparametric regressio
 
 \newpage
 \begin{lem}\label{lem:omega_sc}\mbox{}\\*
-	Let $D = \{Z_1, \dotsc, Z_{s}\}$ be a vector of i.i.d. random variables drawn from $P$.
-	Let $D^{\prime} = \{Z_1, \dotsc, Z_{c}, Z_{c+1}^{\prime}, \dotsc,  Z_{s}^{\prime}\}$ where $Z_{c+1}^{\prime}, \dotsc,  Z_{s}^{\prime}$ are i.i.d. draws from $P$ that are independent of $D$.
+	Let $D = \{Z_1, \dotsc, Z_{s}\}$ be a vector of i.i.d.\ random variables drawn from $P$.
+	Let $D^{\prime} = \{Z_1, \dotsc, Z_{c}, Z_{c+1}^{\prime}, \dotsc,  Z_{s}^{\prime}\}$ where $Z_{c+1}^{\prime}, \dotsc,  Z_{s}^{\prime}$ are i.i.d.\ draws from $P$ that are independent of $D$.
 	Furthermore, let
 	\begin{equation}
 		\Omega_{s}^{c}\left(x\right)
@@ -92,7 +92,7 @@ Similar to the previous part, we will first consider the nonparametric regressio
 	\end{equation}
 \end{lem}
 \hrule
-\begin{proof}[Proof of Lemma \ref{lem:omega_sc}]
+\begin{proof}[Proof of Lemma~\ref{lem:omega_sc}]
 	\begin{equation}
 		\begin{aligned}
 			\Omega_{s}^{c}\left(x\right)
@@ -117,7 +117,7 @@ Similar to the previous part, we will first consider the nonparametric regressio
 		\end{aligned}
 	\end{equation}
 	Starting from this decomposition, we will analyze the terms one by one.
-	First, by honesty and an application of Lemma \ref{lem:dem12}, we find the following.
+	First, by honesty and an application of Lemma~\ref{lem:dem12}, we find the following.
 	\begin{equation}
 		\begin{aligned}
             (A) & = 
@@ -180,12 +180,12 @@ Similar to the previous part, we will first consider the nonparametric regressio
 			\lesssim \frac{(s-c)^2}{s^2}\mu^2(x) + o(1)
 		\end{aligned}
 	\end{equation}
-	The result of Lemma \ref{lem:omega_sc} follows immediately by summing up the asymptotic bounds for the individual terms.
+	The result of Lemma~\ref{lem:omega_sc} follows immediately by summing up the asymptotic bounds for the individual terms.
 \end{proof}
 
 \newpage
 \begin{lem}\label{lem:upsilon_s}\mbox{}\\*
-	Let $D = \{Z_1, \dotsc, Z_{s_2}\}$ be a vector of i.i.d. random variables drawn from $P$ for $s_2 > s_1$.
+	Let $D = \{Z_1, \dotsc, Z_{s_2}\}$ be a vector of i.i.d.\ random variables drawn from $P$ for $s_2 > s_1$.
 	Furthermore, let
 	\begin{equation}
 		\Upsilon_{s_1, s_2}\left(x\right)
@@ -202,7 +202,7 @@ Similar to the previous part, we will first consider the nonparametric regressio
 	\end{equation}
 \end{lem}
 \hrule
-\begin{proof}[Proof of Lemma \ref{lem:upsilon_s}]
+\begin{proof}[Proof of Lemma~\ref{lem:upsilon_s}]
 	\begin{equation}
 		\begin{aligned}
 			\Upsilon_{s_1, s_2}\left(x\right)
@@ -238,8 +238,8 @@ Similar to the previous part, we will first consider the nonparametric regressio
 
 \newpage
 \begin{lem}\label{lem:upsilon_sc}\mbox{}\\*
-	Let $D = \{Z_1, \dotsc, Z_{s_2}\}$ be a vector of i.i.d. random variables drawn from $P$ for $s_2 > s_1$.
-	Let $D^{\prime} = \{Z_1, \dotsc, Z_{c}, Z_{c+1}^{\prime}, \dotsc,  Z_{s_1}^{\prime}\}$ where $Z_{c+1}^{\prime}, \dotsc,  Z_{s_1}^{\prime}$ are i.i.d. draws from $P$ that are independent of $D$.
+	Let $D = \{Z_1, \dotsc, Z_{s_2}\}$ be a vector of i.i.d.\ random variables drawn from $P$ for $s_2 > s_1$.
+	Let $D^{\prime} = \{Z_1, \dotsc, Z_{c}, Z_{c+1}^{\prime}, \dotsc,  Z_{s_1}^{\prime}\}$ where $Z_{c+1}^{\prime}, \dotsc,  Z_{s_1}^{\prime}$ are i.i.d.\ draws from $P$ that are independent of $D$.
 	Furthermore, let
 	\begin{equation}
 		\Upsilon_{s_1, s_2}^{c}\left(x\right)
@@ -267,7 +267,7 @@ Similar to the previous part, we will first consider the nonparametric regressio
 	\end{equation}
 \end{lem}
 \hrule
-\begin{proof}[Proof of Lemma \ref{lem:upsilon_sc}]
+\begin{proof}[Proof of Lemma~\ref{lem:upsilon_sc}]
 	\begin{equation}
 		\begin{aligned}
 			\Upsilon_{s_1, s_2}^{c}\left(x\right)
@@ -369,7 +369,7 @@ Similar to the previous part, we will first consider the nonparametric regressio
 	\end{equation}
 \end{lem}
 \hrule
-\begin{proof}[Proof of Lemma \ref{lem:Var_TDNN_k}]
+\begin{proof}[Proof of Lemma~\ref{lem:Var_TDNN_k}]
 	Consider first the following decomposition.
 	\begin{equation}
 		\begin{aligned}
@@ -404,7 +404,7 @@ Similar to the previous part, we will first consider the nonparametric regressio
 		\end{aligned}
 	\end{equation}
 
-	Recall that by Lemma \ref{lem:omega_s}, we have the following.
+	Recall that by Lemma~\ref{lem:omega_s}, we have the following.
 	\begin{equation}
 		\begin{aligned}
 			\Omega_{s_2}
@@ -463,7 +463,7 @@ Similar to before, we will start under the assumption that the functional nuisan
 \hrule
 
 \begin{lem}\label{lem:CATE_omega_s}\mbox{}\\*
-	Let $D = \{Z_1, \dotsc, Z_{s}\}$ be a vector of i.i.d. random variables generated by the setup shown in Assumption \ref{asm:hte_dgp}.
+	Let $D = \{Z_1, \dotsc, Z_{s}\}$ be a vector of i.i.d.\ random variables generated by the setup shown in Assumption~\ref{asm:hte_dgp}.
 	Furthermore, let
 	\begin{equation}
 		\Omega_{s}\left(x\right)
@@ -476,7 +476,7 @@ Similar to before, we will start under the assumption that the functional nuisan
 	\end{equation}
 \end{lem}
 \hrule
-\begin{proof}[Proof of Lemma \ref{lem:CATE_omega_s}]\mbox{}\\*
+\begin{proof}[Proof of Lemma~\ref{lem:CATE_omega_s}]\mbox{}\\*
     First, notice that we can decompose the quantity of interest in the following way.
 	\begin{equation}
 		\begin{aligned}
@@ -570,8 +570,8 @@ Similar to before, we will start under the assumption that the functional nuisan
 
 \newpage
 \begin{lem}\label{lem:CATE_omega_sc}\mbox{}\\*
-	Let $D = \{Z_1, \dotsc, Z_{s}\}$ be a vector of i.i.d. random variables drawn from as described in Setup \ref{asm:hte_dgp}.
-	Let $D^{\prime} = \{Z_1, \dotsc, Z_{c}, Z_{c+1}^{\prime}, \dotsc,  Z_{s}^{\prime}\}$ where $Z_{c+1}^{\prime}, \dotsc,  Z_{s}^{\prime}$ are i.i.d. draws from the model that are independent of $D$.
+	Let $D = \{Z_1, \dotsc, Z_{s}\}$ be a vector of i.i.d.\ random variables drawn from as described in Setup~\ref{asm:hte_dgp}.
+	Let $D^{\prime} = \{Z_1, \dotsc, Z_{c}, Z_{c+1}^{\prime}, \dotsc,  Z_{s}^{\prime}\}$ where $Z_{c+1}^{\prime}, \dotsc,  Z_{s}^{\prime}$ are i.i.d.\ draws from the model that are independent of $D$.
 	Furthermore, let
 	\begin{equation}
 		\Omega_{s}^{c}\left(x\right)
@@ -590,7 +590,7 @@ Similar to before, we will start under the assumption that the functional nuisan
 	\end{equation}
 \end{lem}
 \hrule
-\begin{proof}[Proof of Lemma \ref{lem:CATE_omega_sc}]
+\begin{proof}[Proof of Lemma~\ref{lem:CATE_omega_sc}]
     First, we decompose the term of interest in a similar fashion to before.
 	\begin{equation}
         \begin{aligned}
@@ -631,7 +631,7 @@ Similar to before, we will start under the assumption that the functional nuisan
 			& \leq \frac{c}{s} \cdot \E_{1}\left[\E\left[m^{2}\left(Z_{1}; \mu, p\right) \; \middle| \; X_1\right] s \left\{1 - \varphi\left(B\left(x, \|X_1 - x\|\right)\right)\right\}^{s - 1}\right]
         \end{aligned}
     \end{equation}
-	Using results established in the proof of Lemma \ref{lem:CATE_omega_s}, we can find the following.
+	Using results established in the proof of Lemma~\ref{lem:CATE_omega_s}, we can find the following.
 	\begin{equation}
 		\begin{aligned}
 			(A) 

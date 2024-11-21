@@ -1,29 +1,16 @@
 \section{Useful Results}
 \hrule
 
-\begin{lem}[Kernel of TDNN Estimator - Adapted from Lemma 8 of \citet{demirkaya_optimal_2024}]\label{lem:dem8}\mbox{}\\*
-	The kernel of the TDNN estimator takes the following form.
-	\begin{equation}
-		\begin{aligned}
-			h_{s_1, s_2}\left(x; D\right)
-			 & = w_{1}^{*}\left[\binom{s_2}{s_1}^{-1}\sum_{\ell \in L_{s_2, s_1}} h_{s_1}\left(x; \mathbf{D}_{\ell}\right)\right] + w_{2}^{*} h_{s_2}\left(x; D\right) \\
-			 & = w_{1}^{*} \tilde{\mu}_{s_1}\left(x; D\right) + w_{2}^{*} h_{s_2}\left(x; D\right)                                                                     \\
-		\end{aligned}
-	\end{equation}
-	As this expression shows, the kernel for the TDNN estimator is of order $s_2 > s_1$.
-\end{lem}
-\hrule
-
 \begin{lem}[\citet{demirkaya_optimal_2024} - Lemma 12]\label{lem:dem12}\mbox{}\\*
-	Let $D = \{Z_1, \dotsc, Z_s\}$ an i.i.d. sample drawn from $P$.
+	Let $D = \{Z_1, \dotsc, Z_s\}$ an i.i.d.\ sample drawn from $P$.
 	The indicator functions $\kappa\left(x; Z_{i}, D\right)$ satisfy the following properties.
 	\begin{enumerate}
 		\item For any $i \neq j$, we have $\kappa\left(x; Z_{i}, D\right) \kappa\left(x; Z_{j}, D\right)=0$ with probability one;
 		\item $\sum_{i=1}^{s} \kappa\left(x; Z_{i}, D\right)=1$;
-		\item $\forall i \in [s]: \quad \mathbb{E}_{1:s}\left[\kappa\left(x; Z_{i}, D\right)\right]=s^{-1}$
-		\item $\mathbb{E}_{2: s}\left[\kappa\left(x; Z_1, D\right)\right]=\left\{1-\varphi\left(B\left(x,\left\|X_1-x\right\|\right)\right)\right\}^{s-1}$
+		\item $\forall i \in [s]: \quad \E_{1:s}\left[\kappa\left(x; Z_{i}, D\right)\right]=s^{-1}$
+		\item $\E_{2: s}\left[\kappa\left(x; Z_1, D\right)\right]=\left\{1-\varphi\left(B\left(x,\left\|X_1-x\right\|\right)\right)\right\}^{s-1}$
 	\end{enumerate}
-	Here $\mathbb{E}_{i: s}$ denotes the expectation with respect to $\left\{Z_{i}, Z_{i+1}, \cdots, Z_s\right\}$.
+	Here $\E_{i: s}$ denotes the expectation with respect to $\left\{Z_{i}, Z_{i+1}, \dotsc, Z_s\right\}$.
 	Furthermore, $\varphi$ denotes the probability measure on $\mathbb{R}^{d}$ induced by the random vector $X$.
 \end{lem}
 
@@ -40,7 +27,7 @@
 \hrule
 
 \begin{lem}\label{lem:limit_res}\mbox{}\\*
-	As a consequence of Lemma \ref{lem:dem13}, we find the following limit results in the nonparametric regression setup.
+	As a consequence of Lemma~\ref{lem:dem13}, we find the following limit results in the nonparametric regression setup.
 	\begin{equation}
 		\begin{aligned}
 			\lim_{s \rightarrow \infty} \E_{1}\left[Y_1 s \E_{2:s}\left[\kappa(x; Z_1, D)\right]\right]
@@ -73,7 +60,7 @@
 
 \hrule
 
-\begin{proof}[Proof of Lemma \ref{lem:limit_res}]
+\begin{proof}[Proof of Lemma~\ref{lem:limit_res}]
 	Starting with the first limit, we find the following.
 	\begin{equation}
 		\begin{aligned}
@@ -83,7 +70,7 @@
 			& = \E_{1}\left[\left(\mu\left(X_1\right) + \E\left[\varepsilon_1 \, \middle| \, X_1\right]\right) s \E_{2:s}\left[\kappa(x; Z_1, D)\right]\right]\\
 			%
 			& = \E_{1}\left[\mu\left(X_1\right) s \E_{2:s}\left[\kappa(x; Z_1, D)\right]\right]
-			\overset{\text{(Lem \ref{lem:dem13})}}{\longrightarrow} \mu\left(x\right)
+			\overset{\text{(Lem~\ref{lem:dem13})}}{\longrightarrow} \mu\left(x\right)
 			\quad \text{as} \quad s \rightarrow \infty
 		\end{aligned}
 	\end{equation}
@@ -100,7 +87,7 @@
 			%
 			& = \E_{1}\left[\left(\mu^2\left(X_1\right) +\sigma_{\varepsilon}^{2}(X_1)\right) s \E_{2:s}\left[\kappa(x; Z_1, D)\right]\right] \\
 			%
-			& \overset{\text{(Lem \ref{lem:dem13})}}{\longrightarrow} \mu^2\left(x\right) +\sigma_{\varepsilon}^{2}(x)
+			& \overset{\text{(Lem~\ref{lem:dem13})}}{\longrightarrow} \mu^2\left(x\right) +\sigma_{\varepsilon}^{2}(x)
 			\quad \text{as} \quad s \rightarrow \infty
 		\end{aligned}
 	\end{equation}
@@ -114,7 +101,7 @@
 			%
 			& = \E_{1}\left[\left(\mu_1\left(X_{1}\right) - \mu_0\left(X_{1}\right)\right) s \E_{2:s}\left[\kappa(x; Z_1, D)\right]\right] \\
 			%
-			& \overset{\text{(Lem \ref{lem:dem13})}}{\longrightarrow} \mu_1\left(x\right) - \mu_0\left(x\right)
+			& \overset{\text{(Lem~\ref{lem:dem13})}}{\longrightarrow} \mu_1\left(x\right) - \mu_0\left(x\right)
 			\quad \text{as} \quad s \rightarrow \infty
 		\end{aligned}
 	\end{equation}
@@ -156,7 +143,7 @@
 			\left(\pi(X_1)\left(1 - \pi\left(X_1\right)\right)^2 + (1 - \pi(X_1))\pi^2\left(X_1\right) \right)\right]\\
 			%
 			& = \E_{1}\left[\frac{\sigma_{\varepsilon}^2(X_1) \cdot s \E_{2:s}\left[\kappa(x; Z_1, D)\right]}{\pi\left(X_1\right)\left(1 - \pi\left(X_1\right)\right)}\right]
-			\overset{\text{(Lem \ref{lem:dem13})}}{\longrightarrow} \frac{\sigma_{\varepsilon}^2(x)}{\pi\left(x\right)\left(1 - \pi\left(x\right)\right)}
+			\overset{\text{(Lem~\ref{lem:dem13})}}{\longrightarrow} \frac{\sigma_{\varepsilon}^2(x)}{\pi\left(x\right)\left(1 - \pi\left(x\right)\right)}
 			\quad \text{as} \quad s \rightarrow \infty
 		\end{aligned}
 	\end{equation}
@@ -164,7 +151,7 @@
 	\begin{equation}
 		\begin{aligned}
 			\E_{1}\left[m^2\left(Z_{i}; \mu, \pi\right) s \E_{2:s}\left[\kappa(x; Z_1, D)\right]\right]
-			\overset{\text{(Lem \ref{lem:dem13})}}{\longrightarrow} \left(\mu_1\left(x\right) - \mu_0\left(x\right)\right)^2 + \frac{\sigma_{\varepsilon}^2(x)}{\pi\left(x\right)\left(1 - \pi\left(x\right)\right)}
+			\overset{\text{(Lem~\ref{lem:dem13})}}{\longrightarrow} \left(\mu_1\left(x\right) - \mu_0\left(x\right)\right)^2 + \frac{\sigma_{\varepsilon}^2(x)}{\pi\left(x\right)\left(1 - \pi\left(x\right)\right)}
 			\quad \text{as} \quad s \rightarrow \infty
 		\end{aligned}
 	\end{equation}
@@ -173,21 +160,47 @@
 \hrule
 
 \begin{lem}\label{lem:kern_ineq}\mbox{}\\*
-	{\color{red} LOREM IPSUM}
+	Fix sample size $n$, subsampling scale $s$, and $c$ such that $0 < c \leq s \leq n$.
+	Let $D = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}, \dotsc Z_s \right\}$ be an i.i.d.\ data set drawn from $P$ as described in Setup~\ref{asm:npr_dgp}.
+	Let $D^{\prime} = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$ be a second data set that shares the first $c$ observations with $D$.
+	The remaining $s - c$ observations of $D^{\prime}$, i.e.\ $\left\{Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$, are i.i.d.\ draws from $P$ that are independent of $D$.
+
+	Then, the following inequality holds.
+	\begin{equation}
+		\begin{aligned}
+			\E_{D, D^{\prime}}\left[Y_{1}Y_{c+1}^{\prime} \, c(s-c) \, \kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]
+			& \leq {\color{red} LOREM IPSUM}
+		\end{aligned}
+	\end{equation}
+
+	Similarly, in the CATE estimation setting (Setup~\ref{asm:hte_dgp}), i.e.\ replacing observations drawn from $P$ by observations drawn from $Q$, the following inequality holds.
+	\begin{equation}
+		\begin{aligned}
+			\E_{D, D^{\prime}}\left[m\left(Z_{1}; \mu, \pi\right) m\left(Z_{c+1}^{\prime}; \mu, \pi\right) \, c(s-c) \, \kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]
+			& \leq {\color{red} LOREM IPSUM}
+		\end{aligned}
+	\end{equation}
 \end{lem}
 
 \hrule
 
-\begin{proof}[Proof of Lemma \ref{lem:kern_ineq}]
+\begin{proof}[Proof of Lemma~\ref{lem:kern_ineq}]\mbox{}\\*
+	Consider first the following argument.
+	\begin{equation}
+		\begin{aligned}
+			& \E_{D, D^{\prime}}\left[Y_{1}Y_{c+1}^{\prime} \, c(s-c) \, \kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]
+			= {\color{red} LOREM IPSUM}
+		\end{aligned}
+	\end{equation}
 	{\color{red} LOREM IPSUM}
 \end{proof}
 
 \hrule
 
 \begin{lem}[\citet{peng_bias_2021} - Lemma 1]\label{lem:peng1}\mbox{}\\*
-	Suppose that $\sum X_{i}^2 \xrightarrow{p} 1, \sum \mathbb{E}\left[X_{i}^2\right] \rightarrow 1$, and $\sum_{i=1}^n \mathbb{E}\left[Y_{i}^2\right] \rightarrow 0$, then
+	Suppose that $\sum X_{i}^2 \xrightarrow{p} 1, \sum \E\left[X_{i}^2\right] \rightarrow 1$, and $\sum_{i=1}^n \E\left[Y_{i}^2\right] \rightarrow 0$, then
 	\begin{equation}
-		\sum\left[X_{i}+Y_{i}\right]^2 \xrightarrow{p} 1 \quad \text { and } \mathbb{E}\left[\sum\left(X_{i}+Y_{i}\right)^2\right] \rightarrow 1.
+		\sum\left[X_{i}+Y_{i}\right]^2 \xrightarrow{p} 1 \quad \text { and } \E\left[\sum\left(X_{i}+Y_{i}\right)^2\right] \rightarrow 1.
 	\end{equation}
 \end{lem}
 

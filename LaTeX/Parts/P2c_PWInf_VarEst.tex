@@ -3,7 +3,7 @@
 
 \begin{lem}[Asymptotic Dominance of H\'ajek Projection]\label{lem:Hajek_Dominance}\mbox{}\\*
 	Let $U_{s}\left(\mathbf{D}_{[n]}\right)$ be a non-randomized complete generalized U-statistic with kernel $h_s$.
-	Let the kernel variance terms $\zeta_{s}^{s}$ and $\zeta_{s}^{1}$ be defined in analogy to Section \ref{sec:TDNN}.
+	Let the kernel variance terms $\zeta_{s}^{s}$ and $\zeta_{s}^{1}$ be defined in analogy to Section~\ref{sec:TDNN}.
 	Assume that the following condition holds.
 	\begin{equation}
 		\frac{s}{n}\left(\frac{\zeta_{s}^{s}}{s \zeta_{s}^{1}} - 1\right) \rightarrow 0
@@ -32,11 +32,11 @@
 \hrule
 
 \begin{lem}[H\'ajek Dominance for TDNN Estimator]\label{lem:TDNN_Hajek_Dominance}\mbox{}\\*
-	Let $0 < \mathfrak{c} \leq s_1/s_2 \leq 1 - \mathfrak{c} < 1$ and $s_2 = o(n)$, then under Assumptions \ref{asm:DGP}, \ref{asm:subexp_tails} and \ref{asm:smoothness}, then the TDNN estimator fulfills the asymptotic H\'ajek dominance condition shown in Lemma \ref{lem:Hajek_Dominance}.
+	Let $0 < \mathfrak{c} \leq s_1/s_2 \leq 1 - \mathfrak{c} < 1$ and $s_2 = o(n)$, then under Assumptions~\ref{asm:DGP},~\ref{asm:subexp_tails} and~\ref{asm:smoothness}, then the TDNN estimator fulfills the asymptotic H\'ajek dominance condition shown in Lemma~\ref{lem:Hajek_Dominance}.
 \end{lem}
 \hrule
 \begin{proof}
-	Recall the results from Lemmas \ref{lem:Var_TDNN_k} and \ref{lem:dem10}.
+	Recall the results from Lemmas~\ref{lem:Var_TDNN_k} and \ref{lem:dem10}.
 	\begin{equation*}
 		\zeta_{s_1, s_2}^{s_2}\left(x\right) \lesssim \mu^2(x) + \sigma_{\varepsilon} + o(1)
 		\quad \text{and} \quad
@@ -54,12 +54,12 @@
 \end{proof}
 \hrule
 
-\begin{proof}[Proof of Theorem \ref{thm:PI_JK_Cons}]\mbox{}\\*
+\begin{proof}[Proof of Theorem~\ref{thm:PI_JK_Cons}]\mbox{}\\*
 	The desired result immediately follows from an application of Theorem 6 from \citet{peng_bias_2021}.
 \end{proof}
 
 \newpage
-\begin{proof}[Proof of Theorem \ref{thm:JK_Cons}]\mbox{}\\*
+\begin{proof}[Proof of Theorem~\ref{thm:JK_Cons}]\mbox{}\\*
 	Recall the definition of the Jackknife Variance estimator.
 	\begin{equation}
 		\hat{\omega}_{JK}^2\left(x; \mathbf{D}_n\right)
@@ -74,17 +74,17 @@
 			 & = \frac{n-1}{n} \sum_{i = 1}^{n}\left(
 			\sum_{j = 1}^{s_2}\binom{s_2}{j} H_{s_1, s_2}^{j}\left(\mathbf{D}_{n, -i}\right)
 			- \sum_{j = 1}^{s_2}\binom{s_2}{j}H_{s_1, s_2}^{j}
-			\right)^2                                                                                                    \\
+			\right)^2                                                                                           \\
 			%
 			 & = \frac{n-1}{n} \sum_{j = 1}^{n}\left(
 			\sum_{j = 1}^{s_2}\binom{s_2}{j}\left(H_{s_1, s_2}^{j}
 				- H_{s_1, s_2}^{j}\left(\mathbf{D}_{n, -i}\right)\right)
-			\right)^2                                                                                                    \\
+			\right)^2                                                                                           \\
 			%
 			 & = \frac{n-1}{n} \sum_{j = 1}^{n}\left(\sum_{j = 1}^{s_2}\binom{s_2}{j}
 			\left( \binom{n}{j}^{-1}\sum_{\iota \in L_{n,j}} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\iota})
 			- \binom{n - 1}{j}^{-1}\sum_{\ell \in L_{j}\left([n]\backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\ell})\right)
-			\right)^2                                                                                                    \\
+			\right)^2                                                                                           \\
 			%
 			 & = \frac{n-1}{n} \sum_{j = 1}^{n}\left[
 				\frac{s_2}{n} h^{(1)}_{s_1, s_2}(Z_{i})
@@ -92,7 +92,7 @@
 			 & \quad \quad + \left.\sum_{j = 2}^{s_2}\binom{s_2}{j}
 				\left( \binom{n}{j}^{-1}\sum_{\iota \in L_{n,j}} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\iota})
 				- \binom{n - 1}{j}^{-1}\sum_{\ell \in L_{j}\left([n]\backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\ell})\right)
-			\right]^2                                                                                                    \\
+			\right]^2                                                                                           \\
 			%
 			 & = \frac{n-1}{n} \frac{s^2}{n^2}\sum_{j = 1}^{n}\left[
 				h^{(1)}_{s_1, s_2}(Z_{i})
@@ -101,7 +101,7 @@
 				\binom{n}{j}^{-1}\sum_{\iota \in L_{j-1}\left([n] \backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\iota \cup \{i\}})
 				+ \left[\binom{n}{j}^{-1} - \binom{n - 1}{j}^{-1}\right] \sum_{\ell \in L_{j}\left([n] \backslash \{i\}\right)} h^{(j)}_{s_1, s_2}(\mathbf{D}_{\ell})
 				\right)
-			\right]                                                                                                      \\
+			\right]                                                                                             \\
 			%
 			 & =: \frac{n-1}{n}\frac{s^2}{n^2} \sum_{j = 1}^{n}\left[h^{(1)}_{s_1, s_2}(Z_{i}) + T_{i}\right]^2
 		\end{aligned}
@@ -192,7 +192,7 @@
 			+ 2e\left(\frac{1}{n} + \frac{n}{\left(n - e s_2\right)^2}\right) \left(\zeta_{s_1, s_2}^{s_2} - s_2 \zeta_{s_1, s_2}^{1}\right)
 		\end{aligned}
 	\end{equation}
-	Recall the results of Lemmas \ref{lem:Var_TDNN_k} and \ref{lem:dem10}.
+	Recall the results of Lemmas~\ref{lem:Var_TDNN_k} and~\ref{lem:dem10}.
 	\begin{equation}
 		\zeta_{s_1, s_2}^{s_2}\left(x\right) \lesssim \mu^2(x) + \sigma_{\varepsilon} + o(1)
 		\quad \text{and} \quad
@@ -212,7 +212,7 @@
 		\end{aligned}
 	\end{equation}
 	Therefore, we can conclude that $h_{s}^{(1)}\left(Z_{i}\right)$ dominates $T_i^2$ in the expression of interest.
-	Using Lemma \ref{lem:peng1}, we can thus conclude the following.
+	Using Lemma~\ref{lem:peng1}, we can thus conclude the following.
 	\begin{equation}
 		\begin{aligned}
 			\frac{\frac{n}{s_2^2}\hat{\omega}^{2}_{JK}\left(x; \mathbf{D}_n\right)}{V_{s_1, s_2}^{1}\left(x\right)}
@@ -222,11 +222,11 @@
 			\rightarrow 1
 		\end{aligned}
 	\end{equation}
-	The desired rate-consistency then immediately follows from an application of Lemma \ref{lem:Hajek_Dominance}.
+	The desired rate-consistency then immediately follows from an application of Lemma~\ref{lem:Hajek_Dominance}.
 \end{proof}
 
 \newpage
-\begin{proof}[Proof of Theorem \ref{thm:JKD_Cons}]\mbox{}\\*
+\begin{proof}[Proof of Theorem~\ref{thm:JKD_Cons}]\mbox{}\\*
 	Consider first the case absent additional randomization in the form of $\omega$ and recall the definition of the delete-d Jackknife Variance estimator.
 	\begin{equation}
 		\hat{\omega}_{JKD}^2\left(x; d, \mathbf{D}_n\right)
@@ -273,12 +273,12 @@
 
 	We want to proceed in an analogous way to the proof of the pure Jackknife
 	result. Thus, we want to show that $\sum_{i \in \ell} h^{(1)}_{s_1,
-				s_2}(Z_{i})$ dominates $T_{\ell}$ in the sense of Lemma
-	\ref{lem:peng1}. Luckily, since Lemma \ref{lem:peng1} does not depend on any
-	particular independence assumptions of summands etc. this is a relatively
-	straightforward adaptation of the strategy shown in the proof of Theorem
-	\ref{thm:JK_Cons}. Thus, consider the following for an arbitrary fixed
-	index-subset $\ell$ with cardinality $d$.
+				s_2}(Z_{i})$ dominates $T_{\ell}$ in the sense of Lemma~\ref{lem:peng1}.
+	Luckily, since Lemma~\ref{lem:peng1} does not depend on any particular
+	independence assumptions of summands etc.\ this is a relatively straightforward
+	adaptation of the strategy shown in the proof of Theorem~\ref{thm:JK_Cons}.
+	Thus, consider the following for an arbitrary fixed index-subset $\ell$ with
+	cardinality $d$.
 	\begin{equation}
 		\begin{aligned}
 			\E\left[\left(\frac{1}{\sqrt{d}}\sum_{i \in \ell} h^{(1)}_{s_1, s_2}(Z_{i})\right)^2\right]
@@ -296,7 +296,7 @@
 	\begin{equation}
 		\begin{aligned}
 			T_{\ell}
-			 & = \frac{\sqrt{d}}{n - d}\sum_{i \in [n] \backslash \ell} h^{(1)}_{s_1, s_2}(Z_{i})             \\
+			 & = \frac{\sqrt{d}}{n - d}\sum_{i \in [n] \backslash \ell} h^{(1)}_{s_1, s_2}(Z_{i})                      \\
 			 & \quad \quad + \frac{n}{s_2\sqrt{d}} \left\{\sum_{j = 2}^{d}\binom{s_2}{j}\left(\binom{n}{j}^{-1}\left(
 			\sum_{a = 1}^{j}\sum_{\substack{\varkappa \in L_{a}\left(\ell\right)                                       \\ \varrho \in L_{j - a}\left([n]\backslash \ell\right)}} h^{(j)}_{s_1, s_2}(D_{\varkappa \cup \varrho})\right)
 			+ \left(\binom{n}{j}^{-1} - \binom{n-d}{j}^{-1}\right)
@@ -312,7 +312,7 @@
 	\begin{equation}
 		\begin{aligned}
 			T_{\ell}
-			 & = \frac{\sqrt{d}}{n - d}\sum_{i \in [n] \backslash \ell} h^{(1)}_{s_1, s_2}(Z_{i})         \\
+			 & = \frac{\sqrt{d}}{n - d}\sum_{i \in [n] \backslash \ell} h^{(1)}_{s_1, s_2}(Z_{i})                  \\
 			 & \quad \quad + \frac{n}{s_2 \sqrt{d}}  \sum_{j = 2}^{s_2}\binom{s_2}{j}\left(\binom{n}{j}^{-1}\left(
 			\sum_{a = 1}^{j}\sum_{\substack{\varkappa \in L_{a}\left(\ell\right)                                   \\ \varrho \in L_{j - a}\left([n]\backslash \ell\right)}} h^{(j)}_{s_1, s_2}(D_{\varkappa \cup \varrho})\right)
 			+ \left(\binom{n}{j}^{-1} - \binom{n-d}{j}^{-1}\right)
@@ -444,10 +444,10 @@
 \newpage
 \subsection{Pointwise Inference Results}
 
-\begin{proof}[Proof of Theorem \ref{thm:pw_inf_TDNN}]\mbox{}\\*
+\begin{proof}[Proof of Theorem~\ref{thm:pw_inf_TDNN}]\mbox{}\\*
 
 \end{proof}
 
-\begin{proof}[Proof of Theorem \ref{thm:pw_inf_TDNN_HTE}]\mbox{}\\*
+\begin{proof}[Proof of Theorem~\ref{thm:pw_inf_TDNN_HTE}]\mbox{}\\*
 
 \end{proof}
