@@ -49,30 +49,31 @@ DNN <- function(x, data, s,
   # Calculate DNN estimator
   res <- 0
   factor <- 1
-  prefactor <- 1 / choose(n, s)
+  prefactor <- 0
 
   # using exact weights
   if(asymp_approx_weights == FALSE){
+
     for (i in 1:(n - s + 1)) {
       index <- n - s + 2 - i
       res <- res + factor * Y[index]
+      prefactor <- prefactor + factor
       factor <- factor * ((n - index + 1) / i)
     }
-    res <- prefactor * res
+    res <- res/prefactor
   }
 
   # using approximate weights
   if(asymp_approx_weights == TRUE){
     alpha <- s/n
-    factor <- 0
 
     for (i in 1:(n - s + 1)) {
       if(alpha*(1-alpha)^(i-1) == 0){break}
       res <- res + alpha*(1-alpha)^(i-1) * Y[i]
-      factor <- factor + alpha*(1-alpha)^(i-1)
+      prefactor <- prefactor + alpha*(1-alpha)^(i-1)
     }
 
-    res <- res/factor
+    res <- res/prefactor
   }
 
   # return calculated result

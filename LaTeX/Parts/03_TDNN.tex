@@ -83,6 +83,13 @@ For this purpose let $\alpha_{s} = s/n$ leading to the following approximation o
 	\tilde{\mu}_{s}(x; \mathbf{D}_n)
 	\approx  \sum_{i = 1}^{n - s + 1} \alpha_{s} \left(1 - \alpha_{s}\right)^{i - 1} Y_{(i)}
 \end{equation}
+It is worthwhile to point out that the role of $s$ in the implicit bias-variance tradeoff of the DNN estimator runs counter to the role of $k$ in the usual k-NN regression.
+Where a larger $k$ is usually associated with a lower variance at the cost of a higher bias, a larger $s$ does the opposite.
+This is due to the fact that a higher $s$ reduces the number of observations that can occur as the closest observation in any given $s$-subset.
+As a special example that illustrates the relationship, consider the DNN estimator choosing $s = n$. 
+Clearly, this estimator recovers the simple 1-NN regression estimator.
+
+\newpage
 As part of their paper, \citet{demirkaya_optimal_2024} develop an explicit expression for the first-order bias term of the DNN estimator and the following distributional approximation result.
 \begin{boxD}
 	\begin{thm}[\citet{demirkaya_optimal_2024} - Theorem 2]\label{thm:dem2}\mbox{}\\*
@@ -125,14 +132,14 @@ the first-order bias term of the DNN estimator, which in turn allows them to
 eliminate it through a clever combination of two DNN estimators. Choosing two
 subsampling scales $1 \leq s_1 < s_2 \leq n$ and two corresponding weights
 \begin{equation}
-	W_{1}^{*}(s_1, s_2) = \frac{1}{1-(s_1/s_2)^{-2/d}}
+	w_{1}^{*}(s_1, s_2) = \frac{1}{1-(s_1/s_2)^{-2/k}}
 	\quad\text{and}\quad
-	w_2^{*}(s_1, s_2) = 1 - W_{1}^{*}(s_1, s_2)
+	w_2^{*}(s_1, s_2) = 1 - w_{1}^{*}(s_1, s_2)
 \end{equation}
 they define the corresponding TDNN estimator as follows.
 \begin{equation}
 	\hat{\mu}_{s_1, s_2}\left(x; \mathbf{D}_n\right)
-	= W_{1}^{*}(s_1, s_2)\tilde{\mu}_{s_1}\left(x; \mathbf{D}_n\right) + w_2^{*}(s_1, s_2)\tilde{\mu}_{s_2}\left(x; \mathbf{D}_n\right)
+	= w_{1}^{*}(s_1, s_2)\tilde{\mu}_{s_1}\left(x; \mathbf{D}_n\right) + w_2^{*}(s_1, s_2)\tilde{\mu}_{s_2}\left(x; \mathbf{D}_n\right)
 \end{equation}
 This leads to the elimination of the first-order bias term shown in Theorem~\ref{thm:dem2} leading to desirable finite-sample properties.
 Furthermore, the authors show that this construction improves the quality of the normal approximation.

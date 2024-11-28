@@ -8,6 +8,11 @@
 #' As a matrix containing the response value in the first column.
 #' @param s1 The first subsampling scale.
 #' @param s2 The second subsampling scale.
+#' @param presorted True or False whether the data is sorted according to its
+#' distance to the point of interest (default value = FALSE)
+#' @param standardize True or False whether to standardize (default value = FALSE)
+#' @param asymp_approx_weights True or False whether to use an asymptotic
+#' approximation for the weights (default value = FALSE)
 #' @return A number.
 #'
 #' @export
@@ -59,48 +64,69 @@ TDNN <- function(x, data, s1, s2,
   }
 
   # Calculate the two DNN estimators
-  res1 <- 0
-  res2 <- 0
+  res_1 <- 0
+  res_2 <- 0
+  prefactor_1 <- 0
+  prefactor_2 <- 0
 
+  # using exact weights
   if(asymp_approx_weights == FALSE){
-    factor1 <- 1
-    factor2 <- 1
+    factor_1 <- 1
+    factor_2 <- 1
 
     for (i in 1:(s2 - s1)) {
       index <- n - s1 + 2 - i
-      res1 <- res1 + factor1 * Y[index]
-      factor1 <- factor1 * ((n - index + 1) / i)
+      res_1 <- res_1 + factor_1 * Y[index]
+      prefactor_1 <- prefactor_1 + factor_1
+      factor_1 <- factor_1 * ((n - index + 1) / i)
+
     }
 
     for (i in 1:(n - s2 + 1)) {
       index <- n - s2 + 2 - i
 
-      res1 <- res1 + factor1 * Y[index]
-      res2 <- res2 + factor2 * Y[index]
+      res_1 <- res_1 + factor_1 * Y[index]
+      res_2 <- res_2 + factor_2 * Y[index]
+      prefactor_1 <- prefactor_1 + factor_1
+      prefactor_2 <- prefactor_2 + factor_2
 
-      factor1 <- factor1 * ((n - index + 1) / (i + s2 - s1))
-      factor2 <- factor2 * ((n - index + 1) / i)
+      factor_1 <- factor_1 * ((n - index + 1) / (i + s2 - s1))
+      factor_2 <- factor_2 * ((n - index + 1) / i)
     }
-
-    if (verbose) {
-      print(paste0("res1 = ", res1, ", res2 = ", res2))
-    }
-
-    # At this point the factors are (n-1 choose s-1)
-    # so we ca simplify for the prefactors
-    prefactor1 <- (factor1 * (1 + n / s1))^(-1)
-    prefactor2 <- (factor2 * (1 + n / s2))^(-1)
-
-    if (verbose) {
-      print(paste0("prefactor1 = ", prefactor1, ", prefactor2 = ", prefactor2))
-    }
-
-    res1 <- prefactor1 * res1
-    res2 <- prefactor2 * res2
   }
+
+  # using asymptotically approximated weights
+  if(asymp_approx_weights == TRUE){
+    alpha_1 <- s_1/n
+    alpha_2 <- s_2/n
+
+    for (i in 1:(n - s_1 + 1)) {
+      if(alpha_1*(1-alpha_1)^(i-1) == 0){break}
+      res_1 <- res_1 + alpha_1*(1-alpha_1)^(i-1) * Y[i]
+      prefactor_1 <- prefactor_1 + alpha_1*(1-alpha_1)^(i-1)
+    }
+
+    for (i in 1:(n - s_2 + 1)) {
+      if(alpha_2*(1-alpha_2)^(i-1) == 0){break}
+      res_2 <- res_2 + alpha_2*(1-alpha_2)^(i-1) * Y[i]
+      prefactor_2 <- prefactor_2 + alpha_2*(1-alpha_2)^(i-1)
+    }
+  }
+
+  if (verbose) {
+    print(paste0("prefactor_1 = ", prefactor_1, ", prefactor_2 = ", prefactor_2))
+  }
+
+  res_1 <- res_1/prefactor_1
+  res_2 <- res_2/prefactor_2
+
+  if (verbose) {
+    print(paste0("res_1 = ", res_1, ", res_2 = ", res_2))
+  }
+
   # Combine results
-  res <- w1 * res1 + w2 * res2
+  res <- w1 * res_1 + w2 * res_2
 
   # return results
-  return(res)
+  return(list("TDNN_res" = res, "DNN1_res" = res_1, "DNN2_res" = res_2))
 }

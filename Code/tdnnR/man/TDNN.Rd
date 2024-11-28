@@ -7,7 +7,16 @@ based on a sample data with subsampling scale s.
 The implementation is based on the equivalent representation as an L-statistic
 described in Steele (2009) and the TDNN estimator from Demirkaya et al. (2024)}
 \usage{
-TDNN(x, data, s1, s2, presorted = FALSE, standardize = FALSE, verbose = FALSE)
+TDNN(
+  x,
+  data,
+  s1,
+  s2,
+  presorted = FALSE,
+  standardize = FALSE,
+  asymp_approx_weights = TRUE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{x}{The point of interest.}
@@ -18,6 +27,14 @@ As a matrix containing the response value in the first column.}
 \item{s1}{The first subsampling scale.}
 
 \item{s2}{The second subsampling scale.}
+
+\item{presorted}{True or False whether the data is sorted according to its
+distance to the point of interest (default value = FALSE)}
+
+\item{standardize}{True or False whether to standardize (default value = FALSE)}
+
+\item{asymp_approx_weights}{True or False whether to use an asymptotic
+approximation for the weights (default value = FALSE)}
 }
 \value{
 A number.

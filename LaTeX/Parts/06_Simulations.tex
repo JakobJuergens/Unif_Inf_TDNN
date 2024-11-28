@@ -29,13 +29,14 @@ The resulting surface is depicted in Figure~\ref{fig:reg_surface}.
 	\label{fig:reg_surface}
 \end{figure}
 To analyze the behavior of the estimator in this setting, we run a number of Monte-Carlo simulations each consisting of 10000 simulation runs.
+While the theoretical analysis was of purely asymptotic nature, these simulation results can provide a modicum of guidance when it comes to choices such as the kernel orders employed in the estimation procedure.
 Each run consists of 10000 observations that are uniformly distributed on $[0,1]^2$, we find the following concerning the estimators bias and variance given different kernel orders $s_1$ and $s_2$.
-\begin{figure}[H]
-	\centering
-	\includegraphics[width = \textwidth]{../Graphics/Reg_Exmp1b_Est.pdf}
-	\caption{Approximate Bias (left) and Variance (right) of the TDNN Estimator with $s_1 = 2$ and $s_2 = 15$}
-	\label{fig:est_bias_var_2}
-\end{figure}
+% \begin{figure}[H]
+% 	\centering
+% 	\includegraphics[width = \textwidth]{../Graphics/Reg_Exmp1b_Est.pdf}
+% 	\caption{Approximate Bias (left) and Variance (right) of the TDNN Estimator with $s_1 = 2$ and $s_2 = 15$}
+% 	\label{fig:est_bias_var_2}
+% \end{figure}
 \begin{figure}[H]
 	\centering
 	\includegraphics[width = \textwidth]{../Graphics/Reg_Exmp1_Est.pdf}
