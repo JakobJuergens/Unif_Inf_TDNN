@@ -1,6 +1,38 @@
+### R ###
+# History files
+**.Rhistory
+**.Rapp.history
+
+# Session Data files
+.RData
+
+# User-specific files
+.Ruserdata
+
+# Example code in package build process
+*-Ex.R
+
+# Output files from R CMD build
+/*.tar.gz
+
+# Output files from R CMD check
+/*.Rcheck/
+
+# RStudio files
+.Rproj.user/
+
+# produced vignettes
+vignettes/*.html
+vignettes/*.pdf
+
+# Literature PDFs
 /Literature/**
-/Code/**
-/Graphics/**
+
+# Simulation Results and Previous Versions of Graphics
+/Code/Simulations/Simulation_Results/
+/Graphics/Archive/
+
+# Superfluous Latex files
 /LaTeX/Parts/Other/**
 /LaTeX/*.out
 /LaTeX/*.aux
@@ -11,4 +43,9 @@
 /LaTeX/*.fls
 /LaTeX/*.log
 /LaTeX/*.synctex.gz
-.Rproj.user
+
+
+Code/Simulations/.Rhistory
+Code/tdnnR/.Rhistory
+
+Code/tdnnR_0.1.0.tar.gz
