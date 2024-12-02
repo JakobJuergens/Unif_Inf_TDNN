@@ -13,10 +13,10 @@
 *-Ex.R
 
 # Output files from R CMD build
-/*.tar.gz
+**.tar.gz
 
 # Output files from R CMD check
-/*.Rcheck/
+**.Rcheck/
 
 # RStudio files
 .Rproj.user/
@@ -47,5 +47,4 @@ vignettes/*.pdf
 
 Code/Simulations/.Rhistory
 Code/tdnnR/.Rhistory
-
 Code/tdnnR_0.1.0.tar.gz

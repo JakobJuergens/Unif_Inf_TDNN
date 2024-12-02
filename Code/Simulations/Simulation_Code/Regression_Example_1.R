@@ -26,7 +26,7 @@ reg_f <- function(covariates) {
 }
 
 htscty_f <- function(covariates) {
-  return(0.25 * abs(sum(covariates^2)))
+  return(0.25 * sum(covariates^2))
 }
 
 # Define Simulation function
@@ -78,15 +78,15 @@ results <- clusterApplyLB(cl = cl, x = 1:n_reps, fun = sim_function)
 stopCluster(cl)
 
 # Recombine estimates in a useful fashion
-TDNN_Estimates <- do.call(purrr::map(.x = 1:n_reps, .f = ~ purrr::map(1:nrow(points), function(y) results[[.x]][[y]]$TDNN_res)),
+TDNN_Estimates <- do.call(purrr::map(.x = 1:n_reps, .f = ~ unlist(purrr::map(1:nrow(points), function(y) results[[.x]][[y]]$TDNN_res))),
   what = cbind
 )
 
-DNN1_Estimates <- do.call(purrr::map(.x = 1:n_reps, .f = ~ purrr::map(1:nrow(points), function(y) results[[.x]][[y]]$DNN1_res)),
+DNN1_Estimates <- do.call(purrr::map(.x = 1:n_reps, .f = ~ unlist(purrr::map(1:nrow(points), function(y) results[[.x]][[y]]$DNN1_res))),
   what = cbind
 )
 
-DNN2_Estimates <- do.call(purrr::map(.x = 1:n_reps, .f = ~ purrr::map(1:nrow(points), function(y) results[[.x]][[y]]$DNN2_res)),
+DNN2_Estimates <- do.call(purrr::map(.x = 1:n_reps, .f = ~ unlist(purrr::map(1:nrow(points), function(y) results[[.x]][[y]]$DNN2_res))),
   what = cbind
 )
 
