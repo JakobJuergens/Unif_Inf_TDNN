@@ -5,7 +5,8 @@
 #'
 #' @param x The point of interest.
 #' @param data The data set containing the observations.
-#' As a matrix containing the response value in the first column.
+#' As a matrix containing the response value in the first column
+#' and each covariate in a subsequent columns
 #' @param s The subsampling scale.
 #' @param presorted True or False whether the data is sorted according to its
 #' distance to the point of interest (default value = FALSE)
@@ -17,9 +18,7 @@
 #' @export
 DNN <- function(x, data, s,
                 presorted = FALSE, standardize = FALSE,
-                asymp_approx_weights = TRUE,
-                verbose = FALSE) {
-
+                asymp_approx_weights = TRUE, verbose = FALSE) {
   # Check inputs for executing function
   point_check(x)
   data_check(data)
@@ -27,7 +26,7 @@ DNN <- function(x, data, s,
   samplingscale_check(s, data)
 
   # Standardize Data
-  if(standardize == TRUE){
+  if (standardize == TRUE) {
     stand <- standardize(x = x, data = data)
     x <- stand$x
     data <- stand$data
@@ -38,7 +37,7 @@ DNN <- function(x, data, s,
     data <- pre_sort(x = x, data = data)
   }
 
-  Y <- as.vector(data[,1])
+  Y <- as.vector(data[, 1])
   d <- ncol(data) - 1
   n <- length(Y)
 
@@ -52,28 +51,29 @@ DNN <- function(x, data, s,
   prefactor <- 0
 
   # using exact weights
-  if(asymp_approx_weights == FALSE){
-
+  if (asymp_approx_weights == FALSE) {
     for (i in 1:(n - s + 1)) {
       index <- n - s + 2 - i
       res <- res + factor * Y[index]
       prefactor <- prefactor + factor
       factor <- factor * ((n - index + 1) / i)
     }
-    res <- res/prefactor
+    res <- res / prefactor
   }
 
   # using approximate weights
-  if(asymp_approx_weights == TRUE){
-    alpha <- s/n
+  if (asymp_approx_weights == TRUE) {
+    alpha <- s / n
 
     for (i in 1:(n - s + 1)) {
-      if(alpha*(1-alpha)^(i-1) == 0){break}
-      res <- res + alpha*(1-alpha)^(i-1) * Y[i]
-      prefactor <- prefactor + alpha*(1-alpha)^(i-1)
+      if (alpha * (1 - alpha)^(i - 1) == 0) {
+        break
+      }
+      res <- res + alpha * (1 - alpha)^(i - 1) * Y[i]
+      prefactor <- prefactor + alpha * (1 - alpha)^(i - 1)
     }
 
-    res <- res/prefactor
+    res <- res / prefactor
   }
 
   # return calculated result

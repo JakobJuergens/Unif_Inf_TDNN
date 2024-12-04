@@ -22,7 +22,8 @@ TDNN(
 \item{x}{The point of interest.}
 
 \item{data}{The data set containing the observations.
-As a matrix containing the response value in the first column.}
+As a matrix containing the response value in the first column
+and each covariate in a subsequent columns}
 
 \item{s1}{The first subsampling scale.}
 

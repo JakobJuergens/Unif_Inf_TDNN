@@ -1,17 +1,17 @@
-reg_f0 <- function(covariates){
-  return(sum(cos(5*covariates)))
+reg_f0 <- function(covariates) {
+  return(sum(cos(5 * covariates)))
 }
 
-reg_f1 <- function(covariates){
-  return(sum(cos(5*covariates)) + exp(-sum(covariates)))
+reg_f1 <- function(covariates) {
+  return(sum(cos(5 * covariates)) + exp(-sum(covariates)))
 }
 
-htscty_f <- function(covariates){
+htscty_f <- function(covariates) {
   return(0.25 * sum(covariates^2))
 }
 
-propsc_f <- function(covariates){
-  return(0.1 + 0.8*(1/(1 + exp(-10*(sum(covariates^0.8) - 1)))))
+propsc_f <- function(covariates) {
+  return(0.1 + 0.8 * (1 / (1 + exp(-10 * (sum(covariates^0.8) - 1)))))
 }
 
 #' Generate a data set for the nonparametric regression setup.
@@ -22,6 +22,7 @@ propsc_f <- function(covariates){
 #'
 reg_test_data <- function(n_obs, cov_dim) {
   cov_mat <- matrix(data = runif(n = n_obs * cov_dim, 0, 1), nrow = n_obs, ncol = cov_dim)
+
   responses <- unlist(purrr::map(
     .x = 1:n_obs,
     .f = ~ reg_f0(cov_mat[.x, 1:cov_dim]) + rnorm(n = 1, mean = 0, sd = htscty_f(cov_mat[.x, 1:cov_dim]))
@@ -40,7 +41,10 @@ reg_test_data <- function(n_obs, cov_dim) {
 #' @return A suitable matrix of data.
 #'
 CATE_test_data <- function(n_obs, cov_dim) {
-  cov_mat <- matrix(data = runif(n = n_obs * cov_dim, 0, 1), nrow = n_obs, ncol = cov_dim)
+  cov_mat <- matrix(
+    data = runif(n = n_obs * cov_dim, 0, 1),
+    nrow = n_obs, ncol = cov_dim
+  )
 
   prop_scores <- unlist(purrr::map(
     .x = 1:n_obs,

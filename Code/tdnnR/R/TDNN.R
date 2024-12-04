@@ -5,7 +5,8 @@
 #'
 #' @param x The point of interest.
 #' @param data The data set containing the observations.
-#' As a matrix containing the response value in the first column.
+#' As a matrix containing the response value in the first column
+#' and each covariate in a subsequent columns
 #' @param s1 The first subsampling scale.
 #' @param s2 The second subsampling scale.
 #' @param presorted True or False whether the data is sorted according to its

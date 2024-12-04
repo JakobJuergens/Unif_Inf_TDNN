@@ -2,3 +2,5 @@
 
 export(DNN)
 export(TDNN)
+export(naive_CATE_DNN)
+export(naive_CATE_TDNN)
