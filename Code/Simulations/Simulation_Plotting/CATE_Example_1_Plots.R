@@ -3,6 +3,9 @@ library(tidyverse)
 library(patchwork)
 library(metR)
 
+# Generate Covariates
+cov_dim <- 2
+
 # Load my DNN package
 install.packages("D:/Jakob_Clouds/dropbox/Research/Individual_Projects/U_Statistics/Unif_Inf_TDNN/Code/tdnnR_0.1.0.tar.gz")
 library(tdnnR)
@@ -25,10 +28,10 @@ propsc_f <- function(covariates){
 
 # Create data-frame for plotting purposes
 plot_df <- as_tibble(expand.grid(seq(0,1,0.01), seq(0,1,0.01)))
-plot_df$reg_vals0 <- unlist(purrr::map(.f = ~ reg_f0(plot_df[.x, 1:2]), .x = 1:nrow(plot_df)))
-plot_df$reg_vals1 <- unlist(purrr::map(.f = ~ reg_f1(plot_df[.x,1:2]), .x = 1:nrow(plot_df)))
-plot_df$var_vals <- unlist(purrr::map(.f = ~ htscty_f(plot_df[.x,1:2]), .x = 1:nrow(plot_df)))
-plot_df$propsc_vals <- unlist(purrr::map(.f = ~ propsc_f(plot_df[.x,1:2]), .x = 1:nrow(plot_df)))
+plot_df$reg_vals0 <- unlist(purrr::map(.f = ~ reg_f0(plot_df[.x, 1:cov_dim]), .x = 1:nrow(plot_df)))
+plot_df$reg_vals1 <- unlist(purrr::map(.f = ~ reg_f1(plot_df[.x,1:cov_dim]), .x = 1:nrow(plot_df)))
+plot_df$var_vals <- unlist(purrr::map(.f = ~ htscty_f(plot_df[.x,1:cov_dim]), .x = 1:nrow(plot_df)))
+plot_df$propsc_vals <- unlist(purrr::map(.f = ~ propsc_f(plot_df[.x,1:cov_dim]), .x = 1:nrow(plot_df)))
 
 # Plot response surfaces
 reg0_plot <- ggplot(data = plot_df) +
