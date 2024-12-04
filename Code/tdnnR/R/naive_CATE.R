@@ -1,4 +1,5 @@
-#' LOREM IPSUM
+#' Naive estimator for conditional average treatment effects based on the DNN
+#' estimator.
 #'
 #' @param x The point of interest.
 #' @param data The data set containing the observations.
@@ -50,7 +51,8 @@ naive_CATE_DNN <- function(x, data, s,
   return(treated_reg_est - untreated_reg_est)
 }
 
-#' LOREM IPSUM
+#' Naive estimator for conditional average treatment effects based on the TDNN
+#' estimator.
 #'
 #' @param x The point of interest.
 #' @param data The data set containing the observations.
@@ -86,14 +88,14 @@ naive_CATE_TDNN <- function(x, data, s1, s2,
 
   # Run DNN Estimation on each sub-data set separately
   untreated_reg_est <- TDNN(
-    x = x, data = untreated_data[,-2], s_1 = s_1, s_2 = s_2,
+    x = x, data = untreated_data[,-2], s1 = s1, s2 = s2,
     presorted = TRUE, standardize = FALSE,
     asymp_approx_weights = asymp_approx_weights,
     verbose = FALSE
   )
 
   treated_reg_est <- TDNN(
-    x = x, data = treated_data[,-2], s_1 = s_1, s_2 = s_2,
+    x = x, data = treated_data[,-2], s1 = s1, s2 = s2,
     presorted = TRUE, standardize = FALSE,
     asymp_approx_weights = asymp_approx_weights,
     verbose = FALSE

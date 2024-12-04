@@ -2,7 +2,8 @@
 % Please edit documentation in R/naive_CATE.R
 \name{naive_CATE_TDNN}
 \alias{naive_CATE_TDNN}
-\title{LOREM IPSUM}
+\title{Naive estimator for conditional average treatment effects based on the TDNN
+estimator.}
 \usage{
 naive_CATE_TDNN(
   x,
@@ -37,5 +38,6 @@ approximation for the weights (default value = FALSE)}
 A number.
 }
 \description{
-LOREM IPSUM
+Naive estimator for conditional average treatment effects based on the TDNN
+estimator.
 }

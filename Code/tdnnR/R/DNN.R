@@ -19,6 +19,7 @@
 DNN <- function(x, data, s,
                 presorted = FALSE, standardize = FALSE,
                 asymp_approx_weights = TRUE, verbose = FALSE) {
+
   # Check inputs for executing function
   point_check(x)
   data_check(data)
