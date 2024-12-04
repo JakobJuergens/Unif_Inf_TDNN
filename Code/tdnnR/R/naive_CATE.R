@@ -19,12 +19,12 @@ naive_CATE_DNN <- function(x, data, s,
 
   # Standardize and presort if desired
   if (standardize == TRUE) {
-    stand <- standardize(x = x, data = data)
+    stand <- CATE_standardize(x = x, data = data)
     x <- stand$x
     data <- stand$data
   }
   if (presorted == FALSE) {
-    data <- pre_sort(x = x, data = data)
+    data <- CATE_pre_sort(x = x, data = data)
   }
 
   # Split data matrix according to treatment status
@@ -33,14 +33,14 @@ naive_CATE_DNN <- function(x, data, s,
 
   # Run DNN Estimation on each sub-data set separately
   untreated_reg_est <- DNN(
-    x = x, data = untreated_data, s = s,
+    x = x, data = untreated_data[,-2], s = s,
     presorted = TRUE, standardize = FALSE,
     asymp_approx_weights = asymp_approx_weights,
     verbose = FALSE
   )
 
   treated_reg_est <- DNN(
-    x = x, data = treated_data, s = s,
+    x = x, data = treated_data[,-2], s = s,
     presorted = TRUE, standardize = FALSE,
     asymp_approx_weights = asymp_approx_weights,
     verbose = FALSE
@@ -72,12 +72,12 @@ naive_CATE_TDNN <- function(x, data, s1, s2,
 
   # Standardize and presort if desired
   if (standardize == TRUE) {
-    stand <- standardize(x = x, data = data)
+    stand <- CATE_standardize(x = x, data = data)
     x <- stand$x
     data <- stand$data
   }
   if (presorted == FALSE) {
-    data <- pre_sort(x = x, data = data)
+    data <- CATE_pre_sort(x = x, data = data)
   }
 
   # Split data matrix according to treatment status
@@ -86,14 +86,14 @@ naive_CATE_TDNN <- function(x, data, s1, s2,
 
   # Run DNN Estimation on each sub-data set separately
   untreated_reg_est <- TDNN(
-    x = x, data = untreated_data, s_1 = s_1, s_2 = s_2,
+    x = x, data = untreated_data[,-2], s_1 = s_1, s_2 = s_2,
     presorted = TRUE, standardize = FALSE,
     asymp_approx_weights = asymp_approx_weights,
     verbose = FALSE
   )
 
   treated_reg_est <- TDNN(
-    x = x, data = treated_data, s_1 = s_1, s_2 = s_2,
+    x = x, data = treated_data[,-2], s_1 = s_1, s_2 = s_2,
     presorted = TRUE, standardize = FALSE,
     asymp_approx_weights = asymp_approx_weights,
     verbose = FALSE

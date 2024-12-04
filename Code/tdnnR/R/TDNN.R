@@ -28,14 +28,14 @@ TDNN <- function(x, data, s1, s2,
 
   # Standardize Data
   if(standardize == TRUE){
-    stand <- standardize(x = x, data = data)
+    stand <- NPR_standardize(x = x, data = data)
     x <- stand$x
     data <- stand$data
   }
 
   # Pre-sort data relative to point of interest
   if (presorted == FALSE) {
-    data <- pre_sort(x = x, data = data)
+    data <- NPR_pre_sort(x = x, data = data)
   }
 
   Y <- as.vector(data[, 1])
