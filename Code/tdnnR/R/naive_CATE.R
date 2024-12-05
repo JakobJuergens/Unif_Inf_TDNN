@@ -29,8 +29,8 @@ naive_CATE_DNN <- function(x, data, s,
   }
 
   # Split data matrix according to treatment status
-  untreated_data <- data[data[, 2] == 1, ]
-  treated_data <- data[data[, 2] == 0, ]
+  untreated_data <- data[data[, 2] == 0, ]
+  treated_data <- data[data[, 2] == 1, ]
 
   # Run DNN Estimation on each sub-data set separately
   untreated_reg_est <- DNN(
@@ -83,8 +83,8 @@ naive_CATE_TDNN <- function(x, data, s1, s2,
   }
 
   # Split data matrix according to treatment status
-  untreated_data <- data[data[, 2] == 1, ]
-  treated_data <- data[data[, 2] == 0, ]
+  untreated_data <- data[data[, 2] == 0, ]
+  treated_data <- data[data[, 2] == 1, ]
 
   # Run DNN Estimation on each sub-data set separately
   untreated_reg_est <- TDNN(
@@ -92,14 +92,14 @@ naive_CATE_TDNN <- function(x, data, s1, s2,
     presorted = TRUE, standardize = FALSE,
     asymp_approx_weights = asymp_approx_weights,
     verbose = FALSE
-  )
+  )$TDNN_res
 
   treated_reg_est <- TDNN(
     x = x, data = treated_data[,-2], s1 = s1, s2 = s2,
     presorted = TRUE, standardize = FALSE,
     asymp_approx_weights = asymp_approx_weights,
     verbose = FALSE
-  )
+  )$TDNN_res
 
   # Return difference
   return(treated_reg_est - untreated_reg_est)

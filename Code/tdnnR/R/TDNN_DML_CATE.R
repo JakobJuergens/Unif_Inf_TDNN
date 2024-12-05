@@ -29,6 +29,18 @@ TDNN_DML2 <- function(x, data, s1, s2, n_folds,
     data <- CATE_pre_sort(x = x, data = data)
   }
 
+  # Check that s2 > s1 and reverse if not
+  if (s1 > s2) {
+    tmp <- s1
+    s1 <- s2
+    s2 <- tmp
+  }
+
+  # Calculate weights for two-scale DNN
+  d <- ncol(data) - 2
+  w1 <- (1 - (s1 / s2)^(-2 / d))^(-1)
+  w2 <- 1 - w1
+
   n <- nrow(data)
 
   # Create List of Fold indices to Estimate Propensity Scores and Regression Functions
@@ -51,22 +63,69 @@ TDNN_DML2 <- function(x, data, s1, s2, n_folds,
     }
   }
 
-  # Estimate Parameter of Interest using DNN estimator weights
-  res <- 0
-  factor <- 1
-  prefactor <- 0
+  # Estimate Parameter of Interest using TDNN estimator weights
+  res_1 <- 0
+  res_2 <- 0
+  factor_1 <- 1
+  factor_2 <- 1
+  prefactor_1 <- 0
+  prefactor_2 <- 0
 
   # using exact weights
   if (asymp_approx_weights == FALSE) {
-    res <- NA
+    for (i in 1:(s2 - s1)) {
+      index <- n - s1 + 2 - i
+      res_1 <- res_1 + factor_1 * CATE_score(X = data[index, -c(1,2)], mu_0 = nuisance_par_ests[index, 2], mu_1 = nuisance_par_ests[index, 3],
+                                             Y = data[index, 1], W = data[index, 2], pi = nuisance_par_ests[index, 1])
+      prefactor_1 <- prefactor_1 + factor_1
+      factor_1 <- factor_1 * ((n - index + 1) / i)
+
+    }
+
+    for (i in 1:(n - s2 + 1)) {
+      index <- n - s2 + 2 - i
+
+      res_1 <- res_1 + factor_1 * CATE_score(X = data[index, -c(1,2)], mu_0 = nuisance_par_ests[index, 2], mu_1 = nuisance_par_ests[index, 3],
+                                             Y = data[index, 1], W = data[index, 2], pi = nuisance_par_ests[index, 1])
+      res_2 <- res_2 + factor_2 * CATE_score(X = data[index, -c(1,2)], mu_0 = nuisance_par_ests[i, 2], mu_1 = nuisance_par_ests[i, 3],
+                                             Y = data[index, 1], W = data[index, 2], pi = nuisance_par_ests[index, 1])
+      prefactor_1 <- prefactor_1 + factor_1
+      prefactor_2 <- prefactor_2 + factor_2
+
+      factor_1 <- factor_1 * ((n - index + 1) / (i + s2 - s1))
+      factor_2 <- factor_2 * ((n - index + 1) / i)
+    }
   }
 
   # using approximate weights
   if (asymp_approx_weights == TRUE) {
-    res <- NA
+    alpha_1 <- s1/n
+    alpha_2 <- s2/n
+
+    for (i in 1:(n - s1 + 1)) {
+      if(alpha_1*(1-alpha_1)^(i-1) == 0){break}
+      res_1 <- res_1 + alpha_1*(1-alpha_1)^(i-1) * CATE_score(X = data[i, -c(1,2)], mu_0 = nuisance_par_ests[i, 2], mu_1 = nuisance_par_ests[i, 3],
+                                                              Y = data[i, 1], W = data[i, 2], pi = nuisance_par_ests[i, 1])
+      prefactor_1 <- prefactor_1 + alpha_1*(1-alpha_1)^(i-1)
+    }
+
+    for (i in 1:(n - s2 + 1)) {
+      if(alpha_2*(1-alpha_2)^(i-1) == 0){break}
+      res_2 <- res_2 + alpha_2*(1-alpha_2)^(i-1) * CATE_score(X = data[i, -c(1,2)], mu_0 = nuisance_par_ests[i, 2], mu_1 = nuisance_par_ests[i, 3],
+                                                              Y = data[i, 1], W = data[i, 2], pi = nuisance_par_ests[i, 1])
+      prefactor_2 <- prefactor_2 + alpha_2*(1-alpha_2)^(i-1)
+    }
   }
 
+  res_1 <- res_1/prefactor_1
+  res_2 <- res_2/prefactor_2
+
+  names(res_1) <- NULL
+  names(res_2) <- NULL
+
+  # Combine results
+  res <- w1 * res_1 + w2 * res_2
+
   # return calculated result
-  names(res) <- NULL
-  return(res)
+  return(list("TDNN_res" = res, "DNN1_res" = res_1, "DNN2_res" = res_2))
 }

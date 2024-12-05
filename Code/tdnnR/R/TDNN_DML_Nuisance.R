@@ -34,7 +34,6 @@ TDNN_Nuisance <- function(x, data, s1, s2, asymp_approx_weights = TRUE) {
   d <- ncol(data) - 2
 
   n <- length(W)
-  d <- ncol(data) - 2
   n0 <- sum(W == 0)
   n1 <- sum(W == 1)
 

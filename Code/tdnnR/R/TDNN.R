@@ -98,16 +98,16 @@ TDNN <- function(x, data, s1, s2,
 
   # using asymptotically approximated weights
   if(asymp_approx_weights == TRUE){
-    alpha_1 <- s_1/n
-    alpha_2 <- s_2/n
+    alpha_1 <- s1/n
+    alpha_2 <- s2/n
 
-    for (i in 1:(n - s_1 + 1)) {
+    for (i in 1:(n - s1 + 1)) {
       if(alpha_1*(1-alpha_1)^(i-1) == 0){break}
       res_1 <- res_1 + alpha_1*(1-alpha_1)^(i-1) * Y[i]
       prefactor_1 <- prefactor_1 + alpha_1*(1-alpha_1)^(i-1)
     }
 
-    for (i in 1:(n - s_2 + 1)) {
+    for (i in 1:(n - s2 + 1)) {
       if(alpha_2*(1-alpha_2)^(i-1) == 0){break}
       res_2 <- res_2 + alpha_2*(1-alpha_2)^(i-1) * Y[i]
       prefactor_2 <- prefactor_2 + alpha_2*(1-alpha_2)^(i-1)

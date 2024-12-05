@@ -14,6 +14,10 @@ propsc_f <- function(covariates) {
   return(0.1 + 0.8 * (1 / (1 + exp(-10 * (sum(covariates^0.8) - 1)))))
 }
 
+CATE_f <- function(covariates){
+  return(exp(-sum(covariates)))
+}
+
 #' Generate a data set for the nonparametric regression setup.
 #'
 #' @param n_obs Number of desired observations
@@ -58,7 +62,7 @@ CATE_test_data <- function(n_obs, cov_dim) {
 
   responses <- unlist(purrr::map(
     .x = 1:n_obs,
-    .f = ~ ifelse(test = treatments[.x], yes = reg_f1(cov_mat[.x, 1:cov_dim]), no = reg_f0(cov_mat[.x, 1:cov_dim]))
+    .f = ~ ifelse(treatments[.x] == 1, yes = reg_f1(cov_mat[.x, 1:cov_dim]), no = reg_f0(cov_mat[.x, 1:cov_dim]))
     + rnorm(n = 1, mean = 0, sd = htscty_f(cov_mat[.x, 1:cov_dim]))
   ))
 

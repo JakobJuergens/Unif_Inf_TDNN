@@ -56,7 +56,7 @@ DNN_Nuisance <- function(x, data, s, asymp_approx_weights = TRUE) {
       psc_index <- n0 - s + 2 - i
       mu0_res <- mu0_res + mu0_factor * Y0[psc_index]
       mu0_prefactor <- mu0_prefactor + mu0_factor
-      mu0_factor <- mu0_factor * ((n2 - psc_index + 1) / i)
+      mu0_factor <- mu0_factor * ((n0 - psc_index + 1) / i)
     }
     mu0_res <- mu0_res / mu0_prefactor
 

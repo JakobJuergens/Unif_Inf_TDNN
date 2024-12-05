@@ -78,7 +78,7 @@ generate_folds <- function(n_obs, n_folds){
   obs_p_fold <- ceiling(n_obs / n_folds)
   folds <- purrr::map(
     .x = 1:n_folds,
-    .f = ~ indices[((.x - 1)*obs_p_fold + 1):(min(c(.x * obs_p_fold, n_obs)))]
+    .f = ~ sort(indices[((.x - 1)*obs_p_fold + 1):(min(c(.x * obs_p_fold, n_obs)))])
   )
   # Return folds list
   return(folds)
