@@ -1,3 +1,12 @@
+#' This function estimates the propensity score, mu0 and mu1
+#' at a given point
+#'
+#' @param x Point of interest
+#' @param data Data matrix for the CATE setting
+#' @param s Subsampling Scale
+#' @param asymp_approx_weights True or False whether to use an asymptotic
+#' approximation for the weights (default value = FALSE)
+#'
 DNN_Nuisance <- function(x, data, s, asymp_approx_weights = TRUE) {
   # Check inputs for executing function
   point_check(x)
@@ -35,27 +44,27 @@ DNN_Nuisance <- function(x, data, s, asymp_approx_weights = TRUE) {
   # using exact weights
   if (asymp_approx_weights == FALSE) {
     for (i in 1:(n - s + 1)) {
-      index <- n - s + 2 - i
-      psc_res <- psc_res + psc_factor * W[index]
+      psc_index <- n - s + 2 - i
+      psc_res <- psc_res + psc_factor * W[psc_index]
       psc_prefactor <- psc_prefactor + psc_factor
-      psc_factor <- psc_factor * ((n - index + 1) / i)
+      psc_factor <- psc_factor * ((n - psc_index + 1) / i)
     }
     psc_res <- psc_res / psc_prefactor
 
 
     for (i in 1:(n0 - s + 1)) {
-      index <- n0 - s + 2 - i
-      mu0_res <- mu0_res + mu0_factor * Y0[index]
+      psc_index <- n0 - s + 2 - i
+      mu0_res <- mu0_res + mu0_factor * Y0[psc_index]
       mu0_prefactor <- mu0_prefactor + mu0_factor
-      mu0_factor <- mu0_factor * ((n2 - index + 1) / i)
+      mu0_factor <- mu0_factor * ((n2 - psc_index + 1) / i)
     }
     mu0_res <- mu0_res / mu0_prefactor
 
     for (i in 1:(n1 - s + 1)) {
-      index <- n1 - s + 2 - i
-      mu1_res <- mu1_res + mu1_factor * Y1[index]
+      psc_index <- n1 - s + 2 - i
+      mu1_res <- mu1_res + mu1_factor * Y1[psc_index]
       mu1_prefactor <- mu1_prefactor + mu1_factor
-      mu1_factor <- mu1_factor * ((n1 - index + 1) / i)
+      mu1_factor <- mu1_factor * ((n1 - psc_index + 1) / i)
     }
     mu1_res <- mu1_res / mu1_prefactor
   }
@@ -98,8 +107,4 @@ DNN_Nuisance <- function(x, data, s, asymp_approx_weights = TRUE) {
   }
 
   return(c(psc_res, mu0_res, mu1_res))
-}
-
-TDNN_Nuisance <- function(x, data, s1, s2, asymp_approx_weights = TRUE) {
-  return(NA)
 }
