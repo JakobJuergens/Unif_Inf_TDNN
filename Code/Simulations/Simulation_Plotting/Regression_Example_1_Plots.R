@@ -83,11 +83,11 @@ values <- Estimation_Results[[1]]$values
 
 # Create Matrices of Estimates
 DNN1_mat <- purrr::map(.x = indices,
-                                 .f = ~ matrix(data = do.call(cbind, DNN1_estimates[[.x]]), nrow = nrow(points)))
+                       .f = ~ matrix(data = do.call(cbind, DNN1_estimates[[.x]]), nrow = nrow(points)))
 DNN2_mat <- purrr::map(.x = indices,
-                                 .f = ~ matrix(do.call(cbind, DNN2_estimates[[.x]]), nrow = nrow(points)))
+                       .f = ~ matrix(do.call(cbind, DNN2_estimates[[.x]]), nrow = nrow(points)))
 TDNN_mat <- purrr::map(.x = indices,
-                                 .f = ~ matrix(do.call(cbind, TDNN_estimates[[.x]]), nrow = nrow(points)))
+                       .f = ~ matrix(do.call(cbind, TDNN_estimates[[.x]]), nrow = nrow(points)))
 
 # Remove List of Data to save memory
 rm(Estimation_Results, DNN1_estimates, DNN2_estimates, TDNN_estimates)
@@ -244,11 +244,11 @@ TDNN_comb_plots <- purrr::map(
 
 # Generate names for files
 DNN1_file_names <- purrr::map(.x = sim_files,
-                              .f = ~ paste0('Plot_DNN1_', str_split_i(string = .x, pattern = 'reg_exp_1_', i = 2), '.pdf'))
+                              .f = ~ paste0('NPR_Plot_DNN1_', str_split_i(string = .x, pattern = 'reg_exp_1_', i = 2), '.pdf'))
 DNN2_file_names <- purrr::map(.x = sim_files,
-                              .f = ~ paste0('Plot_DNN2_', str_split_i(string = .x, pattern = 'reg_exp_1_', i = 2), '.pdf'))
+                              .f = ~ paste0('NPR_Plot_DNN2_', str_split_i(string = .x, pattern = 'reg_exp_1_', i = 2), '.pdf'))
 TDNN_file_names <- purrr::map(.x = sim_files,
-                              .f = ~ paste0('Plot_TDNN_', str_split_i(string = .x, pattern = 'reg_exp_1_', i = 2), '.pdf'))
+                              .f = ~ paste0('NPR_Plot_TDNN_', str_split_i(string = .x, pattern = 'reg_exp_1_', i = 2), '.pdf'))
 
 # Save plots
 save <- purrr::map(

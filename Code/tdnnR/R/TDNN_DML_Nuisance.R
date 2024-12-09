@@ -24,7 +24,7 @@ TDNN_Nuisance <- function(x, data, s1, s2, asymp_approx_weights = TRUE) {
   samplingscale_check(s, data)
 
   # Sort data
-  data <- CATE_pre_sort(x = x, data = data)
+  data <- CATE_pre_sort(x = x, data = data)$data
   untreated_data <- data[data[, 2] == 0, ]
   treated_data <- data[data[, 2] == 1, ]
 
@@ -182,5 +182,6 @@ TDNN_Nuisance <- function(x, data, s1, s2, asymp_approx_weights = TRUE) {
   mu0_res <- w1 * mu0_res1 + w2 * mu0_res2
   mu1_res <- w1 * mu1_res1 + w2 * mu1_res2
 
-  return(c(psc_res, mu0_res, mu1_res))
+  # Careful! This currently returns a DNN estimate for the Propensity Score
+  return(c(psc_res1, mu0_res, mu1_res))
 }

@@ -15,7 +15,7 @@ DNN_Nuisance <- function(x, data, s, asymp_approx_weights = TRUE) {
   samplingscale_check(s, data)
 
   # Sort data
-  data <- CATE_pre_sort(x = x, data = data)
+  data <- CATE_pre_sort(x = x, data = data)$data
   untreated_data <- data[data[, 2] == 0, ]
   treated_data <- data[data[, 2] == 1, ]
 

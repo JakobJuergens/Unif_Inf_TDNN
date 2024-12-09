@@ -30,7 +30,7 @@ CATE_pre_sort <- function(x, data) {
   n <- nrow(data)
   dists <- sqrt(rowSums((sweep(x = data[ , -c(1,2)], MARGIN = 2, FUN = '-', x)^2)))
   dist_ranks <- order(dists)
-  return(data[dist_ranks, ])
+  return(list('data' = data[dist_ranks, ], 'order' = dist_ranks))
 }
 
 #' Standardizes a point of interest and a sample

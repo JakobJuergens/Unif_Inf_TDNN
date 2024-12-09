@@ -25,7 +25,7 @@ naive_CATE_DNN <- function(x, data, s,
     data <- stand$data
   }
   if (presorted == FALSE) {
-    data <- CATE_pre_sort(x = x, data = data)
+    data <- CATE_pre_sort(x = x, data = data)$data
   }
 
   # Split data matrix according to treatment status
@@ -79,7 +79,7 @@ naive_CATE_TDNN <- function(x, data, s1, s2,
     data <- stand$data
   }
   if (presorted == FALSE) {
-    data <- CATE_pre_sort(x = x, data = data)
+    data <- CATE_pre_sort(x = x, data = data)$data
   }
 
   # Split data matrix according to treatment status

@@ -45,7 +45,7 @@ TDNN_DML2 <- function(x, data, s1, s2, n_folds,
 
   # Create List of Fold indices to Estimate Propensity Scores and Regression Functions
   folds <- generate_folds(n_obs = nrow(data), n_folds = n_folds)
-  nuisance_par_ests <- matrix(data = NA, nrow = nrow(data), ncol = 3)
+  nuisance_par_ests <- matrix(data = NA, nrow = n, ncol = 3)
 
   # Identify treated and untreated units
   untreated <- which(data[,2] == 0)

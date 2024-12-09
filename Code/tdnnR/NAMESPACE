@@ -2,7 +2,9 @@
 
 export(DNN)
 export(DNN_DML2)
+export(DNN_DML2_mult)
 export(TDNN)
 export(TDNN_DML2)
+export(TDNN_DML2_mult)
 export(naive_CATE_DNN)
 export(naive_CATE_TDNN)
