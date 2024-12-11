@@ -3,6 +3,8 @@
 export(DNN)
 export(DNN_DML2)
 export(DNN_DML2_mult)
+export(DNN_LOO)
+export(DNN_LOO_mult)
 export(TDNN)
 export(TDNN_DML2)
 export(TDNN_DML2_mult)

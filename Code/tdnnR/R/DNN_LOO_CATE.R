@@ -1,10 +1,9 @@
-#' Calculate the DNN-DML2 CATE-Estimator
+#' Calculate the DNN-LOO-DML2 CATE-Estimator
 #'
 #' @param x The point of interest.
 #' @param data The data set containing the observations.
 #' As a matrix containing the response value in the first column
 #' and each covariate in a subsequent columns
-#' @param n_folds The number of folds used for crossfitting
 #' @param s The subsampling scale.
 #' @param presorted True or False whether the data is sorted according to its
 #' distance to the point of interest (default value = FALSE)
@@ -14,7 +13,7 @@
 #' @return A number.
 #'
 #' @export
-DNN_DML2 <- function(x, data, s, n_folds,
+DNN_LOO <- function(x, data, s,
                      presorted = FALSE, standardize = FALSE,
                      asymp_approx_weights = TRUE) {
 
@@ -29,25 +28,16 @@ DNN_DML2 <- function(x, data, s, n_folds,
   }
 
   n <- nrow(data)
-
-  # Create List of Fold indices to Estimate Propensity Scores and Regression Functions
-  folds <- generate_folds(n_obs = nrow(data), n_folds = n_folds)
-  nuisance_par_ests <- matrix(data = NA, nrow = nrow(data), ncol = 3)
+  nuisance_par_ests <- matrix(data = NA, nrow = n, ncol = 3)
 
   # Identify treated and untreated units
   untreated <- which(data[,2] == 0)
   treated <- which(data[,2] == 1)
 
   # Estimate Nuisance Parameters
-  for (i in 1:n_folds) {
-    tmp <- purrr::map(
-        .x = folds[[i]],
-        .f = ~ DNN_Nuisance(x = data[.x, -(1:2)], data = data[-folds[[i]], ], s = s,
-                            asymp_approx_weights = asymp_approx_weights)
-      )
-    for(j in 1:length(folds[[i]])){
-      nuisance_par_ests[folds[[i]][j], ] <- tmp[[j]]
-    }
+  for (i in 1:n) {
+    nuisance_par_ests[i,] <- DNN_Nuisance(x = data[i, -(1:2)], data = data[-i, ], s = s,
+                          asymp_approx_weights = asymp_approx_weights)
   }
 
   # Estimate Parameter of Interest using DNN estimator weights
