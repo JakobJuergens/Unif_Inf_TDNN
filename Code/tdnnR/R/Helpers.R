@@ -33,6 +33,18 @@ CATE_pre_sort <- function(x, data) {
   return(list('data' = data[dist_ranks, ], 'order' = dist_ranks))
 }
 
+#' Sorts a sample according to its distance relative
+#' to a point of interest (for CATE Setup)
+#'
+#' @param x Point of interest
+#' @param data Sample under Consideration
+#' @return The sample sorted relative to x
+pre_sort <- function(x, cov_mat) {
+  dists <- rowSums((sweep(x = cov_mat, MARGIN = 2, FUN = '-', x)^2))
+  dist_ranks <- order(dists)
+  return(dist_ranks)
+}
+
 #' Standardizes a point of interest and a sample
 #' to improve comparability between dimensions (for NPR Setup)
 #'

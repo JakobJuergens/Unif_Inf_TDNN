@@ -18,7 +18,7 @@
 #' @export
 DNN <- function(x, data, s,
                 presorted = FALSE, standardize = FALSE,
-                asymp_approx_weights = TRUE, verbose = FALSE) {
+                asymp_approx_weights = TRUE) {
 
   # Check inputs for executing function
   point_check(x)
@@ -33,18 +33,15 @@ DNN <- function(x, data, s,
     data <- stand$data
   }
 
+  d <- ncol(data) - 1
   # Pre-sort data relative to point of interest
   if (presorted == FALSE) {
-    data <- NPR_pre_sort(x = x, data = data)
+    order <- pre_sort(x = x, cov_mat = data[, 2:(d+1)])
   }
 
+  data <- data[order, ]
   Y <- as.vector(data[, 1])
-  d <- ncol(data) - 1
   n <- length(Y)
-
-  if (verbose) {
-    print(paste0("d = ", d, ", n = ", n))
-  }
 
   # Calculate DNN estimator
   res <- 0

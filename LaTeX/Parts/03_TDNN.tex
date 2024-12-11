@@ -1,9 +1,9 @@
 \section{Two-Scale Distributional Nearest Neighbor Estimator}\label{sec:TDNN}
 \hrule
-While less economically enticing, I will introduce the TDNN estimator using the simple nonparametric regression setup first.
-I will do this by first considering the simpler (one-scale) distributional nearest neighbor estimator, which naturally extends to its two-scale variant as shown in \citet{demirkaya_optimal_2024}.
-Then, having established the method, I will commence by adapting it to tackle the problem of estimating heterogeneous treatment effects.
-As I will embed both estimation problems in the context of subsampled conditional moment regression to then build uniform inference procedures based on \citet{ritzwoller_uniform_2024}, the approach might at first seem unnatural.
+While less economically enticing, we will introduce the TDNN estimator using the simple nonparametric regression setup first.
+We will do this by first considering the simpler (one-scale) distributional nearest neighbor estimator, which naturally extends to its two-scale variant as shown in \citet{demirkaya_optimal_2024}.
+Then, having established the method, we will commence by adapting it to tackle the problem of estimating heterogeneous treatment effects.
+As we will embed both estimation problems in the context of subsampled conditional moment regression to then build uniform inference procedures based on \citet{ritzwoller_simultaneous_2024}, the approach might at first seem unnatural.
 However, due to the constructions that follow in Section~\ref{sec:unif_inf}, this approach will be well worth the slightly cumbersome initial presentation.
 
 \subsection{DNN and TDNN in Nonparametric Regression}
@@ -18,7 +18,7 @@ In the case at hand, this means that our problem can be phrased in the following
 	m(Z_{i}; \mu) = Y_{i} - \mu(X_{i}).
 \end{equation}
 Due to the absence of nuisance parameters, conditions such as local Neyman-orthogonality vacuously hold.
-I point this out to highlight a contrast that we will encounter when studying the treatment effect setting.
+We point this out to highlight a contrast that we will encounter when studying the treatment effect setting.
 In the simpler non-parametric regression setting, we can approached the problem by solving the corresponding empirical conditional moment equation.
 \begin{equation}\label{EmpCondMomEq}
 	M_n(x; \mu, \mathbf{D}_n)
@@ -42,7 +42,7 @@ In fact, any distance induced by a norm that captures the geometry of the featur
 The generated ordering implies an associated ordering on the response variables and we denote by $Y_{(i)}$ the response corresponding to $X_{(i)}$.
 Let $\rk(x; X_{i}, D)$ denote the \textit{rank} that is assigned to observation $i$ in a sample $D$ relative to a point of interest $x$, setting $\rk(x; X_{i}, D) = \infty$ if $Z_{i} \not\in D$.
 Similarly, let $Y_{(1)}(x; D)$ indicate the response value of the closest neighbor in set $D$.
-This enables us to define a data-driven kernel function $\kappa$ following the notation of \citet{ritzwoller_uniform_2024}.
+This enables us to define a data-driven kernel function $\kappa$ following the notation of \citet{ritzwoller_simultaneous_2024}.
 \begin{equation}
 	\kappa(x; Z_{i}, D, \xi)
 	= \1\left(\rk(x; X_{i}, D) = 1\right)
@@ -86,10 +86,7 @@ For this purpose let $\alpha_{s} = s/n$ leading to the following approximation o
 It is worthwhile to point out that the role of $s$ in the implicit bias-variance tradeoff of the DNN estimator runs counter to the role of $k$ in the usual k-NN regression.
 Where a larger $k$ is usually associated with a lower variance at the cost of a higher bias, a larger $s$ does the opposite.
 This is due to the fact that a higher $s$ reduces the number of observations that can occur as the closest observation in any given $s$-subset.
-As a special example that illustrates the relationship, consider the DNN estimator choosing $s = n$. 
-Clearly, this estimator recovers the simple 1-NN regression estimator.
-
-\newpage
+As a special example that illustrates the relationship, consider the DNN estimator choosing $s = n$ recovering the simple 1-NN regression estimator.
 As part of their paper, \citet{demirkaya_optimal_2024} develop an explicit expression for the first-order bias term of the DNN estimator and the following distributional approximation result.
 \begin{boxD}
 	\begin{thm}[\citet{demirkaya_optimal_2024} - Theorem 2]\label{thm:dem2}\mbox{}\\*
@@ -176,8 +173,8 @@ As this edge case is irrelevant in practice as it would be simpler to employ the
 \hrule
 Motivated by the nonparametric regression setup, we set out to apply the underlying idea in the context of heterogeneous treatment effects.
 Similar to before, we start by specifying a moment corresponding to our object of interest taking into account the additional factors that come into play.
-Due to the presence of a high-dimensional nuisance parameter in the form of the function $q$, it is natural to apply the concepts of Double/Debiased Machine Learning (DML).
-This approach closely follows the leading example of \citet{ritzwoller_uniform_2024}.
+Due to the presence of a high-dimensional nuisance parameter in the form of the function $q$, it is natural to apply the concepts of DDML (DML).
+This approach closely follows the leading example of \citet{ritzwoller_simultaneous_2024}.
 The main goal at this stage is to construct a highly practical method based on their ideas that leverages the computational simplicity of the distributional nearest neighbor framework.\\
 
 While considering the problem of point-estimation of a conditional average
@@ -215,7 +212,7 @@ Proceeding in an analogous fashion to the nonparametric regression setup leads u
 \end{equation}
 However, due to the presence of infinite-dimensional nuisance parameters, it becomes attractive to proceed by using this weighted empirical moment equation embedded into the DML2 estimator of \citet{chernozhukov_doubledebiased_2018}.
 Applying these ideas to the context of estimating the CATE has been previously explored, for example by \citet{semenova_debiased_2021}
-For the sake of simplicity, I will assume that $m = n/K$, i.e.\ the desired number of observations in each fold, is an integer going forward.
+For the sake of simplicity, we will assume that $m = n/K$, i.e.\ the desired number of observations in each fold, is an integer going forward.
 \begin{boxD}
 	\begin{dfn}{(T)DNN-DML2 CATE-Estimator}\label{def:CATE_DNN_DML}\mbox{}\\*
 		To estimate the Conditional Average Treatment Effect at a point of interest $x \in \mathcal{X}$, we proceed as follows.
@@ -253,8 +250,14 @@ For the sake of simplicity, I will assume that $m = n/K$, i.e.\ the desired numb
 	\end{dfn}
 \end{boxD}
 This description shows the case of the DNN estimator.
+Observe, that the weights $K(x, X_{i})$ chosen in the second step are chosen according to the full sample - not according to the chosen folds.
 The corresponding TDNN-based estimator is defined analogously, employing the TDNN estimator in the first-stage estimation procedure and using the corresponding weights of the TDNN-estimator in the second stage.
-Observe, that the weights $K(x, X_{i})$ chosen in the second step are chosen according to the full sample.
+It should be pointed out that the use of the TDNN estimator in the estimation of the propensity score can have the potentially adverse property of generating estimates outside the unit interval.
+This is due to the presence of negative weights for specific combinations of subsampling scales.
+Thus, restricting the procedure to rely on the DNN estimator for the estimation of propensity scores in the first stage might be desirable.
+Specifically, using a lower choice of subsampling scale for this estimation step can help avoid extreme values in the Neyman orthogonal score function due to estimated propensity scores close to zero or one.
+This is due to the fact that a lower subsampling scale averages over a larger number of observations and can thus contribute to better smoothing properties for the propensity score.
+
 Plugging in for the score function in the equation that defines the estimator, we can observe the following.
 \begin{equation}
 	\begin{aligned}
@@ -277,19 +280,34 @@ What these equations show is that the main computational cost associated with th
 The essential strength of this approach: It is not necessary to solve any complex optimization problems to obtain the estimator.
 Furthermore, due to the prevalence of constructing orderings of data with respect to the euclidean norm, this is a well-studied problem with efficient algorithms available of the shelf.
 
-{\color{red}
-\begin{itemize}
-	\item Approach: approximation of a complete U-statistic
-	\item Idea: Dominance of H\'ajek Projection gives normality
-	\item For each observation, the corresponding estimated nuisance parameters are asymptotically ``close enough'' 
-	compared to if we consider the H\'ajek projection of the fully constructed U-statistic
-\end{itemize}
-}
-
+As an extension, we can consider a leave-one-out estimation analog for the functional nuisance parameters, where these are estimated at each observation based on all other available observations.
+This approach eliminates the randomness inherent to the crossvalidation procedure while preserving the advantages obtained through the usage of DML ideas.
+This leads to the following estimator.
 \begin{boxD}
-	\begin{thm}[Asymptotic Normality given Nuisance Parameters]\label{thm:CATE_ANorm_noFirstStage}\mbox{}\\*
-		{\color{red} LOREM IPSUM}
-	\end{thm}
+	\begin{dfn}{(T)DNN-LOO-DML CATE-Estimator}\label{def:CATE_DNN_LOO_DML}\mbox{}\\*
+		To estimate the Conditional Average Treatment Effect at a point of interest $x \in \mathcal{X}$, we proceed as follows.
+		\begin{enumerate}
+			\item For each observation $i$, use the (T)DNN estimator on the data set $\mathbf{D}_{n,-i}$\dots
+			      \begin{enumerate}
+				      \item to estimate the nuisance parameters $\mu_0$ and $\mu_1$:
+				            \begin{equation}
+					            \tilde{\mu}_{s}^{w}\left(x\right) 
+								= \hat{\mu}_{w,s}\left(x; \mathbf{D}_{n,-i}^{(w)}\right) \quad \text{for } w=0,1
+				            \end{equation}
+				      \item if $\pi$ is unknown, i.e.\ we are not in a randomized experiment setting,
+				            additionally estimate $\pi$
+				            \begin{equation}
+					            \tilde{\pi}_{s}\left(x\right) 
+								= \hat{\mu}_{s}\left(x; \mathbf{D}_{n,-i}\right) \quad \text{where the predicted variable is $W$}
+				            \end{equation}
+			      \end{enumerate}
+			\item Construct the estimator $\widetilde{\operatorname{CATE}}\left(x\right)$ as
+			      \begin{equation}
+					\begin{aligned}
+						\widetilde{\operatorname{CATE}}\left(x\right) & = \sum_{i = 1}^{n - s + 1} \frac{\binom{n-i}{s-1}}{\binom{n}{s}}
+						\left[\tilde{\mu}_{s}^{1}\left(X_{(i)}\right) - \tilde{\mu}_{s}^{0}\left(X_{(i)}\right) + \tilde{\beta}_{s}\left(W_{(i)}, X_{(i)}\right)\left(Y_{(i)} - \tilde{\mu}^{W_{(i)}}_{s}\left(X_{(i)}\right)\right)\right]
+					\end{aligned}
+				\end{equation}
+		\end{enumerate}
+	\end{dfn}
 \end{boxD}
-
-	{\color{red} LOREM IPSUM}

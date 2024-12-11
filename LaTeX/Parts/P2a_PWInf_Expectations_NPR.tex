@@ -5,10 +5,11 @@
 \hrule
 
 \begin{proof}[Proof of Theorem~\ref{thm:JK_closed_form}]\mbox{}\\*
-	Recall the closed form representation of the DNN estimator as presented in Equation~\ref{eq:DNN_closed_form}.
+	Recall the closed form representation of the DNN estimator as presented in Equation~\ref{eq:DNN_closed_form} and its asymptotic approximation in Equation~\ref{eq:DNN_approx_closed_form}.
 	\begin{equation}
 		\tilde{\mu}_{s}(x; \mathbf{D}_n)
 		= \binom{n}{s}^{-1} \sum_{i = 1}^{n - s + 1}\binom{n - i}{s - 1}Y_{(i)}
+		\approx \sum_{i = 1}^{n - s + 1} \alpha_{s} \left(1 - \alpha_{s}\right)^{i - 1} Y_{(i)}
 	\end{equation}
 	Plugging into the Jackknife variance estimator for the DNN estimator now gives us the following where we assume that $n$ is sufficiently large for $n - s + 1$ to be larger than $s$.
 	\begin{equation}
@@ -16,20 +17,29 @@
 			\hat{\omega}_{\text{JK}}^{2}
 			 & = \frac{n - 1}{n}\sum_{i = 1}^{n} \left(\tilde{\mu}_{s}(x; \mathbf{D}_{n, -i}) - \tilde{\mu}_{s}(x; \mathbf{D}_n)\right)^2 \\
 			%
-			 & = \frac{n - 1}{n}\left\{\sum_{i = 1}^{s} \left(
-			\binom{n - 1}{s}^{-1}\left(\sum_{j = 1}^{i - 1} \binom{n - j - 1}{s - 1}Y_{(j)}
-			+ \sum_{j = i + 1}^{n - s + 1}\binom{n - j}{s - 1}Y_{(j)}\right)
-			- \binom{n}{s}^{-1} \sum_{j = 1}^{n - s + 1} \binom{n - j}{s - 1}Y_{(j)}
-			\right)^2 \right.                                                                                                                               \\
-			 & \left. \quad \quad +
-			\sum_{i = s + 1}^{n} \left(
-			\binom{n - 1}{s}^{-1}\sum_{j = 1}^{n - s + 1} \binom{n - j - 1}{s - 1}Y_{(j)}
-			- \binom{n}{s}^{-1} \sum_{j = 1}^{n - s + 1} \binom{n - j}{s - 1}Y_{(j)}
-			\right)^2\right\}                                                                                                                               \\
-			%
 			 & =
 		\end{aligned}
 	\end{equation}
+	Even more simple, we can use the approximate weights to find the following representation.
+	\begin{equation}
+		\begin{aligned}
+			\hat{\omega}_{\text{JK}}^{2}
+			 & = \frac{n - 1}{n}\sum_{i = 1}^{n} \left(\tilde{\mu}_{s}(x; \mathbf{D}_{n, -i}) - \tilde{\mu}_{s}(x; \mathbf{D}_n)\right)^2 \\
+			%
+			 & \approx \frac{n - 1}{n}\alpha_{s}^{2}\sum_{i = 1}^{n-s+1}\left(
+			\frac{n}{n-1} \left[\sum_{j = 1}^{i - 1}   \left(1 - \frac{n}{n-1}\alpha_{s}\right)^{j - 1}Y_{(j)}
+			+ \sum_{j = i + 1}^{n - s + 2} \left(1 - \frac{n}{n-1}\alpha_{s}\right)^{j - 2}Y_{(j)}\right]
+			- \sum_{j = 1}^{n - s + 1} \left(1 - \alpha_{s}\right)^{j - 1} Y_{(j)}
+			\right)^2                                                                                                                     \\
+			%
+			 & = \frac{s^2}{n(n-1)}\sum_{i = 1}^{n-s+1}\left(
+			 \sum_{j = 1}^{i - 1}   \left[\left(\frac{n - 1 - s}{n-1}\right)^{j - 1} - \left(\frac{n-s}{n}\right)^{j - 1}\right]Y_{(j)}
+			+ \sum_{j = i + 1}^{n - s + 2} \left[\left(\frac{n - 1 - s}{n-1}\right)^{j - 2} - \left(\frac{n-s}{n}\right)^{j - 1}\right]Y_{(j)} \right. \\
+			& \quad \quad \left. - \frac{n-1}{n}\left(1 - \alpha_{s}\right)^{i - 1} Y_{(i)}
+			\right)^2
+		\end{aligned}
+	\end{equation}
+
 	The closed form of the Jackknife variance estimator for the TDNN estimator follows from the same approach.
 
 		{\color{red} LOREM IPSUM}
@@ -75,10 +85,10 @@ First, we start with the nonparametric regression setup.
 		\begin{aligned}
 			\psi_{s}^{1}\left(x; z_1\right)
 			 & = \E_{D}\left[h_{s}\left(x; D\right) \, | \, Z_1 = z_1 \right]
-			= \E_{D}\left[\sum_{i = 1}^{s} \kappa\left(x; Z_{i}, D\right) Y_{i} \, \Big| \, Z_1 = z_1 \right]  \\
+			= \E_{D}\left[\sum_{i = 1}^{s} \kappa\left(x; Z_{i}, D\right) Y_{i} \, \Big| \, Z_1 = z_1 \right] \\
 			%
 			 & = \E_{D}\left[\left(\mu(x_1) + \varepsilon_1\right)\kappa\left(x; Z_1, D\right)
-			+ \sum_{i = 2}^{s} \kappa\left(x; Z_{i}, D\right) \mu(X_{i})\, \Big| \, Z_1 = z_1 \right] \\
+			+ \sum_{i = 2}^{s} \kappa\left(x; Z_{i}, D\right) \mu(X_{i})\, \Big| \, Z_1 = z_1 \right]         \\
 			%
 			 & = \varepsilon_1 \E_D\left[\kappa\left(x; Z_1, D\right)\, \Big| \, X_1 = x_1 \right]
 			+ \E_{D}\left[\sum_{i = 1}^{s} \kappa\left(x; Z_{i}, D\right) \mu(X_{i})\, \Big| \, X_1 = x_1 \right]

@@ -23,10 +23,12 @@ DNN_LOO <- function(x, data, s,
     x <- stand$x
     data <- stand$data
   }
+  d <- ncol(data) - 2
   if (presorted == FALSE) {
-    data <- CATE_pre_sort(x = x, data = data)$data
+    order <- pre_sort(x = x, cov_mat = data[, -(1:2)])
   }
 
+  data <- data[order, ]
   n <- nrow(data)
   nuisance_par_ests <- matrix(data = NA, nrow = n, ncol = 3)
 

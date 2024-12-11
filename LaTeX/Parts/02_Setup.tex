@@ -20,8 +20,8 @@ This setup will be very useful to illustrate the inner workings of the estimator
 		Let the distribution induced by this model be denoted by $P$ and thus $Z_{i} = \left(X_{i}, Y_{i}\right) \overset{\text{iid}}{\sim} P$.
 	\end{asm}
 \end{boxD}
-In contrast to this rather statistical setup, I will consider a setting with more immediate econometric relevance: estimation of and inference on heterogeneous treatment effects in the potential outcomes framework.
-This serves as a more immediately applicable version of the theoretical setup presented in \citet{ritzwoller_uniform_2024} and brings their results closes to practitioners in the field of economics.
+In contrast to this rather statistical setup, we will consider a setting with more immediate econometric relevance: estimation of and inference on heterogeneous treatment effects in the potential outcomes framework.
+This serves as a more immediately applicable version of the theoretical setup presented in \citet{ritzwoller_simultaneous_2024} and brings their results closes to practitioners in the field of economics.
 \begin{boxD}
 	\begin{asm}[Heterogeneous Treatment Effect DGP]\label{asm:CATE_dgp}\mbox{}\\*
 		The observed data consists of an i.i.d.\ sample taking the following form.
@@ -44,7 +44,7 @@ This serves as a more immediately applicable version of the theoretical setup pr
 		Let the distribution induced by this model be denoted by $Q$ and thus $Z_{i} = \left(X_{i}, W_{i}, Y_{i}\right) \overset{\text{iid}}{\sim} Q$.
 	\end{asm}
 \end{boxD}
-In this second setting, I will use the notation $\mathbf{D}^{(0)}$ and $\mathbf{D}^{(1)}$ to refer to the data subsets containing only observations with $W = 0$ and $W = 1$, respectively.
+In this second setting, we will use the notation $\mathbf{D}^{(0)}$ and $\mathbf{D}^{(1)}$ to refer to the data subsets containing only observations with $W = 0$ and $W = 1$, respectively.
 Clearly, this model can be interpreted in the context of the potential outcomes framework in the usual manner.
 \begin{boxD}
 	\begin{rmk}[Potential Applications]\mbox{}\\*
@@ -53,7 +53,7 @@ Clearly, this model can be interpreted in the context of the potential outcomes 
 		{\color{red} LOREM IPSUM}
 	\end{rmk}
 \end{boxD}
-Throughout this paper, I will additionally rely on a number of assumptions that are more technical in nature.
+Throughout this paper, we will additionally rely on a number of assumptions that are more technical in nature.
 \begin{boxD}
 	\begin{asm}[Technical Assumptions]\label{asm:technical}\mbox{}\\*
 		In both settings (Assumption~\ref{asm:npr_dgp} and Assumption~\ref{asm:CATE_dgp}) the following conditions hold:
@@ -77,6 +77,8 @@ Additionally, we require a rather standard assumption in localized regression ap
 	\end{asm}
 \end{boxD}
 As $\mathcal{X}$ is a bounded and compact set, this implies that there exists a $\overline{\sigma}_{\varepsilon}^2 > 0$ such that for any $x \in \mathcal{X}$ we have $\sigma^{2}_{\varepsilon}\left(x\right) \leq \overline{\sigma}_{\varepsilon}^2$.
+Readers of \citet{demirkaya_optimal_2024} will recognize that this setup, in contrast to the original paper, allows for heteroskedasticity of the error terms.
+This comes at basically no cost as the original proofs can be used nearly unchanged to prove the corresponding theorems on distributional approximations.
 Additionally, due to the assumptions on the regression functions, this ensures the existence of seconds moments of $Y$ in both scenarios.
 Furthermore, to assure that there is a sufficient number of treated and untreated observations local to each point of interest asymptotically, we require the following condition on the treatment assignment and uptake mechanism.
 \begin{boxD}

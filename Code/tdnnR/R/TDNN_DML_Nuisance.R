@@ -24,7 +24,8 @@ TDNN_Nuisance <- function(x, data, s1, s2, asymp_approx_weights = TRUE) {
   samplingscale_check(s, data)
 
   # Sort data
-  data <- CATE_pre_sort(x = x, data = data)$data
+  order <- pre_sort(x = x, cov_mat = data[, -(1:2)])
+  data <- data[order, ]
   untreated_data <- data[data[, 2] == 0, ]
   treated_data <- data[data[, 2] == 1, ]
 

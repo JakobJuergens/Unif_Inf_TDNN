@@ -36,15 +36,13 @@ naive_CATE_DNN <- function(x, data, s,
   untreated_reg_est <- DNN(
     x = x, data = untreated_data[,-2], s = s,
     presorted = TRUE, standardize = FALSE,
-    asymp_approx_weights = asymp_approx_weights,
-    verbose = FALSE
+    asymp_approx_weights = asymp_approx_weights
   )
 
   treated_reg_est <- DNN(
     x = x, data = treated_data[,-2], s = s,
     presorted = TRUE, standardize = FALSE,
-    asymp_approx_weights = asymp_approx_weights,
-    verbose = FALSE
+    asymp_approx_weights = asymp_approx_weights
   )
 
   # Return difference
@@ -90,15 +88,13 @@ naive_CATE_TDNN <- function(x, data, s1, s2,
   untreated_reg_est <- TDNN(
     x = x, data = untreated_data[,-2], s1 = s1, s2 = s2,
     presorted = TRUE, standardize = FALSE,
-    asymp_approx_weights = asymp_approx_weights,
-    verbose = FALSE
+    asymp_approx_weights = asymp_approx_weights
   )$TDNN_res
 
   treated_reg_est <- TDNN(
     x = x, data = treated_data[,-2], s1 = s1, s2 = s2,
     presorted = TRUE, standardize = FALSE,
-    asymp_approx_weights = asymp_approx_weights,
-    verbose = FALSE
+    asymp_approx_weights = asymp_approx_weights
   )$TDNN_res
 
   # Return difference

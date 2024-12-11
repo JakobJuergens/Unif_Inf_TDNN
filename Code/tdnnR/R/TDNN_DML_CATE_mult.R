@@ -62,8 +62,8 @@ TDNN_DML2_mult <- function(points, data, s1, s2, n_folds, #standardize = FALSE,
 
   for(j in 1:n_points){
     x <- points[j,]
-    ordering <- CATE_pre_sort(x = x, data = data)$order
-    NO_mom_j <- NO_mom[ordering]
+    order <- pre_sort(x = x, cov_mat = data[, -(1:2)])
+    NO_mom_j <- NO_mom[order]
 
     res_1 <- 0
     res_2 <- 0

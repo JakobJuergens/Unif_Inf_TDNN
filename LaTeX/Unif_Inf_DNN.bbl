@@ -19,6 +19,47 @@
 
 \refsection{0}
   \datalist[entry]{nyt/global//global/global/global}
+    \entry{arcones_bootstrap_1992}{article}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=24fb77746561a28919ed0b99daaa2a6c}{%
+           family={Arcones},
+           familyi={A\bibinitperiod},
+           given={Miguel\bibnamedelima A.},
+           giveni={M\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a080fabb620157837ced0c5c596403cf}{%
+           family={Gine},
+           familyi={G\bibinitperiod},
+           given={Evarist},
+           giveni={E\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{e43310a39992c34206cdcfe629d28fa0}
+      \strng{fullhash}{e43310a39992c34206cdcfe629d28fa0}
+      \strng{fullhashraw}{e43310a39992c34206cdcfe629d28fa0}
+      \strng{bibnamehash}{e43310a39992c34206cdcfe629d28fa0}
+      \strng{authorbibnamehash}{e43310a39992c34206cdcfe629d28fa0}
+      \strng{authornamehash}{e43310a39992c34206cdcfe629d28fa0}
+      \strng{authorfullhash}{e43310a39992c34206cdcfe629d28fa0}
+      \strng{authorfullhashraw}{e43310a39992c34206cdcfe629d28fa0}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The Annals of Statistics}
+      \field{month}{6}
+      \field{number}{2}
+      \field{title}{On the {Bootstrap} of {U} and {V} {Statistics}}
+      \field{volume}{20}
+      \field{year}{1992}
+      \field{pages}{655\bibrangedash 674}
+      \range{pages}{20}
+      \verb{doi}
+      \verb 10.1214/aos/1176348650
+      \endverb
+    \endentry
     \entry{arvesen_jackknifing_1969}{article}{}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=a56dda22b4e07fb27fdaba6723c3a3b7}{%
@@ -52,6 +93,88 @@
       \range{pages}{25}
       \verb{doi}
       \verb 10.1214/aoms/1177697287
+      \endverb
+    \endentry
+    \entry{biau_layered_2010}{article}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=d905131276d4431aea7b505a2b27db2f}{%
+           family={Biau},
+           familyi={B\bibinitperiod},
+           given={Gérard},
+           giveni={G\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=33c7859e1f8c74639d1c015cbebd73e4}{%
+           family={Devroye},
+           familyi={D\bibinitperiod},
+           given={Luc},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{f5c2ac281cba7ff931a0404cb0c743e5}
+      \strng{fullhash}{f5c2ac281cba7ff931a0404cb0c743e5}
+      \strng{fullhashraw}{f5c2ac281cba7ff931a0404cb0c743e5}
+      \strng{bibnamehash}{f5c2ac281cba7ff931a0404cb0c743e5}
+      \strng{authorbibnamehash}{f5c2ac281cba7ff931a0404cb0c743e5}
+      \strng{authornamehash}{f5c2ac281cba7ff931a0404cb0c743e5}
+      \strng{authorfullhash}{f5c2ac281cba7ff931a0404cb0c743e5}
+      \strng{authorfullhashraw}{f5c2ac281cba7ff931a0404cb0c743e5}
+      \field{extraname}{1}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Multivariate Analysis}
+      \field{month}{11}
+      \field{number}{10}
+      \field{title}{On the layered nearest neighbour estimate, the bagged nearest neighbour estimate and the random forest method in regression and classification}
+      \field{volume}{101}
+      \field{year}{2010}
+      \field{pages}{2499\bibrangedash 2518}
+      \range{pages}{20}
+      \verb{doi}
+      \verb 10.1016/j.jmva.2010.06.019
+      \endverb
+    \endentry
+    \entry{biau_lectures_2015}{book}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=d905131276d4431aea7b505a2b27db2f}{%
+           family={Biau},
+           familyi={B\bibinitperiod},
+           given={Gérard},
+           giveni={G\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=33c7859e1f8c74639d1c015cbebd73e4}{%
+           family={Devroye},
+           familyi={D\bibinitperiod},
+           given={Luc},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Springer International Publishing}%
+      }
+      \strng{namehash}{f5c2ac281cba7ff931a0404cb0c743e5}
+      \strng{fullhash}{f5c2ac281cba7ff931a0404cb0c743e5}
+      \strng{fullhashraw}{f5c2ac281cba7ff931a0404cb0c743e5}
+      \strng{bibnamehash}{f5c2ac281cba7ff931a0404cb0c743e5}
+      \strng{authorbibnamehash}{f5c2ac281cba7ff931a0404cb0c743e5}
+      \strng{authornamehash}{f5c2ac281cba7ff931a0404cb0c743e5}
+      \strng{authorfullhash}{f5c2ac281cba7ff931a0404cb0c743e5}
+      \strng{authorfullhashraw}{f5c2ac281cba7ff931a0404cb0c743e5}
+      \field{extraname}{2}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{series}{Springer {Series} in the {Data} {Sciences}}
+      \field{title}{Lectures on the {Nearest} {Neighbor} {Method}}
+      \field{year}{2015}
+      \verb{doi}
+      \verb 10.1007/978-3-319-25388-6
       \endverb
     \endentry
     \entry{biau_rate_2010}{article}{}{}
@@ -182,14 +305,102 @@
       \verb 10.1201/9781315139470
       \endverb
     \endentry
+    \entry{chen_randomized_2019}{article}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=6c6851240f65824ce08e14c46bc0d94f}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Xiaohui},
+           giveni={X\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=14b456424727553f557ab47ed30cc84f}{%
+           family={Kato},
+           familyi={K\bibinitperiod},
+           given={Kengo},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{5bda6782dbf0f16d4b438c0a5b3db34a}
+      \strng{fullhash}{5bda6782dbf0f16d4b438c0a5b3db34a}
+      \strng{fullhashraw}{5bda6782dbf0f16d4b438c0a5b3db34a}
+      \strng{bibnamehash}{5bda6782dbf0f16d4b438c0a5b3db34a}
+      \strng{authorbibnamehash}{5bda6782dbf0f16d4b438c0a5b3db34a}
+      \strng{authornamehash}{5bda6782dbf0f16d4b438c0a5b3db34a}
+      \strng{authorfullhash}{5bda6782dbf0f16d4b438c0a5b3db34a}
+      \strng{authorfullhashraw}{5bda6782dbf0f16d4b438c0a5b3db34a}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The Annals of Statistics}
+      \field{month}{12}
+      \field{number}{6}
+      \field{title}{Randomized incomplete \${U}\$-statistics in high dimensions}
+      \field{volume}{47}
+      \field{year}{2019}
+      \field{pages}{3127\bibrangedash 3156}
+      \range{pages}{30}
+      \verb{doi}
+      \verb 10.1214/18-AOS1773
+      \endverb
+    \endentry
+    \entry{chernozhukov_simple_2022}{article}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=497b6554670ef9f4dfd8d456efd3b41d}{%
+           family={Chernozhukov},
+           familyi={C\bibinitperiod},
+           given={V},
+           giveni={V\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=706b6cbc836d7f68c8a59223b16c843c}{%
+           family={Newey},
+           familyi={N\bibinitperiod},
+           given={W\bibnamedelima K},
+           giveni={W\bibinitperiod\bibinitdelim K\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=535b46081523fc5c5dcfaba2a621d930}{%
+           family={Singh},
+           familyi={S\bibinitperiod},
+           given={R},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{7a552ffd7001b2d5a51c32fe47000208}
+      \strng{fullhash}{7a552ffd7001b2d5a51c32fe47000208}
+      \strng{fullhashraw}{7a552ffd7001b2d5a51c32fe47000208}
+      \strng{bibnamehash}{7a552ffd7001b2d5a51c32fe47000208}
+      \strng{authorbibnamehash}{7a552ffd7001b2d5a51c32fe47000208}
+      \strng{authornamehash}{7a552ffd7001b2d5a51c32fe47000208}
+      \strng{authorfullhash}{7a552ffd7001b2d5a51c32fe47000208}
+      \strng{authorfullhashraw}{7a552ffd7001b2d5a51c32fe47000208}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Biometrika}
+      \field{month}{6}
+      \field{number}{1}
+      \field{title}{A simple and general debiased machine learning theorem with finite-sample guarantees}
+      \field{volume}{110}
+      \field{year}{2022}
+      \field{pages}{257\bibrangedash 264}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1093/biomet/asac033
+      \endverb
+    \endentry
     \entry{chernozhukov_doubledebiased_2018}{article}{}{}
       \name{author}{7}{}{%
-        {{un=0,uniquepart=base,hash=c75cbe2cefd1e532f636a50892605d06}{%
+        {{un=2,uniquepart=given,hash=c75cbe2cefd1e532f636a50892605d06}{%
            family={Chernozhukov},
            familyi={C\bibinitperiod},
            given={Victor},
            giveni={V\bibinitperiod},
-           givenun=0}}%
+           givenun=2}}%
         {{un=0,uniquepart=base,hash=ef4b66d2ca2dde47ec1b0afa98306775}{%
            family={Chetverikov},
            familyi={C\bibinitperiod},
@@ -318,6 +529,41 @@
       \verb 10.1080/01621459.2022.2115375
       \endverb
     \endentry
+    \entry{hoeffding_class_1948}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=26d3c01664dc4b0c60afbdf4153437e2}{%
+           family={Hoeffding},
+           familyi={H\bibinitperiod},
+           given={Wassily},
+           giveni={W\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{26d3c01664dc4b0c60afbdf4153437e2}
+      \strng{fullhash}{26d3c01664dc4b0c60afbdf4153437e2}
+      \strng{fullhashraw}{26d3c01664dc4b0c60afbdf4153437e2}
+      \strng{bibnamehash}{26d3c01664dc4b0c60afbdf4153437e2}
+      \strng{authorbibnamehash}{26d3c01664dc4b0c60afbdf4153437e2}
+      \strng{authornamehash}{26d3c01664dc4b0c60afbdf4153437e2}
+      \strng{authorfullhash}{26d3c01664dc4b0c60afbdf4153437e2}
+      \strng{authorfullhashraw}{26d3c01664dc4b0c60afbdf4153437e2}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The Annals of Mathematical Statistics}
+      \field{month}{9}
+      \field{number}{3}
+      \field{title}{A {Class} of {Statistics} with {Asymptotically} {Normal} {Distribution}}
+      \field{volume}{19}
+      \field{year}{1948}
+      \field{pages}{293\bibrangedash 325}
+      \range{pages}{33}
+      \verb{doi}
+      \verb 10.1214/aoms/1177730196
+      \endverb
+    \endentry
     \entry{lee_u-statistics_2019}{book}{}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=2bcf6cad251d975b02d256f56b7281d6}{%
@@ -354,6 +600,47 @@
       \field{year}{2019}
       \verb{doi}
       \verb 10.1201/9780203734520
+      \endverb
+    \endentry
+    \entry{lin_random_2006}{article}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=83462145d1960e68e830e4b0dd4314ef}{%
+           family={Lin},
+           familyi={L\bibinitperiod},
+           given={Yi},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4f21b7c0154e88b51e06880a7636b54f}{%
+           family={Jeon},
+           familyi={J\bibinitperiod},
+           given={Yongho},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{5578a9ab9ab72aecfd31a46cf845d294}
+      \strng{fullhash}{5578a9ab9ab72aecfd31a46cf845d294}
+      \strng{fullhashraw}{5578a9ab9ab72aecfd31a46cf845d294}
+      \strng{bibnamehash}{5578a9ab9ab72aecfd31a46cf845d294}
+      \strng{authorbibnamehash}{5578a9ab9ab72aecfd31a46cf845d294}
+      \strng{authornamehash}{5578a9ab9ab72aecfd31a46cf845d294}
+      \strng{authorfullhash}{5578a9ab9ab72aecfd31a46cf845d294}
+      \strng{authorfullhashraw}{5578a9ab9ab72aecfd31a46cf845d294}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of the American Statistical Association}
+      \field{month}{6}
+      \field{number}{474}
+      \field{title}{Random {Forests} and {Adaptive} {Nearest} {Neighbors}}
+      \field{volume}{101}
+      \field{year}{2006}
+      \field{pages}{578\bibrangedash 590}
+      \range{pages}{13}
+      \verb{doi}
+      \verb 10.1198/016214505000001230
       \endverb
     \endentry
     \entry{peng_rates_2022}{article}{}{}
@@ -449,6 +736,47 @@
       \verb 10.48550/arXiv.2106.05918
       \endverb
     \endentry
+    \entry{ritzwoller_simultaneous_2024}{misc}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=4d6a912596e242b0cc13cd623ebb5e3f}{%
+           family={Ritzwoller},
+           familyi={R\bibinitperiod},
+           given={David\bibnamedelima M.},
+           giveni={D\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=342033b26b8f8c243380f2343a53e1fa}{%
+           family={Syrgkanis},
+           familyi={S\bibinitperiod},
+           given={Vasilis},
+           giveni={V\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{04822a1dff3956e0aa8be2d94fdd90e3}
+      \strng{fullhash}{04822a1dff3956e0aa8be2d94fdd90e3}
+      \strng{fullhashraw}{04822a1dff3956e0aa8be2d94fdd90e3}
+      \strng{bibnamehash}{04822a1dff3956e0aa8be2d94fdd90e3}
+      \strng{authorbibnamehash}{04822a1dff3956e0aa8be2d94fdd90e3}
+      \strng{authornamehash}{04822a1dff3956e0aa8be2d94fdd90e3}
+      \strng{authorfullhash}{04822a1dff3956e0aa8be2d94fdd90e3}
+      \strng{authorfullhashraw}{04822a1dff3956e0aa8be2d94fdd90e3}
+      \field{extraname}{1}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{extradate}{1}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{9}
+      \field{title}{Simultaneous {Inference} for {Local} {Structural} {Parameters} with {Random} {Forests}}
+      \field{year}{2024}
+      \verb{doi}
+      \verb 10.48550/arXiv.2405.07860
+      \endverb
+    \endentry
     \entry{ritzwoller_uniform_2024}{misc}{}{}
       \name{author}{2}{}{%
         {{un=0,uniquepart=base,hash=4d6a912596e242b0cc13cd623ebb5e3f}{%
@@ -475,8 +803,10 @@
       \strng{authornamehash}{04822a1dff3956e0aa8be2d94fdd90e3}
       \strng{authorfullhash}{04822a1dff3956e0aa8be2d94fdd90e3}
       \strng{authorfullhashraw}{04822a1dff3956e0aa8be2d94fdd90e3}
+      \field{extraname}{2}
       \field{sortinit}{R}
       \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{extradate}{2}
       \field{extradatescope}{labelyear}
       \field{labeldatesource}{}
       \field{labelnamesource}{author}
@@ -496,12 +826,12 @@
            given={Vira},
            giveni={V\bibinitperiod},
            givenun=0}}%
-        {{un=0,uniquepart=base,hash=c75cbe2cefd1e532f636a50892605d06}{%
+        {{un=2,uniquepart=given,hash=c75cbe2cefd1e532f636a50892605d06}{%
            family={Chernozhukov},
            familyi={C\bibinitperiod},
            given={Victor},
            giveni={V\bibinitperiod},
-           givenun=0}}%
+           givenun=2}}%
       }
       \list{language}{1}{%
         {en}%
@@ -530,6 +860,53 @@
       \range{pages}{26}
       \verb{doi}
       \verb 10.1093/ectj/utaa027
+      \endverb
+    \endentry
+    \entry{song_approximating_2019}{article}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=2c4a63a1f2932bedc5ee688c91746ac0}{%
+           family={Song},
+           familyi={S\bibinitperiod},
+           given={Yanglei},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=6c6851240f65824ce08e14c46bc0d94f}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Xiaohui},
+           giveni={X\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=14b456424727553f557ab47ed30cc84f}{%
+           family={Kato},
+           familyi={K\bibinitperiod},
+           given={Kengo},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{add813a5457694f2d5f657b32f65d049}
+      \strng{fullhash}{add813a5457694f2d5f657b32f65d049}
+      \strng{fullhashraw}{add813a5457694f2d5f657b32f65d049}
+      \strng{bibnamehash}{add813a5457694f2d5f657b32f65d049}
+      \strng{authorbibnamehash}{add813a5457694f2d5f657b32f65d049}
+      \strng{authornamehash}{add813a5457694f2d5f657b32f65d049}
+      \strng{authorfullhash}{add813a5457694f2d5f657b32f65d049}
+      \strng{authorfullhashraw}{add813a5457694f2d5f657b32f65d049}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Electronic Journal of Statistics}
+      \field{month}{1}
+      \field{number}{2}
+      \field{title}{Approximating high-dimensional infinite-order \${U}\$-statistics: {Statistical} and computational guarantees}
+      \field{volume}{13}
+      \field{year}{2019}
+      \field{pages}{4794\bibrangedash 4848}
+      \range{pages}{55}
+      \verb{doi}
+      \verb 10.1214/19-EJS1643
       \endverb
     \endentry
     \entry{steele_exact_2009}{article}{}{}
@@ -613,6 +990,49 @@
       \verb{doi}
       \verb 10.1080/01621459.2017.1319839
       \endverb
+    \endentry
+    \entry{wager2014confidence}{article}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=e22c2c3bb1bd12e43f46c07ea788b581}{%
+           family={Wager},
+           familyi={W\bibinitperiod},
+           given={Stefan},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=0cb8fe4210baa81c4b0e67913b4d2768}{%
+           family={Hastie},
+           familyi={H\bibinitperiod},
+           given={Trevor},
+           giveni={T\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=5470455fc7dceb3ccf6db38cb22a113d}{%
+           family={Efron},
+           familyi={E\bibinitperiod},
+           given={Bradley},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{6e84873fbcf152cc9734a0f8fd111536}
+      \strng{fullhash}{6e84873fbcf152cc9734a0f8fd111536}
+      \strng{fullhashraw}{6e84873fbcf152cc9734a0f8fd111536}
+      \strng{bibnamehash}{6e84873fbcf152cc9734a0f8fd111536}
+      \strng{authorbibnamehash}{6e84873fbcf152cc9734a0f8fd111536}
+      \strng{authornamehash}{6e84873fbcf152cc9734a0f8fd111536}
+      \strng{authorfullhash}{6e84873fbcf152cc9734a0f8fd111536}
+      \strng{authorfullhashraw}{6e84873fbcf152cc9734a0f8fd111536}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The journal of machine learning research}
+      \field{number}{1}
+      \field{title}{Confidence intervals for random forests: The jackknife and the infinitesimal jackknife}
+      \field{volume}{15}
+      \field{year}{2014}
+      \field{pages}{1625\bibrangedash 1651}
+      \range{pages}{27}
     \endentry
   \enddatalist
 \endrefsection

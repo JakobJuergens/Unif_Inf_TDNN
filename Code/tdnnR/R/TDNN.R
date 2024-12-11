@@ -19,7 +19,7 @@
 #' @export
 TDNN <- function(x, data, s1, s2,
                  presorted = FALSE, standardize = FALSE,
-                 asymp_approx_weights = TRUE, verbose = FALSE) {
+                 asymp_approx_weights = TRUE) {
   # Check inputs for executing function
   point_check(x)
   data_check(data)
@@ -42,10 +42,6 @@ TDNN <- function(x, data, s1, s2,
   d <- ncol(data) - 1
   n <- length(Y)
 
-  if (verbose) {
-    print(paste0("d = ", d, ", n = ", n))
-  }
-
   # Check that s2 > s1 and reverse if not
   if (s1 > s2) {
     tmp <- s1
@@ -53,16 +49,9 @@ TDNN <- function(x, data, s1, s2,
     s2 <- tmp
   }
 
-  if (verbose) {
-    print(paste0("s1 = ", s1, ", s2 = ", s2))
-  }
   # Calculate weights for two-scale DNN
   w1 <- (1 - (s1 / s2)^(-2 / d))^(-1)
   w2 <- 1 - w1
-
-  if (verbose) {
-    print(paste0("w1 = ", w1, ", w2 = ", w2))
-  }
 
   # Calculate the two DNN estimators
   res_1 <- 0
@@ -114,16 +103,8 @@ TDNN <- function(x, data, s1, s2,
     }
   }
 
-  if (verbose) {
-    print(paste0("prefactor_1 = ", prefactor_1, ", prefactor_2 = ", prefactor_2))
-  }
-
   res_1 <- res_1/prefactor_1
   res_2 <- res_2/prefactor_2
-
-  if (verbose) {
-    print(paste0("res_1 = ", res_1, ", res_2 = ", res_2))
-  }
 
   # Combine results
   res <- w1 * res_1 + w2 * res_2

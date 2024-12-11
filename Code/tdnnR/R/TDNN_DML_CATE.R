@@ -25,9 +25,12 @@ TDNN_DML2 <- function(x, data, s1, s2, n_folds,
     x <- stand$x
     data <- stand$data
   }
+  d <- ncol(data) - 2
   if (presorted == FALSE) {
-    data <- CATE_pre_sort(x = x, data = data)
+    order <- pre_sort(x = x, cov_mat = data[, -(1:2)])
   }
+
+  data <- data[order, ]
 
   # Check that s2 > s1 and reverse if not
   if (s1 > s2) {

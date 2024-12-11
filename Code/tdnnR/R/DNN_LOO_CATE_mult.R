@@ -21,6 +21,7 @@ DNN_LOO_mult <- function(points, data, s, #standardize = FALSE,
   #}
 
   n <- nrow(data)
+  d <- ncol(data) - 2
   n_points <- nrow(points)
   nuisance_par_ests <- matrix(data = NA, nrow = n, ncol = 3)
 
@@ -35,8 +36,8 @@ DNN_LOO_mult <- function(points, data, s, #standardize = FALSE,
 
   for(j in 1:n_points){
     x <- points[j,]
-    ordering <- CATE_pre_sort(x = x, data = data)$order
-    data_j <- data[ordering, ]
+    order <- pre_sort(x = x, cov_mat = data[, -(1:2)])
+    data_j <- data[order, ]
     nuisance_par_ests_j <- nuisance_par_ests[ordering, ]
 
     res <- 0

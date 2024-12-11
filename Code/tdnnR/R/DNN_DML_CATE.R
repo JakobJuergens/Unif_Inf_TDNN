@@ -24,10 +24,12 @@ DNN_DML2 <- function(x, data, s, n_folds,
     x <- stand$x
     data <- stand$data
   }
+  d <- ncol(data) - 2
   if (presorted == FALSE) {
-    data <- CATE_pre_sort(x = x, data = data)$data
+    order <- pre_sort(x = x, cov_mat = data[, 3:(d+2)])
   }
 
+  data <- data[order, ]
   n <- nrow(data)
 
   # Create List of Fold indices to Estimate Propensity Scores and Regression Functions

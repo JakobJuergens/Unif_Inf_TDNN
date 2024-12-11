@@ -15,7 +15,7 @@ DNN_Nuisance(x, data, s, asymp_approx_weights = TRUE)
 \item{s}{Subsampling Scale}
 
 \item{asymp_approx_weights}{True or False whether to use an asymptotic
-approximation for the weights (default value = FALSE)}
+approximation for the weights (default value = TRUE)}
 }
 \description{
 This function estimates the propensity score, mu0 and mu1

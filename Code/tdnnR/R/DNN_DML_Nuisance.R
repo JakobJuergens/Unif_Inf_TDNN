@@ -5,7 +5,7 @@
 #' @param data Data matrix for the CATE setting
 #' @param s Subsampling Scale
 #' @param asymp_approx_weights True or False whether to use an asymptotic
-#' approximation for the weights (default value = FALSE)
+#' approximation for the weights (default value = TRUE)
 #'
 DNN_Nuisance <- function(x, data, s, asymp_approx_weights = TRUE) {
   # Check inputs for executing function
@@ -15,7 +15,8 @@ DNN_Nuisance <- function(x, data, s, asymp_approx_weights = TRUE) {
   samplingscale_check(s, data)
 
   # Sort data
-  data <- CATE_pre_sort(x = x, data = data)$data
+  order <- pre_sort(x = x, cov_mat = data[, -(1:2)])
+  data <- data[order, ]
   untreated_data <- data[data[, 2] == 0, ]
   treated_data <- data[data[, 2] == 1, ]
 

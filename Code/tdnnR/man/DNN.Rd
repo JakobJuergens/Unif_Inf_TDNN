@@ -13,8 +13,7 @@ DNN(
   s,
   presorted = FALSE,
   standardize = FALSE,
-  asymp_approx_weights = TRUE,
-  verbose = FALSE
+  asymp_approx_weights = TRUE
 )
 }
 \arguments{
