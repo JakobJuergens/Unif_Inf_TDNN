@@ -19,14 +19,14 @@ The latter immediately implies a property that has been called ``Honesty'' by \c
 
 \hrule
 Absent from \citet{demirkaya_optimal_2024} is a way to construct uniformly valid confidence bands around the TDNN estimator.
-Luckily, as a byproduct of considering the methods from \citet{ritzwoller_simultaneous_2024}, procedures for uniform inference can be developed relatively easily.
+Luckily, as a byproduct of considering the methods from \citet{ritzwoller_simultaneous_2024}, procedures for simultaneous inference can be developed relatively easily.
 
 To consider this problem in detail we first introduce additional notation.
 Instead of a single point of interest, previously denoted by $x$, we will consider a vector of $p$ points of interest denoted by $x^{(p)} \in \left(\operatorname{supp}\left(X\right)\right)^{p}$.
 Consequently, the $j$-th entry of $x^{(p)}$ will be denoted by $x^{(p)}_{j}$.
 In an abuse of notation, let functions (such as $\mu$ or the DNN/TDNN estimators) evaluated at $x^{(p)}$ denote the vector of corresponding function values evaluated at the point, respectively.
 It should be pointed out that, due to the local definition of the kernel in the estimators, this does not translate to the evaluation of the same function at different points in the most immediate sense.
-To summarize the kind of object we want to construct, we define a uniform confidence region for the TDNN estimator in the following way following closely the notation of \citet{ritzwoller_simultaneous_2024}.
+To summarize the kind of object we want to construct, we define a simultaneous confidence region for the TDNN estimator in the following way following closely the notation of \citet{ritzwoller_simultaneous_2024}.
 
 \begin{boxD}
 	\begin{dfn}[Uniform Confidence Regions]\mbox{}\\*
@@ -46,7 +46,7 @@ To summarize the kind of object we want to construct, we define a uniform confid
 \end{boxD}
 
 \subsection{Low-Level}
-In our pursuit of constructing uniform confidence regions for the TDNN estimator, we return to the results from \citet{ritzwoller_simultaneous_2024} in their high-dimensional form.
+In our pursuit of constructing simultaneous confidence regions for the TDNN estimator, we return to the results from \citet{ritzwoller_simultaneous_2024} in their high-dimensional form.
 
 \begin{boxD}
 	\begin{thm}[\citet{ritzwoller_simultaneous_2024} - Theorem 4.1]\label{thm:rit4_1}\mbox{}\\*
@@ -100,8 +100,8 @@ In our pursuit of constructing uniform confidence regions for the TDNN estimator
 \end{boxD}
 
 \subsection{High-Level}
-Recent advances in the field of uniform inference for infinite-order U-statistics, specifically \citet{ritzwoller_simultaneous_2024}, and careful analysis of the Hoeffding projections of different orders will be the cornerstones in developing uniform inference methods.
-The authors' approach to constructing uniform confidence regions is based on the half-sample bootstrap root.
+Recent advances in the field of simultaneous inference for infinite-order U-statistics, specifically \citet{ritzwoller_simultaneous_2024}, and careful analysis of the Hoeffding projections of different orders will be the cornerstones in developing simultaneous inference methods.
+The authors' approach to constructing simultaneous confidence regions is based on the half-sample bootstrap root.
 
 \begin{boxD}
 	\begin{dfn}[Half-Sample Bootstrap Root Approximation - \citet{ritzwoller_simultaneous_2024}]\mbox{}\\*
@@ -131,7 +131,7 @@ Next, to standardize the relevant quantities, we introduce a corresponding stude
 \end{equation}
 Let $\operatorname{cv}\left(\alpha; \mathbf{D}_n\right)$ denote the $1-\alpha$ quantile of the distribution of $\hat{S}^{*}\left(x^{(p)}; \mathbf{D}_n\right)$.
 As the authors point out specifically, and as indicated by the more explicit notation chosen in this presentation, this is a quantile of the conditional distribution given the data $\mathbf{D}_n$.
-Given this construction, the uniform confidence region developed in \citet{ritzwoller_simultaneous_2024} adapted to the TDNN estimator takes the following form.
+Given this construction, the simultaneous confidence region developed in \citet{ritzwoller_simultaneous_2024} adapted to the TDNN estimator takes the following form.
 
 \begin{boxD}
 	\begin{thm}[Uniform Confidence Region - \citet{ritzwoller_simultaneous_2024}]\mbox{}\\*
@@ -141,17 +141,17 @@ Given this construction, the uniform confidence region developed in \citet{ritzw
 			:= \hat{\mu}\left(x^{(p)}_{j}; \mathbf{D}_n\right) \pm
 			n^{-1/2} \hat{\lambda}_{j}\left(x^{(p)}; \mathbf{D}_n\right)\operatorname{cv}\left(\alpha; \mathbf{D}_n\right)
 		\end{equation}
-		The $\alpha$-level uniform confidence region for $\mu\left(x^{(p)}\right)$ is given by $\hat{\mathcal{C}}\left(x^{(p)}\right)$.
+		The $\alpha$-level simultaneous confidence region for $\mu\left(x^{(p)}\right)$ is given by $\hat{\mathcal{C}}\left(x^{(p)}\right)$.
 	\end{thm}
 \end{boxD}
 
-To justify the use of this uniform confidence region, it remains to be shown if and how the other conditions for the inner workings of this procedure apply to the TDNN estimator.
+To justify the use of this simultaneous confidence region, it remains to be shown if and how the other conditions for the inner workings of this procedure apply to the TDNN estimator.
 This is substantially simplified due to the absence of a nuisance parameter.
 Thus, consider the following conditions from \cite{ritzwoller_uniform_2024} that are simplified to fit the problem at hand.
 
 \begin{boxD}
 	\begin{dfn}[Shrinkage and Incrementality - Adapted from \citet{ritzwoller_simultaneous_2024}]\mbox{}\\*
-		We say that the kernel $\kappa\left(\cdot, \cdot, D_{\ell}\right)$ has a uniform shrinkage rate $\epsilon_b$ if
+		We say that the kernel $\kappa\left(\cdot, \cdot, D_{\ell}\right)$ has a simultaneous shrinkage rate $\epsilon_b$ if
 		\begin{equation}
 			\sup_{P \in \mathbf{P}} \sup_{j \in[p]}
 			\E\left[\max \left\{\left\|X_{i}-x^{(p)}_{j}\right\|_{2}: \kappa\left(x^{(p)}_{j}, X_{i}, D_{\ell}\right)>0\right\}\right]
@@ -168,14 +168,14 @@ Thus, consider the following conditions from \cite{ritzwoller_uniform_2024} that
 \end{boxD}
 
 Translating these properties to suit the TDNN regression problem, we obtain the following conditions that need to be verified.
-First, to verify uniform shrinkage at a rate $\epsilon_b$, the following remains to be shown.
+First, to verify simultaneous shrinkage at a rate $\epsilon_b$, the following remains to be shown.
 \begin{equation}
 	\sup_{P \in \mathbf{P}} \sup_{j \in[p]}
 	\E\left[\max \left\{\left\|X_{i}-x^{(p)}_{j}\right\|_{2}:
 	\rk(x^{(p)}_{j}; X_{i}, D_{\ell}) = 1\right\}\right]
 	\leq \epsilon_b
 \end{equation}
-Second, for uniform incrementality, we need to show the following.
+Second, for simultaneous incrementality, we need to show the following.
 \begin{equation}
 	\begin{aligned}
 		  & \inf_{P \in \mathbf{P}} \sup_{j \in[p]}
@@ -202,7 +202,7 @@ Second, for uniform incrementality, we need to show the following.
 \end{equation}
 
 To verify these assumptions, recent theory developed in \citet{peng_rates_2022} is of great help.
-Specifically, the following Proposition and its proof are helpful in showing the desired uniform incrementality property.
+Specifically, the following Proposition and its proof are helpful in showing the desired simultaneous incrementality property.
 
 	{\color{red} LOREM IPSUM}
 
