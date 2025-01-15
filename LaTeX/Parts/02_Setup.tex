@@ -2,7 +2,7 @@
 \hrule
 Throughout this paper, we will consider two distinct setups.
 The first is a pure nonparametric regression setup closely mirroring the structure of \citet{demirkaya_optimal_2024}.
-This setup will be very useful to illustrate the inner workings of the estimator of interest and serve as a leading example for the theoretical results.
+This setup will be very useful for illustrating the inner workings of the estimator of interest and serving as a leading example for theoretical results.
 \begin{boxD}
 	\begin{asm}[Nonparametric Regression DGP]\label{asm:npr_dgp}\mbox{}\\*
 		The observed data consists of an i.i.d.\ sample taking the following form.
@@ -21,7 +21,7 @@ This setup will be very useful to illustrate the inner workings of the estimator
 	\end{asm}
 \end{boxD}
 In contrast to this rather statistical setup, we will consider a setting with more immediate econometric relevance: estimation of and inference on heterogeneous treatment effects in the potential outcomes framework.
-This serves as a more immediately applicable version of the theoretical setup presented in \citet{ritzwoller_simultaneous_2024} and brings their results closes to practitioners in the field of economics.
+This serves as a more immediately applicable version of the theoretical setup presented in \citet{ritzwoller_simultaneous_2024} and brings their results close to practitioners in the field of economics.
 \begin{boxD}
 	\begin{asm}[Heterogeneous Treatment Effect DGP]\label{asm:CATE_dgp}\mbox{}\\*
 		The observed data consists of an i.i.d.\ sample taking the following form.
@@ -44,8 +44,8 @@ This serves as a more immediately applicable version of the theoretical setup pr
 		Let the distribution induced by this model be denoted by $Q$ and thus $Z_{i} = \left(X_{i}, W_{i}, Y_{i}\right) \overset{\text{iid}}{\sim} Q$.
 	\end{asm}
 \end{boxD}
-In this second setting, we will use the notation $\mathbf{D}^{(0)}$ and $\mathbf{D}^{(1)}$ to refer to the data subsets containing only observations with $W = 0$ and $W = 1$, respectively.
-Clearly, this model can be interpreted in the context of the potential outcomes framework in the usual manner.
+In this second setting, we will use the notation $\mathbf{D}^{(0)}$ and $\mathbf{D}^{(1)}$ to refer to the data subsets that contain only observations with $W = 0$ and $W = 1$, respectively.
+Clearly, this model can be interpreted in the context of the potential outcomes framework in the usual way.
 \begin{boxD}
 	\begin{rmk}[Potential Applications]\mbox{}\\*
 		From an microeconometric perspective, these two setups cover a wide array of applications.
@@ -76,14 +76,14 @@ Additionally, we require a rather standard assumption in localized regression ap
 		In other terms,	$\sigma^2_{\varepsilon}: \mathcal{X} \rightarrow \mathbb{R}_{>0}$ is a continuous function.
 	\end{asm}
 \end{boxD}
-As $\mathcal{X}$ is a bounded and compact set, this implies that there exists a $\overline{\sigma}_{\varepsilon}^2 > 0$ such that for any $x \in \mathcal{X}$ we have $\sigma^{2}_{\varepsilon}\left(x\right) \leq \overline{\sigma}_{\varepsilon}^2$.
+As $\mathcal{X}$ is a compact and bounded set, this implies that there exists a $\overline{\sigma}_{\varepsilon}^2 > 0$ such that for any $x \in \mathcal{X}$ we have $\sigma^{2}_{\varepsilon}\left(x\right) \leq \overline{\sigma}_{\varepsilon}^2$.
 Readers of \citet{demirkaya_optimal_2024} will recognize that this setup, in contrast to the original paper, allows for heteroskedasticity of the error terms.
 This comes at basically no cost as the original proofs can be used nearly unchanged to prove the corresponding theorems on distributional approximations.
 Additionally, due to the assumptions on the regression functions, this ensures the existence of seconds moments of $Y$ in both scenarios.
-Furthermore, to assure that there is a sufficient number of treated and untreated observations local to each point of interest asymptotically, we require the following condition on the treatment assignment and uptake mechanism.
+Furthermore, to ensure that there are a sufficient number of treated and untreated observations local to each point of interest asymptotically, we require the following condition on the treatment assignment and uptake mechanism.
 \begin{boxD}
 	\begin{asm}[Non-Trivial Treatment Overlap]\label{asm:treatment_overlap}\mbox{}\\*
-		In the Heterogeneous Treatment Effect Setup (Assumption~\ref{asm:CATE_dgp}), we assume that there exist a constant $\mathfrak{p} \in (0, 1/2)$ such that
+		In the Heterogeneous Treatment Effect Setup (Assumption~\ref{asm:CATE_dgp}), we assume that there exists a constant $\mathfrak{p} \in (0, 1/2)$ such that
 		\begin{equation}
 			\forall x \in \mathcal{X}: \quad 
 			0 < \mathfrak{p} \leq \pi\left(x\right) \leq 1 - \mathfrak{p} < 1.
@@ -91,7 +91,7 @@ Furthermore, to assure that there is a sufficient number of treated and untreate
 	\end{asm}
 \end{boxD}
 This assumption seems rather strong when considering a full universe of potential treatment recipients.
-In reality we can constrain this overlap assumption to neighborhoods of points of interests $x$.
+In reality, we can constrain this overlap assumption to neighborhoods of points of interest $x$.
 As long as there is sufficient overlap in those neighborhoods the ideas of our identification strategy continue to hold locally.
 \begin{boxD}
 	\begin{asm}[Stable Unit Treatment Value Assumption (SUTVA)]\label{asm:sutva}\mbox{}\\*
