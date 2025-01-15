@@ -1,12 +1,12 @@
 \section{Pointwise Inference for the TDNN Estimator}\label{sec:pw_inf}
 \hrule
-To perform inference in the regression setup, \citet{demirkaya_optimal_2024} introduce variance estimators based on the Jackknife and Bootstrap.
+To perform inference in the regression setup, \citet{demirkaya_optimal_2024} introduce variance estimators based on Jackknife and Bootstrap.
 However, as they point out, their consistency results rely on a likely suboptimal rate condition for the subsampling scale.
-While Theorem~\ref{thm:dem3} allows $s_2$ to be of the order $o(n)$, the variance estimators rely on the considerably stronger condition that $s_2 = o(n^{1/3})$.
+Although Theorem~\ref{thm:dem3} allows $s_2$ to be of the order $o(n)$, the variance estimation results rely on the considerably stronger condition $s_2 = o(n^{1/3})$.
 Establishing consistent variance estimation under weaker assumptions on the subsampling rates could broaden the scope of the TDNN estimator for inferential purposes considerably.
-Furthermore, it can contribute to a better balance between variance and bias as the choice of the kernel orders is crucial when considering the finite sample properties of the estimator.
+Furthermore, it can contribute to a better balance between variance and bias, as the choice of the kernel orders is crucial when considering the finite sample properties of the estimator.
 In this paper, we will focus specifically on variance estimators based on the Jackknife and show consistency results under $s = o(n)$.
-This is motivated by the closed form representation of the estimators in question leading to computationally simple formulas for the exact Jackknife variance estimators.
+This is motivated by the closed-form representation of the estimators in question leading to computationally simple formulas for the exact Jackknife variance estimators.
 
 \subsection{Jackknife Variance Estimators for Nonparametric Regression}\label{Var_Ests}
 \hrule
@@ -36,8 +36,7 @@ Then, the proposed Jackknife variance estimator takes the following form.
 	\end{thm}
 \end{boxD}
 
-As a generalization to the Jackknife, we can also consider the delete-d Jackknife that builds on the same working principle.
-Instead of removing one observation at a time, we remove $d$ observations and average over all possible d-subsets removals.
+As a generalization to the Jackknife, we can also consider the delete-d Jackknife that builds on the same working principle but averages over all possible d-subset removals.
 This leads to the following representation.
 \begin{equation}\label{eq:JKD_Var_Est}
 	\hat{\omega}_{JKD}^2\left(x; d, \mathbf{D}_n\right)
