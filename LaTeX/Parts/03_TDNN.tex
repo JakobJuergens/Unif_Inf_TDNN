@@ -90,7 +90,7 @@ As a special example that illustrates the relationship, consider the DNN estimat
 As part of their paper, \citet{demirkaya_optimal_2024} develop an explicit expression for the first-order bias term of the DNN estimator and the following distributional approximation result.
 \begin{boxD}
 	\begin{thm}[\citet{demirkaya_optimal_2024} - Theorem 2]\label{thm:dem2}\mbox{}\\*
-		Assume that we observe data as described in Assumption~\ref{asm:npr_dgp} and that Assumption~\ref{asm:technical} holds.
+		Assume that we observe data as described in Assumption~\ref{asm:npr_dgp} and that Assumption~\ref{asm:technical} is valid.
 		Then, for any fixed $x \in \mathcal{X}$, we have that for some positive sequence $\omega_n$ of order $\sqrt{s/n}$
 		\begin{equation}
 			\frac{\tilde{\mu}_{s}(x; \mathbf{D}_n) - \mu(x) - B(s) - R(s)}{\omega_n}
@@ -121,8 +121,8 @@ As part of their paper, \citet{demirkaya_optimal_2024} develop an explicit expre
 	\end{thm}
 \end{boxD}
 
-Starting from this setup, \citet{demirkaya_optimal_2024} develop a novel
-bias-correction method for the DNN estimator that leads to appealing
+Starting from this set-up, \citet{demirkaya_optimal_2024} develop a novel
+bias correction method for the DNN estimator that leads to appealing
 finite-sample properties of the resulting Two-Scale Distributional Nearest
 Neighbor (TDNN) estimator. Their method is based on the explicit formula for
 the first-order bias term of the DNN estimator, which in turn allows them to
@@ -143,14 +143,14 @@ Furthermore, the authors show that this construction improves the quality of the
 
 \begin{boxD}
 	\begin{asm}[Bounded Ratio of Kernel-Orders]\label{asm:kernel_order_ratio}\mbox{}\\*
-		There is a constant $\mathfrak{c} \in (0,1/2)$ such that the ratio of the kernel orders is bounded in the following way.
+		There is a constant $\mathfrak{c} \in (0,1/2)$ such that the ratio of kernel orders is bounded in the following way.
 		\begin{equation}
 			\forall n: \quad 0 < \mathfrak{c} \leq s_1 / s_2 \leq 1 - \mathfrak{c} < 1.
 		\end{equation}
 	\end{asm}
 \end{boxD}
 We make this assumption to avoid edge cases, where asymptotically the TDNN estimator converges to one of the DNN estimators that make it up.
-As this edge case is irrelevant in practice as it would be simpler to employ the corresponding DNN estimator in the first place, this is not a practically substantial restriction.
+As this edge case is irrelevant in practice, as it would be simpler to employ the corresponding DNN estimator in the first place, this is not a practically substantial restriction.
 \begin{boxD}
 	\begin{thm}[\citet{demirkaya_optimal_2024} - Theorem 3]\label{thm:dem3}\mbox{}\\*
 		Assume that we observe data as described in Assumption~\ref{asm:npr_dgp} and that Assumption~\ref{asm:technical} holds.
@@ -172,10 +172,10 @@ As this edge case is irrelevant in practice as it would be simpler to employ the
 \subsection{DNN and TDNN in Heterogeneous Treatment Effect Estimation}
 \hrule
 Motivated by the nonparametric regression setup, we set out to apply the underlying idea in the context of heterogeneous treatment effects.
-Similar to before, we start by specifying a moment corresponding to our object of interest taking into account the additional factors that come into play.
+Similarly to before, we start by specifying a moment corresponding to our object of interest, taking into account the additional factors that come into play.
 Due to the presence of a high-dimensional nuisance parameter in the form of the function $q$, it is natural to apply the concepts of DDML (DML).
 This approach closely follows the leading example of \citet{ritzwoller_simultaneous_2024}.
-The main goal at this stage is to construct a highly practical method based on their ideas that leverages the computational simplicity of the distributional nearest neighbor framework.\\
+The main goal at this stage is to construct a highly practical method based on their ideas that leverages the computational simplicity of the distributional nearest-neighbor framework.\\
 
 While considering the problem of point-estimation of a conditional average
 treatment effect given a feature vector $x$,
