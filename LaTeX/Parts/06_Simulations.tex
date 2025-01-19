@@ -17,7 +17,7 @@ One such promising example is shown in Figure~\ref{fig:TDNN_bias_cor} highlighti
 	\label{fig:TDNN_bias_cor}
 \end{figure}
 As can be seen in Figure~\ref{fig:TDNN_bias_cor}, a suitable choice of subsampling scales can effectively reduce the bias of the TDNN estimator compared to the DNN estimator.
-This reinforces the idea that the TDNN estimator can be a useful tool in practice that has potential to improve on well-established nearest neighbor methods.
+This reinforces the idea that the TDNN estimator can be a useful tool in practice that has the potential to improve on well-established nearest neighbor methods.
 
 \newpage
 As a second, potentially more illustrative example, we consider the estimation of a function of two arguments.
@@ -32,7 +32,7 @@ The resulting surface is shown in Figure~\ref{fig:reg_surface}.
 \end{figure}
 To analyze the behavior of the estimator in this setting, we run a number of Monte Carlo simulations each consisting of 10000 simulation runs.
 While the theoretical analysis was of purely asymptotic nature, these simulation results can provide a modicum of guidance when it comes to choices such as the kernel orders employed in the estimation procedure.
-Each run consists of 10000 observations that are uniformly distributed on ${[0,1]}^2$, we find the following concerning the estimators bias and variance given different kernel orders $s_1$ and $s_2$.
+Each run consists of 10000 observations that are uniformly distributed on ${[0,1]}^2$, and we find the following concerning the estimators bias and variance given different kernel orders $s_1$ and $s_2$.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width = \textwidth]{../Code/Simulations/Graphics/Reg_Exp1/TDNN/Plot_TDNN_n10000s_10_25.RDS.pdf}
