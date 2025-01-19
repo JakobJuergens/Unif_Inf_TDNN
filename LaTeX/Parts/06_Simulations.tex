@@ -7,7 +7,7 @@ Having developed theoretical results concerning simultaneous inference methods f
 \hrule
 To investigate the practicality of the nonparametric regression estimators presented in this paper, we consider a collection of setups.
 First, we focus on illustrating the bias correction properties of the TDNN estimator by replicating some of the findings of \citet{demirkaya_optimal_2024}.
-One such promising example is shown in Figure~\ref{fig:TDNN_bias_cor} highlighting the potential improvements obtainable by combining multiple subsampling scales.
+One such promising example is shown in Figure~\ref{fig:TDNN_bias_cor} highlighting the potential improvements available by combining multiple subsampling scales.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width = \textwidth]{../Code/Simulations/Graphics/TDNN_DNN.pdf}
@@ -31,8 +31,8 @@ The resulting surface is shown in Figure~\ref{fig:reg_surface}.
 	\label{fig:reg_surface}
 \end{figure}
 To analyze the behavior of the estimator in this setting, we run a number of Monte Carlo simulations each consisting of 10000 simulation runs.
-While the theoretical analysis was of purely asymptotic nature, these simulation results can provide a modicum of guidance when it comes to choices such as the kernel orders employed in the estimation procedure.
-Each run consists of 10000 observations that are uniformly distributed on ${[0,1]}^2$, and we find the following concerning the estimators bias and variance given different kernel orders $s_1$ and $s_2$.
+Although the theoretical analysis was of purely asymptotic nature, these simulation results can provide a modicum of guidance when it comes to choices such as the kernel orders employed in the estimation procedure.
+Each run consists of 10000 observations that are uniformly distributed on ${[0,1]}^2$, and we find the following concerning the bias and variance of the estimators given different kernel orders $s_1$ and $s_2$.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width = \textwidth]{../Code/Simulations/Graphics/Reg_Exp1/TDNN/Plot_TDNN_n10000s_10_25.RDS.pdf}

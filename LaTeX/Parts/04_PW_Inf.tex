@@ -47,7 +47,7 @@ This leads to the following representation.
 \end{equation}
 Similar to the Jackknife, it is possible to derive a closed form representation for the delete-d Jackknife.
 The derivation would proceed along the exact same lines as in the Jackknife case.
-However, due to the unwieldiness of the closed form, we refrain from deriving it.
+However, because of the unwieldiness of the closed form, we refrain from deriving it.
 
 In this section, we will loosen that restrictive condition to make use of the attractive performance of U-statistics with large subsampling rates in the context of inference.
 The PIJK variance estimator applied to the TDNN estimator is as follows.
@@ -84,9 +84,9 @@ Thus, we obtain the following result.
 \end{boxD}
 
 
-In an analogous fashion to Theorems 5 and 6 from \citet{demirkaya_optimal_2024}, we furthermore obtain the following consistency results for the presented variance estimators.
+In an analogous fashion to Theorems 5 and 6 of \citet{demirkaya_optimal_2024}, we further obtain the following consistency results for the variance estimators presented.
 As they point out, proving these results goes beyond the techniques presented in \citet{arvesen_jackknifing_1969}, instead relying on results for infinite-order U-statistics.
-Following the ideas from \citet{peng_bias_2021}, we then obtain the following results on the Jackknife and Bootstrap variance estimators respectively.
+Following the ideas from \citet{peng_bias_2021}, we then obtain the following results on the Jackknife and Bootstrap variance estimators, respectively.
 As part of the proof of these results, we obtain general results on the consistency of Jackknife and Bootstrap variance estimators for infinite-order U-statistics beyond the TDNN estimator.
 \begin{boxD}
 	\begin{thm}[Jackknife Variance Estimator Consistency]\label{thm:JK_Cons}\mbox{}\\*
@@ -125,7 +125,7 @@ Specifically, the procedure is based on a variation of the approach presented in
 Thus, we need to introduce some additional notation, where, for simplicity, we assume that $m$, i.e.\ the number of observations in each $I_k$, is even.
 \begin{boxD}
 	\begin{dfn}[Crossfitting Half-Sample]\label{def:CF_HSample}\mbox{}\\*
-		Given a K-fold partition $\mathcal{I} = \left(I_k\right)_{k = 1}^{K}$ of $[n]$, a corresponding half sample of $\mathcal{I}$ is a collection of subsets $\mathcal{H} = \left(H_{k}\right)_{k = 1}^{K}$ such that for all $k \in [K]$, the following holds.
+		Given a K-fold partition $\mathcal{I} = \left(I_k\right)_{k = 1}^{K}$ of $[n]$, a corresponding half-sample of $\mathcal{I}$ is a collection of subsets $\mathcal{H} = \left(H_{k}\right)_{k = 1}^{K}$ such that for all $k \in [K]$, the following holds.
 		\begin{equation}
 			|H_k| = \frac{|I_k|}{2}= m/2
 			\quad \text{and} \quad
@@ -141,7 +141,7 @@ This bootstrap root will take the following structure.
 	- \widehat{\operatorname{CATE}}\left(x\right)
 \end{equation}
 Here, $\overline{\operatorname{CATE}}_{\mathcal{H}}\left(x\right)$ is the solution to the following equation, where $\mathcal{I}$ is a fixed partition of $[n]$ and $\mathcal{H}$ is a fixed half-sample corresponding to $\mathcal{I}$.
-In analogy to the previously established notation, we let $K(x, X_{i} \, | \, \mathcal{H})$ denote the kernel as previously established but with respect to the chosen half-sample and $Z_{(i \, | \, \mathcal{H})}$ denote the $i$'th closest observation to the point of interest $\mathbf{x}$ that is contained in $\mathcal{H}$.
+In analogy to the previously established notation, we let $K(x, X_{i} \, | \, \mathcal{H})$ denote the kernel as previously established but with respect to the chosen half-sample, and $Z_{(i \, | \, \mathcal{H})}$ denote the $i$'th closest observation to the point of interest $\mathbf{x}$ that is contained in $\mathcal{H}$.
 Furthermore, $k(i \, | \, \mathcal{H})$ denotes the fold $k \in [K]$ that the $i$'th closest observation in $\mathcal{H}$ is contained in.
 \begin{equation}
 	\begin{aligned}

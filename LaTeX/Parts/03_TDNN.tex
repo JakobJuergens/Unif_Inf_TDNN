@@ -1,8 +1,8 @@
 \section{Two-Scale Distributional Nearest Neighbor Estimator}\label{sec:TDNN}
 \hrule
-While less economically enticing, we will introduce the TDNN estimator using the simple nonparametric regression setup first.
-We will do this by first considering the simpler (one-scale) distributional nearest neighbor estimator, which naturally extends to its two-scale variant as shown in \citet{demirkaya_optimal_2024}.
-Then, having established the method, we will commence by adapting it to tackle the problem of estimating heterogeneous treatment effects.
+While less economically attractive, we will introduce the TDNN estimator using the simple nonparametric regression setup first.
+We will do this by first considering the simpler (one-scale) distributional nearest-neighbor estimator, which naturally extends to its two-scale variant as shown in \citet{demirkaya_optimal_2024}.
+Then, having established the method, we will begin by adapting it to tackle the problem of estimating heterogeneous treatment effects.
 As we will embed both estimation problems in the context of subsampled conditional moment regression to then build simultaneous inference procedures based on \citet{ritzwoller_simultaneous_2024}, the approach might at first seem unnatural.
 However, due to the constructions that follow in Section~\ref{sec:unif_inf}, this approach will be well worth the slightly cumbersome initial presentation.
 
@@ -83,7 +83,7 @@ For this purpose let $\alpha_{s} = s/n$ leading to the following approximation o
 	\tilde{\mu}_{s}(x; \mathbf{D}_n)
 	\approx  \sum_{i = 1}^{n - s + 1} \alpha_{s} \left(1 - \alpha_{s}\right)^{i - 1} Y_{(i)}
 \end{equation}
-It is worthwhile to point out that the role of $s$ in the implicit bias-variance tradeoff of the DNN estimator runs counter to the role of $k$ in the usual k-NN regression.
+It is worthwhile to point out that the role of $s$ in the implicit bias-variance trade-off of the DNN estimator runs counter to the role of $k$ in the usual k-NN regression.
 Where a larger $k$ is usually associated with a lower variance at the cost of a higher bias, a larger $s$ does the opposite.
 This is due to the fact that a higher $s$ reduces the number of observations that can occur as the closest observation in any given $s$-subset.
 As a special example that illustrates the relationship, consider the DNN estimator choosing $s = n$ recovering the simple 1-NN regression estimator.
@@ -91,7 +91,7 @@ As part of their paper, \citet{demirkaya_optimal_2024} develop an explicit expre
 \begin{boxD}
 	\begin{thm}[\citet{demirkaya_optimal_2024} - Theorem 2]\label{thm:dem2}\mbox{}\\*
 		Assume that we observe data as described in Assumption~\ref{asm:npr_dgp} and that Assumption~\ref{asm:technical} is valid.
-		Then, for any fixed $x \in \mathcal{X}$, we have that for some positive sequence $\omega_n$ of order $\sqrt{s/n}$
+		Then, for any fixed $x \in \mathcal{X}$, we have for some positive sequence $\omega_n$ of order $\sqrt{s/n}$
 		\begin{equation}
 			\frac{\tilde{\mu}_{s}(x; \mathbf{D}_n) - \mu(x) - B(s) - R(s)}{\omega_n}
 			\rightsquigarrow \mathcal{N}\left(0,1\right)
@@ -150,7 +150,7 @@ Furthermore, the authors show that this construction improves the quality of the
 	\end{asm}
 \end{boxD}
 We make this assumption to avoid edge cases, where asymptotically the TDNN estimator converges to one of the DNN estimators that make it up.
-As this edge case is irrelevant in practice, as it would be simpler to employ the corresponding DNN estimator in the first place, this is not a practically substantial restriction.
+As this edge case is irrelevant in practice and as it would be simpler to employ the corresponding DNN estimator in the first place, this is not a practically substantial restriction.
 \begin{boxD}
 	\begin{thm}[\citet{demirkaya_optimal_2024} - Theorem 3]\label{thm:dem3}\mbox{}\\*
 		Assume that we observe data as described in Assumption~\ref{asm:npr_dgp} and that Assumption~\ref{asm:technical} holds.
@@ -210,7 +210,7 @@ Proceeding in an analogous fashion to the nonparametric regression setup leads u
 		= 0
 	\end{aligned}
 \end{equation}
-However, due to the presence of infinite-dimensional nuisance parameters, it becomes attractive to proceed by using this weighted empirical moment equation embedded into the DML2 estimator of \citet{chernozhukov_doubledebiased_2018}.
+However, due to the presence of infinite-dimensional nuisance parameters, it becomes attractive to proceed using this weighted empirical moment equation embedded in the DML2 estimator of \citet{chernozhukov_doubledebiased_2018}.
 Applying these ideas to the context of estimating the CATE has been previously explored, for example by \citet{semenova_debiased_2021}
 For the sake of simplicity, we will assume that $m = n/K$, i.e.\ the desired number of observations in each fold, is an integer going forward.
 \begin{boxD}
@@ -250,13 +250,13 @@ For the sake of simplicity, we will assume that $m = n/K$, i.e.\ the desired num
 	\end{dfn}
 \end{boxD}
 This description shows the case of the DNN estimator.
-Observe, that the weights $K(x, X_{i})$ chosen in the second step are chosen according to the full sample - not according to the chosen folds.
-The corresponding TDNN-based estimator is defined analogously, employing the TDNN estimator in the first-stage estimation procedure and using the corresponding weights of the TDNN-estimator in the second stage.
+Observe that the weights $K(x, X_{i})$ chosen in the second step are chosen according to the whole sample - not according to the chosen folds.
+The corresponding TDNN-based estimator is defined analogously, employing the TDNN estimator in the first-stage estimation procedure and using the corresponding weights of the TDNN estimator in the second stage.
 It should be pointed out that the use of the TDNN estimator in the estimation of the propensity score can have the potentially adverse property of generating estimates outside the unit interval.
 This is due to the presence of negative weights for specific combinations of subsampling scales.
 Thus, restricting the procedure to rely on the DNN estimator for the estimation of propensity scores in the first stage might be desirable.
 Specifically, using a lower choice of subsampling scale for this estimation step can help avoid extreme values in the Neyman orthogonal score function due to estimated propensity scores close to zero or one.
-This is due to the fact that a lower subsampling scale averages over a larger number of observations and can thus contribute to better smoothing properties for the propensity score.
+This is because a lower subsampling scale averages over a larger number of observations and thus can contribute to better smoothing properties for the propensity score.
 
 Plugging in for the score function in the equation that defines the estimator, we can observe the following.
 \begin{equation}
@@ -265,10 +265,10 @@ Plugging in for the score function in the equation that defines the estimator, w
 		\left[\hat{\mu}_{k(i),s}^{1}\left(X_{(i)}\right) - \hat{\mu}_{k(i),s}^{0}\left(X_{(i)}\right) + \hat{\beta}_{k(i),s}\left(W_{(i)}, X_{(i)}\right)\left(Y_{(i)} - \hat{\mu}^{W_{(i)}}_{k(i),s}\left(X_{(i)}\right)\right)\right]
 	\end{aligned}
 \end{equation}
-Thus, given first-stage estimates of the nuisance parameters, we have a closed form representation of the CATE-estimator for a given partition of $[n]$.
+Thus, given first-stage estimates of nuisance parameters, we have a closed-form representation of the CATE estimator for a given partition of $[n]$.
 Furthermore, given these first-stage estimates, the evaluation of the CATE-estimator at a different point of interest is merely a reweighting of the terms corresponding to different observations.
-Considering the first stage estimates, we can recognize that the estimation of $\mu^{0}$ and $\mu^{1}$ is effectively a nonparametric regression problem as previously described where we used the reduced data sets $\mathbf{D}^{(0)}$ and $\mathbf{D}^{(1)}$, respectively.
-In contrast, the estimation of $\pi$ that is necessary in nearly all contexts but randomized experiments can be described further due to the binary outcome.
+Considering the first-stage estimates, we can recognize that the estimation of $\mu^{0}$ and $\mu^{1}$ is effectively a nonparametric regression problem as previously described where we used the reduced data sets $\mathbf{D}^{(0)}$ and $\mathbf{D}^{(1)}$, respectively.
+In contrast, the estimation of $\pi$ that is necessary in nearly all contexts, but randomized experiments can be described further due to the binary outcome.
 For that purpose, let $Z_{(i|k)}$ denote the $i$'th closest observation in fold $k$ akin to the construction shown in Equation~\ref{eq:ordering} relative to $x$ but with respect to the data in fold $k$.
 \begin{equation}
 	\begin{aligned}
@@ -278,10 +278,10 @@ For that purpose, let $Z_{(i|k)}$ denote the $i$'th closest observation in fold 
 \end{equation}
 What these equations show is that the main computational cost associated with these methods comes from having to construct multiple orderings of the sample of interest.
 The essential strength of this approach: It is not necessary to solve any complex optimization problems to obtain the estimator.
-Furthermore, due to the prevalence of constructing orderings of data with respect to the euclidean norm, this is a well-studied problem with efficient algorithms available of the shelf.
+Furthermore, due to the prevalence of constructing orderings of data with respect to the Euclidean norm, this is a well-studied problem with efficient algorithms available of the shelf.
 
 As an extension, we can consider a leave-one-out estimation analog for the functional nuisance parameters, where these are estimated at each observation based on all other available observations.
-This approach eliminates the randomness inherent to the crossvalidation procedure while preserving the advantages obtained through the usage of DML ideas.
+This approach eliminates the randomness inherent to the cross-validation procedure while preserving the advantages obtained through the usage of DDML ideas.
 This leads to the following estimator.
 \begin{boxD}
 	\begin{dfn}{(T)DNN-LOO-DML CATE-Estimator}\label{def:CATE_DNN_LOO_DML}\mbox{}\\*

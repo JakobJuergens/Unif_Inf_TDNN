@@ -21,6 +21,9 @@
 \usepackage[many]{tcolorbox}    	% for COLORED BOXES (tikz and xcolor included)
 \definecolor{main}{HTML}{dedcdc}    % setting main color to be used
 \definecolor{sub}{HTML}{dedcdc}     % setting sub color to be used
+\definecolor{main2}{HTML}{a9b8de}    % setting main color to be used
+\definecolor{sub2}{HTML}{a9b8de}     % setting sub color to be used
+
 \tcbset{
     sharp corners,
     colback = white,
@@ -30,6 +33,14 @@
 \newtcolorbox{boxD}{
     colback = sub, 
     colframe = main, 
+    boxrule = 0pt, 
+    toprule = 0pt, % top rule weight
+    bottomrule = 0pt % bottom rule weight
+}
+
+\newtcolorbox{boxE}{
+    colback = main2, 
+    colframe = sub2, 
     boxrule = 0pt, 
     toprule = 0pt, % top rule weight
     bottomrule = 0pt % bottom rule weight
@@ -99,10 +110,10 @@
 \hrule
 \onehalfspacing
 \begin{abstract}
-    This paper presents a computationally simple method of estimating heterogeneous treatment effects based on the Two-Scale Distributional Nearest Neighbor (TDNN) estimator of \citet{demirkaya_optimal_2024}.
+    This paper presents a computationally simple method for estimating heterogeneous treatment effects based on the two-scale distributional nearest neighbor estimator (TDNN) of \citet{demirkaya_optimal_2024}.
     As part of this analysis, I improve on conditions required for consistent variance estimation presented in the original paper and provide results for asymptotically valid pointwise inference in a nonparametric regression setup and extend the analysis to the estimation of conditional average treatment effects.
     Building on the framework of \citet{ritzwoller_simultaneous_2024}, I develop uniformly valid confidence bands for the TDNN estimator.
-    I then show how to apply these to perform uniformly valid inference in both the nonparametric regression setup and the heterogeneous treatment effect setup.
+    Then we show how to apply these to perform uniformly valid inference in both the nonparametric regression setup and the heterogeneous treatment effect setup.
     A main contribution is the development of a computationally simple method that leverages the theoretical results of the aforementioned papers.
     % \blfootnote{The author thanks Harold D. Chiang, Jack Porter {\color{red} ADD OTHERS} for invaluable feedback.}
 \end{abstract}

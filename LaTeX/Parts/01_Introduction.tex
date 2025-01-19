@@ -2,17 +2,19 @@
 \hrule
 Nearest-Neighbor type estimators and their derivatives are a popular class of estimators that is frequently used in fields such as Computer Science or Economics.
 However, the development of inferential theory for these estimators is not yet up to par with their widespread adoption in practice.
-One such estimator with a particularly close connection to random forests (RF) is the ``Two-Scale Distributional Nearest Neighbor Estimator'' (TDNN) of \citet{demirkaya_optimal_2024}.
+One such estimator with a particularly close connection to random forests (RF) is the ``two-scale distributional nearest neighbor estimator'' (TDNN) of \citet{demirkaya_optimal_2024}.
 In the aforementioned paper, the authors develop a novel debiasing method that promises great improvements on the finite sample properties of the estimator and show its asymptotic normality.
 The main contributions of this paper are twofold.
-First, this paper provides extended consistency results for variance estimator for the DNN and TDNN estimators.
-These results show consistency for three Jackknife-based variance estimators in a broad class of asymptotically gaussian generalized U-statistics that extends considerably beyond the DNN-based regression approaches.
+First, this paper provides extended consistency results for the variance estimators for the DNN and TDNN estimators.
+These results show consistency for three Jackknife-based variance estimators in a broad class of asymptotically Gaussian generalized U-statistics that extends considerably beyond the DNN-based regression approaches.
 Second, we propose a novel estimator for the CATE based on the ideas inherent to the DNN estimator and methods from DDML.
 Simulations show promising performance of the estimator, and its simple structure when compared to competing estimators motivates further research into its use for pointwise and simultaneous inference.
 These extensions will be at the heart of future iterations of this paper.
 
 After short sections on notation and literature review, the remainder of this paper is organized as follows.
 Section~\ref{sec:setup} introduces the two setups covered in this paper: first, a relatively simple nonparametric regression setup and second, a setup that mimics the problem of estimating conditional average treatment effects (CATE).
+To give readers a more economic understanding of the ideas presented in this paper, we will also introduce a running example that we will refer to throughout this paper.
+This running example will be a simplified version of the well-known problem of estimating treatment effects in a job-training program for individuals of differing characteristics.
 Furthermore, this section introduces and contextualizes most of the assumptions that we refer to at later stages of the paper.
 Section~\ref{sec:TDNN} is used to define the DNN and TDNN estimators in the context of nonparametric regression and introduces a novel estimator for the CATE setup.
 In addition, the main results of the distributional approximations of the estimators are introduced.
@@ -21,7 +23,6 @@ While purely asymptotic in nature, these results improve on currently available 
 The future iterations of this paper will then tackle the problem of simultaneous inference using techniques developed by \citet{ritzwoller_simultaneous_2024}.
 These novel developments have the potential to significantly extend the applicability of the estimator to scenarios where the treatment effect for a large number of subgroups is of importance.
 Section~\ref{sec:simulations} contains multiple simulation experiments that show the performance of the methods presented in this paper in a setting that mimics an economic analysis.
-At this stage, these simulations are limited to the non-parametric regression case, but simulations concerning the estimation of CATE will follow in short time.
 Lastly, Section~\ref{sec:conclusion} concludes.
 
 \subsection{Notation}
@@ -38,7 +39,7 @@ To simplify the notation in the case that a single observation (say the $i'th$ o
 Similarly, given such a data set $\mathbf{D}_{[n]}$ and index vector $\ell$, denote by $\mathbf{D}_{\ell}$ the data set consisting only of the observations in $\mathbf{D}_{[n]}$ corresponding to the indices in $\ell$.
 In an abuse of notation, when considering two index vectors $\ell$ and $\iota$ that do not share any entries, we denote by $\ell \cup \iota$ the concatenation of the two vectors, e.g., if $\ell = (8,2,5)$ and $\iota = (1,6)$, then $\ell \cup \iota = (8,2,5,1,6)$.
 
-In the following, $\rightsquigarrow$ denotes convergence in distribution, while
+In the following, $\rightsquigarrow$ denotes weak convergence, while
 $\rightarrow_{p}$ denotes convergence in probability, and $\rightarrow_{a.s.}$
 denotes almost sure convergence. We will use the symbol $\lesssim$ to denote an
 inequality that holds for sufficiently large sample sizes $n$ or kernel orders
@@ -47,40 +48,40 @@ reference parameter will be clear from the context.
 
 \subsection{Related Literature}
 \hrule
-The related literature can be broadly categorized into three main strands: Nearest-Neighbor type estimators in nonparametric regression, variance estimation for (generalized) U-statistic type estimators including Random Forest, and estimation and inference for CATEs using Double/Debiased Machine Learning (DDML) Methods.
+The related literature can be broadly categorized into three main strands: Nearest-Neighbor type estimators in nonparametric regression, variance estimation for (generalized) U-statistic type estimators including Random Forest, and estimation and inference for CATEs using double / debiased machine learning (DDML) methods.
 A great introduction to the Nearest-Neighbor method is given in \citet{biau_lectures_2015}, illustrating the potential of the method for classification and regression tasks.
 Of particular interest in the context of this paper are the so-called ``Weighted Nearest-Neighbor'' methods for nonparametric regression.
 While this is a well-studied type of estimator in and of itself, we draw particular connections to bagged-nearest-neighbor type estimators.
-This class of estimators is built on the framework of ``Potential Nearest Neighbors'' as introduced by \citet{lin_random_2006}.
+This class of estimators is built on the framework of ``potential closest neighbors'' as introduced by \citet{lin_random_2006}.
 Relevant papers studying their properties are, among others, \citet{biau_rate_2010}, \citet{biau_layered_2010}, and \citet{steele_exact_2009}.
-These papers additionally point out the close connections to RF and illustrate why studying the bagged nearest neighbor method could potentially guide our analysis of RF.
-Recently, \citet{demirkaya_optimal_2024} developed a clever debiasing procedure for the bagged or as they coin it distributional nearest neighbor estimator by combining multiple subsampling scales.
+These papers also point out the close connections to RF and illustrate why studying the bagged nearest-neighbor method could potentially guide our analysis of RF.
+Recently, \citet{demirkaya_optimal_2024} developed a clever debiasing procedure for the bagged or, as they coin it, distributional nearest-neighbor estimator by combining multiple subsampling scales.
 The resulting TDNN estimator lies at the heart of this paper, and the results presented here should be seen in the context of the already established distributional approximations established in the paper.
 
-The concept of U-statistics was introduced by Wassily Hoeffding in
+U-statistics were introduced by Wassily Hoeffding in
 \citet{hoeffding_class_1948} and have been a well-established tool in
-mathematical statistics for a long time. Thus there is a significant body of
-literature studying their properties, including outstanding introductions such
+mathematical statistics for a long time. Thus, there is a significant body of
+literature that studies their properties, including outstanding introductions such
 as \citet{lee_u-statistics_2019}. Concerning variance estimation for
 U-statistics, two highly related papers are \citet{arvesen_jackknifing_1969},
 exploring the theory of the Jackknife when applied to U-statistics, and
 \citet{arcones_bootstrap_1992} which fulfills a similar role for the bootstrap.
 Building on the concept of U-statistics, \citet{peng_rates_2022} introduced the
 notion of generalized U-statistics, unifying randomized, incomplete, and
-infinite-order U-statistics that have previously been established in the
+infinite-order U-statistics that have been previously established in the
 literature. While being a relatively novel development, there is a significant
-body of literature concerning infinite-order U-statistics, that share their
+body of literature concerning infinite-order U-statistics, which share their
 structure with the TDNN estimator. As the purpose of variance estimation in the
 problem at hand is ultimately to employ distributional approximations, papers
 such as \citet{chen_randomized_2019} and \citet{song_approximating_2019} are
 similarly of high relevance for potential applications. Due to the close
 connection to the random forest method introduced by
 \citet{breiman_random_2001}, there is also a relevant overlap with the
-literature on that topic. Thus, papers such as \citet{wager2014confidence} and
+literature on that topic. Thus, articles such as \citet{wager_confidence_2014} and
 \citet{wager_estimation_2018} are of special interest, especially since causal forests are considered the state-of-the-art technique for estimating CATEs.
 
 In the context of estimation and inference regarding CATEs using DDML, \citet{chernozhukov_doubledebiased_2018} should be pointed out first.
-By combining crossfitting with the use of Neyman-orthogonal moments, the authors built the foundation for many modern methods for estimation in the presence of high-dimensional nuisance parameters.
-Several extensions to this highly influential idea have been proposed, some of which are explicitly aimed at estimating CATEs.
+By combining cross-fitting with the use of Neyman-orthogonal moments, the authors built the foundation for many modern methods for estimation in the presence of high-dimensional nuisance parameters.
+Several extensions to this highly influential idea have been proposed, some of which explicitly aim at estimating CATEs.
 An example is \citet{semenova_debiased_2021}, who develops estimation and inference procedures for the best linear predictor of a class of causal functions that contain the CATE.
 In a similar vein, \citet{chernozhukov_simple_2022} is highly relevant, as it provides a very general analysis of DDML as a meta-algorithm, covering the estimation and inference for CATE.
