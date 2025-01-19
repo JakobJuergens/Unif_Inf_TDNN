@@ -1,5 +1,5 @@
-#' Calculate the distributional nearest neighbor estimate for a point x
-#' based on a sample data with subsampling scale s.
+#' Calculate the two-scale distributional nearest neighbor estimate for a point x
+#' based on a sample data with subsampling scales s1 and s2.
 #' The implementation is based on the equivalent representation as an L-statistic
 #' described in Steele (2009) and the TDNN estimator from Demirkaya et al. (2024)
 #'
@@ -13,7 +13,7 @@
 #' distance to the point of interest (default value = FALSE)
 #' @param standardize True or False whether to standardize (default value = FALSE)
 #' @param asymp_approx_weights True or False whether to use an asymptotic
-#' approximation for the weights (default value = FALSE)
+#' approximation for the weights (default value = TRUE)
 #' @return A number.
 #'
 #' @export
@@ -34,8 +34,10 @@ TDNN <- function(x, data, s1, s2,
   }
 
   # Pre-sort data relative to point of interest
+  d <- ncol(data) - 1
   if (presorted == FALSE) {
-    data <- NPR_pre_sort(x = x, data = data)
+    order <- pre_sort(x = x, cov_mat = data[, -1])
+    data <- data[order, ]
   }
 
   Y <- as.vector(data[, 1])

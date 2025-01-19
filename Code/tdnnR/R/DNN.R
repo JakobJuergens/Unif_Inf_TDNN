@@ -36,10 +36,10 @@ DNN <- function(x, data, s,
   d <- ncol(data) - 1
   # Pre-sort data relative to point of interest
   if (presorted == FALSE) {
-    order <- pre_sort(x = x, cov_mat = data[, 2:(d+1)])
+    order <- pre_sort(x = x, cov_mat = data[, -1])
+    data <- data[order, ]
   }
 
-  data <- data[order, ]
   Y <- as.vector(data[, 1])
   n <- length(Y)
 
