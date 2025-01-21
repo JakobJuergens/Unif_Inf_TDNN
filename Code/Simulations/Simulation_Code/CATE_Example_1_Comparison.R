@@ -1,14 +1,11 @@
 ##### Setup #####
 # Load packages from CRAN
+library(grf)
 library(tidyverse)
 library(patchwork)
 library(parallel)
 library(metR)
 RNGkind("L'Ecuyer-CMRG")
-
-# Load my DNN package
-install.packages("D:/Jakob_Clouds/dropbox/Research/Individual_Projects/U_Statistics/Unif_Inf_TDNN/Code/tdnnR_0.1.0.tar.gz")
-library(tdnnR)
 
 # General Setup
 seed <- 394856
@@ -16,9 +13,6 @@ set.seed(seed)
 n_obs <- 10000
 n_reps <- 5000
 cov_dim <- 2
-s_1 <- 120
-s_2 <- 250
-n_folds <- 50
 n_workers <- 20
 
 # Define Data generating functions
@@ -70,9 +64,8 @@ sim_function <- function(i) {
 
   # Estimate regression function at points of interest
   # using TDNN
-  estimates <- tdnnR::TDNN_DML2_mult(points = points, data = data_mat, s1 = s_1, s2 = s_2, n_folds = n_folds,
-       asymp_approx_weights = TRUE)
-
+  cforest <- causal_forest(X = cov_mat, Y = responses, W = treatments)
+  estimates <- predict(object = cforest, points)
   # return estimates
   return(estimates)
 }
@@ -89,26 +82,19 @@ values <- unlist(purrr::map(
 cl <- makePSOCKcluster(names = n_workers)
 junk <- clusterEvalQ(cl, library(metR))
 junk <- clusterEvalQ(cl, library(purrr))
+junk <- clusterEvalQ(cl, library(grf))
 clusterExport(cl = cl, varlist = c("points", "reg_f0", "reg_f1", "propsc_f",
-                                   "htscty_f", "n_obs", "cov_dim", "n_folds", "sim_function", "s_1", "s_2"))
+                                   "htscty_f", "n_obs", "cov_dim", "sim_function"))
 clusterSetRNGStream(cl = cl, iseed = seed)
 
 # Run simulation
-results2 <- clusterApplyLB(cl = cl, x = 1:n_reps, fun = sim_function)
+results <- clusterApplyLB(cl = cl, x = 1:n_reps, fun = sim_function)
 
 # Stop Cluster
 stopCluster(cl)
 
 # Recombine estimates in a useful fashion
-TDNN_Estimates <- do.call(purrr::map(.x = 1:n_reps, .f = ~ unlist(purrr::map(1:nrow(points), function(y) results[[.x]][y,1]))),
-                          what = cbind
-)
-
-DNN1_Estimates <- do.call(purrr::map(.x = 1:n_reps, .f = ~ unlist(purrr::map(1:nrow(points), function(y) results[[.x]][y,2]))),
-                          what = cbind
-)
-
-DNN2_Estimates <- do.call(purrr::map(.x = 1:n_reps, .f = ~ unlist(purrr::map(1:nrow(points), function(y) results[[.x]][y,3]))),
+CF_Estimates <- do.call(purrr::map(.x = 1:n_reps, .f = ~ unlist(purrr::map(1:nrow(points), function(y) results[[.x]]))),
                           what = cbind
 )
 
@@ -116,8 +102,8 @@ DNN2_Estimates <- do.call(purrr::map(.x = 1:n_reps, .f = ~ unlist(purrr::map(1:n
 saveRDS(
   object = list(
     "points" = points, "values" = values,
-    "TDNN_estimates" = TDNN_Estimates, "DNN_estimates" = list(DNN1_Estimates, DNN2_Estimates),
-    "cov_dim" = cov_dim, "kernel_orders" = c(s_1, s_2), "n_obs" = n_obs, "n_reps" = n_reps, "n_folds" = n_folds
+    "CF_estimates" = CF_Estimates,
+    "cov_dim" = cov_dim, "n_obs" = n_obs, "n_reps" = n_reps
   ),
-  file = paste0("Simulation_Results/CATE_Exp1/CATE_exp_1_n", n_obs, "s_", s_1, "_", s_2, ".RDS")
+  file = paste0("Simulation_Results/CATE_Exp1/CATE_exp_1_n", n_obs, "_CF", ".RDS")
 )

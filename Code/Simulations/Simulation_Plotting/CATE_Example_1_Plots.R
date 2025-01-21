@@ -27,12 +27,12 @@ propsc_f <- function(covariates) {
 }
 
 # List simulation output files
-sim_files <- list.files(path = "Simulation_Results/CATE_Exp1/")
+sim_files <- list.files(path = "Simulation_Results/CATE_Exp1/tdnnR/")
 
 # Load Estimation Results
 Estimation_Results <- purrr::map(
   .x = 1:length(sim_files),
-  .f = ~ readRDS(file = paste0("Simulation_Results/CATE_Exp1/", sim_files[[.x]]))
+  .f = ~ readRDS(file = paste0("Simulation_Results/CATE_Exp1/tdnnR/", sim_files[[.x]]))
 )
 
 DNN1_estimates <- purrr::map(
