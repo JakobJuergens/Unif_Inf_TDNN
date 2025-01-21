@@ -56,11 +56,19 @@
     backend=biber,
     style=authoryear-comp,
     natbib=true,
+    sorting=nyt,
+    oi=false,
+    isbn=false,
+    url=false,
+    eprint=false,
     sortlocale=en_US,
     url=false, 
     doi=true,
     eprint=false
 ]{biblatex}
+
+\AtEveryBibitem{\clearfield{note}\clearfield{addendum}}
+\AtEveryCitekey{\clearfield{note}\clearfield{addendum}}
 
 \addbibresource{bibliography.bib}
 
@@ -110,12 +118,11 @@
 \hrule
 \onehalfspacing
 \begin{abstract}
-    This paper presents a computationally simple method for estimating heterogeneous treatment effects based on the two-scale distributional nearest neighbor estimator (TDNN) of \citet{demirkaya_optimal_2024}.
-    As part of this analysis, I improve on conditions required for consistent variance estimation presented in the original paper and provide results for asymptotically valid pointwise inference in a nonparametric regression setup and extend the analysis to the estimation of conditional average treatment effects.
-    Building on the framework of \citet{ritzwoller_simultaneous_2024}, I develop uniformly valid confidence bands for the TDNN estimator.
-    Then we show how to apply these to perform uniformly valid inference in both the nonparametric regression setup and the heterogeneous treatment effect setup.
-    A main contribution is the development of a computationally simple method that leverages the theoretical results of the aforementioned papers.
-    % \blfootnote{The author thanks Harold D. Chiang, Jack Porter {\color{red} ADD OTHERS} for invaluable feedback.}
+    We present a computationally simple method for estimating heterogeneous treatment effects based on a weighted nearest-neighbor-type estimator.
+    As part of this analysis, we improve on conditions currently available in the literature required for consistent variance estimation for a class of generalized U-statistics and provide corresponding results for asymptotically valid pointwise inference in a nonparametric regression setup.
+    We extend the ideas of this nonparametric regression estimator to the estimation of conditional average treatment effects using ideas from double / debiased machine learning including Neyman-orthogonal moments and cross-fitting.
+    Building on the framework of \citet{ritzwoller_simultaneous_2024}, we develop procedures to construct uniform confidence bands in both the nonparametric regression setup and the heterogeneous treatment effect setup, allowing for simultaneously asymptotically valid inference for a potentially large number of points of interest.
+    \blfootnote{The author thanks Jack Porter, Harold D. Chiang, Xiaoxia Shi, and Bruce Hansen for their invaluable feedback.}
 \end{abstract}
 \vspace{0.3cm}
 \hrule
@@ -123,7 +130,7 @@
 
 \vspace{-0.3cm}
 \begin{center}
-    {\small Supplementary Material and R Package available at: \url{https://github.com/JakobJuergens/Unif_Inf_TDNN}}
+    {\small Supplementary Material and R-Package available at: \url{https://github.com/JakobJuergens/Unif_Inf_TDNN}}
 \end{center}
 \vspace{0.3cm}
 \hrule
@@ -186,7 +193,10 @@
 \input{Parts/P2b_PWInf_Covariances_CATE.tex}
 
 \newpage
-\input{Parts/P2c_PWInf_VarEst.tex}
+\input{LaTeX/Parts/P2c_PWInf_ANorm}
+
+\newpage
+\input{Parts/P2d_PWInf_VarEst.tex}
 
 \newpage
 \input{Parts/P3_UnifInf.tex}

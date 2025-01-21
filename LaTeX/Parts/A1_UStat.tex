@@ -1,7 +1,8 @@
-\section{The (T)DNN Estimator as a Generalized U-Statistic}
+\section{The DNN Estimators as a Generalized U-Statistics}
 \hrule
 
-As the majority of the theoretical results in \citet{demirkaya_optimal_2024} rely on representations as a U-statistic, it is helpful to introduce additional concepts and notation at this stage.
+As most of the theoretical results in \citet{demirkaya_optimal_2024} rely on representations as a U-statistic, it is helpful to introduce additional concepts and notation at this stage.
+In analogy to the main part of this paper, we will first start with the regression context and then go on to consider the CATE estimation scenario separately.
 Recalling Equation~\ref{eq:U_stat}, the DNN and TDNN estimators can be expressed in the following U-statistic form and are thus a type of generalized complete U-statistic as introduced by \citet{peng_rates_2022}.
 \begin{equation}
 	\tilde{\mu}_{s}(x; \mathbf{D}_n)
@@ -25,7 +26,7 @@ This connection will prove useful going forward.
 		\end{equation}
 	\end{lem}
 \end{boxD}
-Borrowing the notational conventions from \citet{lee_u-statistics_2019}, additionally, introduce the following notation.
+Borrowing the notational conventions from \citet{lee_u-statistics_2019}, we additionally introduce the following notation.
 \begin{equation}\label{eq:psi_s_c}
 	\psi_{s}^{c}(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c})
 	= \E_{D}\left[h_{s}\left(x; D\right) \, | \,  Z_1 = \mathbf{z}_{1}, \dotsc, Z_c = \mathbf{z}_{c}\right]
@@ -56,9 +57,6 @@ Similarly, for the TDNN estimator and any $1 \leq c \leq s_2$, let
 	= \Var_{1:c}\left(\psi_{s_1, s_2}^{c}(x; Z_{1}, \dotsc, Z_{c})\right)
 \end{equation}
 with an analogous definition of $Z^{\prime}$.
-
-\subsection{Hoeffding-Decomposition}
-\hrule
 As a byproduct (or main purpose depending on the perspective) these terms can be used to derive the Hoeffding decomposition of the TDNN estimator.
 \begin{equation}\label{eq:H_projection}
 	\begin{aligned}
@@ -78,7 +76,7 @@ These projection terms can then be used to construct the following Hoeffding dec
 	= \mu(x) + \sum_{j = 1}^{s_2}\binom{s_2}{j}H_{s_1, s_2}^{j}\left(x; \mathbf{D}_n\right)
 \end{equation}
 
-Standard results for U-statistics (see for example \citet{lee_u-statistics_2019}) now give us a number of useful results.
+Standard results for U-statistics (see, for example, \citet{lee_u-statistics_2019}) now give us a number of useful results.
 First, an immediate result on the expectations of the Hoeffding-projection kernels.
 \begin{align}\label{eq:H_k_expectation}
 	\forall c = 1,2,\dotsc, j-1: \quad & \E_{D}\left[h_{s_1, s_2}^{(j)}\left(x; D\right) \, | \, Z_1 = \mathbf{z}_1, \dotsc, Z_c = \mathbf{z}_c\right] = 0
@@ -100,3 +98,25 @@ Third, the following equivalent expression for the kernel variance.
 	= \Var_{D}\left(h_{s_1, s_2}\left(x; D\right)\right)
 	= \sum_{j = 1}^{s_2} \binom{s_2}{j}V_{s_1, s_2}^{j}
 \end{equation}
+
+\subsection{CATE-Estimators as Generalized U-Statistics}
+\hrule
+
+Given estimates of the functional nuisance parameters, the proposed CATE estimators can be analyzed as generalized U-statistics in the same way as in the nonparametric regression context.
+As most of the theoretical results on these estimators will similarly rely on Hoeffding projection arguments, we will introduce analogous notation in this more general scenario.
+First, observe that the DNN-DML2 CATE estimator can be rewritten as follows to explicitly show its construction as a generalized U-statistic.
+\begin{equation}
+    \begin{aligned}
+        \widehat{\operatorname{CATE}}\left(x\right) 
+        & = \sum_{i = 1}^{n - s + 1} \frac{\binom{n-i}{s-1}}{\binom{n}{s}}
+		\left[\hat{\mu}_{k(i),s}^{1}\left(X_{(i)}\right) - \hat{\mu}_{k(i),s}^{0}\left(X_{(i)}\right) + \hat{\beta}_{k(i),s}\left(W_{(i)}, X_{(i)}\right)\left(Y_{(i)} - \hat{\mu}^{W_{(i)}}_{k(i),s}\left(X_{(i)}\right)\right)\right] \\
+        %
+        & = \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}}
+        \underbrace{\sum_{i = 1}^{n}\frac{\1\left(\rk(x; Z_{i}, D_{\ell}) = 1\right)}{s!} 
+        \left[\hat{\mu}_{k_i,s}^{1}\left(X_{i}\right) - \hat{\mu}_{k_i,s}^{0}\left(X_{i}\right) + \hat{\beta}_{k_i,s}\left(W_{i}, X_{i}\right)\left(Y_{i} - \hat{\mu}^{W_{i}}_{k_i,s}\left(X_{i}\right)\right)\right]}_{\chi_{s}(x; \mathbf{D}_{\ell}, \hat{\mu}, \hat{\pi})} \\
+        %
+        & = \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}}\chi_{s}(x; \mathbf{D}_{\ell},\hat{\mu}, \hat{\pi})
+    \end{aligned}
+\end{equation}
+
+

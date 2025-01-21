@@ -173,7 +173,7 @@ As this edge case is irrelevant in practice and as it would be simpler to employ
 \hrule
 Motivated by the nonparametric regression setup, we set out to apply the underlying idea in the context of heterogeneous treatment effects.
 Similarly to before, we start by specifying a moment corresponding to our object of interest, taking into account the additional factors that come into play.
-Due to the presence of a high-dimensional nuisance parameter in the form of the function $q$, it is natural to apply the concepts of DDML (DML).
+Due to the presence of a high-dimensional nuisance parameter in the form of the function $q$, it is natural to apply the concepts of DDML.
 This approach closely follows the leading example of \citet{ritzwoller_simultaneous_2024}.
 The main goal at this stage is to construct a highly practical method based on their ideas that leverages the computational simplicity of the distributional nearest-neighbor framework.\\
 
@@ -222,6 +222,7 @@ For the sake of simplicity, we will assume that $m = n/K$, i.e.\ the desired num
 				      n/K$. For each $k \in [K]$, define $I_{k}^{C} = [n] \backslash I_k$.
 			      Furthermore, for the observation being assigned rank $i \in [n]$, denote by
 			      $k(i)$ the fold that the observation appears in.
+                  In contrast, for observation $j$ (\textbf{NOT} the observation being assigned rank $j$) denote the corresponding fold by $k_j$.
 			\item For each $k \in [K]$, use the DNN estimator on the data set
 			      $\mathbf{D}_{I_k^C}$\dots
 			      \begin{enumerate}
@@ -254,8 +255,8 @@ Observe that the weights $K(x, X_{i})$ chosen in the second step are chosen acco
 The corresponding TDNN-based estimator is defined analogously, employing the TDNN estimator in the first-stage estimation procedure and using the corresponding weights of the TDNN estimator in the second stage.
 It should be pointed out that the use of the TDNN estimator in the estimation of the propensity score can have the potentially adverse property of generating estimates outside the unit interval.
 This is due to the presence of negative weights for specific combinations of subsampling scales.
-Thus, restricting the procedure to rely on the DNN estimator for the estimation of propensity scores in the first stage might be desirable.
-Specifically, using a lower choice of subsampling scale for this estimation step can help avoid extreme values in the Neyman orthogonal score function due to estimated propensity scores close to zero or one.
+Thus, restricting the procedure to relying on the DNN estimator for the estimation of propensity scores in the first stage might be desirable.
+Specifically, using a lower choice of subsampling scale for this estimation step can help avoid extreme values in the Neyman-orthogonal score function due to estimated propensity scores close to zero or one.
 This is because a lower subsampling scale averages over a larger number of observations and thus can contribute to better smoothing properties for the propensity score.
 
 Plugging in for the score function in the equation that defines the estimator, we can observe the following.
@@ -266,7 +267,7 @@ Plugging in for the score function in the equation that defines the estimator, w
 	\end{aligned}
 \end{equation}
 Thus, given first-stage estimates of nuisance parameters, we have a closed-form representation of the CATE estimator for a given partition of $[n]$.
-Furthermore, given these first-stage estimates, the evaluation of the CATE-estimator at a different point of interest is merely a reweighting of the terms corresponding to different observations.
+Furthermore, given these first-stage estimates, the evaluation of the CATE-estimator at a different point of interest is merely a re-weighting of the terms corresponding to different observations.
 Considering the first-stage estimates, we can recognize that the estimation of $\mu^{0}$ and $\mu^{1}$ is effectively a nonparametric regression problem as previously described where we used the reduced data sets $\mathbf{D}^{(0)}$ and $\mathbf{D}^{(1)}$, respectively.
 In contrast, the estimation of $\pi$ that is necessary in nearly all contexts, but randomized experiments can be described further due to the binary outcome.
 For that purpose, let $Z_{(i|k)}$ denote the $i$'th closest observation in fold $k$ akin to the construction shown in Equation~\ref{eq:ordering} relative to $x$ but with respect to the data in fold $k$.
@@ -279,6 +280,8 @@ For that purpose, let $Z_{(i|k)}$ denote the $i$'th closest observation in fold 
 What these equations show is that the main computational cost associated with these methods comes from having to construct multiple orderings of the sample of interest.
 The essential strength of this approach: It is not necessary to solve any complex optimization problems to obtain the estimator.
 Furthermore, due to the prevalence of constructing orderings of data with respect to the Euclidean norm, this is a well-studied problem with efficient algorithms available of the shelf.
+
+{\color{red} LOREM IPSUM}
 
 As an extension, we can consider a leave-one-out estimation analog for the functional nuisance parameters, where these are estimated at each observation based on all other available observations.
 This approach eliminates the randomness inherent to the cross-validation procedure while preserving the advantages obtained through the usage of DDML ideas.
@@ -311,3 +314,5 @@ This leads to the following estimator.
 		\end{enumerate}
 	\end{dfn}
 \end{boxD}
+In contrast to the estimator shown in Definition \ref{def:CATE_DNN_DML}, this leave-one-out-based estimator, however, does not possess a fixed number of folds as the sample size increases. 
+This makes the corresponding theoretical analysis potentially more difficult as it strays further from the original DDML literature.

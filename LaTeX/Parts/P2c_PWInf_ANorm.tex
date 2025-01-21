@@ -1,0 +1,14 @@
+\subsection{Asymptotic Normality Results}
+\hrule
+
+Before going on to the proofs for the theorems showing asymptotic normality, we introduce some notation.
+First, we observe that the Neyman-orthogonal score function of interest $m$ is linear and can be decomposed as follows.
+\begin{equation}
+    \begin{aligned}
+        m\left(Z_{i}; \operatorname{CATE}(x), \mu, \pi\right)
+		  & = \underbrace{\mu_1\left(X_{i}\right) - \mu_0\left(X_{i}\right) + \beta\left(W_{i}, X_{i}\right)\left(Y_{i} - \mu_{W_{i}}\left(X_{i}\right)\right)}_{\psi^{b}\left(Z_{i}; \mu, \pi\right)} 
+          - \operatorname{CATE}\left(x\right)\\
+          %
+          & = - \operatorname{CATE}\left(x\right) + \psi^{b}\left(Z_{i}; \mu, \pi\right)
+    \end{aligned}
+\end{equation}  
