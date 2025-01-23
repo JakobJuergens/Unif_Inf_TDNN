@@ -12,3 +12,21 @@ First, we observe that the Neyman-orthogonal score function of interest $m$ is l
           & = - \operatorname{CATE}\left(x\right) + \psi^{b}\left(Z_{i}; \mu, \pi\right)
     \end{aligned}
 \end{equation}  
+
+\subsection{NPR-Estimators - Asymptotic Normality}
+\hrule
+
+\subsection{CATE-Estimators - Asymptotic Normality}
+\hrule
+Recall the decomposition of the DNN-DML2 estimator introduced in equation \ref{eq:DNNDML2_Decomp}.
+\begin{equation}\label{eq:DNNDML2_Decomp}
+    \begin{aligned}
+        \widehat{\operatorname{CATE}}\left(x\right)
+        & = \E_{D}\left[\widehat{\operatorname{CATE}}\left(x\right)\right] 
+        + \sum_{j = 1}^{c} \binom{s}{j} \binom{n}{j}^{-1}\sum_{\ell \in L_{n,c}} \left[A_{c}\left(x; \mathbf{D}_{\ell}\right) + B_{c}\left(x; \mathbf{D}_{\ell}\right) + C_{c}\left(x; \mathbf{D}_{\ell}\right) + D_{c}\left(x\right)\right]\\
+        %
+        & = \underbrace{\E_{D}\left[\widehat{\operatorname{CATE}}\left(x\right)\right]}_{\text{Centering-Term}}
+        + \underbrace{\frac{s}{n} \sum_{i = 1}^{n} \left[A_{1}\left(x; Z_{i}\right) + B_{1}\left(x; Z_{i}\right) + C_{1}\left(x; Z_{i}\right) + D_{1}\left(x\right)\right]}_{\text{Pseudo-H\'ajek-Projection}}\\
+        & \quad \quad + \underbrace{\sum_{j = 2}^{c} \binom{s}{j} \binom{n}{j}^{-1}\sum_{\ell \in L_{n,j}} \left[A_{j}\left(x; \mathbf{D}_{\ell}\right) + B_{j}\left(x; \mathbf{D}_{\ell}\right) + C_{j}\left(x; \mathbf{D}_{\ell}\right) + D_{j}\left(x\right)\right]}_{\text{Pseudo-H\'ajek-Residual}}\\
+    \end{aligned}
+\end{equation}

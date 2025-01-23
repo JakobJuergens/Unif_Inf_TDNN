@@ -106,6 +106,25 @@ As part of the proof of these results, we obtain general results on the consiste
 	\end{thm}
 \end{boxD}
 
+\newpage
+\subsection{Asymptotic Normality of the (T)DNN-DML2 CATE Estimator}\label{CATE_AsympNorm}
+\hrule
+
+As a first intermediate result in the analysis of the asymptotic properties of the CATE estimators studied, we can find the following.
+\begin{boxD}
+	\begin{thm}[{\color{red} PRELIMINARY! THIS IS NOT YET FORMALLY SHOWN}]\label{thm:DNNDML2_anorm_0}\mbox{}\\*
+		Assume that we observe data as described in Assumption~\ref{asm:CATE_dgp} and that Assumption~\ref{asm:technical} is valid.
+		Then, for any fixed $x \in \mathcal{X}$, we have for some positive sequence $\omega_n$ of order $\sqrt{s/n}$
+		\begin{equation}
+			\frac{\hat{\operatorname{CATE}}_{s}(x; \mathbf{D}_n, \mu, \pi) - \operatorname{CATE}(x)}{\omega_n}
+			\rightsquigarrow \mathcal{N}\left(0,1\right)
+		\end{equation}
+		as $n,s \rightarrow \infty$ with $s = o(n)$.
+	\end{thm}
+\end{boxD}
+
+{\color{red} LOREM IPSUM}
+
 \subsection{Variance Estimation for the (T)DNN-DML2 CATE Estimator}\label{CATE_Var_Ests}
 \hrule
 
