@@ -1,12 +1,12 @@
 \section{Simulations}\label{sec:simulations}
 \hrule
 
-Having developed theoretical results concerning simultaneous inference methods for the TDNN estimator, we will proceed by testing their properties in several simulation studies.
+Having developed theoretical results concerning simultaneous inference methods for the TDNN estimator, I will proceed by testing their properties in several simulation studies.
 
 \subsection{Nonparametric Regression}
 \hrule
-To investigate the practicality of the nonparametric regression estimators presented in this paper, we consider a collection of setups.
-First, we focus on illustrating the bias correction properties of the TDNN estimator by replicating some of the findings of \citet{demirkaya_optimal_2024}.
+To investigate the practicality of the nonparametric regression estimators presented in this paper, I consider a collection of setups.
+First, I focus on illustrating the bias correction properties of the TDNN estimator by replicating some of the findings of \citet{demirkaya_optimal_2024}.
 One such promising example is shown in Figure~\ref{fig:TDNN_bias_cor} highlighting the potential improvements available by combining multiple subsampling scales.
 \begin{figure}[H]
 	\centering
@@ -20,8 +20,8 @@ As can be seen in Figure~\ref{fig:TDNN_bias_cor}, a suitable choice of subsampli
 This reinforces the idea that the TDNN estimator can be a useful tool in practice that has the potential to improve on well-established nearest neighbor methods.
 
 \newpage
-As a second, potentially more illustrative example, we consider the estimation of a function of two arguments.
-Specifically, we consider the function $\mu(x) = 5 \cdot \left(\cos(x_1) + \cos(x_2)\right)$ on $[0,1]^2$ with heteroskedastic error terms whose variance is determined by $\sigma_{\varepsilon}^2(x) = \frac{1}{16}\left(x_1^2 + x_2^2\right)^2$.
+As a second, potentially more illustrative example, I consider the estimation of a function of two arguments.
+Specifically, I consider the function $\mu(x) = 5 \cdot \left(\cos(x_1) + \cos(x_2)\right)$ on $[0,1]^2$ with heteroskedastic error terms whose variance is determined by $\sigma_{\varepsilon}^2(x) = \frac{1}{16}\left(x_1^2 + x_2^2\right)^2$.
 The resulting surface is shown in Figure~\ref{fig:reg_surface}.
 
 \begin{figure}[H]
@@ -30,9 +30,9 @@ The resulting surface is shown in Figure~\ref{fig:reg_surface}.
 	\caption{Value of the Regression Function (left) and Variance of the Error Term (right)}
 	\label{fig:reg_surface}
 \end{figure}
-To analyze the behavior of the estimator in this setting, we run a number of Monte Carlo simulations each consisting of 10000 simulation runs.
+To analyze the behavior of the estimator in this setting, I run a number of Monte Carlo simulations each consisting of 10000 simulation runs.
 Although the theoretical analysis was of purely asymptotic nature, these simulation results can provide a modicum of guidance when it comes to choices such as the kernel orders employed in the estimation procedure.
-Each run consists of 10000 observations that are uniformly distributed on ${[0,1]}^2$, and we find the following concerning the bias and variance of the estimators given different kernel orders $s_1$ and $s_2$.
+Each run consists of 10000 observations that are uniformly distributed on ${[0,1]}^2$, and I find the following concerning the bias and variance of the estimators given different kernel orders $s_1$ and $s_2$.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width = \textwidth]{../Code/Simulations/Graphics/Reg_Exp1/TDNN/Plot_TDNN_n10000s_10_25.RDS.pdf}

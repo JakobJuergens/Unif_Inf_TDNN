@@ -1,9 +1,9 @@
 \section{Two-Scale Distributional Nearest Neighbor Estimator}\label{sec:TDNN}
 \hrule
-While less economically attractive, we will introduce the TDNN estimator using the simple nonparametric regression setup first.
+While less economically attractive, I will introduce the TDNN estimator using the simple nonparametric regression setup first.
 We will do this by first considering the simpler (one-scale) distributional nearest-neighbor estimator, which naturally extends to its two-scale variant as shown in \citet{demirkaya_optimal_2024}.
-Then, having established the method, we will begin by adapting it to tackle the problem of estimating heterogeneous treatment effects.
-As we will embed both estimation problems in the context of subsampled conditional moment regression to then build simultaneous inference procedures based on \citet{ritzwoller_simultaneous_2024}, the approach might at first seem unnatural.
+Then, having established the method, I will begin by adapting it to tackle the problem of estimating heterogeneous treatment effects.
+As I will embed both estimation problems in the context of subsampled conditional moment regression to then build simultaneous inference procedures based on \citet{ritzwoller_simultaneous_2024}, the approach might at first seem unnatural.
 However, due to the constructions that follow in Section~\ref{sec:unif_inf}, this approach will be well worth the slightly cumbersome initial presentation.
 
 \subsection{DNN and TDNN in Nonparametric Regression}
@@ -19,7 +19,7 @@ In the case at hand, this means that our problem can be phrased in the following
 \end{equation}
 Due to the absence of nuisance parameters, conditions such as local Neyman-orthogonality vacuously hold.
 We point this out to highlight a contrast that we will encounter when studying the treatment effect setting.
-In the simpler non-parametric regression setting, we can approached the problem by solving the corresponding empirical conditional moment equation.
+In the simpler non-parametric regression setting, we can approach the problem by solving the corresponding empirical conditional moment equation.
 \begin{equation}\label{EmpCondMomEq}
 	M_n(x; \mu, \mathbf{D}_n)
 	= \sum_{i = 1}^{n}K(x, X_{i})m(Z_{i}; \mu)
@@ -29,7 +29,7 @@ In this equation, $K:\mathbb{R}^d \times \mathbb{R}^d \rightarrow \mathbb{R}$ is
 Notationally, this makes the local and data-dependent approach of this procedure explicit.
 One estimator that fulfills the purpose of estimating $\mu$ nonparametrically is the Distributional Nearest Neighbor (DNN) estimator.
 With a name coined by \citet{demirkaya_optimal_2024}, the DNN estimator is based on important work by \citet{steele_exact_2009} and \citet{biau_rate_2010}.
-Given a sample as described in Assumption~\ref{asm:npr_dgp} and a fixed feature vector $x$, we first order the sample based on the distance to the point of interest.
+Given a sample as described in Assumption~\ref{asm:npr_dgp} and a fixed feature vector $x$, I first order the sample based on the distance to the point of interest.
 \begin{equation}\label{eq:ordering}
 	||X_{(1)} - x||_2
 	\leq ||X_{(2)} - x||_2
@@ -39,7 +39,7 @@ Given a sample as described in Assumption~\ref{asm:npr_dgp} and a fixed feature 
 Here draws are broken according to the natural indices of the observations in a deterministic way to simplify the derivations going forward.
 While the distance induced by the euclidean norm is a useful tool for developing an intuition for the method, the idea is not inherently connected to it.
 In fact, any distance induced by a norm that captures the geometry of the feature space in a suitable way can be used to construct an analogous weighting scheme.
-The generated ordering implies an associated ordering on the response variables and we denote by $Y_{(i)}$ the response corresponding to $X_{(i)}$.
+The generated ordering implies an associated ordering on the response variables and I denote by $Y_{(i)}$ the response corresponding to $X_{(i)}$.
 Let $\rk(x; X_{i}, D)$ denote the \textit{rank} that is assigned to observation $i$ in a sample $D$ relative to a point of interest $x$, setting $\rk(x; X_{i}, D) = \infty$ if $Z_{i} \not\in D$.
 Similarly, let $Y_{(1)}(x; D)$ indicate the response value of the closest neighbor in set $D$.
 This enables us to define a data-driven kernel function $\kappa$ following the notation of \citet{ritzwoller_simultaneous_2024}.
@@ -171,8 +171,8 @@ As this edge case is irrelevant in practice and as it would be simpler to employ
 
 \subsection{DNN and TDNN in Heterogeneous Treatment Effect Estimation}
 \hrule
-Motivated by the nonparametric regression setup, we set out to apply the underlying idea in the context of heterogeneous treatment effects.
-Similarly to before, we start by specifying a moment corresponding to our object of interest, taking into account the additional factors that come into play.
+Motivated by the nonparametric regression setup, I set out to apply the underlying idea in the context of heterogeneous treatment effects.
+Similarly to before, I start by specifying a moment corresponding to our object of interest, taking into account the additional factors that come into play.
 Due to the presence of a high-dimensional nuisance parameter in the form of the function $q$, it is natural to apply the concepts of DDML.
 This approach closely follows the leading example of \citet{ritzwoller_simultaneous_2024}.
 The main goal at this stage is to construct a highly practical method based on their ideas that leverages the computational simplicity of the distributional nearest-neighbor framework.\\
@@ -180,7 +180,7 @@ The main goal at this stage is to construct a highly practical method based on t
 While considering the problem of point-estimation of a conditional average
 treatment effect given a feature vector $x$,
 $\operatorname{CATE}(x) = \E\left[Y_{i}\left(W_{i} = 1\right) -
-		Y_{i}\left(W_{i} = 0\right) \, \middle| \, X_{i} = x\right]$, we
+		Y_{i}\left(W_{i} = 0\right) \, \middle| \, X_{i} = x\right]$, I
 will employ a Neyman-orthogonal score function to curtail the influence of the
 nuisance parameters on our estimation.
 \begin{equation}
@@ -193,14 +193,14 @@ nuisance parameters on our estimation.
 		 & = \mu_1\left(X_{i}\right) - \mu_0\left(X_{i}\right) + \beta\left(W_{i}, X_{i}\right)\left(Y_{i} - \mu_{W_{i}}\left(X_{i}\right)\right) - \operatorname{CATE}\left(X_{i}\right)
 	\end{aligned}
 \end{equation}
-Here, we make use of the following notation, that is common in the potential
+Here, I make use of the following notation, that is common in the potential
 outcomes framework, and the well-known Horvitz-Thompson weight.
 \begin{equation}
 	\text{for }  w = 1,2: \quad \mu_w\left(x\right) = \E\left[Y_{i} \, \middle| \, W_{i} = w, \; X_{i} = x\right]
 	\quad \text{and} \quad
 	\beta\left(w, x\right) = \frac{w}{\pi\left(x\right)} - \frac{1 - w}{1 - \pi\left(x\right)}
 \end{equation}
-As a shorthand notation, we will furthermore use $m\left(Z_{i}; \mu, \pi\right) = m\left(Z_{i}; \operatorname{CATE}, \mu, \pi\right) + \operatorname{CATE}\left(X_{i}\right)$.
+As a shorthand notation, I will furthermore use $m\left(Z_{i}; \mu, \pi\right) = m\left(Z_{i}; \operatorname{CATE}, \mu, \pi\right) + \operatorname{CATE}\left(X_{i}\right)$.
 This notation will mainly be used to shorten the presentation of proofs in the appendix.
 Proceeding in an analogous fashion to the nonparametric regression setup leads us to the following empirical moment equation, where $\hat{\mu}$ and $\hat{\pi}$ are first-stage estimators and $K$ is the data-driven kernel function defined in Equation~\ref{eq:data_distance}.
 \begin{equation}
@@ -212,10 +212,10 @@ Proceeding in an analogous fashion to the nonparametric regression setup leads u
 \end{equation}
 However, due to the presence of infinite-dimensional nuisance parameters, it becomes attractive to proceed using this weighted empirical moment equation embedded in the DML2 estimator of \citet{chernozhukov_doubledebiased_2018}.
 Applying these ideas to the context of estimating the CATE has been previously explored, for example by \citet{semenova_debiased_2021}
-For the sake of simplicity, we will assume that $m = n/K$, i.e.\ the desired number of observations in each fold, is an integer going forward.
+For the sake of simplicity, I will assume that $m = n/K$, i.e.\ the desired number of observations in each fold, is an integer going forward.
 \begin{boxD}
 	\begin{dfn}{(T)DNN-DML2 CATE-Estimator}\label{def:CATE_DNN_DML}\mbox{}\\*
-		To estimate the Conditional Average Treatment Effect at a point of interest $x \in \mathcal{X}$, we proceed as follows.
+		To estimate the Conditional Average Treatment Effect at a point of interest $x \in \mathcal{X}$, I proceed as follows.
 		\begin{enumerate}
 			\item Take a $K$-fold random partition $\mathcal{I} = \left(I_k\right)_{k = 1}^{K}$
 			      of the observation indices $[n]$ such that the size of each fold $I_k$ is $m =
@@ -266,9 +266,9 @@ Plugging in for the score function in the equation that defines the estimator, w
 		\left[\hat{\mu}_{k(i),s}^{1}\left(X_{(i)}\right) - \hat{\mu}_{k(i),s}^{0}\left(X_{(i)}\right) + \hat{\beta}_{k(i),s}\left(W_{(i)}, X_{(i)}\right)\left(Y_{(i)} - \hat{\mu}^{W_{(i)}}_{k(i),s}\left(X_{(i)}\right)\right)\right]
 	\end{aligned}
 \end{equation}
-Thus, given first-stage estimates of nuisance parameters, we have a closed-form representation of the CATE estimator for a given partition of $[n]$.
+Thus, given first-stage estimates of nuisance parameters, I have a closed-form representation of the CATE estimator for a given partition of $[n]$.
 Furthermore, given these first-stage estimates, the evaluation of the CATE-estimator at a different point of interest is merely a re-weighting of the terms corresponding to different observations.
-Considering the first-stage estimates, we can recognize that the estimation of $\mu^{0}$ and $\mu^{1}$ is effectively a nonparametric regression problem as previously described where we used the reduced data sets $\mathbf{D}^{(0)}$ and $\mathbf{D}^{(1)}$, respectively.
+Considering the first-stage estimates, we can recognize that the estimation of $\mu^{0}$ and $\mu^{1}$ is effectively a nonparametric regression problem as previously described where I used the reduced data sets $\mathbf{D}^{(0)}$ and $\mathbf{D}^{(1)}$, respectively.
 In contrast, the estimation of $\pi$ that is necessary in nearly all contexts, but randomized experiments can be described further due to the binary outcome.
 For that purpose, let $Z_{(i|k)}$ denote the $i$'th closest observation in fold $k$ akin to the construction shown in Equation~\ref{eq:ordering} relative to $x$ but with respect to the data in fold $k$.
 \begin{equation}
@@ -288,7 +288,7 @@ This approach eliminates the randomness inherent to the cross-validation procedu
 This leads to the following estimator.
 \begin{boxD}
 	\begin{dfn}{(T)DNN-LOO-DML CATE-Estimator}\label{def:CATE_DNN_LOO_DML}\mbox{}\\*
-		To estimate the Conditional Average Treatment Effect at a point of interest $x \in \mathcal{X}$, we proceed as follows.
+		To estimate the Conditional Average Treatment Effect at a point of interest $x \in \mathcal{X}$, I proceed as follows.
 		\begin{enumerate}
 			\item For each observation $i$, use the (T)DNN estimator on the data set $\mathbf{D}_{n,-i}$\dots
 			      \begin{enumerate}

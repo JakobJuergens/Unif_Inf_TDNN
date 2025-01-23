@@ -7,15 +7,15 @@ In the aforementioned paper, the authors develop a novel debiasing method that p
 The main contributions of this paper are twofold.
 First, this paper provides extended consistency results for the variance estimators for the DNN and TDNN estimators.
 These results show consistency for three Jackknife-based variance estimators in a broad class of asymptotically Gaussian generalized U-statistics that extends considerably beyond the DNN-based regression approaches.
-Second, we propose a novel estimator for the CATE based on the ideas inherent to the DNN estimator and methods from DDML.
+Second, I propose a novel estimator for the CATE based on the ideas inherent to the DNN estimator and methods from DDML.
 Simulations show promising performance of the estimator, and its simple structure when compared to competing estimators motivates further research into its use for pointwise and simultaneous inference.
 These extensions will be at the heart of future iterations of this paper.
 
 After short sections on notation and literature review, the remainder of this paper is organized as follows.
 Section~\ref{sec:setup} introduces the two setups covered in this paper: first, a relatively simple nonparametric regression setup and second, a setup that mimics the problem of estimating conditional average treatment effects (CATE).
-To give readers a more economic understanding of the ideas presented in this paper, we will also introduce a running example that we will refer to throughout this paper.
+To give readers a more economic understanding of the ideas presented in this paper, I will also introduce a running example that I will refer to throughout this paper.
 This running example will be a simplified version of the well-known problem of estimating treatment effects in a job-training program for individuals of differing characteristics.
-Furthermore, this section introduces and contextualizes most of the assumptions that we refer to at later stages of the paper.
+Furthermore, this section introduces and contextualizes most of the assumptions that I refer to at later stages of the paper.
 Section~\ref{sec:TDNN} is used to define the DNN and TDNN estimators in the context of nonparametric regression and introduces a novel estimator for the CATE setup.
 In addition, the main results of the distributional approximations of the estimators are introduced.
 Section~\ref{sec:pw_inf} introduces consistency results for variance estimators to allow for pointwise inference using the DNN estimator and its derivatives.
@@ -35,9 +35,9 @@ Given a finite index set $\mathcal{I} \subset \mathbb{N}$, I introduce the follo
 	L_{n,s} = L_s\left([n]\right)
 \end{equation}
 For a data set $\mathbf{D}_{[n]} = \left(Z_1, \dotsc, Z_{n}\right)$ and a vector $\ell \in L_{n,s}$, denote by $\mathbf{D}_{[n], -\ell}$ the data set where the observations corresponding to indices in $\ell$ have been removed.
-To simplify the notation in the case that a single observation (say the $i'th$ observation) is removed, we use the notation $\mathbf{D}_{n, -i}$.
+To simplify the notation in the case that a single observation (say the $i'th$ observation) is removed, I use the notation $\mathbf{D}_{n, -i}$.
 Similarly, given such a data set $\mathbf{D}_{[n]}$ and index vector $\ell$, denote by $\mathbf{D}_{\ell}$ the data set consisting only of the observations in $\mathbf{D}_{[n]}$ corresponding to the indices in $\ell$.
-In an abuse of notation, when considering two index vectors $\ell$ and $\iota$ that do not share any entries, we denote by $\ell \cup \iota$ the concatenation of the two vectors, e.g., if $\ell = (8,2,5)$ and $\iota = (1,6)$, then $\ell \cup \iota = (8,2,5,1,6)$.
+In an abuse of notation, when considering two index vectors $\ell$ and $\iota$ that do not share any entries, I denote by $\ell \cup \iota$ the concatenation of the two vectors, e.g., if $\ell = (8,2,5)$ and $\iota = (1,6)$, then $\ell \cup \iota = (8,2,5,1,6)$.
 
 In the following, $\rightsquigarrow$ denotes weak convergence, while
 $\rightarrow_{p}$ denotes convergence in probability, and $\rightarrow_{a.s.}$
@@ -51,7 +51,7 @@ reference parameter will be clear from the context.
 The related literature can be broadly categorized into three main strands: Nearest-Neighbor type estimators in nonparametric regression, variance estimation for (generalized) U-statistic type estimators including Random Forest, and estimation and inference for CATEs using double / debiased machine learning (DDML) methods.
 A great introduction to the Nearest-Neighbor method is given in \citet{biau_lectures_2015}, illustrating the potential of the method for classification and regression tasks.
 Of particular interest in the context of this paper are the so-called ``Weighted Nearest-Neighbor'' methods for nonparametric regression.
-While this is a well-studied type of estimator in and of itself, we draw particular connections to bagged-nearest-neighbor type estimators.
+While this is a well-studied type of estimator in and of itself, I draw particular connections to bagged-nearest-neighbor type estimators.
 This class of estimators is built on the framework of ``potential closest neighbors'' as introduced by \citet{lin_random_2006}.
 Relevant papers studying their properties are, among others, \citet{biau_rate_2010}, \citet{biau_layered_2010}, and \citet{steele_exact_2009}.
 These papers also point out the close connections to RF and illustrate why studying the bagged nearest-neighbor method could potentially guide our analysis of RF.

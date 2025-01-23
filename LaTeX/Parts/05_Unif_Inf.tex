@@ -21,12 +21,12 @@ The latter immediately implies a property that has been called ``Honesty'' by \c
 Absent from \citet{demirkaya_optimal_2024} is a way to construct uniformly valid confidence bands around the TDNN estimator.
 Luckily, as a byproduct of considering the methods from \citet{ritzwoller_simultaneous_2024}, procedures for simultaneous inference can be developed relatively easily.
 
-To consider this problem in detail we first introduce additional notation.
+To consider this problem in detail I first introduce additional notation.
 Instead of a single point of interest, previously denoted by $x$, we will consider a vector of $p$ points of interest denoted by $x^{(p)} \in \left(\operatorname{supp}\left(X\right)\right)^{p}$.
 Consequently, the $j$-th entry of $x^{(p)}$ will be denoted by $x^{(p)}_{j}$.
 In an abuse of notation, let functions (such as $\mu$ or the DNN/TDNN estimators) evaluated at $x^{(p)}$ denote the vector of corresponding function values evaluated at the point, respectively.
 It should be pointed out that, due to the local definition of the kernel in the estimators, this does not translate to the evaluation of the same function at different points in the most immediate sense.
-To summarize the kind of object we want to construct, we define a simultaneous confidence region for the TDNN estimator in the following way following closely the notation of \citet{ritzwoller_simultaneous_2024}.
+To summarize the kind of object we want to construct, I define a simultaneous confidence region for the TDNN estimator in the following way following closely the notation of \citet{ritzwoller_simultaneous_2024}.
 
 \begin{boxD}
 	\begin{dfn}[Uniform Confidence Regions]\mbox{}\\*
@@ -46,7 +46,7 @@ To summarize the kind of object we want to construct, we define a simultaneous c
 \end{boxD}
 
 \subsection{Low-Level}
-In our pursuit of constructing simultaneous confidence regions for the TDNN estimator, we return to the results from \citet{ritzwoller_simultaneous_2024} in their high-dimensional form.
+In our pursuit of constructing simultaneous confidence regions for the TDNN estimator, I return to the results from \citet{ritzwoller_simultaneous_2024} in their high-dimensional form.
 
 \begin{boxD}
 	\begin{thm}[\citet{ritzwoller_simultaneous_2024} - Theorem 4.1]\label{thm:rit4_1}\mbox{}\\*

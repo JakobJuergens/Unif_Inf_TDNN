@@ -2,7 +2,7 @@
 \hrule
 
 As most of the theoretical results in \citet{demirkaya_optimal_2024} rely on representations as a U-statistic, it is helpful to introduce additional concepts and notation at this stage.
-In analogy to the main part of this paper, we will first start with the regression context and then go on to consider the CATE estimation scenario separately.
+In analogy to the main part of this paper, I will first start with the regression context and then go on to consider the CATE estimation scenario separately.
 Recalling Equation~\ref{eq:U_stat}, the DNN and TDNN estimators can be expressed in the following U-statistic form and are thus a type of generalized complete U-statistic as introduced by \citet{peng_rates_2022}.
 \begin{equation}
 	\tilde{\mu}_{s}(x; \mathbf{D}_n)
@@ -26,7 +26,7 @@ This connection will prove useful going forward.
 		\end{equation}
 	\end{lem}
 \end{boxD}
-Borrowing the notational conventions from \citet{lee_u-statistics_2019}, we additionally introduce the following notation.
+Borrowing the notational conventions from \citet{lee_u-statistics_2019}, I additionally introduce the following notation.
 \begin{equation}\label{eq:psi_s_c}
 	\psi_{s}^{c}(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c})
 	= \E_{D}\left[h_{s}\left(x; D\right) \, | \,  Z_1 = \mathbf{z}_{1}, \dotsc, Z_c = \mathbf{z}_{c}\right]
@@ -50,7 +50,7 @@ For the DNN estimator and any $1 \leq c \leq s$, define
 \end{equation}
 where $Z_{c+1}^{\prime}, \ldots, Z_n^{\prime}$ are i.i.d.\ from $P$ and independent of $Z_1, \ldots, Z_n$ and thus
 $\xi_{s}^{s}\left(x\right) = \Var\left(h_s\left(x; Z_1, \ldots, Z_s\right)\right)$.
-% Then, we have the following result from the original paper.
+% Then, I have the following result from the original paper.
 Similarly, for the TDNN estimator and any $1 \leq c \leq s_2$, let
 \begin{equation}\label{eq:zeta_s1s2_c}
 	\zeta_{s_1, s_2}^{c}\left(x\right)
@@ -83,7 +83,7 @@ First, an immediate result on the expectations of the Hoeffding-projection kerne
 	\quad \text{and} \quad
 	\E_{D}\left[h_{s_1, s_2}^{(j)}\left(x; D\right)\right] = 0
 \end{align}
-Second, we obtain a useful variance decomposition in terms of the Hoeffding-projection variances.
+Second, I obtain a useful variance decomposition in terms of the Hoeffding-projection variances.
 \begin{align}\label{eq:Var_decomp}
 	\Var_{D}\left(\hat{\mu}_{s_1, s_2}\left(x; D\right)\right)
 	 & = \sum_{j = 1}^{s_2} \binom{s_2}{j}^2 \Var_{D}\left(H_{s_1, s_2}^{j}\left(x; D\right)\right) \\
@@ -103,7 +103,7 @@ Third, the following equivalent expression for the kernel variance.
 \hrule
 
 Given estimates of the functional nuisance parameters, the proposed CATE estimators can be analyzed as generalized U-statistics in the same way as in the nonparametric regression context.
-As most of the theoretical results on these estimators will similarly rely on Hoeffding projection arguments, we will introduce analogous notation in this more general scenario.
+As most of the theoretical results on these estimators will similarly rely on Hoeffding projection arguments, I will introduce analogous notation in this more general scenario.
 First, observe that the DNN-DML2 CATE estimator can be rewritten as follows to explicitly show its construction as a generalized U-statistic.
 \begin{equation}
     \begin{aligned}
@@ -118,8 +118,8 @@ First, observe that the DNN-DML2 CATE estimator can be rewritten as follows to e
         & = \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}}\chi_{s}(x; \mathbf{D}_{\ell}, \hat{\mu}, \hat{\pi})
     \end{aligned}
 \end{equation}
-In the same fashion as in the previous case, we can now define the Hoeffding decomposition for the estimator.
-Note that in this step, we continue to take the estimates of the functional nuisance parameters as exogenously given.
+In the same fashion as in the previous case, I can now define the Hoeffding decomposition for the estimator.
+Note that in this step, I continue to take the estimates of the functional nuisance parameters as exogenously given.
 \begin{equation}
     \vartheta_{s}^{c}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \hat{\mu}, \hat{\pi}\right)
     & = \E_{D}\left[\chi_{s}(x; \mathbf{D}, \hat{\mu}, \hat{\pi}) \, \middle| \, Z_1 = \mathbf{z}_1, \dotsc, Z_c = \mathbf{z}_c, \hat{\mu}, \hat{\pi}\right]
@@ -129,14 +129,14 @@ Note that in this step, we continue to take the estimates of the functional nuis
 	= \vartheta_{s}^{1}\left(x; \mathbf{z}_{1}, \hat{\mu}, \hat{\pi}\right)
     - \E_{D}\left[\chi_{s}(x; \mathbf{D}, \hat{\mu}, \hat{\pi}) \, \middle| \, \hat{\mu}, \hat{\pi}\right]
 \end{equation}
-As before, we define the higher-order projection terms, i.e. for $c = 2, \dotsc, s$, in the following way.
+As before, I define the higher-order projection terms, i.e. for $c = 2, \dotsc, s$, in the following way.
 \begin{equation}
     \chi_{s}^{(c)}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \hat{\mu}, \hat{\pi}\right)
 	& = \vartheta_{s}^{c}(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \hat{\mu}, \hat{\pi}) 
     - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{n,j}} \chi_{s}^{(j)}(x; \mathbf{z}_{\ell}, \hat{\mu}, \hat{\pi})\right) 
     - \E_{D}\left[\chi_{s}(x; \mathbf{D}, \hat{\mu}, \hat{\pi}) \, \middle| \, \hat{\mu}, \hat{\pi}\right]
 \end{equation}
-In anticipation of arguments involving empirical process theory, we define as follows.
+In anticipation of arguments involving empirical process theory, I define as follows.
 \begin{equation}
     \vartheta_{s,0}^{c}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}\right)
     & = \vartheta_{s}^{c}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \mu, \pi\right)
@@ -157,7 +157,7 @@ In anticipation of arguments involving empirical process theory, we define as fo
         - \E_{D}\left[\chi_{s,0}^{(c)}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}\right)\right]
     \end{aligned}
 \end{equation}
-Furthermore, in an overloading of notation, we define as follows.
+Furthermore, in an overloading of notation, I define as follows.
 \begin{equation}
     \vartheta_{s}^{c}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}\right)
     & = \E_{D}\left[\chi_{s}(x; \mathbf{D}, \hat{\mu}, \hat{\pi}) \, \middle| \, Z_1 = \mathbf{z}_1, \dotsc, Z_c = \mathbf{z}_c\right]
@@ -175,7 +175,7 @@ Furthermore, in an overloading of notation, we define as follows.
 \end{equation}
 To explicitly point out the difference between these definitions, note that we are now not taking the estimates of the functional nuisance parameters as exogenously given.
 Instead, we also consider the corresponding expectations with respect to the first-stage estimates.
-These definitions allow us to use the following decomposition where now we acknowledge the randomness in the first-stage estimation.
+These definitions allow us to use the following decomposition where now I acknowledge the randomness in the first-stage estimation.
 \begin{equation}
     \begin{aligned}
         \chi_{s}^{(c)}\left(x; \mathbf{D}_{\ell}, \hat{\mu}, \hat{\pi}\right)
@@ -187,7 +187,7 @@ These definitions allow us to use the following decomposition where now we ackno
 \end{equation}
 Considering this decomposition will be of great usefulness when analyzing the asymptotic properties of the CATE estimators.
 
-Plugging into the full expression for the CATE estimator, we obtain the following.
+Plugging into the full expression for the CATE estimator, I obtain the following.
 \begin{equation}\label{eq:DNNDML2_Decomp}
     \begin{aligned}
         \widehat{\operatorname{CATE}}\left(x\right)
