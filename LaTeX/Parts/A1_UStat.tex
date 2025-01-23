@@ -107,7 +107,7 @@ As most of the theoretical results on these estimators will similarly rely on Ho
 First, observe that the DNN-DML2 CATE estimator can be rewritten as follows to explicitly show its construction as a generalized U-statistic.
 \begin{equation}
     \begin{aligned}
-        \widehat{\operatorname{CATE}}\left(x\right) 
+        \widehat{\operatorname{CATE}}\left(x; \hat{\mu}, \hat{\pi}\right) 
         & = \sum_{i = 1}^{n - s + 1} \frac{\binom{n-i}{s-1}}{\binom{n}{s}}
 		\left[\hat{\mu}_{k(i),s}^{1}\left(X_{(i)}\right) - \hat{\mu}_{k(i),s}^{0}\left(X_{(i)}\right) + \hat{\beta}_{k(i),s}\left(W_{(i)}, X_{(i)}\right)\left(Y_{(i)} - \hat{\mu}^{W_{(i)}}_{k(i),s}\left(X_{(i)}\right)\right)\right] \\
         %
@@ -115,8 +115,89 @@ First, observe that the DNN-DML2 CATE estimator can be rewritten as follows to e
         \underbrace{\sum_{i = 1}^{n}\frac{\1\left(\rk(x; Z_{i}, D_{\ell}) = 1\right)}{s!} 
         \left[\hat{\mu}_{k_i,s}^{1}\left(X_{i}\right) - \hat{\mu}_{k_i,s}^{0}\left(X_{i}\right) + \hat{\beta}_{k_i,s}\left(W_{i}, X_{i}\right)\left(Y_{i} - \hat{\mu}^{W_{i}}_{k_i,s}\left(X_{i}\right)\right)\right]}_{\chi_{s}(x; \mathbf{D}_{\ell}, \hat{\mu}, \hat{\pi})} \\
         %
-        & = \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}}\chi_{s}(x; \mathbf{D}_{\ell},\hat{\mu}, \hat{\pi})
+        & = \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}}\chi_{s}(x; \mathbf{D}_{\ell}, \hat{\mu}, \hat{\pi})
     \end{aligned}
 \end{equation}
+In the same fashion as in the previous case, we can now define the Hoeffding decomposition for the estimator.
+Note that in this step, we continue to take the estimates of the functional nuisance parameters as exogenously given.
+\begin{equation}
+    \vartheta_{s}^{c}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \hat{\mu}, \hat{\pi}\right)
+    & = \E_{D}\left[\chi_{s}(x; \mathbf{D}, \hat{\mu}, \hat{\pi}) \, \middle| \, Z_1 = \mathbf{z}_1, \dotsc, Z_c = \mathbf{z}_c, \hat{\mu}, \hat{\pi}\right]
+\end{equation}
+\begin{equation}
+    \chi_{s}^{(1)}\left(x; \mathbf{z}_{1}, \hat{\mu}, \hat{\pi}\right)
+	= \vartheta_{s}^{1}\left(x; \mathbf{z}_{1}, \hat{\mu}, \hat{\pi}\right)
+    - \E_{D}\left[\chi_{s}(x; \mathbf{D}, \hat{\mu}, \hat{\pi}) \, \middle| \, \hat{\mu}, \hat{\pi}\right]
+\end{equation}
+As before, we define the higher-order projection terms, i.e. for $c = 2, \dotsc, s$, in the following way.
+\begin{equation}
+    \chi_{s}^{(c)}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \hat{\mu}, \hat{\pi}\right)
+	& = \vartheta_{s}^{c}(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \hat{\mu}, \hat{\pi}) 
+    - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{n,j}} \chi_{s}^{(j)}(x; \mathbf{z}_{\ell}, \hat{\mu}, \hat{\pi})\right) 
+    - \E_{D}\left[\chi_{s}(x; \mathbf{D}, \hat{\mu}, \hat{\pi}) \, \middle| \, \hat{\mu}, \hat{\pi}\right]
+\end{equation}
+In anticipation of arguments involving empirical process theory, we define as follows.
+\begin{equation}
+    \vartheta_{s,0}^{c}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}\right)
+    & = \vartheta_{s}^{c}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \mu, \pi\right)
+\end{equation}
+\begin{equation}
+    \chi_{s,0}^{(1)}\left(x; \mathbf{z}_{1}\right)
+	= \chi_{s}^{(1)}\left(x; \mathbf{z}_{1}, \mu, \pi\right)
+    = \vartheta_{s,0}^{1}\left(x; \mathbf{z}_{1}\right) 
+    - \E_{D}\left[\chi_{s,0}^{(c)}\left(x; \mathbf{z}_{1}\right)\right]
+\end{equation}
+\begin{equation}
+    \begin{aligned}
+        \chi_{s,0}^{(c)}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}\right)
+	    & = \chi_{s}^{(c)}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \mu, \pi\right) \\
+        %
+        & = \vartheta_{s,0}^{c}(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}) 
+        - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{n,j}} \chi_{s,0}^{(j)}(x; \mathbf{z}_{\ell})\right) 
+        - \E_{D}\left[\chi_{s,0}^{(c)}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}\right)\right]
+    \end{aligned}
+\end{equation}
+Furthermore, in an overloading of notation, we define as follows.
+\begin{equation}
+    \vartheta_{s}^{c}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}\right)
+    & = \E_{D}\left[\chi_{s}(x; \mathbf{D}, \hat{\mu}, \hat{\pi}) \, \middle| \, Z_1 = \mathbf{z}_1, \dotsc, Z_c = \mathbf{z}_c\right]
+\end{equation}
+\begin{equation}
+    \chi_{s}^{(1)}\left(x; \mathbf{z}_{1}\right)
+	= \vartheta_{s}^{1}\left(x; \mathbf{z}_{1}\right)
+    - \E_{D}\left[\chi_{s}(x; \mathbf{D}, \hat{\mu}, \hat{\pi})\right]
+\end{equation}
+\begin{equation}
+    \chi_{s}^{(c)}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}\right)
+	& = \vartheta_{s}^{c}(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}) 
+    - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{n,j}} \chi_{s}^{(j)}(x; \mathbf{z}_{\ell})\right) 
+    - \E_{D}\left[\chi_{s}(x; \mathbf{D}, \hat{\mu}, \hat{\pi})\right]
+\end{equation}
+To explicitly point out the difference between these definitions, note that we are now not taking the estimates of the functional nuisance parameters as exogenously given.
+Instead, we also consider the corresponding expectations with respect to the first-stage estimates.
+These definitions allow us to use the following decomposition where now we acknowledge the randomness in the first-stage estimation.
+\begin{equation}
+    \begin{aligned}
+        \chi_{s}^{(c)}\left(x; \mathbf{D}_{\ell}, \hat{\mu}, \hat{\pi}\right)
+        & = \underbrace{\chi_{s}^{(c)}\left(x; \mathbf{D}_{\ell}, \hat{\mu}, \hat{\pi}\right) - \chi_{s}^{(c)}\left(x; \mathbf{D}_{\ell}\right)}_{A_{c}\left(x; \mathbf{D}_{\ell}\right)}
+        + \underbrace{\chi_{s}^{(c)}\left(x; \mathbf{D}_{\ell}\right) - \chi_{s,0}^{(c)}\left(x; \mathbf{D}_{\ell}\right)}_{B_{c}\left(x; \mathbf{D}_{\ell}\right)} \\
+        & + \underbrace{\chi_{s,0}^{(c)}\left(x; \mathbf{D}_{\ell}\right) - \E_{D}\left[\chi_{s,0}^{(c)}\left(x; \mathbf{D}_{\ell}\right)\right]}_{C_{c}\left(x; \mathbf{D}_{\ell}\right)}
+        + \underbrace{\E_{D}\left[\chi_{s,0}^{(c)}\left(x; \mathbf{D}_{\ell}\right)\right]}_{D_{c}\left(x\right)}
+    \end{aligned}
+\end{equation}
+Considering this decomposition will be of great usefulness when analyzing the asymptotic properties of the CATE estimators.
 
-
+Plugging into the full expression for the CATE estimator, we obtain the following.
+\begin{equation}
+    \begin{aligned}
+        \widehat{\operatorname{CATE}}\left(x\right)
+        & = \E_{D}\left[\widehat{\operatorname{CATE}}\left(x\right)\right] 
+        + \sum_{j = 1}^{c} \binom{s}{j} \binom{n}{j}^{-1}\sum_{\ell \in L_{n,c}} \left[A_{c}\left(x; \mathbf{D}_{\ell}\right) + B_{c}\left(x; \mathbf{D}_{\ell}\right) + C_{c}\left(x; \mathbf{D}_{\ell}\right) + D_{c}\left(x\right)\right]\\
+        %
+        & = \underbrace{\E_{D}\left[\widehat{\operatorname{CATE}}\left(x\right)\right]}_{\text{Centering-Term}}
+        + \underbrace{\frac{s}{n} \sum_{i = 1}^{n} \left[A_{1}\left(x; Z_{i}\right) + B_{1}\left(x; Z_{i}\right) + C_{1}\left(x; Z_{i}\right) + D_{1}\left(x\right)\right]}_{\text{Pseudo-H\'ajek-Projection}}\\
+        & \quad \quad + \underbrace{\sum_{j = 2}^{c} \binom{s}{j} \binom{n}{j}^{-1}\sum_{\ell \in L_{n,j}} \left[A_{j}\left(x; \mathbf{D}_{\ell}\right) + B_{j}\left(x; \mathbf{D}_{\ell}\right) + C_{j}\left(x; \mathbf{D}_{\ell}\right) + D_{j}\left(x\right)\right]}_{\text{Pseudo-H\'ajek-Residual}}\\
+    \end{aligned}
+\end{equation}
+I call these terms pseudo-H\'ajek projection and pseudo-H\'ajek residual because of the additional randomness due to the first-stage estimation of the functional nuisance parameters.
+An integral part of showing the asymptotic properties of the estimator is to show that a number of terms in this representation are asymptotically negligible as long as the first-stage estimator converges fast enough.
