@@ -138,6 +138,10 @@ As before, I define the higher-order projection terms, i.e. for $c = 2, \dotsc, 
 \end{equation}
 In anticipation of arguments involving empirical process theory, I define as follows.
 \begin{equation}
+    \chi_{s, 0}(x; \mathbf{D}_{[s]})
+    = \chi_{s}(x; \mathbf{D}_{[s]}, \mu, \pi)
+\end{equation}
+\begin{equation}
     \vartheta_{s,0}^{c}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}\right)
     & = \vartheta_{s}^{c}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \mu, \pi\right)
 \end{equation}
@@ -145,7 +149,7 @@ In anticipation of arguments involving empirical process theory, I define as fol
     \chi_{s,0}^{(1)}\left(x; \mathbf{z}_{1}\right)
 	= \chi_{s}^{(1)}\left(x; \mathbf{z}_{1}, \mu, \pi\right)
     = \vartheta_{s,0}^{1}\left(x; \mathbf{z}_{1}\right) 
-    - \E_{D}\left[\chi_{s,0}^{(c)}\left(x; \mathbf{z}_{1}\right)\right]
+    - \E_{D}\left[\chi_{s,0}\left(x; \mathbf{D}\right)\right]
 \end{equation}
 \begin{equation}
     \begin{aligned}
@@ -154,7 +158,7 @@ In anticipation of arguments involving empirical process theory, I define as fol
         %
         & = \vartheta_{s,0}^{c}(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}) 
         - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{n,j}} \chi_{s,0}^{(j)}(x; \mathbf{z}_{\ell})\right) 
-        - \E_{D}\left[\chi_{s,0}^{(c)}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}\right)\right]
+        - \E_{D}\left[\chi_{s,0}^{(c)}\left(x; Z_{1}, \dotsc, Z_{c}\right)\right]
     \end{aligned}
 \end{equation}
 Furthermore, in an overloading of notation, I define as follows.
@@ -176,7 +180,7 @@ Furthermore, in an overloading of notation, I define as follows.
 To explicitly point out the difference between these definitions, note that we are now not taking the estimates of the functional nuisance parameters as exogenously given.
 Instead, we also consider the corresponding expectations with respect to the first-stage estimates.
 These definitions allow us to use the following decomposition where now I acknowledge the randomness in the first-stage estimation.
-\begin{equation}
+\begin{equation}\label{eq:DNNDML2_ResidDecomp}
     \begin{aligned}
         \chi_{s}^{(c)}\left(x; \mathbf{D}_{\ell}, \hat{\mu}, \hat{\pi}\right)
         & = \underbrace{\chi_{s}^{(c)}\left(x; \mathbf{D}_{\ell}, \hat{\mu}, \hat{\pi}\right) - \chi_{s}^{(c)}\left(x; \mathbf{D}_{\ell}\right)}_{A_{c}\left(x; \mathbf{D}_{\ell}\right)}
@@ -187,16 +191,16 @@ These definitions allow us to use the following decomposition where now I acknow
 \end{equation}
 Considering this decomposition will be of great usefulness when analyzing the asymptotic properties of the CATE estimators.
 
-Plugging into the full expression for the CATE estimator, I obtain the following.
+Plugging into the full expression for the CATE estimator, the following is obtained.
 \begin{equation}\label{eq:DNNDML2_Decomp}
     \begin{aligned}
         \widehat{\operatorname{CATE}}\left(x\right)
         & = \E_{D}\left[\widehat{\operatorname{CATE}}\left(x\right)\right] 
-        + \sum_{j = 1}^{c} \binom{s}{j} \binom{n}{j}^{-1}\sum_{\ell \in L_{n,c}} \left[A_{c}\left(x; \mathbf{D}_{\ell}\right) + B_{c}\left(x; \mathbf{D}_{\ell}\right) + C_{c}\left(x; \mathbf{D}_{\ell}\right) + D_{c}\left(x\right)\right]\\
+        + \sum_{j = 1}^{s} \binom{s}{j} \binom{n}{j}^{-1}\sum_{\ell \in L_{n,j}} \left[A_{j}\left(x; \mathbf{D}_{\ell}\right) + B_{j}\left(x; \mathbf{D}_{\ell}\right) + C_{j}\left(x; \mathbf{D}_{\ell}\right) + D_{j}\left(x\right)\right]\\
         %
         & = \underbrace{\E_{D}\left[\widehat{\operatorname{CATE}}\left(x\right)\right]}_{\text{Centering-Term}}
         + \underbrace{\frac{s}{n} \sum_{i = 1}^{n} \left[A_{1}\left(x; Z_{i}\right) + B_{1}\left(x; Z_{i}\right) + C_{1}\left(x; Z_{i}\right) + D_{1}\left(x\right)\right]}_{\text{Pseudo-H\'ajek-Projection}}\\
-        & \quad \quad + \underbrace{\sum_{j = 2}^{c} \binom{s}{j} \binom{n}{j}^{-1}\sum_{\ell \in L_{n,j}} \left[A_{j}\left(x; \mathbf{D}_{\ell}\right) + B_{j}\left(x; \mathbf{D}_{\ell}\right) + C_{j}\left(x; \mathbf{D}_{\ell}\right) + D_{j}\left(x\right)\right]}_{\text{Pseudo-H\'ajek-Residual}}\\
+        & \quad \quad + \underbrace{\sum_{j = 2}^{s} \binom{s}{j} \binom{n}{j}^{-1}\sum_{\ell \in L_{n,j}} \left[A_{j}\left(x; \mathbf{D}_{\ell}\right) + B_{j}\left(x; \mathbf{D}_{\ell}\right) + C_{j}\left(x; \mathbf{D}_{\ell}\right) + D_{j}\left(x\right)\right]}_{\text{Pseudo-H\'ajek-Residual}}
     \end{aligned}
 \end{equation}
 I call these terms pseudo-H\'ajek projection and pseudo-H\'ajek residual because of the additional randomness due to the first-stage estimation of the functional nuisance parameters.
