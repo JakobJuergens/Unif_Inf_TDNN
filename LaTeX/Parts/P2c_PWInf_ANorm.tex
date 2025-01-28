@@ -104,10 +104,67 @@ where we have the following definition from Equation \ref{eq:DNNDML2_ResidDecomp
             \hat{\beta}_{k_i,s}\left(W_{i}, X_{i}\right)\left(Y_{i} - \hat{\mu}^{W_{i}}_{k_i,s}\left(X_{i}\right)\right)
             - \beta\left(W_{i}, X_{i}\right)\left(Y_{i} - \mu_{W_{i}}\left(X_{i}\right)\right)\right]\right] \\
             %
-            & = 
+            & = \frac{1}{s!}\E_{D}\left[\1\left(\rk(x; Z_{1}, D_{\ell}) = 1\right)   
+            \left[\hat{\mu}_{k_1,s}^{1}\left(X_{1}\right) - \mu_{1}(X_{1})
+            - \hat{\mu}_{k_1,s}^{0}\left(X_{1}\right) + \mu_{0}(X_{1}) \right. \right.\\
+            & \quad \quad + \left. \left. 
+            \hat{\beta}_{k_1,s}\left(W_{1}, X_{1}\right)\left(Y_{1} - \hat{\mu}^{W_{1}}_{k_1,s}\left(X_{1}\right)\right)
+            - \beta\left(W_{1}, X_{1}\right)\left(Y_{1} - \mu_{W_{1}}\left(X_{1}\right)\right)\right]
+            \, \middle| \, Z_1 = \mathbf{z}_1\right] \\
+            & \quad + \frac{n-1}{s!} \E_{D}\left[\1\left(\rk(x; Z_{2}, D_{\ell}) = 1\right)
+            \left[\hat{\mu}_{k_2,s}^{1}\left(X_{2}\right) - \mu_{1}(X_{2})
+            - \hat{\mu}_{k_2,s}^{0}\left(X_{2}\right) + \mu_{0}(X_{2}) \right. \right.\\
+            & \quad \quad + \left. \left. 
+            \hat{\beta}_{k_2,s}\left(W_{2}, X_{2}\right)\left(Y_{2} - \hat{\mu}^{W_{2}}_{k_2,s}\left(X_{2}\right)\right)
+            - \beta\left(W_{2}, X_{2}\right)\left(Y_{2} - \mu_{W_{2}}\left(X_{2}\right)\right)\right]
+            \, \middle| \, Z_1 = \mathbf{z}_1\right] \\
+            & \quad - \frac{1}{s!} 
+            \E_{D}\left[\hat{\mu}_{k_2,s}^{1}\left(X_{2}\right) - \mu_{1}(X_{2})
+            - \hat{\mu}_{k_2,s}^{0}\left(X_{2}\right) + \mu_{0}(X_{2}) \right. \\
+            & \quad \quad + \left. 
+            \hat{\beta}_{k_2,s}\left(W_{2}, X_{2}\right)\left(Y_{2} - \hat{\mu}^{W_{2}}_{k_2,s}\left(X_{2}\right)\right)
+            - \beta\left(W_{2}, X_{2}\right)\left(Y_{2} - \mu_{W_{2}}\left(X_{2}\right)\right)\; \middle| \; \operatorname{rk}(x; Z_2, \mathbf{D}_{\ell}) = 1\right]
         \end{aligned}
     \end{equation}
-
+    At this point it is useful to analyze the terms individually to improve the readability of the proof.
+    \begin{equation}
+        \begin{aligned}
+            (I) & = \frac{1}{s!}\E_{D}\left[\1\left(\rk(x; Z_{1}, D_{\ell}) = 1\right)   
+            \left[\hat{\mu}_{k_1,s}^{1}\left(X_{1}\right) - \mu_{1}(X_{1})
+            - \hat{\mu}_{k_1,s}^{0}\left(X_{1}\right) + \mu_{0}(X_{1}) \right. \right.\\
+            & \quad \quad + \left. \left. 
+            \hat{\beta}_{k_1,s}\left(W_{1}, X_{1}\right)\left(Y_{1} - \hat{\mu}^{W_{1}}_{k_1,s}\left(X_{1}\right)\right)
+            - \beta\left(W_{1}, X_{1}\right)\left(Y_{1} - \mu_{W_{1}}\left(X_{1}\right)\right)\right]
+            \, \middle| \, Z_1 = \mathbf{z}_1\right] \\
+            %
+            & = {\color{red} LOREM IPSUM}
+        \end{aligned}
+    \end{equation}
+        \begin{equation}
+        \begin{aligned}
+            (II) & =  \frac{n-1}{s!} \E_{D}\left[\1\left(\rk(x; Z_{2}, D_{\ell}) = 1\right)
+            \left[\hat{\mu}_{k_2,s}^{1}\left(X_{2}\right) - \mu_{1}(X_{2})
+            - \hat{\mu}_{k_2,s}^{0}\left(X_{2}\right) + \mu_{0}(X_{2}) \right. \right.\\
+            & \quad \quad + \left. \left. 
+            \hat{\beta}_{k_2,s}\left(W_{2}, X_{2}\right)\left(Y_{2} - \hat{\mu}^{W_{2}}_{k_2,s}\left(X_{2}\right)\right)
+            - \beta\left(W_{2}, X_{2}\right)\left(Y_{2} - \mu_{W_{2}}\left(X_{2}\right)\right)\right]
+            \, \middle| \, Z_1 = \mathbf{z}_1\right]\\
+            %
+            & = {\color{red} LOREM IPSUM}
+        \end{aligned}
+    \end{equation}
+        \begin{equation}
+        \begin{aligned}
+            (III) & = \frac{1}{s!} \E_{D}\left[\hat{\mu}_{k_2,s}^{1}\left(X_{2}\right) - \mu_{1}(X_{2})
+            - \hat{\mu}_{k_2,s}^{0}\left(X_{2}\right) + \mu_{0}(X_{2}) \right. \\
+            & \quad \quad + \left. 
+            \hat{\beta}_{k_2,s}\left(W_{2}, X_{2}\right)\left(Y_{2} - \hat{\mu}^{W_{2}}_{k_2,s}\left(X_{2}\right)\right)
+            - \beta\left(W_{2}, X_{2}\right)\left(Y_{2} - \mu_{W_{2}}\left(X_{2}\right)\right)\; \middle| \; \operatorname{rk}(x; Z_2, \mathbf{D}_{\ell}) = 1\right] \\
+            %
+            & = {\color{red} LOREM IPSUM}
+        \end{aligned}
+    \end{equation}
+    
     \begin{equation}
         \begin{aligned}
             B_{c}\left(x; \mathbf{D}_{\ell}\right)
@@ -195,7 +252,10 @@ where we have the following definition from Equation \ref{eq:DNNDML2_ResidDecomp
             & = \frac{1}{2s!}\E_{D}\left[
             \mu_{1}\left(X_{1}\right) - \mu_{0}\left(X_{1}\right) + \beta\left(W_{1}, X_{1}\right)\left(Y_{1} - \mu_{W_{1}}\left(X_{1}\right)\right)\; \middle| \; \operatorname{rk}(x; Z_1, \mathbf{D}_{\ell}) = 1\right]\\
             %
-            & = \frac{1}{2s!}\E_{D}\left[m(Z_1; \mu, \pi) + \operatorname{CATE}\left(X_1\right) \; \middle| \; \operatorname{rk}(x; Z_1, \mathbf{D}_{\ell}) = 1\right]
+            & = \frac{1}{2s!}\E_{D}\left[
+            \mu_{1}\left(X_{1}\right) - \mu_{0}\left(X_{1}\right) \; \middle| \; \operatorname{rk}(x; Z_1, \mathbf{D}_{\ell}) = 1\right]
+            = \frac{1}{2s!}\E_{D}\left[
+            \operatorname{CATE}(X_1) \; \middle| \; \operatorname{rk}(x; Z_1, \mathbf{D}_{\ell}) = 1\right]
             \longrightarrow 0
         \end{aligned}
     \end{equation}
@@ -219,6 +279,7 @@ where we have the following definition from Equation \ref{eq:DNNDML2_ResidDecomp
         %
         \implies D_{c}\left(x\right) 
         & = \frac{1}{2} \left[\E_{D}\left[\chi_{s,0}(x; \mathbf{D}_{[s]}) \right] - \sum_{j = 1}^{c - 1}\binom{n}{j}\E_{D}\left[\chi_{s,0}^{(j)}(x; \mathbf{D}_{[j]})\right]\right]
+        = \frac{1}{2} \left[\E_{D}\left[\chi_{s,0}(x; \mathbf{D}_{[s]}) \right] - \sum_{j = 1}^{c - 1}\binom{n}{j}D_{j}(x)\right]
         \end{aligned}
     \end{equation}
 \end{proof}
