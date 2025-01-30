@@ -1,4 +1,4 @@
-\section{Pointwise Inference for the TDNN Estimator}\label{sec:pw_inf}
+\section{Pointwise Inference for DNN Estimators}\label{sec:pw_inf}
 \hrule
 To perform inference in the regression setup, \citet{demirkaya_optimal_2024} introduce variance estimators based on Jackknife and Bootstrap.
 However, as they point out, their consistency results rely on a likely suboptimal rate condition for the subsampling scale.
@@ -116,7 +116,7 @@ As a first intermediate result in the analysis of the asymptotic properties of t
 		Assume that we observe data as described in Assumption~\ref{asm:CATE_dgp} and that Assumption~\ref{asm:technical} is valid.
 		Then, for any fixed $x \in \mathcal{X}$, we have for some positive sequence $\omega_n$ of order $\sqrt{s/n}$
 		\begin{equation}
-			\frac{\hat{\operatorname{CATE}}_{s}(x; \mathbf{D}_n, \mu, \pi) - \operatorname{CATE}(x)}{\omega_n}
+			\frac{\hat{\operatorname{CATE}}_{s}(x; \mathbf{D}_n) - \operatorname{CATE}(x)}{\omega_n}
 			\rightsquigarrow \mathcal{N}\left(0,1\right)
 		\end{equation}
 		as $n,s \rightarrow \infty$ with $s = o(n)$.

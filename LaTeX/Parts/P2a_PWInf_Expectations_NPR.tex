@@ -92,7 +92,7 @@ First, we start with the nonparametric regression setup.
 	\begin{equation}
 		\psi_{s}^{1}\left(x; z_1\right)
 		= \varepsilon_1 \E_D\left[\kappa\left(x; Z_1, D\right)\, \Big| \, X_1 = x_1 \right]
-		+ \E_{D}\left[\sum_{i = 1}^{s} \kappa\left(x; Z_{i}, D\right) \mu(X_{i})\, \Big| \, X_1 = x_1 \right]
+		+ \E_{D}\left[\sum_{i = 2}^{s} \kappa\left(x; Z_{i}, D\right) \mu(X_{i})\, \Big| \, X_1 = x_1 \right]
 	\end{equation}
 \end{lem}
 \hrule
@@ -107,7 +107,7 @@ First, we start with the nonparametric regression setup.
 			+ \sum_{i = 2}^{s} \kappa\left(x; Z_{i}, D\right) \mu(X_{i})\, \Big| \, Z_1 = z_1 \right]         \\
 			%
 			 & = \varepsilon_1 \E_D\left[\kappa\left(x; Z_1, D\right)\, \Big| \, X_1 = x_1 \right]
-			+ \E_{D}\left[\sum_{i = 1}^{s} \kappa\left(x; Z_{i}, D\right) \mu(X_{i})\, \Big| \, X_1 = x_1 \right]
+			+ \E_{D}\left[\sum_{i = 2}^{s} \kappa\left(x; Z_{i}, D\right) \mu(X_{i})\, \Big| \, X_1 = x_1 \right]
 		\end{aligned}
 	\end{equation}
 \end{proof}
