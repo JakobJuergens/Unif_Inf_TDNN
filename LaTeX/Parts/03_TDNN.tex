@@ -185,11 +185,11 @@ will employ a Neyman-orthogonal score function to curtail the influence of the
 nuisance parameters on our estimation.
 \begin{equation}
 	\begin{aligned}
-		M(x; \operatorname{CATE}, \mu, p)
-		 & = \E\left[m\left(Z_{i}; \operatorname{CATE}, \mu, \pi\right) \, \middle| \, X_{i} = x\right]
+		M(x; \operatorname{CATE}, \eta)
+		 & = \E\left[m\left(Z_{i}; \operatorname{CATE}, \eta\right) \, \middle| \, X_{i} = x\right]
 		= 0
 		\quad \text{where} \quad                                                                                                                                                                                       \\
-		m\left(Z_{i}; \operatorname{CATE}, \mu, \pi\right)
+		m\left(Z_{i}; \operatorname{CATE}, \eta\right)
 		 & = \mu_1\left(X_{i}\right) - \mu_0\left(X_{i}\right) + \beta\left(W_{i}, X_{i}\right)\left(Y_{i} - \mu_{W_{i}}\left(X_{i}\right)\right) - \operatorname{CATE}\left(X_{i}\right)
 	\end{aligned}
 \end{equation}
@@ -200,13 +200,13 @@ outcomes framework, and the well-known Horvitz-Thompson weight.
 	\quad \text{and} \quad
 	\beta\left(w, x\right) = \frac{w}{\pi\left(x\right)} - \frac{1 - w}{1 - \pi\left(x\right)}
 \end{equation}
-As a shorthand notation, I will furthermore use $m\left(Z_{i}; \mu, \pi\right) = m\left(Z_{i}; \operatorname{CATE}, \mu, \pi\right) + \operatorname{CATE}\left(X_{i}\right)$.
+As a shorthand notation, I will furthermore use $m\left(Z_{i}; \eta\right) = m\left(Z_{i}; \operatorname{CATE}, \eta\right) + \operatorname{CATE}\left(X_{i}\right)$.
 This notation will mainly be used to shorten the presentation of proofs in the appendix.
 Proceeding in an analogous fashion to the nonparametric regression setup leads us to the following empirical moment equation, where $\hat{\mu}$ and $\hat{\pi}$ are first-stage estimators and $K$ is the data-driven kernel function defined in Equation~\ref{eq:data_distance}.
 \begin{equation}
 	\begin{aligned}
-		M_{n}\left(x; \hat{\mu}, \hat{\pi}\right)
-		= \sum_{i = 1}^{n} K(x, X_{i}) m\left(Z_{i}; \hat{\mu}, \hat{\pi}\right)
+		M_{n}\left(x; \hat{\eta}\right)
+		= \sum_{i = 1}^{n} K(x, X_{i}) m\left(Z_{i}; \hat{\eta}\right)
 		= 0
 	\end{aligned}
 \end{equation}
@@ -215,36 +215,38 @@ Applying these ideas to the context of estimating the CATE has been previously e
 For the sake of simplicity, I will assume that $m = n/K$, i.e.\ the desired number of observations in each fold, is an integer going forward.
 \begin{boxD}
 	\begin{dfn}{DNN-DML2 CATE-Estimator}\label{def:CATE_DNN_DML}\mbox{}\\*
-		To estimate the Conditional Average Treatment Effect at a point of interest $x \in \mathcal{X}$, I proceed as follows.
+		To estimate the Conditional Average Treatment Effect at a point of interest $x \in \mathcal{X}$, proceed as follows.
 		\begin{enumerate}
 			\item Take a $K$-fold random partition $\mathcal{I} = \left(I_k\right)_{k = 1}^{K}$
 			      of the observation indices $[n]$ such that the size of each fold $I_k$ is $m =
 				      n/K$. For each $k \in [K]$, define $I_{k}^{C} = [n] \backslash I_k$.
 			      Furthermore, for the observation being assigned rank $i \in [n]$, denote by
-			      $k(i)$ the fold that the observation appears in.
+			      $k_{(i)}$ the fold that the observation appears in.
                   In contrast, for observation $j$ (\textbf{NOT} the observation being assigned rank $j$) denote the corresponding fold by $k_j$.
-			\item For each $k \in [K]$, use the DNN estimator on the data set
+			\item For each $k \in [K]$, use a first-stage estimator for the functional nuisance parameters on the data set
 			      $\mathbf{D}_{I_k^C}$\dots
 			      \begin{enumerate}
-				      \item to estimate the nuisance parameters $\mu_0$ and $\mu_1$:
+				      \item to estimate the nuisance parameters $\mu_{0}^{0}$ and $\mu_{0}^{1}$:
 				            \begin{equation}
-					            \hat{\mu}_{k,s}^{w}\left(x\right) = \hat{\mu}_{w,s}\left(x; \mathbf{D}_{I_k^{C}}^{(w)}\right) \quad \text{for } w=0,1
+					            \hat{\mu}_{k}^{w}\left(x\right) = \hat{\mu}_{w}\left(x; \mathbf{D}_{I_k^{C}}^{(w)}\right) \quad \text{for } w=0,1
 				            \end{equation}
-				      \item if $\pi$ is unknown, i.e.\ we are not in a randomized experiment setting,
-				            additionally estimate $\pi$
+				      \item if $\pi_{0}$ is unknown, i.e.\ we are not in a randomized experiment setting,
+				            additionally estimate $\pi_{0}$
 				            \begin{equation}
-					            \hat{\pi}_{k,s}\left(x\right) = \hat{\mu}_{s}\left(x; \mathbf{D}_{I_k^{C}}\right) \quad \text{where the predicted variable is $W$}
+					            \hat{\pi}_{k}\left(x\right) = \hat{\mu}_{s}\left(x; \mathbf{D}_{I_k^{C}}\right) \quad \text{where the predicted variable is $W$}
 				            \end{equation}
 			      \end{enumerate}
+            For each fold $k$, denote the vector of estimates by $\hat{\eta}_{k} = \left(\hat{\mu}_{k}^{0}, \hat{\mu}_{k}^{1}, \hat{\pi}_{k}\right)^{\prime}$.
+            For each observation $i$, define the combined estimator in the following way $\hat{\eta}(Z_i) = \hat{\eta}_{k_{i}}(Z_i)$.
 			\item Construct the estimator $\widehat{\operatorname{CATE}}\left(x\right)$
 			      as the solution to the following equation.
 			      \begin{equation}
 				      \begin{aligned}
-					      0 \quad = \quad & \sum_{k = 1}^{K} \sum_{i \in I_k} K(x, X_{i}) m\left(Z_{i}; \widehat{\operatorname{CATE}}\left(x\right), \hat{\mu}_{k,s}, \hat{\pi}_{k,s}\right)                                                                \\
+					      0 \quad = \quad & \sum_{k = 1}^{K} \sum_{i \in I_k} K(x, X_{i}) m\left(Z_{i}; \widehat{\operatorname{CATE}}\left(x\right), \hat{\mu}_{k}, \hat{\pi}_{k}\right)                                                                \\
 					      %
-					      = \quad         & \sum_{i = 1}^{n - s + 1} \left[\frac{\binom{n-i}{s-1}}{\binom{n}{s}} \sum_{k = 1}^{K} \1\left(i \in I_{k}\right)  m\left(Z_{(i)}; \widehat{\operatorname{CATE}}\left(x\right), \hat{\mu}_{k,s}, \hat{\pi}_{k,s}\right)\right] \\
+					      = \quad         & \sum_{i = 1}^{n - s + 1} \left[\frac{\binom{n-i}{s-1}}{\binom{n}{s}} \sum_{k = 1}^{K} \1\left(i \in I_{k}\right)  m\left(Z_{(i)}; \widehat{\operatorname{CATE}}\left(x\right), \hat{\mu}_{k}, \hat{\pi}_{k}\right)\right] \\
 					      %
-					      = \quad         & \sum_{i = 1}^{n - s + 1} \left[\frac{\binom{n-i}{s-1}}{\binom{n}{s}} m\left(Z_{(i)}; \widehat{\operatorname{CATE}}\left(x\right), \hat{\mu}_{k(i),s}, \hat{\pi}_{k(i),s}\right)\right]
+					      = \quad         & \sum_{i = 1}^{n - s + 1} \left[\frac{\binom{n-i}{s-1}}{\binom{n}{s}} m\left(Z_{(i)}; \widehat{\operatorname{CATE}}\left(x\right), \hat{\mu}_{k_{(i)}}, \hat{\pi}_{k_{(i)}}\right)\right]
 				      \end{aligned}
 			      \end{equation}
 		\end{enumerate}
@@ -261,23 +263,14 @@ This is because a lower subsampling scale averages over a larger number of obser
 Using the score function in the equation that defines the estimator, we can observe the following.
 \begin{equation}
 	\begin{aligned}
-		\widehat{\operatorname{CATE}}\left(x\right) & = \sum_{i = 1}^{n - s + 1} \frac{\binom{n-i}{s-1}}{\binom{n}{s}}
-		\left[\hat{\mu}_{k(i),s}^{1}\left(X_{(i)}\right) - \hat{\mu}_{k(i),s}^{0}\left(X_{(i)}\right) + \hat{\beta}_{k(i),s}\left(W_{(i)}, X_{(i)}\right)\left(Y_{(i)} - \hat{\mu}^{W_{(i)}}_{k(i),s}\left(X_{(i)}\right)\right)\right]
+		\widehat{\operatorname{CATE}}\left(x\right) 
+        & = \sum_{i = 1}^{n - s + 1} \frac{\binom{n-i}{s-1}}{\binom{n}{s}}
+		\left[\hat{\mu}_{k_{(i)}}^{1}\left(X_{(i)}\right) - \hat{\mu}_{k_{(i)}}^{0}\left(X_{(i)}\right) + \hat{\beta}_{k_{(i)}}\left(W_{(i)}, X_{(i)}\right)\left(Y_{(i)} - \hat{\mu}^{W_{(i)}}_{k_{(i)}}\left(X_{(i)}\right)\right)\right] \\
+        %
+        & = \sum_{i = 1}^{n - s + 1} \frac{\binom{n-i}{s-1}}{\binom{n}{s}} m(Z_{(i)}, \hat{\eta}_{k_{(i)}})
 	\end{aligned}
 \end{equation}
 Thus, given first-stage estimates of nuisance parameters, I have a closed-form representation of the CATE estimator for a given partition of $[n]$.
 Furthermore, given these first-stage estimates, the evaluation of the CATE-estimator at a different point of interest is merely a re-weighting of the terms corresponding to different observations.
-% Considering the first-stage estimates, we can recognize that the estimation of $\mu^{0}$ and $\mu^{1}$ is effectively a nonparametric regression problem as previously described where I used the reduced data sets $\mathbf{D}^{(0)}$ and $\mathbf{D}^{(1)}$, respectively.
-% In contrast, the estimation of $\pi$ that is necessary in nearly all contexts, but randomized experiments can be described further due to the binary outcome.
-% For that purpose, let $Z_{(i|k)}$ denote the $i$'th closest observation in fold $k$ akin to the construction shown in Equation~\ref{eq:ordering} relative to $x$ but with respect to the data in fold $k$.
-% \begin{equation}
-% 	\begin{aligned}
-% 		\hat{\pi}_{k,s}\left(x\right)
-% 		= \sum_{i = 1}^{n - m - s + 1} \frac{\binom{n - m - i}{s - 1}}{\binom{n - m}{s}} W_{(i|k)}
-% 	\end{aligned}
-% \end{equation}
-% What these equations show is that the main computational cost associated with these methods comes from having to construct multiple orderings of the sample of interest.
-% The essential strength of this approach: It is not necessary to solve any complex optimization problems to obtain the estimator.
-% Furthermore, due to the prevalence of constructing orderings of data with respect to the Euclidean norm, this is a well-studied problem with efficient algorithms available of the shelf.
 
 {\color{red} LOREM IPSUM}

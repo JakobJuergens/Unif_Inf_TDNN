@@ -15,7 +15,7 @@ Similar to before, we will start under the assumption that the functional nuisan
 	Then,
 	\begin{equation}
 		\Omega_{s}\left(x\right)
-		\lesssim \left(\mu_{1}\left(x\right) - \mu_{0}\left(x\right)\right)^2 + \frac{\overline{\sigma}^2_{\varepsilon}}{\mathfrak{p}\left(1 - \mathfrak{p}\right)} + o(1)
+		\lesssim \left(\mu_{0}^{1}\left(x\right) - \mu_{0}^{0}\left(x\right)\right)^2 + \frac{\overline{\sigma}^2_{\varepsilon}}{\mathfrak{p}\left(1 - \mathfrak{p}\right)} + o(1)
 	\end{equation}
 \end{lem}
 \hrule
@@ -25,16 +25,16 @@ Similar to before, we will start under the assumption that the functional nuisan
 		\begin{aligned}
 			\Omega_{s}\left(x\right)
 			 & = \E\left[h_{s}^{2}\left(x; Z_1, \ldots,  Z_{s}\right)\right]
-             = \E_{D}\left[\left(\sum_{i = 1}^{s} \kappa\left(x; Z_{i}, D\right) m\left(Z_{i}; \mu, \pi\right)\right)^2\right]\\
+             = \E_{D}\left[\left(\sum_{i = 1}^{s} \kappa\left(x; Z_{i}, D\right) m\left(Z_{i}; \eta_{0}\right)\right)^2\right]\\
              %
              & = \E_{D}\left[\sum_{i = 1}^{s}\sum_{j = 1}^{s}\kappa\left(x; Z_{i}, D\right)\kappa\left(x; Z_{j}, D\right)
-             m\left(Z_{i}; \mu, \pi\right)m\left(Z_{j}; \mu, \pi\right)\right] \\
+             m\left(Z_{i}; \eta_{0}\right)m\left(Z_{j}; \eta_{0}\right)\right] \\
              %
-             & = \E_{D}\left[s \kappa\left(x; Z_1, D\right)  m^2\left(Z_{1}; \mu, \pi\right)\right]
-             = \E_{1}\left[ m^2\left(Z_{1}; \mu, \pi\right) s \E_{2:s}\left[\kappa\left(x; Z_1, D\right)\right]\right]\\
+             & = \E_{D}\left[s \kappa\left(x; Z_1, D\right)  m^2\left(Z_{1}; \eta_{0}\right)\right]
+             = \E_{1}\left[ m^2\left(Z_{1}; \eta_{0}\right) s \E_{2:s}\left[\kappa\left(x; Z_1, D\right)\right]\right]\\
              %
              & \overset{\text{(Lem~\ref{lem:limit_res})}}{\longrightarrow}
-			 \left(\mu_{1}\left(x\right) - \mu_{0}\left(x\right)\right)^2 + \frac{\sigma_{\varepsilon}^2\left(x\right)}{\pi(x)\left(1 - \pi(x)\right)}
+			 \left(\mu_{0}^{1}\left(x\right) - \mu_{0}^{0}\left(x\right)\right)^2 + \frac{\sigma_{\varepsilon}^2\left(x\right)}{\pi_{0}(x)\left(1 - \pi_{0}(x)\right)}
             \quad \text{as} \quad
             s \rightarrow \infty
 		\end{aligned}
@@ -42,7 +42,7 @@ Similar to before, we will start under the assumption that the functional nuisan
     This gives us the desired result.
     \begin{equation}
         \Omega_{s}\left(x\right)
-        \lesssim \left(\mu_{1}\left(x\right) - \mu_{0}\left(x\right)\right)^2 + \frac{\overline{\sigma}^2_{\varepsilon}}{\mathfrak{p}\left(1 - \mathfrak{p}\right)} + o(1)
+        \lesssim \left(\mu_{0}^{1}\left(x\right) - \mu_{0}^{0}\left(x\right)\right)^2 + \frac{\overline{\sigma}^2_{\varepsilon}}{\mathfrak{p}\left(1 - \mathfrak{p}\right)} + o(1)
     \end{equation}
 \end{proof}
 
@@ -59,7 +59,7 @@ Similar to before, we will start under the assumption that the functional nuisan
 	Then,
 	\begin{equation}
 		\Omega_{s}^{c}\left(x\right)
-		\lesssim \left(\mu_{1}\left(x\right) - \mu_{0}\left(x\right)\right)^2
+		\lesssim \left(\mu_{0}^{1}\left(x\right) - \mu_{0}^{0}\left(x\right)\right)^2
 		+ \frac{\overline{\sigma}^2_{\varepsilon}}{\mathfrak{p}\left(1 - \mathfrak{p}\right)} + o(1).
 	\end{equation}
 \end{lem}
@@ -73,82 +73,82 @@ Similar to before, we will start under the assumption that the functional nuisan
 			h_{s}\left(x; Z_1, \ldots,Z_{c}, Z_{c+1}^{\prime}, \ldots, Z_{s}^{\prime}\right)\right]\\
             %
             & = \E_{D, D^{\prime}}\left[
-                \left(\sum_{i = 1}^{s} \kappa\left(x; Z_{i}, D\right) m\left(Z_{i}; \mu, p\right)\right) 
-                \left(\sum_{j = 1}^{c} \kappa\left(x; Z_{j}, D^{\prime}\right) m\left(Z_{j}; \mu, p\right) + \sum_{j = c + 1}^{s} \kappa\left(x; Z_{j}^{\prime}, D^{\prime}\right) m\left(Z_{j}^{\prime}; \mu, p\right)\right)
+                \left(\sum_{i = 1}^{s} \kappa\left(x; Z_{i}, D\right) m\left(Z_{i}; \eta_{0}\right)\right) 
+                \left(\sum_{j = 1}^{c} \kappa\left(x; Z_{j}, D^{\prime}\right) m\left(Z_{j}; \eta_{0}\right) + \sum_{j = c + 1}^{s} \kappa\left(x; Z_{j}^{\prime}, D^{\prime}\right) m\left(Z_{j}^{\prime}; \eta_{0}\right)\right)
             \right]\\
             %
-            & = \underbrace{\E_{D, D^{\prime}}\left[\left(\sum_{i = 1}^{c} \kappa\left(x; Z_{i}, D\right) m\left(Z_{i}; \mu, p\right)\right)
-            \left(\sum_{j = 1}^{c} \kappa\left(x; Z_{j}, D^{\prime}\right) m\left(Z_{j}; \mu, p\right)\right)\right]}_{(A)} \\
-            & \quad + \underbrace{\E_{D, D^{\prime}}\left[\left(\sum_{i = 1}^{c} \kappa\left(x; Z_{i}, D\right) m\left(Z_{i}; \mu, p\right)\right)
-            \left(\sum_{j = c + 1}^{s} \kappa\left(x; Z_{j}^{\prime}, D^{\prime}\right) m\left(Z_{j}^{\prime}; \mu, p\right)\right)\right]}_{(B)} \\
-            & \quad + \underbrace{\E_{D, D^{\prime}}\left[\left(\sum_{i = c + 1}^{s} \kappa\left(x; Z_{i}, D\right) m\left(Z_{i}; \mu, p\right)\right)
-            \left(\sum_{j = 1}^{c} \kappa\left(x; Z_{j}, D^{\prime}\right) m\left(Z_{j}; \mu, p\right)\right)\right]}_{(C)} \\
-            & \quad + \underbrace{\E_{D, D^{\prime}}\left[\left(\sum_{i = c + 1}^{s} \kappa\left(x; Z_{i}, D\right) m\left(Z_{i}; \mu, p\right)\right)
-            \left(\sum_{j = c + 1}^{s} \kappa\left(x; Z_{j}^{\prime}, D^{\prime}\right) m\left(Z_{j}^{\prime}; \mu, p\right)\right)\right]}_{(D)} 
+            & = \underbrace{\E_{D, D^{\prime}}\left[\left(\sum_{i = 1}^{c} \kappa\left(x; Z_{i}, D\right) m\left(Z_{i}; \eta_{0}\right)\right)
+            \left(\sum_{j = 1}^{c} \kappa\left(x; Z_{j}, D^{\prime}\right) m\left(Z_{j}; \eta_{0}\right)\right)\right]}_{(A)} \\
+            & \quad + \underbrace{\E_{D, D^{\prime}}\left[\left(\sum_{i = 1}^{c} \kappa\left(x; Z_{i}, D\right) m\left(Z_{i}; \eta_{0}\right)\right)
+            \left(\sum_{j = c + 1}^{s} \kappa\left(x; Z_{j}^{\prime}, D^{\prime}\right) m\left(Z_{j}^{\prime}; \eta_{0}\right)\right)\right]}_{(B)} \\
+            & \quad + \underbrace{\E_{D, D^{\prime}}\left[\left(\sum_{i = c + 1}^{s} \kappa\left(x; Z_{i}, D\right) m\left(Z_{i}; \eta_{0}\right)\right)
+            \left(\sum_{j = 1}^{c} \kappa\left(x; Z_{j}, D^{\prime}\right) m\left(Z_{j}; \eta_{0}\right)\right)\right]}_{(C)} \\
+            & \quad + \underbrace{\E_{D, D^{\prime}}\left[\left(\sum_{i = c + 1}^{s} \kappa\left(x; Z_{i}, D\right) m\left(Z_{i}; \eta_{0}\right)\right)
+            \left(\sum_{j = c + 1}^{s} \kappa\left(x; Z_{j}^{\prime}, D^{\prime}\right) m\left(Z_{j}^{\prime}; \eta_{0}\right)\right)\right]}_{(D)} 
         \end{aligned}
     \end{equation}
     Considering these terms one by one, we can make the following observations.
     \begin{equation}
         \begin{aligned}
             (A)
-            & = \E_{D, D^{\prime}}\left[\left(\sum_{i = 1}^{c} \kappa\left(x; Z_{i}, D\right) m\left(Z_{i}; \mu, p\right)\right)
-            \left(\sum_{j = 1}^{c} \kappa\left(x; Z_{j}, D^{\prime}\right) m\left(Z_{j}; \mu, p\right)\right)\right] \\
+            & = \E_{D, D^{\prime}}\left[\left(\sum_{i = 1}^{c} \kappa\left(x; Z_{i}, D\right) m\left(Z_{i}; \eta_{0}\right)\right)
+            \left(\sum_{j = 1}^{c} \kappa\left(x; Z_{j}, D^{\prime}\right) m\left(Z_{j}; \eta_{0}\right)\right)\right] \\
 			%
 			& = \E_{D, D^{\prime}}\left[
-				\sum_{i = 1}^{c} \sum_{j = 1}^{c} \kappa\left(x; Z_{i}, D\right)\kappa\left(x; Z_{j}, D^{\prime}\right) m\left(Z_{i}; \mu, p\right)m\left(Z_{j}; \mu, p\right)
+				\sum_{i = 1}^{c} \sum_{j = 1}^{c} \kappa\left(x; Z_{i}, D\right)\kappa\left(x; Z_{j}, D^{\prime}\right) m\left(Z_{i}; \eta_{0}\right)m\left(Z_{j}; \eta_{0}\right)
 			\right] \\
-			& = \E_{1}\left[m^{2}\left(Z_{1}; \mu, p\right) c \E_{2:s}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{1}, D^{\prime}\right)\right]\right]
-			\leq (c/s) \cdot \E_{1}\left[m^{2}\left(Z_{1}; \mu, p\right) s \E_{2:s}\left[\kappa\left(x; Z_{1}, D\right)\right]\right]\\
+			& = \E_{1}\left[m^{2}\left(Z_{1}; \eta_{0}\right) c \E_{2:s}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{1}, D^{\prime}\right)\right]\right]
+			\leq (c/s) \cdot \E_{1}\left[m^{2}\left(Z_{1}; \eta_{0}\right) s \E_{2:s}\left[\kappa\left(x; Z_{1}, D\right)\right]\right]\\
 			%
-			& \overset{\text{(Lem~\ref{lem:limit_res})}}{\lesssim} (c/s) \left[\left(\mu_1\left(x\right) - \mu_0\left(x\right)\right)^2 + \frac{\sigma_{\varepsilon}^2(x)}{\pi\left(x\right)\left(1 - \pi\left(x\right)\right)}\right] + o(1)
+			& \overset{\text{(Lem~\ref{lem:limit_res})}}{\lesssim} (c/s) \left[\left(\mu_{0}^{1}\left(x\right) - \mu_{0}^{0}\left(x\right)\right)^2 + \frac{\sigma_{\varepsilon}^2(x)}{\pi_{0}\left(x\right)\left(1 - \pi_{0}\left(x\right)\right)}\right] + o(1)
         \end{aligned}
     \end{equation}
 	Similarly, for the second term, we can make the following observation.
 	\begin{equation}
 		\begin{aligned}
 			(B) 
-			& = \E_{D, D^{\prime}}\left[\left(\sum_{i = 1}^{c} \kappa\left(x; Z_{i}, D\right) m\left(Z_{i}; \mu, \pi\right)\right)
-            \left(\sum_{j = c + 1}^{s} \kappa\left(x; Z_{j}^{\prime}, D^{\prime}\right) m\left(Z_{j}^{\prime}; \mu, \pi\right)\right)\right] \\
+			& = \E_{D, D^{\prime}}\left[\left(\sum_{i = 1}^{c} \kappa\left(x; Z_{i}, D\right) m\left(Z_{i}; \eta_{0}\right)\right)
+            \left(\sum_{j = c + 1}^{s} \kappa\left(x; Z_{j}^{\prime}, D^{\prime}\right) m\left(Z_{j}^{\prime}; \eta_{0}\right)\right)\right] \\
 			%
 			& = \E_{D,D^{\prime}}\left[\sum_{i = 1}^{c} \sum_{j = c + 1}^{s}\kappa\left(x; Z_{i}, D\right)\kappa\left(x; Z_{j}^{\prime}, D^{\prime}\right) 
-			m\left(Z_{i}; \mu, \pi\right)m\left(Z_{j}^{\prime}; \mu, \pi\right)\right]\\
+			m\left(Z_{i}; \eta_{0}\right)m\left(Z_{j}^{\prime}; \eta_{0}\right)\right]\\
 			%
 			& = \E_{D, D^{\prime}}\left[c (s-c) \kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) 
-			m\left(Z_{1}; \mu, \pi\right) m\left(Z_{c+1}^{\prime}; \mu, \pi\right)\right]\\
+			m\left(Z_{1}; \eta_{0}\right) m\left(Z_{c+1}^{\prime}; \eta_{0}\right)\right]\\
 			%
-			& \leq \E_{D}\left[c \kappa\left(x; Z_{1}, D\right)  \left|m\left(Z_{1}; \mu, \pi\right)\right|\right]
-			\E_{D^{\prime}}\left[(s-c) \kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)  \left| m\left(Z_{c+1}^{\prime}; \mu, \pi\right) \right|\right]\\
+			& \leq \E_{D}\left[c \kappa\left(x; Z_{1}, D\right)  \left|m\left(Z_{1}; \eta_{0}\right)\right|\right]
+			\E_{D^{\prime}}\left[(s-c) \kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)  \left| m\left(Z_{c+1}^{\prime}; \eta_{0}\right) \right|\right]\\
 			%
-			& = \frac{c(s-c)}{s^2} \cdot \left(\E_{1}\left[\left|m\left(Z_{1}; \mu, \pi\right)\right| s \E_{2:s}\left[\kappa\left(x; Z_{1}, D\right)\right]\right]\right)^2\\
+			& = \frac{c(s-c)}{s^2} \cdot \left(\E_{1}\left[\left|m\left(Z_{1}; \eta_{0}\right)\right| s \E_{2:s}\left[\kappa\left(x; Z_{1}, D\right)\right]\right]\right)^2\\
 			%
-			& \lesssim \frac{c(s-c)}{s^2}\left(\mu_{1}\left(x\right) - \mu_{0}\left(x\right)\right)^2  + o(1)
+			& \lesssim \frac{c(s-c)}{s^2}\left(\mu_{0}^{1}\left(x\right) - \mu_{0}^{0}\left(x\right)\right)^2  + o(1)
 		\end{aligned}
 	\end{equation}
 	Applying the same principles to the third term we find a similar result.
 	\begin{equation}
 		\begin{aligned}
 			(C)
-			& = \E_{D, D^{\prime}}\left[\left(\sum_{i = c + 1}^{s} \kappa\left(x; Z_{i}, D\right) m\left(Z_{i}; \mu, p\right)\right)
-            \left(\sum_{j = 1}^{c} \kappa\left(x; Z_{j}, D^{\prime}\right) m\left(Z_{j}; \mu, p\right)\right)\right]\\
+			& = \E_{D, D^{\prime}}\left[\left(\sum_{i = c + 1}^{s} \kappa\left(x; Z_{i}, D\right) m\left(Z_{i}; \eta_{0}\right)\right)
+            \left(\sum_{j = 1}^{c} \kappa\left(x; Z_{j}, D^{\prime}\right) m\left(Z_{j}; \eta_{0}\right)\right)\right]\\
 			%
-			& \lesssim \frac{c(s-c)}{s^2}\left(\mu_{1}\left(x\right) - \mu_{0}\left(x\right)\right)^2  + o(1)
+			& \lesssim \frac{c(s-c)}{s^2}\left(\mu_{0}^{1}\left(x\right) - \mu_{0}^{0}\left(x\right)\right)^2  + o(1)
 		\end{aligned}
 	\end{equation}
 	\begin{equation}
 		\begin{aligned}
 			(D)
-			& = \E_{D, D^{\prime}}\left[\left(\sum_{i = c + 1}^{s} \kappa\left(x; Z_{i}, D\right) m\left(Z_{i}; \mu, p\right)\right)
-            \left(\sum_{j = c + 1}^{s} \kappa\left(x; Z_{j}^{\prime}, D^{\prime}\right) m\left(Z_{j}^{\prime}; \mu, p\right)\right)\right] \\
+			& = \E_{D, D^{\prime}}\left[\left(\sum_{i = c + 1}^{s} \kappa\left(x; Z_{i}, D\right) m\left(Z_{i}; \eta_{0}\right)\right)
+            \left(\sum_{j = c + 1}^{s} \kappa\left(x; Z_{j}^{\prime}, D^{\prime}\right) m\left(Z_{j}^{\prime}; \eta_{0}\right)\right)\right] \\
 			%
 			& = \E_{D, D^{\prime}}\left[(s-c)^2 \kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)
-			 m\left(Z_{c+1}; \mu, p\right)  m\left(Z_{c+1}^{\prime}; \mu, p\right)\right] \\
+			 m\left(Z_{c+1}; \eta_{0}\right)  m\left(Z_{c+1}^{\prime}; \eta_{0}\right)\right] \\
 			 %
-			 & \leq \frac{(s-c)^2}{s^2} \cdot \E_{D}\left[\left|m\left(Z_{c+1}; \mu, p\right)\right| s \kappa\left(x; Z_{c+1}, D\right)\right]
-			 \E_{D^{\prime}}\left[\left|m\left(Z_{c+1}^{\prime}; \mu, p\right)\right| s \kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \right]\\
+			 & \leq \frac{(s-c)^2}{s^2} \cdot \E_{D}\left[\left|m\left(Z_{c+1}; \eta_{0}\right)\right| s \kappa\left(x; Z_{c+1}, D\right)\right]
+			 \E_{D^{\prime}}\left[\left|m\left(Z_{c+1}^{\prime}; \eta_{0}\right)\right| s \kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \right]\\
 			 %
-			 & = \frac{(s-c)^2}{s^2} \left(\E_{1}\left[\left|m\left(Z_{1}; \mu, p\right)\right| s \E_{2:s}\left[\kappa\left(x; Z_{c+1}, D\right)\right]\right]\right)^2 \\
+			 & = \frac{(s-c)^2}{s^2} \left(\E_{1}\left[\left|m\left(Z_{1}; \eta_{0}\right)\right| s \E_{2:s}\left[\kappa\left(x; Z_{c+1}, D\right)\right]\right]\right)^2 \\
 			 %
-			 & \lesssim \frac{(s-c)^2}{s^2}\left(\mu_{1}\left(x\right) - \mu_{0}\left(x\right)\right)^2  + o(1)
+			 & \lesssim \frac{(s-c)^2}{s^2}\left(\mu_{0}^{1}\left(x\right) - \mu_{0}^{0}\left(x\right)\right)^2  + o(1)
 		\end{aligned}
 	\end{equation}
 	Thus, we find the desired result.
@@ -157,186 +157,186 @@ Similar to before, we will start under the assumption that the functional nuisan
 			\Omega_{s}^{c}\left(x\right)
 			& = (A) + (B) + (C) + (D) \\
 			%
-			& \lesssim \frac{c}{s} \left[\left(\mu_{1}\left(x\right) - \mu_{0}\left(x\right)\right)^2 + \frac{\overline{\sigma}^2_{\varepsilon}}{\mathfrak{p}\left(1 - \mathfrak{p}\right)}\right]
-			+ 2\frac{c(s-c)}{s^2}\left(\mu_{1}\left(x\right) - \mu_{0}\left(x\right)\right)^2
-			+ \frac{(s-c)^2}{s^2}\left(\mu_{1}\left(x\right) - \mu_{0}\left(x\right)\right)^2 + o(1) \\
+			& \lesssim \frac{c}{s} \left[\left(\mu_{0}^{1}\left(x\right) - \mu_{0}^{0}\left(x\right)\right)^2 + \frac{\overline{\sigma}^2_{\varepsilon}}{\mathfrak{p}\left(1 - \mathfrak{p}\right)}\right]
+			+ 2\frac{c(s-c)}{s^2}\left(\mu_{0}^{1}\left(x\right) - \mu_{0}^{0}\left(x\right)\right)^2
+			+ \frac{(s-c)^2}{s^2}\left(\mu_{0}^{1}\left(x\right) - \mu_{0}^{0}\left(x\right)\right)^2 + o(1) \\
 			%
-			& = \left[\frac{cs + 2c(s-c) + (s-c)^2}{s^2}\right]\left(\mu_{1}\left(x\right) - \mu_{0}\left(x\right)\right)^2
+			& = \left[\frac{cs + 2c(s-c) + (s-c)^2}{s^2}\right]\left(\mu_{0}^{1}\left(x\right) - \mu_{0}^{0}\left(x\right)\right)^2
 			+ \frac{c}{s}\frac{\overline{\sigma}^2_{\varepsilon}}{\mathfrak{p}\left(1 - \mathfrak{p}\right)} + o(1)\\
 			%
-			& \lesssim \left(\mu_{1}\left(x\right) - \mu_{0}\left(x\right)\right)^2
+			& \lesssim \left(\mu_{0}^{1}\left(x\right) - \mu_{0}^{0}\left(x\right)\right)^2
 			+ \frac{\overline{\sigma}^2_{\varepsilon}}{\mathfrak{p}\left(1 - \mathfrak{p}\right)} + o(1)
 		\end{aligned}
 	\end{equation}
 \end{proof}
 
-\newpage
-\begin{lem}\label{lem:CATE_upsilon_s}\mbox{}\\*
-	Let $D = \{Z_1, \dotsc, Z_{s_2}\}$ be a vector of i.i.d.\ random variables drawn from $Q$ for $s_2 > s_1$.
-	Furthermore, let
-	\begin{equation}
-		\Upsilon_{s_1, s_2}\left(x\right)
-		= \E\left[h_{s_1}\left(x; Z_1, \ldots,  Z_{s_1}\right) \cdot
-			h_{s_2}\left(x; Z_1, \ldots,Z_{s_1}, \ldots, Z_{s_2}\right)\right].
-	\end{equation}
-	Then,
-	\begin{equation}
-		\Upsilon_{s_1, s_2}\left(x\right)
-		\lesssim  2\left(\mu_1(x) - \mu_0(x)\right)^2 + \frac{\overline{\sigma}^2_{\varepsilon}}{\mathfrak{p}(1 - \mathfrak{p})} + o(1)
-		\quad \text{as} \quad s_1, s_2 \rightarrow \infty
-		\quad \text{with} \quad
-		0 < \mathfrak{c} \leq s_1 / s_2 \leq 1 - \mathfrak{c} < 1.
-	\end{equation}
-\end{lem}
-\hrule
-\begin{proof}[Proof of Lemma~\ref{lem:CATE_upsilon_s}]
-	Consider first the following.
-	\begin{equation}
-		\begin{aligned}
-			\Upsilon_{s_1, s_2}\left(x\right)
-			& = \E\left[h_{s_1}\left(x; Z_1, \ldots,  Z_{s_1}\right) \cdot
-			h_{s_2}\left(x; Z_1, \ldots,Z_{s_1}, \ldots, Z_{s_2}\right)\right]\\
-			%
-			& = \E_{D}\left[
-				\left(\sum_{i = 1}^{s_1} \kappa(x; Z_{i}, D_{[s_1]}) m\left(Z_{i}; \mu, p\right)\right)
-				\left(\sum_{j = 1}^{s_1} \kappa(x; Z_{j}, D) m\left(Z_{j}; \mu, p\right) 
-				+ \sum_{j = s_1 + 1}^{s_2} \kappa(x; Z_{j}, D) m\left(Z_{j}; \mu, p\right)\right)
-			\right]     \\
-			%
-			& = \underbrace{\E_{D}\left[\sum_{i = 1}^{s_1}\sum_{j = 1}^{s_1}\kappa(x; Z_{i}, D_{[s_1]})\kappa(x; Z_{j}, D) m\left(Z_{i}; \mu, p\right)m\left(Z_{j}; \mu, p\right)\right]}_{(A)}\\
-			& \quad + \underbrace{\E_{D}\left[\sum_{i = 1}^{s_1}\sum_{j = s_1 + 1}^{s_2}\kappa(x; Z_{i}, D_{[s_1]})\kappa(x; Z_{j}, D) m\left(Z_{i}; \mu, p\right)m\left(Z_{j}; \mu, p\right)\right]}_{(B)}
-		\end{aligned}
-	\end{equation}
-	Using this decomposition, we can make the following findings.
-	\begin{equation}
-		\begin{aligned}
-			(A)
-			& = \E_{D}\left[\sum_{i = 1}^{s_1}\sum_{j = 1}^{s_1}\kappa(x; Z_{i}, D_{[s_1]})\kappa(x; Z_{j}, D) m\left(Z_{i}; \mu, p\right)m\left(Z_{j}; \mu, p\right)\right] \\
-			%
-			& = \E_{D}\left[\sum_{i = 1}^{s_1} \kappa(x; Z_{i}, D_{[s_1]}) m^2\left(Z_{i}; \mu, p\right)\right] 
-			= \E_{D}\left[m^2\left(Z_{1}; \mu, p\right) s_1 \kappa(x; Z_{1}, D_{[s_1]}) \right] \\
-			%
-			& = \E_{1}\left[m^2\left(Z_{1}; \mu, p\right) s_1 \E_{2:s_2}\left[\kappa(x; Z_{1}, D_{[s_1]})\right]\right]
-			= \E_{1}\left[m^2\left(Z_{1}; \mu, p\right) s_1 \E_{2:s_1}\left[\kappa(x; Z_{1}, D_{[s_1]})\right]\right]\\
-			%
-			& \overset{\text{(Lem~\ref{lem:limit_res})}}{\lesssim} \left(\mu_1(x) - \mu_0(x)\right)^2 + \frac{\overline{\sigma}^2_{\varepsilon}}{\mathfrak{p}(1 - \mathfrak{p})} + o(1)
-		\end{aligned}
-	\end{equation}
-	\begin{equation}
-		\begin{aligned}
-			(B)
-			& = \E_{D}\left[\sum_{i = 1}^{s_1}\sum_{j = s_1 + 1}^{s_2}\kappa(x; Z_{i}, D_{[s_1]})\kappa(x; Z_{j}, D) m\left(Z_{i}; \mu, p\right)m\left(Z_{j}; \mu, p\right)\right] \\
-			%
-			& = \E_{D}\left[s_1(s_2 - s_1) \kappa(x; Z_{1}, D_{[s_1]})\kappa(x; Z_{s_2}, D) m\left(Z_{1}; \mu, p\right) m\left(Z_{s_2}; \mu, p\right)\right]\\
-			%
-			& \leq \frac{(s_2 - s_1)}{s_2}\E_{D}\left[\left|m\left(Z_{1}; \mu, p\right)\right| s_1 \kappa(x; Z_{1}, D_{[s_1]})\right]
-			\E_{D}\left[\left|m\left(Z_{s_2}; \mu, p\right)\right| s_2\kappa(x; Z_{s_2}, D) \right]\\
-			%
-			& \lesssim \frac{(s_2 - s_1)}{s_2} \left(\mu_1(x) - \mu_0(x)\right)^2 + o(1)
-		\end{aligned}
-	\end{equation}
-	Thus, we obtain the desired result.
-	\begin{equation}
-		\Upsilon_{s_1, s_2}\left(x\right)
-		= (A) + (B)
-		\lesssim  2\left(\mu_1(x) - \mu_0(x)\right)^2 + \frac{\overline{\sigma}^2_{\varepsilon}}{\mathfrak{p}(1 - \mathfrak{p})} + o(1)
-	\end{equation}
-\end{proof}
-\hrule 
+% \newpage
+% \begin{lem}\label{lem:CATE_upsilon_s}\mbox{}\\*
+% 	Let $D = \{Z_1, \dotsc, Z_{s_2}\}$ be a vector of i.i.d.\ random variables drawn from $Q$ for $s_2 > s_1$.
+% 	Furthermore, let
+% 	\begin{equation}
+% 		\Upsilon_{s_1, s_2}\left(x\right)
+% 		= \E\left[h_{s_1}\left(x; Z_1, \ldots,  Z_{s_1}\right) \cdot
+% 			h_{s_2}\left(x; Z_1, \ldots,Z_{s_1}, \ldots, Z_{s_2}\right)\right].
+% 	\end{equation}
+% 	Then,
+% 	\begin{equation}
+% 		\Upsilon_{s_1, s_2}\left(x\right)
+% 		\lesssim  2\left(\mu_{0}^{1}(x) - \mu_{0}^{0}(x)\right)^2 + \frac{\overline{\sigma}^2_{\varepsilon}}{\mathfrak{p}(1 - \mathfrak{p})} + o(1)
+% 		\quad \text{as} \quad s_1, s_2 \rightarrow \infty
+% 		\quad \text{with} \quad
+% 		0 < \mathfrak{c} \leq s_1 / s_2 \leq 1 - \mathfrak{c} < 1.
+% 	\end{equation}
+% \end{lem}
+% \hrule
+% \begin{proof}[Proof of Lemma~\ref{lem:CATE_upsilon_s}]
+% 	Consider first the following.
+% 	\begin{equation}
+% 		\begin{aligned}
+% 			\Upsilon_{s_1, s_2}\left(x\right)
+% 			& = \E\left[h_{s_1}\left(x; Z_1, \ldots,  Z_{s_1}\right) \cdot
+% 			h_{s_2}\left(x; Z_1, \ldots,Z_{s_1}, \ldots, Z_{s_2}\right)\right]\\
+% 			%
+% 			& = \E_{D}\left[
+% 				\left(\sum_{i = 1}^{s_1} \kappa(x; Z_{i}, D_{[s_1]}) m\left(Z_{i}; \eta_{0}\right)\right)
+% 				\left(\sum_{j = 1}^{s_1} \kappa(x; Z_{j}, D) m\left(Z_{j}; \eta_{0}\right) 
+% 				+ \sum_{j = s_1 + 1}^{s_2} \kappa(x; Z_{j}, D) m\left(Z_{j}; \eta_{0}\right)\right)
+% 			\right]     \\
+% 			%
+% 			& = \underbrace{\E_{D}\left[\sum_{i = 1}^{s_1}\sum_{j = 1}^{s_1}\kappa(x; Z_{i}, D_{[s_1]})\kappa(x; Z_{j}, D) m\left(Z_{i}; \eta_{0}\right)m\left(Z_{j}; \eta_{0}\right)\right]}_{(A)}\\
+% 			& \quad + \underbrace{\E_{D}\left[\sum_{i = 1}^{s_1}\sum_{j = s_1 + 1}^{s_2}\kappa(x; Z_{i}, D_{[s_1]})\kappa(x; Z_{j}, D) m\left(Z_{i}; \eta_{0}\right)m\left(Z_{j}; \eta_{0}\right)\right]}_{(B)}
+% 		\end{aligned}
+% 	\end{equation}
+% 	Using this decomposition, we can make the following findings.
+% 	\begin{equation}
+% 		\begin{aligned}
+% 			(A)
+% 			& = \E_{D}\left[\sum_{i = 1}^{s_1}\sum_{j = 1}^{s_1}\kappa(x; Z_{i}, D_{[s_1]})\kappa(x; Z_{j}, D) m\left(Z_{i}; \eta_{0}\right)m\left(Z_{j}; \eta_{0}\right)\right] \\
+% 			%
+% 			& = \E_{D}\left[\sum_{i = 1}^{s_1} \kappa(x; Z_{i}, D_{[s_1]}) m^2\left(Z_{i}; \eta_{0}\right)\right] 
+% 			= \E_{D}\left[m^2\left(Z_{1}; \eta_{0}\right) s_1 \kappa(x; Z_{1}, D_{[s_1]}) \right] \\
+% 			%
+% 			& = \E_{1}\left[m^2\left(Z_{1}; \eta_{0}\right) s_1 \E_{2:s_2}\left[\kappa(x; Z_{1}, D_{[s_1]})\right]\right]
+% 			= \E_{1}\left[m^2\left(Z_{1}; \eta_{0}\right) s_1 \E_{2:s_1}\left[\kappa(x; Z_{1}, D_{[s_1]})\right]\right]\\
+% 			%
+% 			& \overset{\text{(Lem~\ref{lem:limit_res})}}{\lesssim} \left(\mu_{0}^{1}(x) - \mu_{0}^{0}(x)\right)^2 + \frac{\overline{\sigma}^2_{\varepsilon}}{\mathfrak{p}(1 - \mathfrak{p})} + o(1)
+% 		\end{aligned}
+% 	\end{equation}
+% 	\begin{equation}
+% 		\begin{aligned}
+% 			(B)
+% 			& = \E_{D}\left[\sum_{i = 1}^{s_1}\sum_{j = s_1 + 1}^{s_2}\kappa(x; Z_{i}, D_{[s_1]})\kappa(x; Z_{j}, D) m\left(Z_{i}; \eta_{0}\right)m\left(Z_{j}; \eta_{0}\right)\right] \\
+% 			%
+% 			& = \E_{D}\left[s_1(s_2 - s_1) \kappa(x; Z_{1}, D_{[s_1]})\kappa(x; Z_{s_2}, D) m\left(Z_{1}; \eta_{0}\right) m\left(Z_{s_2}; \eta_{0}\right)\right]\\
+% 			%
+% 			& \leq \frac{(s_2 - s_1)}{s_2}\E_{D}\left[\left|m\left(Z_{1}; \eta_{0}\right)\right| s_1 \kappa(x; Z_{1}, D_{[s_1]})\right]
+% 			\E_{D}\left[\left|m\left(Z_{s_2}; \eta_{0}\right)\right| s_2\kappa(x; Z_{s_2}, D) \right]\\
+% 			%
+% 			& \lesssim \frac{(s_2 - s_1)}{s_2} \left(\mu_{0}^{1}(x) - \mu_{0}^{0}(x)\right)^2 + o(1)
+% 		\end{aligned}
+% 	\end{equation}
+% 	Thus, we obtain the desired result.
+% 	\begin{equation}
+% 		\Upsilon_{s_1, s_2}\left(x\right)
+% 		= (A) + (B)
+% 		\lesssim  2\left(\mu_{0}^{1}(x) - \mu_{0}^{0}(x)\right)^2 + \frac{\overline{\sigma}^2_{\varepsilon}}{\mathfrak{p}(1 - \mathfrak{p})} + o(1)
+% 	\end{equation}
+% \end{proof}
+% \hrule 
 
-\begin{lem}\label{lem:CATE_upsilon_sc}\mbox{}\\*
-	Let $D = \{Z_1, \dotsc, Z_{s_2}\}$ be a vector of i.i.d.\ random variables drawn from $Q$ for $s_2 > s_1$.
-	Let $D^{\prime} = \{Z_1, \dotsc, Z_{c}, Z_{c+1}^{\prime}, \dotsc,  Z_{s_1}^{\prime}\}$ where $Z_{c+1}^{\prime}, \dotsc,  Z_{s_1}^{\prime}$ are i.i.d.\ draws from $P$ that are independent of $D$.
-	Furthermore, let
-	\begin{equation}
-		\Upsilon_{s_1, s_2}^{c}\left(x\right)
-		= \E\left[h_{s_1}\left(x; Z_1, \ldots, Z_c, Z^{\prime}_{c+1}, \ldots,  Z^{\prime}_{s_1}\right) \cdot
-			h_{s_2}\left(x; Z_1, \ldots, Z_{s_2}\right)\right].
-	\end{equation}
-	Then,
-	\begin{equation}
-		\begin{aligned}
-			 & \Upsilon_{s_1, s_2}^{c}\left(x\right)
-			\lesssim 4 \left(\mu_1(x) - \mu_0(x)\right)^2 + \frac{\sigma^2_{\varepsilon}(x)}{\mathfrak{p}(1 - \mathfrak{p})} + o(1) \\
-			%
-			 & \text{for} \quad s_1, s_2 \quad \text{sufficiently large}
-			\quad \text{with} \quad
-			0 < \mathfrak{c} \leq s_1 / s_2 \leq 1 - \mathfrak{c} < 1.
-		\end{aligned}
-	\end{equation}
-\end{lem}
+% \begin{lem}\label{lem:CATE_upsilon_sc}\mbox{}\\*
+% 	Let $D = \{Z_1, \dotsc, Z_{s_2}\}$ be a vector of i.i.d.\ random variables drawn from $Q$ for $s_2 > s_1$.
+% 	Let $D^{\prime} = \{Z_1, \dotsc, Z_{c}, Z_{c+1}^{\prime}, \dotsc,  Z_{s_1}^{\prime}\}$ where $Z_{c+1}^{\prime}, \dotsc,  Z_{s_1}^{\prime}$ are i.i.d.\ draws from $P$ that are independent of $D$.
+% 	Furthermore, let
+% 	\begin{equation}
+% 		\Upsilon_{s_1, s_2}^{c}\left(x\right)
+% 		= \E\left[h_{s_1}\left(x; Z_1, \ldots, Z_c, Z^{\prime}_{c+1}, \ldots,  Z^{\prime}_{s_1}\right) \cdot
+% 			h_{s_2}\left(x; Z_1, \ldots, Z_{s_2}\right)\right].
+% 	\end{equation}
+% 	Then,
+% 	\begin{equation}
+% 		\begin{aligned}
+% 			 & \Upsilon_{s_1, s_2}^{c}\left(x\right)
+% 			\lesssim 4 \left(\mu_{0}^{1}(x) - \mu_{0}^{0}(x)\right)^2 + \frac{\sigma^2_{\varepsilon}(x)}{\mathfrak{p}(1 - \mathfrak{p})} + o(1) \\
+% 			%
+% 			 & \text{for} \quad s_1, s_2 \quad \text{sufficiently large}
+% 			\quad \text{with} \quad
+% 			0 < \mathfrak{c} \leq s_1 / s_2 \leq 1 - \mathfrak{c} < 1.
+% 		\end{aligned}
+% 	\end{equation}
+% \end{lem}
 
-\hrule
-\begin{proof}[Proof of Lemma~\ref{lem:CATE_upsilon_sc}]
-	\begin{equation}
-		\begin{aligned}
-			\Upsilon_{s_1, s_2}^{c}\left(x\right)
-			& = \E\left[h_{s_1}\left(x; Z_1, \ldots, Z_c, Z^{\prime}_{c+1}, \ldots,  Z^{\prime}_{s_1}\right) \cdot
-			h_{s_2}\left(x; Z_1, \ldots, Z_{s_2}\right)\right] \\
-			%
-			& = \E_{D, D^{\prime}}\left[
-				\left(\sum_{i = 1}^{c}\kappa(x; Z_{i}, D_{[s_1]}^{\prime}) m\left(Z_{i}; \mu, p\right) 
-				+ \sum_{i = c+1}^{s_1}\kappa(x; Z_{i}^{\prime}, D_{[s_1]}^{\prime}) m\left(Z_{i}^{\prime}; \mu, p\right)\right)
-				\left(\sum_{j = 1}^{s_2} \kappa(x; Z_{j}, D) m\left(Z_{j}; \mu, p\right)\right)\right]\\
-			%
-			& = \underbrace{\E_{D, D^{\prime}}\left[\sum_{i = 1}^{c}\sum_{j = 1}^{c} \kappa(x; Z_{i}, D_{[s_1]}^{\prime})\kappa(x; Z_{j}, D) m\left(Z_{i}; \mu, p\right) m\left(Z_{j}; \mu, p\right)\right]}_{(A)} \\
-			& \quad + \underbrace{\E_{D, D^{\prime}}\left[\sum_{i = 1}^{c}\sum_{j = c+1}^{s_2} \kappa(x; Z_{i}, D_{[s_1]}^{\prime})\kappa(x; Z_{j}, D) m\left(Z_{i}; \mu, p\right) m\left(Z_{j}; \mu, p\right)\right]}_{(B)} \\
-			& \quad + \underbrace{\E_{D, D^{\prime}}\left[\sum_{i = c+1}^{s_1}\sum_{j = 1}^{c}\kappa(x; Z_{i}^{\prime}, D_{[s_1]}^{\prime}) \kappa(x; Z_{j}, D) m\left(Z_{i}^{\prime}; \mu, p\right) m\left(Z_{j}; \mu, p\right)\right]}_{(C)} \\
-			& \quad + \underbrace{\E_{D, D^{\prime}}\left[\sum_{i = c+1}^{s_1}\sum_{j = c+1}^{s_2}\kappa(x; Z_{i}^{\prime}, D_{[s_1]}^{\prime}) \kappa(x; Z_{j}, D) m\left(Z_{i}^{\prime}; \mu, p\right) m\left(Z_{j}; \mu, p\right)\right]}_{(D)}
-		\end{aligned}
-	\end{equation}
-	\newpage
-	Now, considering the terms individually, we find the following.
-	\begin{equation}
-		\begin{aligned}
-			(A)
-			& = \E_{D, D^{\prime}}\left[c \kappa(x; Z_{1}, D_{[s_1]}^{\prime})\kappa(x; Z_{1}, D) m^2\left(Z_{1}; \mu, p\right)\right]
-			= \frac{c}{s_2} \cdot \E_{1}\left[m^2\left(Z_{1}; \mu, p\right) s_2 \E_{2:s_2}\left[\kappa(x; Z_{1}, D_{[s_1]}^{\prime})\kappa(x; Z_{1}, D)\right] \right]\\
-			%
-			& \leq  \frac{c}{s_2} \cdot \E_{1}\left[m^2\left(Z_{1}; \mu, p\right) s_2 \E_{2:s_2}\left[\kappa(x; Z_{1}, D)\right] \right]
-			\lesssim \frac{c}{s_2} \left(\left(\mu_1(x) - \mu_0(x)\right)^2 + \frac{\sigma^2_{\varepsilon}(x)}{\mathfrak{p}(1 - \mathfrak{p})}\right) + o(1)\\
-		\end{aligned}
-	\end{equation}
-	Similarly, we find the following.
-	\begin{equation}
-		\begin{aligned}
-			(B)
-			& = \E_{D, D^{\prime}}\left[c (s_2 - c) \kappa(x; Z_{1}, D_{[s_1]}^{\prime})\kappa(x; Z_{c+1}, D) m\left(Z_{1}; \mu, p\right) m\left(Z_{c+1}; \mu, p\right)\right]\\
-			%
-			& = \frac{c (s_2 - c)}{s_1 s_2} \E_{D, D^{\prime}}\left[m\left(Z_{1}; \mu, p\right) m\left(Z_{c+1}; \mu, p\right) s_1 s_2 \kappa(x; Z_{1}, D_{[s_1]}^{\prime})\kappa(x; Z_{c+1}, D) \right]\\
-			%
-			& \leq \frac{c (s_2 - c)}{s_1 s_2} \E_{D, D^{\prime}}\left[\left|m\left(Z_{1}; \mu, p\right)\right|  s_1 \kappa(x; Z_{1}, D_{[s_1]}^{\prime})\right]
-			\E_{D, D^{\prime}}\left[\left| m\left(Z_{c+1}; \mu, p\right) \right| s_2 \kappa(x; Z_{c+1}, D) \right] \\
-			%
-			& \lesssim \frac{c (s_2 - c)}{s_1 s_2} \left(\mu_1(x) - \mu_0(x)\right)^2 + o(1)
-		\end{aligned}
-	\end{equation}
-	Applying the same argument to the third term, we find an analogous result.
-	\begin{equation}
-		\begin{aligned}
-			(C)
-			& = \E_{D, D^{\prime}}\left[(s_1 - c)c\kappa(x; Z_{c+1}^{\prime}, D_{[s_1]}^{\prime}) \kappa(x; Z_{1}, D) m\left(Z_{c+1}^{\prime}; \mu, p\right) m\left(Z_{1}; \mu, p\right)\right]\\
-			%
-			& \lesssim  \frac{c (s_1 - c)}{s_1 s_2} \left(\mu_1(x) - \mu_0(x)\right)^2 + o(1)
-		\end{aligned}
-	\end{equation}
-	Finally, for the fourth term, we can make the following observation.
-	\begin{equation}
-		\begin{aligned}
-			(D)
-			& = \E_{D, D^{\prime}}\left[(s_1 - c)(s_2 - c)\kappa(x; Z_{c+1}^{\prime}, D_{[s_1]}^{\prime}) \kappa(x; Z_{c+1}, D) m\left(Z_{c+1}^{\prime}; \mu, p\right) m\left(Z_{c+1}; \mu, p\right)\right]\\
-			%
-			& = \frac{(s_1 - c)(s_2 - c)}{s_1 s_2}\E_{D, D^{\prime}}\left[m\left(Z_{c+1}^{\prime}; \mu, p\right) m\left(Z_{c+1}; \mu, p\right) s_1 s_2 \kappa(x; Z_{c+1}^{\prime}, D_{[s_1]}^{\prime}) \kappa(x; Z_{c+1}, D)\right]\\
-			%
-			& \lesssim  \frac{(s_1 - c)(s_2 - s_1)}{s_1 s_2} \left(\mu_1(x) - \mu_0(x)\right)^2 + o(1)
-		\end{aligned}
-	\end{equation}
-	By combining these asymptotic bounds, we find the desired result.
-	\begin{equation}
-		\begin{aligned}
-			\Upsilon_{s_1, s_2}^{c}\left(x\right)
-			& = (A) + (B) + (C) + (D)
-			\lesssim 4 \left(\mu_1(x) - \mu_0(x)\right)^2 + \frac{\sigma^2_{\varepsilon}(x)}{\mathfrak{p}(1 - \mathfrak{p})} + o(1)
-		\end{aligned}
-	\end{equation}
-\end{proof}
+% \hrule
+% \begin{proof}[Proof of Lemma~\ref{lem:CATE_upsilon_sc}]
+% 	\begin{equation}
+% 		\begin{aligned}
+% 			\Upsilon_{s_1, s_2}^{c}\left(x\right)
+% 			& = \E\left[h_{s_1}\left(x; Z_1, \ldots, Z_c, Z^{\prime}_{c+1}, \ldots,  Z^{\prime}_{s_1}\right) \cdot
+% 			h_{s_2}\left(x; Z_1, \ldots, Z_{s_2}\right)\right] \\
+% 			%
+% 			& = \E_{D, D^{\prime}}\left[
+% 				\left(\sum_{i = 1}^{c}\kappa(x; Z_{i}, D_{[s_1]}^{\prime}) m\left(Z_{i}; \eta_{0}\right) 
+% 				+ \sum_{i = c+1}^{s_1}\kappa(x; Z_{i}^{\prime}, D_{[s_1]}^{\prime}) m\left(Z_{i}^{\prime}; \eta_{0}\right)\right)
+% 				\left(\sum_{j = 1}^{s_2} \kappa(x; Z_{j}, D) m\left(Z_{j}; \eta_{0}\right)\right)\right]\\
+% 			%
+% 			& = \underbrace{\E_{D, D^{\prime}}\left[\sum_{i = 1}^{c}\sum_{j = 1}^{c} \kappa(x; Z_{i}, D_{[s_1]}^{\prime})\kappa(x; Z_{j}, D) m\left(Z_{i}; \eta_{0}\right) m\left(Z_{j}; \eta_{0}\right)\right]}_{(A)} \\
+% 			& \quad + \underbrace{\E_{D, D^{\prime}}\left[\sum_{i = 1}^{c}\sum_{j = c+1}^{s_2} \kappa(x; Z_{i}, D_{[s_1]}^{\prime})\kappa(x; Z_{j}, D) m\left(Z_{i}; \eta_{0}\right) m\left(Z_{j}; \eta_{0}\right)\right]}_{(B)} \\
+% 			& \quad + \underbrace{\E_{D, D^{\prime}}\left[\sum_{i = c+1}^{s_1}\sum_{j = 1}^{c}\kappa(x; Z_{i}^{\prime}, D_{[s_1]}^{\prime}) \kappa(x; Z_{j}, D) m\left(Z_{i}^{\prime}; \eta_{0}\right) m\left(Z_{j}; \eta_{0}\right)\right]}_{(C)} \\
+% 			& \quad + \underbrace{\E_{D, D^{\prime}}\left[\sum_{i = c+1}^{s_1}\sum_{j = c+1}^{s_2}\kappa(x; Z_{i}^{\prime}, D_{[s_1]}^{\prime}) \kappa(x; Z_{j}, D) m\left(Z_{i}^{\prime}; \eta_{0}\right) m\left(Z_{j}; \eta_{0}\right)\right]}_{(D)}
+% 		\end{aligned}
+% 	\end{equation}
+% 	\newpage
+% 	Now, considering the terms individually, we find the following.
+% 	\begin{equation}
+% 		\begin{aligned}
+% 			(A)
+% 			& = \E_{D, D^{\prime}}\left[c \kappa(x; Z_{1}, D_{[s_1]}^{\prime})\kappa(x; Z_{1}, D) m^2\left(Z_{1}; \eta_{0}\right)\right]
+% 			= \frac{c}{s_2} \cdot \E_{1}\left[m^2\left(Z_{1}; \eta_{0}\right) s_2 \E_{2:s_2}\left[\kappa(x; Z_{1}, D_{[s_1]}^{\prime})\kappa(x; Z_{1}, D)\right] \right]\\
+% 			%
+% 			& \leq  \frac{c}{s_2} \cdot \E_{1}\left[m^2\left(Z_{1}; \eta_{0}\right) s_2 \E_{2:s_2}\left[\kappa(x; Z_{1}, D)\right] \right]
+% 			\lesssim \frac{c}{s_2} \left(\left(\mu_{0}^{1}(x) - \mu_{0}^{0}(x)\right)^2 + \frac{\sigma^2_{\varepsilon}(x)}{\mathfrak{p}(1 - \mathfrak{p})}\right) + o(1)\\
+% 		\end{aligned}
+% 	\end{equation}
+% 	Similarly, we find the following.
+% 	\begin{equation}
+% 		\begin{aligned}
+% 			(B)
+% 			& = \E_{D, D^{\prime}}\left[c (s_2 - c) \kappa(x; Z_{1}, D_{[s_1]}^{\prime})\kappa(x; Z_{c+1}, D) m\left(Z_{1}; \eta_{0}\right) m\left(Z_{c+1}; \eta_{0}\right)\right]\\
+% 			%
+% 			& = \frac{c (s_2 - c)}{s_1 s_2} \E_{D, D^{\prime}}\left[m\left(Z_{1}; \eta_{0}\right) m\left(Z_{c+1}; \eta_{0}\right) s_1 s_2 \kappa(x; Z_{1}, D_{[s_1]}^{\prime})\kappa(x; Z_{c+1}, D) \right]\\
+% 			%
+% 			& \leq \frac{c (s_2 - c)}{s_1 s_2} \E_{D, D^{\prime}}\left[\left|m\left(Z_{1}; \eta_{0}\right)\right|  s_1 \kappa(x; Z_{1}, D_{[s_1]}^{\prime})\right]
+% 			\E_{D, D^{\prime}}\left[\left| m\left(Z_{c+1}; \eta_{0}\right) \right| s_2 \kappa(x; Z_{c+1}, D) \right] \\
+% 			%
+% 			& \lesssim \frac{c (s_2 - c)}{s_1 s_2} \left(\mu_{0}^{1}(x) - \mu_{0}^{0}(x)\right)^2 + o(1)
+% 		\end{aligned}
+% 	\end{equation}
+% 	Applying the same argument to the third term, we find an analogous result.
+% 	\begin{equation}
+% 		\begin{aligned}
+% 			(C)
+% 			& = \E_{D, D^{\prime}}\left[(s_1 - c)c\kappa(x; Z_{c+1}^{\prime}, D_{[s_1]}^{\prime}) \kappa(x; Z_{1}, D) m\left(Z_{c+1}^{\prime}; \eta_{0}\right) m\left(Z_{1}; \eta_{0}\right)\right]\\
+% 			%
+% 			& \lesssim  \frac{c (s_1 - c)}{s_1 s_2} \left(\mu_{0}^{1}(x) - \mu_{0}^{0}(x)\right)^2 + o(1)
+% 		\end{aligned}
+% 	\end{equation}
+% 	Finally, for the fourth term, we can make the following observation.
+% 	\begin{equation}
+% 		\begin{aligned}
+% 			(D)
+% 			& = \E_{D, D^{\prime}}\left[(s_1 - c)(s_2 - c)\kappa(x; Z_{c+1}^{\prime}, D_{[s_1]}^{\prime}) \kappa(x; Z_{c+1}, D) m\left(Z_{c+1}^{\prime}; \eta_{0}\right) m\left(Z_{c+1}; \eta_{0}\right)\right]\\
+% 			%
+% 			& = \frac{(s_1 - c)(s_2 - c)}{s_1 s_2}\E_{D, D^{\prime}}\left[m\left(Z_{c+1}^{\prime}; \eta_{0}\right) m\left(Z_{c+1}; \eta_{0}\right) s_1 s_2 \kappa(x; Z_{c+1}^{\prime}, D_{[s_1]}^{\prime}) \kappa(x; Z_{c+1}, D)\right]\\
+% 			%
+% 			& \lesssim  \frac{(s_1 - c)(s_2 - s_1)}{s_1 s_2} \left(\mu_{0}^{1}(x) - \mu_{0}^{0}(x)\right)^2 + o(1)
+% 		\end{aligned}
+% 	\end{equation}
+% 	By combining these asymptotic bounds, we find the desired result.
+% 	\begin{equation}
+% 		\begin{aligned}
+% 			\Upsilon_{s_1, s_2}^{c}\left(x\right)
+% 			& = (A) + (B) + (C) + (D)
+% 			\lesssim 4 \left(\mu_{0}^{1}(x) - \mu_{0}^{0}(x)\right)^2 + \frac{\sigma^2_{\varepsilon}(x)}{\mathfrak{p}(1 - \mathfrak{p})} + o(1)
+% 		\end{aligned}
+% 	\end{equation}
+% \end{proof}

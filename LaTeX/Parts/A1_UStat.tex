@@ -109,32 +109,36 @@ First, observe that the DNN-DML2 CATE estimator can be rewritten as follows to e
     \begin{aligned}
         \widehat{\operatorname{CATE}}\left(x; \mathbf{D}\right) 
         & = \sum_{i = 1}^{n - s + 1} \frac{\binom{n-i}{s-1}}{\binom{n}{s}}
-		\left[\hat{\mu}_{k(i),s}^{1}\left(X_{(i)}\right) - \hat{\mu}_{k(i),s}^{0}\left(X_{(i)}\right) + \hat{\beta}_{k(i),s}\left(W_{(i)}, X_{(i)}\right)\left(Y_{(i)} - \hat{\mu}^{W_{(i)}}_{k(i),s}\left(X_{(i)}\right)\right)\right] \\
+		\left[\hat{\mu}_{k_{(i)}}^{1}\left(X_{(i)}\right) - \hat{\mu}_{k_{(i)}}^{0}\left(X_{(i)}\right) + \hat{\beta}_{k_{(i)}}\left(W_{(i)}, X_{(i)}\right)\left(Y_{(i)} - \hat{\mu}^{W_{(i)}}_{k_{(i)}}\left(X_{(i)}\right)\right)\right] \\
         %
         & = \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}}
-        \underbrace{\sum_{i = 1}^{n}\frac{\1\left(\rk(x; Z_{i}, D_{\ell}) = 1\right)}{s!} 
-        \left[\hat{\mu}_{k_i,s}^{1}\left(X_{i}\right) - \hat{\mu}_{k_i,s}^{0}\left(X_{i}\right) + \hat{\beta}_{k_i,s}\left(W_{i}, X_{i}\right)\left(Y_{i} - \hat{\mu}^{W_{i}}_{k_i,s}\left(X_{i}\right)\right)\right]}_{\chi_{s}(x; \mathbf{D}_{\ell}, \hat{\mu}, \hat{\pi})} \\
+        \sum_{i = 1}^{n}\frac{\1\left(\rk(x; Z_{i}, D_{\ell}) = 1\right)}{s!} 
+        \left[\hat{\mu}_{k_i}^{1}\left(X_{i}\right) - \hat{\mu}_{k_i}^{0}\left(X_{i}\right) + \hat{\beta}_{k_i}\left(W_{i}, X_{i}\right)\left(Y_{i} - \hat{\mu}^{W_{i}}_{k_i}\left(X_{i}\right)\right)\right] \\
         %
-        & = \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}}\chi_{s}(x; \mathbf{D}_{\ell}, \hat{\mu}, \hat{\pi})
+        & = \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}}
+        \underbrace{\sum_{i = 1}^{n}\frac{\1\left(\kappa(x; Z_{i}, D_{\ell}) = 1\right)}{s!} 
+        m(Z_{i}, \hat{\eta}_{k_i})}_{\chi_{s}(x; \mathbf{D}_{\ell}, \hat{\eta})} \\
+        %
+        & = \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}}\chi_{s}(x; \mathbf{D}_{\ell}, \hat{\eta})
     \end{aligned}
 \end{equation}
 In the same fashion as in the previous case, I can now define the Hoeffding decomposition for the estimator.
 Note that in this step, the functional nuisance parameter estimates $\hat{\mu}$ and $\hat{\pi}$ are considered as depending on the data that we form the expectation over and are thus itself random and part of the expectation.
 \begin{equation}
-    \vartheta_{s}^{c}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \hat{\mu}, \hat{\pi}\right)
-    = \E_{D}\left[\chi_{s}(x; \mathbf{D}, \hat{\mu}, \hat{\pi}) \, \middle| \, Z_1 = \mathbf{z}_1, \dotsc, Z_c = \mathbf{z}_c\right]
+    \vartheta_{s}^{c}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \hat{\eta}\right)
+    = \E_{D}\left[\chi_{s}(x; \mathbf{D}, \hat{\eta}) \, \middle| \, Z_1 = \mathbf{z}_1, \dotsc, Z_c = \mathbf{z}_c\right]
 \end{equation}
 \begin{equation}
-    \chi_{s}^{(1)}\left(x; \mathbf{z}_{1}, \hat{\mu}, \hat{\pi}\right)
-	= \vartheta_{s}^{1}\left(x; \mathbf{z}_{1}, \hat{\mu}, \hat{\pi}\right)
-    - \E_{D}\left[\chi_{s}(x; \mathbf{D}, \hat{\mu}, \hat{\pi})\right]
+    \chi_{s}^{(1)}\left(x; \mathbf{z}_{1}, \hat{\eta}\right)
+	= \vartheta_{s}^{1}\left(x; \mathbf{z}_{1}, \hat{\eta}\right)
+    - \E_{D}\left[\chi_{s}(x; \mathbf{D}, \hat{\eta})\right]
 \end{equation}
 As before, I define the higher-order projection terms, i.e. for $c = 2, \dotsc, s$, in the following way.
 \begin{equation}
-    \chi_{s}^{(c)}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \hat{\mu}, \hat{\pi}\right)
-	= \vartheta_{s}^{c}(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \hat{\mu}, \hat{\pi}) 
-    - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{n,j}} \chi_{s}^{(j)}(x; \mathbf{z}_{\ell}, \hat{\mu}, \hat{\pi})\right) 
-    - \E_{D}\left[\chi_{s}(x; \mathbf{D}, \hat{\mu}, \hat{\pi})\right]
+    \chi_{s}^{(c)}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \hat{\eta}\right)
+	= \vartheta_{s}^{c}(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \hat{\eta}) 
+    - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{n,j}} \chi_{s}^{(j)}(x; \mathbf{z}_{\ell}, \hat{\eta})\right) 
+    - \E_{D}\left[\chi_{s}(x; \mathbf{D}, \hat{\eta})\right]
 \end{equation}
 In anticipation of arguments involving empirical process theory, I define as follows.
 \begin{equation}
@@ -164,8 +168,8 @@ In anticipation of arguments involving empirical process theory, I define as fol
 These definitions allow us to use the following decomposition, where now I acknowledge the randomness in the first-stage estimation.
 \begin{equation}\label{eq:DNNDML2_ResidDecomp}
     \begin{aligned}
-        \chi_{s}^{(c)}\left(x; \mathbf{D}_{\ell}, \hat{\mu}, \hat{\pi}\right)
-        & = \chi_{s,0}^{(c)}\left(x; \mathbf{D}_{\ell}\right) + \underbrace{\chi_{s}^{(c)}\left(x; \mathbf{D}_{\ell}, \hat{\mu}, \hat{\pi}\right) - \chi_{s,0}^{(c)}\left(x; \mathbf{D}_{\ell}\right)}_{R_{c}\left(x; \mathbf{D}_{\ell}\right)}
+        \chi_{s}^{(c)}\left(x; \mathbf{D}_{\ell}, \hat{\eta}\right)
+        & = \chi_{s,0}^{(c)}\left(x; \mathbf{D}_{\ell}\right) + \underbrace{\chi_{s}^{(c)}\left(x; \mathbf{D}_{\ell}, \hat{\eta}\right) - \chi_{s,0}^{(c)}\left(x; \mathbf{D}_{\ell}\right)}_{R_{c}\left(x; \mathbf{D}_{\ell}\right)}
     \end{aligned}
 \end{equation}
 Considering this decomposition will be of great usefulness when analyzing the asymptotic properties of the CATE estimators.
@@ -175,8 +179,8 @@ Using the full expression for the CATE estimator, the following is obtained.
     \begin{aligned}
         \widehat{\operatorname{CATE}}\left(x; \mathbf{D}\right)
         & = \underbrace{\E_{D}\left[\widehat{\operatorname{CATE}}\left(x; \mathbf{D}\right)\right]}_{\text{Centering-Term}}
-        + \underbrace{\frac{1}{n}\sum_{i = 1}^{n} \chi_{s,0}^{(1)}\left(x; Z_{i}\right)}_{\text{Pseudo-H\'ajek-Projection}}
-        + \underbrace{\frac{s}{k} \sum_{l = 1}^{k} \frac{1}{m} \sum_{i \in \mathcal{I}_{k}}\left(\underbrace{\chi_{s}^{(1)}\left(x; Z_{i}, \hat{\mu}_k, \hat{\pi}_k\right) - \chi_{s,0}^{(1)}\left(x; Z_{i}\right)}_{R_{1,k}\left(x; Z_{i}\right)}\right)}_{\text{Pseudo-H\'ajek-Projection Error}}\\
+        + \underbrace{\frac{s}{n}\sum_{i = 1}^{n} \chi_{s,0}^{(1)}\left(x; Z_{i}\right)}_{\text{Pseudo-H\'ajek-Projection}}
+        + \underbrace{\frac{s}{k} \sum_{l = 1}^{k} \frac{1}{m} \sum_{i \in \mathcal{I}_{k}}\left(\underbrace{\chi_{s}^{(1)}\left(x; Z_{i}, \hat{\eta}_{k}\right) - \chi_{s,0}^{(1)}\left(x; Z_{i}\right)}_{R_{1,k}\left(x; Z_{i}\right)}\right)}_{\text{Pseudo-H\'ajek-Projection Error}}\\
         & \quad \quad + \underbrace{\sum_{j = 2}^{s} \binom{s}{j} \binom{n}{j}^{-1}\sum_{\ell \in L_{n,j}} \chi_{s,0}^{(j)}\left(x; \mathbf{D}_{\ell}\right)}_{\text{Pseudo-H\'ajek-Residual}}
          + \underbrace{\sum_{j = 2}^{s} \binom{s}{j} \binom{n}{j}^{-1}\sum_{\ell \in L_{n,j}} R_{j}\left(x; \mathbf{D}_{\ell}\right)}_{\text{Higher-Order Error Terms}}
     \end{aligned}

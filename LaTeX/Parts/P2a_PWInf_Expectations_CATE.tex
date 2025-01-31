@@ -13,7 +13,7 @@ As the first stage is effectively covered by the nonparametric regression setup,
 	\begin{equation}
 		\begin{aligned}
 			\E_D\left[h_s\left(x; D\right)\right]
-			& = \E_{1}\left[\left(\mu_{1}\left(X_1\right) - \mu_{0}\left(X_1\right) + \beta\left(W_{1}, X_1\right)\left(Y_{1} - \mu_{W_{1}}\left(X_1\right)\right)\right)
+			& = \E_{1}\left[m(Z_1, \eta_0)
 			s\left(1 - \psi\left(B\left(x, \|X_1 - x\|\right)\right)\right)^{s-1}\right]\\
 			%
 			& \longrightarrow \operatorname{CATE}(x) \quad \text{as} \quad s \rightarrow \infty
@@ -26,15 +26,15 @@ As the first stage is effectively covered by the nonparametric regression setup,
 	% \begin{equation}
 	% 	\begin{aligned}
 	% 		\E_D\left[h_s\left(x; D\right)\right]
-	% 		& = \E_D\left[\sum_{i = 1}^{s} \kappa\left(x; Z_{i}, D\right) \left(\mu_{1}\left(X_{i}\right) - \mu_{0}\left(X_{i}\right) + \beta\left(W_{i}, X_{i}\right)\left(Y_{i} - \mu_{W_{i}}\left(X_{i}\right)\right)\right)\right]\\
+	% 		& = \E_D\left[\sum_{i = 1}^{s} \kappa\left(x; Z_{i}, D\right) m(Z_i, \eta_0)\right]\\
 	% 		%
-	% 		& = s \E_{1}\left[\left(\mu_{1}\left(X_1\right) - \mu_{0}\left(X_1\right) + \beta\left(W_{1}, X_1\right)\left(Y_{1} - \mu_{W_{1}}\left(X_1\right)\right)\right)
+	% 		& = s \E_{1}\left[m(Z_1, \eta_0)
 	% 		\cdot \E_{2:s}\left[\kappa\left(x; Z_1, D\right)\, | \, X_1 \right]\right]\\
 	% 		%
-	% 		& = \E_{1}\left[\left(\mu_{1}\left(X_1\right) - \mu_{0}\left(X_1\right) + \beta\left(W_{1}, X_1\right)\varepsilon_1\right)
+	% 		& = \E_{1}\left[\left(\mu_{0}^{1}\left(X_1\right) - \mu_{0}^{0}\left(X_1\right) + \beta\left(W_{1}, X_1\right)\varepsilon_1\right)
 	% 		\cdot s\left(1 - \psi\left(B\left(x, \|X_1 - x\|\right)\right)\right)^{s-1}\right]\\
 	% 		%
-	% 		& \longrightarrow \mu_{1}\left(x\right) - \mu_{0}\left(x\right)
+	% 		& \longrightarrow \mu_{0}^{1}\left(x\right) - \mu_{0}^{0}\left(x\right)
 	% 		= \operatorname{CATE}\left(x\right) 
 	% 		\quad \text{as} \quad s \rightarrow \infty
 	% 	\end{aligned}
@@ -49,7 +49,7 @@ As the first stage is effectively covered by the nonparametric regression setup,
 	\begin{equation}
 		\psi_{s}^{1}\left(x; z_1\right)
 		= \beta\left(W_{1}, X_1\right)\varepsilon_{1} \cdot \E\left[\kappa\left(x; Z_1, D\right) \; \middle| \; X_1 = x_1\right]
-		+ \E_{D}\left[\sum_{i = 2}^{s} \kappa\left(x; Z_{i}, D\right) \left(\mu_{1}\left(X_{i}\right) - \mu_{0}\left(X_{i}\right)\right)
+		+ \E_{D}\left[\sum_{i = 2}^{s} \kappa\left(x; Z_{i}, D\right) \left(\mu_{0}^{1}\left(X_{i}\right) - \mu_{0}^{0}\left(X_{i}\right)\right)
 		\, \Big| \, Z_1 = z_1 \right]
 	\end{equation}
 \end{lem}
@@ -60,15 +60,15 @@ As the first stage is effectively covered by the nonparametric regression setup,
 			\psi_{s}^{1}\left(x; z_1\right)
 			 & = \E_{D}\left[h_{s}\left(x; D\right) \, | \, Z_1 = z_1 \right] \\
 			 %
-			 & = \E_{D}\left[\sum_{i = 1}^{s} \kappa\left(x; Z_{i}, D\right) \left(\mu_{1}\left(X_{i}\right) - \mu_{0}\left(X_{i}\right) + \beta\left(W_{i}, X_{i}\right)\left(Y_{i} - \mu_{W_{i}}\left(X_{i}\right)\right)\right)
+			 & = \E_{D}\left[\sum_{i = 1}^{s} \kappa\left(x; Z_{i}, D\right) m(Z_i, \eta_0)
 			 \, \Big| \, Z_1 = z_1 \right]\\
 			 %
-			 & = \left(\mu_{1}\left(X_1\right) - \mu_{0}\left(X_1\right) + \beta\left(W_{1}, X_1\right)\varepsilon_{1}\right)\E\left[\kappa\left(x; Z_1, D\right) \; \middle| \; X_1 = x_1\right]\\
-			 & \quad + \E_{D}\left[\sum_{i = 2}^{s} \kappa\left(x; Z_{i}, D\right) \left(\mu_{1}\left(X_{i}\right) - \mu_{0}\left(X_{i}\right)\right)
+			 & = \left(\mu_{0}^{1}\left(X_1\right) - \mu_{0}^{0}\left(X_1\right) + \beta\left(W_{1}, X_1\right)\varepsilon_{1}\right)\E\left[\kappa\left(x; Z_1, D\right) \; \middle| \; X_1 = x_1\right]\\
+			 & \quad + \E_{D}\left[\sum_{i = 2}^{s} \kappa\left(x; Z_{i}, D\right) \left(\mu_{0}^{1}\left(X_{i}\right) - \mu_{0}^{0}\left(X_{i}\right)\right)
 			 \, \Big| \, Z_1 = z_1 \right]\\
 			 %
 			 & = \beta\left(W_{1}, X_1\right)\varepsilon_{1} \cdot \E\left[\kappa\left(x; Z_1, D\right) \; \middle| \; X_1 = x_1\right]
-			 + \E_{D}\left[\sum_{i = 2}^{s} \kappa\left(x; Z_{i}, D\right) \left(\mu_{1}\left(X_{i}\right) - \mu_{0}\left(X_{i}\right)\right)
+			 + \E_{D}\left[\sum_{i = 2}^{s} \kappa\left(x; Z_{i}, D\right) \left(\mu_{0}^{1}\left(X_{i}\right) - \mu_{0}^{0}\left(X_{i}\right)\right)
 			 \, \Big| \, Z_1 = z_1 \right]
 		\end{aligned}
 	\end{equation}
