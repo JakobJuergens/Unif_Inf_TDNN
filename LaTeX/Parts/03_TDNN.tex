@@ -237,16 +237,13 @@ For the sake of simplicity, I will assume that $m = n/K$, i.e.\ the desired numb
 				            \end{equation}
 			      \end{enumerate}
             For each fold $k$, denote the vector of estimates by $\hat{\eta}_{k} = \left(\hat{\mu}_{k}^{0}, \hat{\mu}_{k}^{1}, \hat{\pi}_{k}\right)^{\prime}$.
-            For each observation $i$, define the combined estimator in the following way $\hat{\eta}(Z_i) = \hat{\eta}_{k_{i}}(Z_i)$.
+            For each observation $i$, define the combined estimator as follows $\hat{\eta}(Z_i) = \hat{\eta}_{k_{i}}(Z_i)$.
 			\item Construct the estimator $\widehat{\operatorname{CATE}}\left(x\right)$
 			      as the solution to the following equation.
 			      \begin{equation}
 				      \begin{aligned}
-					      0 \quad = \quad & \sum_{k = 1}^{K} \sum_{i \in I_k} K(x, X_{i}) m\left(Z_{i}; \widehat{\operatorname{CATE}}\left(x\right), \hat{\mu}_{k}, \hat{\pi}_{k}\right)                                                                \\
-					      %
-					      = \quad         & \sum_{i = 1}^{n - s + 1} \left[\frac{\binom{n-i}{s-1}}{\binom{n}{s}} \sum_{k = 1}^{K} \1\left(i \in I_{k}\right)  m\left(Z_{(i)}; \widehat{\operatorname{CATE}}\left(x\right), \hat{\mu}_{k}, \hat{\pi}_{k}\right)\right] \\
-					      %
-					      = \quad         & \sum_{i = 1}^{n - s + 1} \left[\frac{\binom{n-i}{s-1}}{\binom{n}{s}} m\left(Z_{(i)}; \widehat{\operatorname{CATE}}\left(x\right), \hat{\mu}_{k_{(i)}}, \hat{\pi}_{k_{(i)}}\right)\right]
+					      0 = \quad \sum_{k = 1}^{K} \sum_{i \in I_k} K(x, X_{i}) m\left(Z_{i}; \widehat{\operatorname{CATE}}\left(x\right), \hat{\eta}_{k}\right)
+					      = \sum_{i = 1}^{n - s + 1} \frac{\binom{n-i}{s-1}}{\binom{n}{s}} m\left(Z_{(i)}; \widehat{\operatorname{CATE}}\left(x\right),\hat{\eta}_{k_{(i)}}\right)
 				      \end{aligned}
 			      \end{equation}
 		\end{enumerate}

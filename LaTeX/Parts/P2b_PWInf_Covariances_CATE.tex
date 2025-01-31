@@ -10,7 +10,7 @@ Similar to before, we will start under the assumption that the functional nuisan
 	Furthermore, let
 	\begin{equation}
 		\Omega_{s}\left(x\right)
-		= \E\left[h_{s}^{2}\left(x; Z_1, \ldots,  Z_{s}\right)\right].
+		= \E\left[\chi_{s,0}^{2}\left(x; Z_1, \ldots,  Z_{s}\right)\right].
 	\end{equation}
 	Then,
 	\begin{equation}
@@ -24,7 +24,7 @@ Similar to before, we will start under the assumption that the functional nuisan
 	\begin{equation}
 		\begin{aligned}
 			\Omega_{s}\left(x\right)
-			 & = \E\left[h_{s}^{2}\left(x; Z_1, \ldots,  Z_{s}\right)\right]
+			 & = \E\left[\chi_{s,0}^{2}\left(x; Z_1, \ldots,  Z_{s}\right)\right]
              = \E_{D}\left[\left(\sum_{i = 1}^{s} \kappa\left(x; Z_{i}, D\right) m\left(Z_{i}; \eta_{0}\right)\right)^2\right]\\
              %
              & = \E_{D}\left[\sum_{i = 1}^{s}\sum_{j = 1}^{s}\kappa\left(x; Z_{i}, D\right)\kappa\left(x; Z_{j}, D\right)
@@ -53,8 +53,8 @@ Similar to before, we will start under the assumption that the functional nuisan
 	Furthermore, let
 	\begin{equation}
 		\Omega_{s}^{c}\left(x\right)
-		= \E\left[h_{s}\left(x; Z_1, \ldots, Z_{c}, Z_{c+1}, \ldots, Z_{s}\right) \cdot
-			h_{s}\left(x; Z_1, \ldots,Z_{c}, Z_{c+1}^{\prime}, \ldots, Z_{s}^{\prime}\right)\right].
+		= \E\left[\chi_{s,0}\left(x; Z_1, \ldots, Z_{c}, Z_{c+1}, \ldots, Z_{s}\right) \cdot
+			\chi_{s,0}\left(x; Z_1, \ldots,Z_{c}, Z_{c+1}^{\prime}, \ldots, Z_{s}^{\prime}\right)\right].
 	\end{equation}
 	Then,
 	\begin{equation}
@@ -69,8 +69,8 @@ Similar to before, we will start under the assumption that the functional nuisan
 	\begin{equation}
         \begin{aligned}
             \Omega_{s}^{c}\left(x\right)
-		    & = \E\left[h_{s}\left(x; Z_1, \ldots, Z_{c}, Z_{c+1}, \ldots, Z_{s}\right) \cdot
-			h_{s}\left(x; Z_1, \ldots,Z_{c}, Z_{c+1}^{\prime}, \ldots, Z_{s}^{\prime}\right)\right]\\
+		    & = \E\left[\chi_{s,0}\left(x; Z_1, \ldots, Z_{c}, Z_{c+1}, \ldots, Z_{s}\right) \cdot
+			\chi_{s,0}\left(x; Z_1, \ldots,Z_{c}, Z_{c+1}^{\prime}, \ldots, Z_{s}^{\prime}\right)\right]\\
             %
             & = \E_{D, D^{\prime}}\left[
                 \left(\sum_{i = 1}^{s} \kappa\left(x; Z_{i}, D\right) m\left(Z_{i}; \eta_{0}\right)\right) 
