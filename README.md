@@ -1,4 +1,4 @@
-# Pointwise and Uniform Inference for the Two-Stage Distributional Nearest Neighbor Estimator
+# Inference for Conditional Average Treatment Effects using Distributional Nearest Neighbors
 ---
 
 This GitHub repository contains the working paper "Inference for Conditional Average Treatment Effects using Distributional Nearest Neighbors" and the corresponding supplementary material. Among other things, this includes the R package "tdnnR" that implements the TDNN estimator and the inference methods presented in the paper.
