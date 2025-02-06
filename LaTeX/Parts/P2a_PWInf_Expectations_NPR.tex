@@ -1,67 +1,3 @@
-\section{Proofs for Results in Section~\ref{sec:pw_inf}}
-\hrule
-
-\subsection{Closed Form Representations}
-\hrule
-
-\begin{proof}[Proof of Theorem~\ref{thm:JK_closed_form}]\mbox{}\\*
-	Recall the closed form representation of the DNN estimator as presented in Equation~\ref{eq:DNN_closed_form} and its asymptotic approximation in Equation~\ref{eq:DNN_approx_closed_form}.
-	\begin{equation}
-		\tilde{\mu}_{s}(x; \mathbf{D}_n)
-		= \binom{n}{s}^{-1} \sum_{i = 1}^{n - s + 1}\binom{n - i}{s - 1}Y_{(i)}
-		\approx \sum_{i = 1}^{n - s + 1} \alpha_{s} {\left(1 - \alpha_{s}\right)}^{i - 1} Y_{(i)}
-	\end{equation}
-	Plugging into the Jackknife variance estimator for the DNN estimator now gives us the following where we assume that $n$ is sufficiently large for $n - s + 1$ to be larger than $s$.
-	\begin{equation}
-		\begin{aligned}
-			\hat{\omega}_{\text{JK}}^{2}
-			 & = \frac{n - 1}{n}\sum_{i = 1}^{n} {\left(\tilde{\mu}_{s}(x; \mathbf{D}_{n, -i}) - \tilde{\mu}_{s}(x; \mathbf{D}_n)\right)}^2 \\
-			%
-			 & =
-		\end{aligned}
-	\end{equation}
-	Even more simple, we can use the approximate weights to find the following representation.
-	For this purpose recall that $\alpha_{s} = s/n$ and define $\tilde{\alpha}_s = s/(n-1)$.
-	Thus, $\tilde{\alpha}_s = \frac{n}{n-1}\alpha_{s}$.
-	\begin{equation}
-		\begin{aligned}
-			\hat{\omega}_{\text{JK}}^{2}
-			 & = \frac{n - 1}{n}\sum_{i = 1}^{n} {\left(\tilde{\mu}_{s}(x; \mathbf{D}_{n, -i}) - \tilde{\mu}_{s}(x; \mathbf{D}_n)\right)}^2 \\
-			 %
-			 & \approx \frac{n - 1}{n} \left[
-				\sum_{i = 1}^{n - s + 1} \left(
-				\sum_{j = 1}^{i - 1}\left(\tilde{\alpha}_{s}{\left(1 - \tilde{\alpha}_{s}\right)}^{j - 1} - \alpha_{s}{\left(1 - \alpha_{s}\right)}^{j - 1}
-				\right) Y_{(j)} \right. \right.\\
-				& \quad \quad \quad \quad \quad +  \left.\sum_{j = i + 1}^{n - s + 2}\left(\tilde{\alpha}_{s}{\left(1 - \tilde{\alpha}_{s}\right)}^{j - 1} - \alpha_{s}{\left(1 - \alpha_{s}\right)}^{j}
-				\right) Y_{(j)}
-				-  \alpha_{s}{\left(1 - \alpha_{s}\right)}^{i - 1} Y_{(i)}
-				\right)^2\\
-				& \quad \quad \left. + \sum_{i = n - s + 2}^{n} {\left(\sum_{j = 1}^{n - s + 1} 
-					\left(\tilde{\alpha}_{s}{\left(1 - \tilde{\alpha}_{s}\right)}^{j - 1} - \alpha_{s}{\left(1 - \alpha_{s}\right)}^{j - 1}
-					\right) Y_{(j)}\right)}^2
-				\right]\\
-				%
-				& = \alpha_{s}^2 \cdot \frac{n - 1}{n} \left[
-					\sum_{i = 1}^{n - s + 1} \left(
-					\sum_{j = 1}^{i - 1}\left(\frac{n}{n-1}{\left(\frac{n - 1 - s}{n - 1}\right)}^{j - 1} - {\left(\frac{n - s}{n}\right)}^{j - 1}
-					\right) Y_{(j)} \right. \right.\\
-					& \quad \quad \quad \quad \quad +  \left.\sum_{j = i + 1}^{n - s + 2}\left(\frac{n}{n-1}{\left(\frac{n - 1 - s}{n - 1}\right)}^{j - 1} - {\left(\frac{n - s}{n}\right)}^{j}
-					\right) Y_{(j)}
-					-  {\left(\frac{n - s}{n}\right)}^{i - 1} Y_{(i)}
-					\right)^2\\
-					& \quad \quad \left. + \sum_{i = n - s + 2}^{n} {\left(\sum_{j = 1}^{n - s + 1} 
-						\left(\frac{n}{n-1}{\left(\frac{n - 1 - s}{n - 1}\right)}^{j - 1} - {\left(\frac{n - s}{n}\right)}^{j - 1}
-						\right) Y_{(j)}\right)}^2
-					\right]
-		\end{aligned}
-	\end{equation}
-
-	The closed form of the Jackknife variance estimator for the TDNN estimator follows from the same approach.
-
-		{\color{red} LOREM IPSUM}
-\end{proof}
-
-\newpage
 \subsection{NPR - Kernel (Conditional) Expectations}\label{subsec:KernelCondExp}
 \hrule
 As part of deriving consistency results for the variance estimators under consideration, we need to do a careful analysis of the Kernel of the DNN and TDNN estimators.
@@ -75,13 +11,25 @@ First, we start with the nonparametric regression setup.
 	Then
 	\begin{equation}
 		\E_D\left[h_s\left(x; D\right)\right]
-		= \E_{1}\left[\mu\left(X_1\right) s{\left(1 - \psi\left(B\left(x, \|X_1 - x\|\right)\right)\right)}^{s-1}\right]\\
-		\longrightarrow \mu(x) \quad \text{as} \quad s \rightarrow \infty
+		= \E_{1}\left[Y_1 s \E_{2:s}\left[\kappa(x; Z_1, D)\right]\right]
+		  \longrightarrow \mu\left(x\right) \quad \text{as} \quad s \rightarrow \infty
 	\end{equation}
 \end{lem}
 \hrule
 \begin{proof}[Proof of Lemma~\ref{lem:DNN_k_exp}]
-	This result follows immediately from Lemma~\ref{lem:limit_res}.
+	This result follows immediately from Lemma~\ref{lem:dem13} and the following observation.
+    \begin{equation}
+		\begin{aligned}
+			\E_{1}\left[Y_1 s \E_{2:s}\left[\kappa(x; Z_1, D)\right]\right]
+			 & = \E_{1}\left[\left(\mu\left(X_1\right) + \varepsilon_1\right) s \E_{2:s}\left[\kappa(x; Z_1, D)\right]\right]                                   \\
+			%
+			 & = \E_{1}\left[\left(\mu\left(X_1\right) + \E\left[\varepsilon_1 \, \middle| \, X_1\right]\right) s \E_{2:s}\left[\kappa(x; Z_1, D)\right]\right] \\
+			%
+			 & = \E_{1}\left[\mu\left(X_1\right) s \E_{2:s}\left[\kappa(x; Z_1, D)\right]\right]
+			\overset{\text{(Lem~\ref{lem:dem13})}}{\longrightarrow} \mu\left(x\right)
+			\quad \text{as} \quad s \rightarrow \infty
+		\end{aligned}
+	\end{equation}
 \end{proof}
 
 \hrule

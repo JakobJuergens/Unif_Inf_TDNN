@@ -14,7 +14,7 @@ As the first stage is effectively covered by the nonparametric regression setup,
 		\begin{aligned}
 			\E_D\left[h_s\left(x; D\right)\right]
 			& = \E_{1}\left[m(Z_1, \eta_0)
-			s\left(1 - \psi\left(B\left(x, \|X_1 - x\|\right)\right)\right)^{s-1}\right]\\
+			s\E_{2:s}\left[\kappa(x; Z_1, D)\right]\right]\\
 			%
 			& \longrightarrow \operatorname{CATE}(x) \quad \text{as} \quad s \rightarrow \infty
 		\end{aligned}
@@ -22,23 +22,21 @@ As the first stage is effectively covered by the nonparametric regression setup,
 \end{lem}
 \hrule
 \begin{proof}[Proof of Lemma~\ref{lem:CATE_DNN_k_exp}]
-	This result follows immediately from Lemma~\ref{lem:limit_res}.
-	% \begin{equation}
-	% 	\begin{aligned}
-	% 		\E_D\left[h_s\left(x; D\right)\right]
-	% 		& = \E_D\left[\sum_{i = 1}^{s} \kappa\left(x; Z_{i}, D\right) m(Z_i, \eta_0)\right]\\
-	% 		%
-	% 		& = s \E_{1}\left[m(Z_1, \eta_0)
-	% 		\cdot \E_{2:s}\left[\kappa\left(x; Z_1, D\right)\, | \, X_1 \right]\right]\\
-	% 		%
-	% 		& = \E_{1}\left[\left(\mu_{0}^{1}\left(X_1\right) - \mu_{0}^{0}\left(X_1\right) + \beta\left(W_{1}, X_1\right)\varepsilon_1\right)
-	% 		\cdot s\left(1 - \psi\left(B\left(x, \|X_1 - x\|\right)\right)\right)^{s-1}\right]\\
-	% 		%
-	% 		& \longrightarrow \mu_{0}^{1}\left(x\right) - \mu_{0}^{0}\left(x\right)
-	% 		= \operatorname{CATE}\left(x\right) 
-	% 		\quad \text{as} \quad s \rightarrow \infty
-	% 	\end{aligned}
-	% \end{equation}
+	This result follows immediately from Lemma~\ref{lem:dem13} and the following observation.
+	\begin{equation}
+		\begin{aligned}
+			\E_{1}\left[m\left(Z_{1}; \eta_{0}\right) s \E_{2:s}\left[\kappa(x; Z_1, D)\right]\right]
+			 & = \E_{1}\left[\left(\mu_{0}^{1}\left(X_{1}\right) - \mu_{0}^{0}\left(X_{1}\right) + \beta\left(W_{1}, X_{1}\right)\varepsilon_{i}\right) s \E_{2:s}\left[\kappa(x; Z_1, D)\right]\right]                                \\
+			%
+			 & = \E_{1}\left[\left(\mu_{0}^{1}\left(X_{1}\right) - \mu_{0}^{0}\left(X_{1}\right) + \beta\left(W_{1}, X_{1}\right)\E\left[\varepsilon_1 \, \middle| \, X_1\right]\right) s \E_{2:s}\left[\kappa(x; Z_1, D)\right]\right] \\
+			%
+			 & = \E_{1}\left[\left(\mu_{0}^{1}\left(X_{1}\right) - \mu_{0}^{0}\left(X_{1}\right)\right) s \E_{2:s}\left[\kappa(x; Z_1, D)\right]\right]                                                                                \\
+			%
+			 & \overset{\text{(Lem~\ref{lem:dem13})}}{\longrightarrow} \mu_{0}^{1}\left(x\right) - \mu_{0}^{0}\left(x\right)
+             = \operatorname{CATE}(x)
+			\quad \text{as} \quad s \rightarrow \infty
+		\end{aligned}
+	\end{equation}
 \end{proof}
 
 \hrule
