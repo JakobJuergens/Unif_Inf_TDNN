@@ -33,10 +33,50 @@ Similar to before, we will start under the assumption that the functional nuisan
              & = \E_{D}\left[s \kappa\left(x; Z_1, D\right)  m^2\left(Z_{1}; \eta_{0}\right)\right]
              = \E_{1}\left[ m^2\left(Z_{1}; \eta_{0}\right) s \E_{2:s}\left[\kappa\left(x; Z_1, D\right)\right]\right]\\
              %
-             & \overset{\text{(Lem~\ref{lem:limit_res})}}{\longrightarrow}
-			 \left(\mu_{0}^{1}\left(x\right) - \mu_{0}^{0}\left(x\right)\right)^2 + \frac{\sigma_{\varepsilon}^2\left(x\right)}{\pi_{0}(x)\left(1 - \pi_{0}(x)\right)}
-            \quad \text{as} \quad
-            s \rightarrow \infty
+             & = \E_{1}\left[\left(\mu_{0}^{1}\left(X_{1}\right) - \mu_{0}^{0}\left(X_{1}\right) + \beta\left(W_{1}, X_{1}\right)\varepsilon_{i}\right)^2 s \E_{2:s}\left[\kappa(x; Z_1, D)\right]\right]                                                                                             \\
+			%
+			 & \quad = \E_{1}\left[\left(\mu_{0}^{1}\left(X_{i}\right) - \mu_{0}^{0}\left(X_{1}\right)\right)^2 s \E_{2:s}\left[\kappa(x; Z_1, D)\right]\right]
+			+ \underbrace{\E_{1}\left[\left(\mu_{0}^{1}\left(X_{i}\right) - \mu_{0}^{0}\left(X_{1}\right)\right)\beta\left(W_{1}, X_{1}\right)\E\left[\varepsilon_{1} \, \middle| \, X_1\right] s \E_{2:s}\left[\kappa(x; Z_1, D)\right]\right]}_{=0}                                              \\
+			 & \quad \quad + \E_{1}\left[\left(\beta\left(W_{1}, X_{1}\right)\varepsilon_{i}\right)^2 s \E_{2:s}\left[\kappa(x; Z_1, D)\right]\right]                                                                                                                                  \\
+			%
+			 & \quad =  \E_{1}\left[\left(\mu_{0}^{1}\left(X_{1}\right) - \mu_{0}^{0}\left(X_{1}\right)\right)^2 s \E_{2:s}\left[\kappa(x; Z_1, D)\right]\right]
+			+ \E_{1}\left[\left(\frac{W_{1}}{\pi_{0}\left(X_1\right)} - \frac{1 - W_{1}}{1 - \pi_{0}\left(X_1\right)}\right)^2 \varepsilon_{1}^2 s \E_{2:s}\left[\kappa(x; Z_1, D)\right]\right]                                                                                               \\
+			%
+			 & \quad = \underbrace{\E_{1}\left[\left(\mu_{0}^{1}\left(X_{1}\right) - \mu_{0}^{0}\left(X_{1}\right)\right)^2 s \E_{2:s}\left[\kappa(x; Z_1, D)\right]\right]}_{\longrightarrow \left(\mu_{0}^{1}\left(x\right) - \mu_{0}^{0}\left(x\right)\right)^2 \quad \text{as} \quad s \rightarrow \infty}
+			+ \underbrace{\E_{1}\left[\E\left[\left(\frac{W_{1}}{\pi_{0}\left(X_1\right)} - \frac{1 - W_{1}}{1 - \pi_{0}\left(X_1\right)}\right)^2 \varepsilon_{1}^2 \, \middle| \, X_1\right] s \E_{2:s}\left[\kappa(x; Z_1, D)\right]\right]}_{(B)}
+		\end{aligned}
+	\end{equation}
+	Continuing with the second term, marked by $(B)$, we find the following.
+	\begin{equation}
+		\begin{aligned}
+			(B)
+			 & = \E_{1}\left[\E\left[\left(\frac{W_{1}}{\pi_{0}\left(X_1\right)} - \frac{1 - W_{1}}{1 - \pi_{0}\left(X_1\right)}\right)^2 \varepsilon_{1}^2 \, \middle| \, X_1\right] s \E_{2:s}\left[\kappa(x; Z_1, D)\right]\right] \\
+			%
+			 & = \E_{1}\left[\frac{\sigma_{\varepsilon}^2(X_1) \cdot s \E_{2:s}\left[\kappa(x; Z_1, D)\right]}{\pi_{0}^2\left(X_1\right)\left(1 - \pi_{0}\left(X_1\right)\right)^2} \cdot
+			\E\left[\left(W_{1}\left(1 - \pi_{0}\left(X_1\right)\right) - \left(1 - W_{1}\right)\pi_{0}\left(X_1\right)\right)^2 \, \middle| \, X_1\right] \right]                                                                    \\
+		\end{aligned}
+	\end{equation}
+	Observe that $W_1(1-W_1) = 0$, $W_1^2 = W_1$, and $(1-W_1)^2 = 1 - W_1$, which allows us to use the following simplification.
+	\begin{equation}
+		\begin{aligned}
+			(B)
+			 & = \E_{1}\left[\frac{\sigma_{\varepsilon}^2(X_1) \cdot s \E_{2:s}\left[\kappa(x; Z_1, D)\right]}{\pi_{0}^2\left(X_1\right)\left(1 - \pi_{0}\left(X_1\right)\right)^2} \cdot
+			\E\left[W_{1}\left(1 - \pi_{0}\left(X_1\right)\right)^2 + \left(1 - W_{1}\right)\pi_{0}^2\left(X_1\right) \, \middle| \, X_1\right] \right]                                   \\
+			%
+			 & = \E_{1}\left[\frac{\sigma_{\varepsilon}^2(X_1) \cdot s \E_{2:s}\left[\kappa(x; Z_1, D)\right]}{\pi_{0}^2\left(X_1\right)\left(1 - \pi_{0}\left(X_1\right)\right)^2} \cdot
+			\left(\pi_{0}(X_1)\left(1 - \pi_{0}\left(X_1\right)\right)^2 + (1 - \pi_{0}(X_1))\pi_{0}^2\left(X_1\right) \right)\right]                                                             \\
+			%
+			 & = \E_{1}\left[\frac{\sigma_{\varepsilon}^2(X_1) \cdot s \E_{2:s}\left[\kappa(x; Z_1, D)\right]}{\pi_{0}\left(X_1\right)\left(1 - \pi_{0}\left(X_1\right)\right)}\right]
+			\overset{\text{(Lem~\ref{lem:dem13})}}{\longrightarrow} \frac{\sigma_{\varepsilon}^2(x)}{\pi_{0}\left(x\right)\left(1 - \pi_{0}\left(x\right)\right)}
+			\quad \text{as} \quad s \rightarrow \infty
+		\end{aligned}
+	\end{equation}
+	Recombining the terms of interest, we find the desired limit bound.
+	\begin{equation}
+		\begin{aligned}
+			\E_{1}\left[m^2\left(Z_{i}; \eta_{0}\right) s \E_{2:s}\left[\kappa(x; Z_1, D)\right]\right]
+			\overset{\text{(Lem~\ref{lem:dem13})}}{\longrightarrow} \left(\mu_{0}^{1}\left(x\right) - \mu_{0}^{0}\left(x\right)\right)^2 + \frac{\sigma_{\varepsilon}^2(x)}{\pi_{0}\left(x\right)\left(1 - \pi_{0}\left(x\right)\right)}
+			\quad \text{as} \quad s \rightarrow \infty
 		\end{aligned}
 	\end{equation}
     This gives us the desired result.

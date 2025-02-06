@@ -22,6 +22,7 @@ Similar to the previous part, we will first consider the nonparametric regressio
 \end{lem}
 \hrule
 \begin{proof}[Proof of Lemma~\ref{lem:omega_s}]\mbox{}\\*
+    This result follows immediately from Lemma~\ref{lem:dem13} and the following observation.
 	\begin{equation}
 		\begin{aligned}
 			\Omega_{s}\left(x\right)
@@ -30,11 +31,22 @@ Similar to the previous part, we will first consider the nonparametric regressio
 			= \E_{D}\left[\sum_{i = 1}^{s}\sum_{j = 1}^{s}\left(\kappa\left(x; Z_{i}, D\right)\kappa\left(x; Z_{j}, D\right)Y_{i}Y_{j}\right)\right] \\
 			%
 			 & = \E_{D}\left[s \kappa\left(x; Z_{1}, D\right)Y_{1}^2\right]
-			= \E_{1}\left[Y_{1}^2 s \E_{2:s}\left[\kappa\left(x; Z_{1}, D\right)\right]\right]                   
-			\overset{\text{(Lem~\ref{lem:limit_res})}}{\longrightarrow} \mu^2(x) + \sigma_{\varepsilon}^2(x)
-			 \quad \text{as} \quad s \rightarrow \infty
+			= \E_{1}\left[Y_{1}^2 s \E_{2:s}\left[\kappa\left(x; Z_{1}, D\right)\right]\right]       
+            = \E_{1}\left[\left(\mu\left(X_1\right) + \varepsilon_1\right)^2 s \E_{2:s}\left[\kappa(x; Z_1, D)\right]\right] \\
+			%
+			 & = \E_{1}\left[\left(\mu^2\left(X_1\right) + 2\mu\left(X_1\right)\varepsilon_1 + \varepsilon_1^2\right)s \E_{2:s}\left[\kappa(x; Z_1, D)\right]\right]                       \\
+			%
+			 & = \E_{1}\left[\left(\mu^2\left(X_1\right) + 2\mu\left(X_1\right) \E\left[\varepsilon_1 \, \middle| \, X_1\right] + \E\left[\varepsilon_1^2 \, \middle| \, X_1\right]\right)
+			s \E_{2:s}\left[\kappa(x; Z_1, D)\right]\right]                                                                                                                                \\
+			%
+			 & = \E_{1}\left[\left(\mu^2\left(X_1\right) +\sigma_{\varepsilon}^{2}(X_1)\right) s \E_{2:s}\left[\kappa(x; Z_1, D)\right]\right]              \overset{\text{(Lem~\ref{lem:dem13})}}{\longrightarrow} \mu^2\left(x\right) +\sigma_{\varepsilon}^{2}(x)
+			\quad \text{as} \quad s \rightarrow \infty
 		\end{aligned}
 	\end{equation}
+    Furthermore, we have the following inequality.
+    \begin{equation}
+        \mu^2(x) + \sigma_{\varepsilon}^2(x) \leq \mu^2\left(x\right) + \overline{\sigma}_{\varepsilon}^{2}
+    \end{equation}
 	Thus, we obtain the desired result.
 \end{proof}
 
