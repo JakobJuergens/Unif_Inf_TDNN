@@ -31,6 +31,12 @@
 
 \hrule
 
+As an additional tool, we will make use of the following analogous results concerning products of two kernel functions with nonzero expectation.
+These results will then be used to construct an analogon of Lemma \ref{lem:dem13} for the corresponding cases.
+This will serve very similar purposes in the analysis of (conditional) covariance terms as the previous results serve for (conditional) expectations.
+\vspace{0.5cm}
+\hrule
+
 \begin{lem}[]\label{lem:double_cond1}\mbox{}\\*
     Fix sample size $n$, subsampling scale $s$, and $c$ such that $0 < c \leq s \leq n$.
 	Let $D = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}, \dotsc Z_s \right\}$ be an i.i.d.\ data set drawn from $P$ as described in Setup~\ref{asm:npr_dgp}.
@@ -69,13 +75,11 @@
     Considering the second case, we find the following.
     \begin{equation}
         \begin{aligned}
-            \E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]
+            & \E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]
+            = \frac{1}{(2s - c)!} \sum_{i = 0}^{s - c - 1}\binom{s - c - 1}{i} i! \left((s - 1) + (s - c - 1 - i)\right)! \\
             %
-            & = \frac{1}{(2s - c)!} \sum_{i = 0}^{s - c - 1}\binom{s - c - 1}{i} i! \left((s - 1) + (s - c - 1 - i)\right)! \\
-            %
-            & = \frac{1}{(2s - c)!}\sum_{i = 0}^{s - c - 1}\binom{s - c - 1}{i} i! \left(2s - c - 2 - i\right)! \\
-            %
-            & = \frac{(2s - c - 2)!}{(2s - c)!}\sum_{i = 0}^{s - c - 1}\binom{s - c - 1}{i}\binom{2s - c - 2}{i}^{-1}
+            & \quad = \frac{1}{(2s - c)!}\sum_{i = 0}^{s - c - 1}\binom{s - c - 1}{i} i! \left(2s - c - 2 - i\right)! 
+            = \frac{(2s - c - 2)!}{(2s - c)!}\sum_{i = 0}^{s - c - 1}\binom{s - c - 1}{i}\binom{2s - c - 2}{i}^{-1}
         \end{aligned}
     \end{equation}
     Considering the third case, we find the following.
@@ -88,7 +92,10 @@
                 \kappa\left(x; Z_{c+1}, D_{(c+1):s}\right)\kappa\left(x; Z_{c+1}^{\prime}, D_{(c+1):s}^{\prime}\right)
             \right]\\
             %
-            & \quad = {\color{red} LOREM IPSUM}
+            & \quad = \frac{1}{(2s - c)!} \left[
+            \underbrace{\sum {\color{red} LOREM IPSUM}}_{} 
+            + \underbrace{\sum {\color{red} LOREM IPSUM}}_{} 
+            \right]
         \end{aligned}
     \end{equation}
 \end{proof}
@@ -166,22 +173,11 @@
         \cdot \E\left[\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}_{(c+1):s}\right)
             \; \middle| \; X_{c+1}^{\prime}\right] \\
         %
-        & = {\color{red} LOREM IPSUM} \\
-        %
-			%  & = \E\left[\left(\prod_{i = 2}^{s}\1\left(\|X_1 - x\| < \|X_{i} - x\|\right)\right)
-			% 	\left(\prod_{i = 1}^{c}\1\left(\|X_i - x\| > \|X_{c+1}^{\prime} - x\|\right)\right)
-			% \left(\prod_{i = c+2}^{s}\1\left(\|X_i^{\prime} - x\| > \|X_{c+1}^{\prime} - x\|\right)\right) \; \middle| \; X_1, X_{c+1}^{\prime}\right]                                                                                      \\
-			% %
-			%  & = \1\left(\|X_1 - x\| > \|X_{c+1}^{\prime} - x\|\right) \cdot \E\left[\prod_{i = 2}^{c}\1\left(\|X_{i} - x\| > \max\left\{\|X_{1} - x\|, \|X_{c+1}^{\prime} - x\|\right\}\right) \; \middle| \; X_1, X_{c+1}^{\prime}\right] \\
-			%  & \quad \quad  \cdot \E\left[\prod_{i = c+1}^{s}\1\left(\|X_i - x\| > \|X_{1} - x\|\right) \; \middle| \; X_{1}\right]
-			% \cdot \E\left[\prod_{i = c+2}^{s}\1\left(\|X_i^{\prime} - x\| > \|X_{c+1}^{\prime} - x\|\right) \; \middle| \; X_{c+1}^{\prime}\right]                                                                                          \\
-			% %
-			%  & \leq \E\left[\kappa\left(x; Z_{1}, D\right) \; \middle| \; X_1\right]
-			% \cdot \E\left[\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; X_{c+1}^{\prime}\right]
+        & = {\color{red} LOREM IPSUM}
     \end{aligned}
     \end{equation}
     Consider now the second inequality.
-    	\begin{equation}
+    \begin{equation}
 		\begin{aligned}
 			& \E\left[
             \kappa\left(x; Z_{c+1}, D\right)
@@ -246,3 +242,83 @@
     \end{equation}
 \end{proof}
 
+\hrule
+
+\begin{lem}[]\label{lem:double_cond3}\mbox{}\\*
+    Fix sample size $n$, subsampling scale $s$, and $c$ such that $0 < c \leq s \leq n$.
+	Let $D = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}, \dotsc Z_s \right\}$ be an i.i.d.\ data set drawn from $P$ as described in Setup~\ref{asm:npr_dgp}.
+	Let $D^{\prime} = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$ be a second data set that shares the first $c$ observations with $D$.
+	The remaining $s - c$ observations of $D^{\prime}$, i.e.\ $\left\{Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$, are i.i.d.\ draws from $P$ that are independent of $D$.
+
+    For any $L^1$ function $f$ that is continuous at $x$, it holds that
+        \begin{equation}
+        \lim_{s \rightarrow \infty} \underbrace{\E_{1}\left[f^{2}(X_{1}) (2s - c) 
+            \E_{2:s}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{1}, D^{\prime}\right)\right]
+        \right]}_{(A)}
+        = f^{2}(x)
+    \end{equation}
+    \begin{equation}
+        \lim_{s \rightarrow \infty} \underbrace{\E_{1, (c+1)^{\prime}}\left[
+            f(X_{1}) f(X_{c+1}^{\prime})
+            \cdot \frac{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; Z_{1}, Z_{c+1}^{\prime}\right]}{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]}
+        \right]}_{(B)}
+        = f^{2}(x)
+    \end{equation}
+    \begin{equation}
+        \lim_{s \rightarrow \infty} \underbrace{\E_{c+1}\left[
+            f(X_{c+1}) f(X_{c+1}^{\prime})
+            \cdot \frac{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; Z_{c+1}, Z_{c+1}^{\prime}\right]}{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]} 
+        \right]}_{(C)}
+        = f^{2}(x)
+    \end{equation}
+\end{lem}
+
+\begin{proof}[Proof of Lemma \ref{lem:double_cond3}]\mbox{}\\*
+    We will largely argue along the same lines as the original proof in \citet{demirkaya_optimal_2024}.
+    Thus, consider first the following inequalities.
+    \begin{equation}
+        \begin{aligned}
+            \left|(A) - f^{2}(x)\right| & = \left|\E_{1}\left[f^{2}(X_{1}) (2s - c) 
+               \E_{2:s}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{1}, D^{\prime}\right)\right]
+            \right] - f^{2}(x)\right| \\
+            & \leq \E_{1}\left[\left|f^{2}(X_{1}) - f^{2}(x) \right| (2s - c) 
+                \E_{2:s}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{1}, D^{\prime}\right)\right]
+            \right]
+        \end{aligned}
+    \end{equation}
+    \begin{equation}
+        \begin{aligned}
+            \left|(B) - f^{2}(x)\right| 
+        & = \left|\E_{1, (c+1)^{\prime}}\left[
+            f(X_{1}) f(X_{c+1}^{\prime})
+            \cdot \frac{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; Z_{1}, Z_{c+1}^{\prime}\right]}{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]}
+        \right] - f^{2}(x)\right|\\
+        & \leq \E_{1, (c+1)^{\prime}}\left[
+            \left| f(X_{1}) f(X_{c+1}^{\prime}) - f^{2}(x)\right|
+            \cdot \frac{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; Z_{1}, Z_{c+1}^{\prime}\right]}{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]}
+        \right]
+        \end{aligned}
+    \end{equation}
+    \begin{equation}
+        \begin{aligned}
+            \left|(C) - f^{2}(x)\right| 
+        & = \left|\E_{c+1}\left[
+            f(X_{c+1}) f(X_{c+1}^{\prime})
+            \cdot \frac{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; Z_{c+1}, Z_{c+1}^{\prime}\right]}{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]} 
+        \right] - f^{2}(x)\right| \\
+        & \leq \E_{c+1}\left[
+            \left|f(X_{c+1}) f(X_{c+1}^{\prime}) - f^{2}(x)\right|
+            \cdot \frac{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; Z_{c+1}, Z_{c+1}^{\prime}\right]}{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]} 
+        \right]
+        \end{aligned}
+    \end{equation}
+    Now, fix an arbitrary $\epsilon > 0$.
+    By continuity of $f$ at $x$, there exists a $\delta > 0$, such that the following holds.
+    \begin{equation}
+        \forall X, X^{\prime} \in B(x, \delta): \quad 
+        \left| f(X) \cdot f(X^{\prime}) - f^{2}(x) \right| < \epsilon
+    \end{equation}
+    {\color{red} LOREM IPSUM}
+\end{proof}
+
+\hrule
