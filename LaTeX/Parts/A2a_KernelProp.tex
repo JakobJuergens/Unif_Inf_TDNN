@@ -92,7 +92,8 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
                 \kappa\left(x; Z_{c+1}, D_{(c+1):s}\right)\kappa\left(x; Z_{c+1}^{\prime}, D_{(c+1):s}^{\prime}\right)
             \right]\\
             %
-            & \quad = \frac{1}{(2s - c)!} \left[
+            & \quad = \frac{(c-1)! \cdot (s - c)! \cdot (s - c)!}{(2s - c)!} 
+            \left[
             \underbrace{\sum {\color{red} LOREM IPSUM}}_{} 
             + \underbrace{\sum {\color{red} LOREM IPSUM}}_{} 
             \right]
@@ -278,7 +279,8 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
     Thus, consider first the following inequalities.
     \begin{equation}
         \begin{aligned}
-            \left|(A) - f^{2}(x)\right| & = \left|\E_{1}\left[f^{2}(X_{1}) (2s - c) 
+            \left|(A) - f^{2}(x)\right| 
+            & = \left|\E_{1}\left[f^{2}(X_{1}) (2s - c) 
                \E_{2:s}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{1}, D^{\prime}\right)\right]
             \right] - f^{2}(x)\right| \\
             & \leq \E_{1}\left[\left|f^{2}(X_{1}) - f^{2}(x) \right| (2s - c) 
@@ -317,6 +319,71 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
     \begin{equation}
         \forall X, X^{\prime} \in B(x, \delta): \quad 
         \left| f(X) \cdot f(X^{\prime}) - f^{2}(x) \right| < \epsilon
+    \end{equation}
+    We can consider decompositions of these terms in analogy to \citet{demirkaya_optimal_2024}, i.e. by considering cases with observations lying within this sphere or outside of it, and observe the following.
+    \begin{equation}
+        \begin{aligned}
+            & \E_{1}\left[\left|f^{2}(X_{1}) - f^{2}(x) \right| (2s - c) 
+                \E_{2:s}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{1}, D^{\prime}\right) 
+                \1\left(X_1 \in B(x, \delta)\right)
+                \right]
+            \right]\\
+            %
+            & \quad \leq \epsilon \E_{1}\left[(2s - c) 
+                \E_{2:s}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{1}, D^{\prime}\right) 
+                \1\left(X_1 \in B(x, \delta)\right)
+                \right]
+            \right]\\
+            %
+            & \quad \leq \epsilon \E_{1}\left[(2s - c) 
+                \E_{2:s}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{1}, D^{\prime}\right)
+                \right]
+            \right]
+            = \epsilon
+        \end{aligned}
+    \end{equation}
+    \begin{equation}
+        \begin{aligned}
+            & \E_{1, (c+1)^{\prime}}\left[
+                \left| f(X_{1}) f(X_{c+1}^{\prime}) - f^{2}(x)\right|
+                \cdot \frac{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; Z_{1}, Z_{c+1}^{\prime}\right]}{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]}
+                \1\left(X_1, X_{c+1}^{\prime} \in B(x, \delta)\right)
+            \right]\\
+            %
+            & \quad \leq \epsilon \E_{1, (c+1)^{\prime}}\left[
+                \frac{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; Z_{1}, Z_{c+1}^{\prime}\right]}{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]}
+                \1\left(X_1, X_{c+1}^{\prime} \in B(x, \delta)\right)
+            \right] \\
+            %
+            & \quad \leq \epsilon \E_{1, (c+1)^{\prime}}\left[
+                \frac{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; Z_{1}, Z_{c+1}^{\prime}\right]}{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]}
+            \right] 
+            = \epsilon
+        \end{aligned}
+    \end{equation}
+    \begin{equation}
+        \begin{aligned}
+            & \E_{c+1}\left[
+                \left|f(X_{c+1}) f(X_{c+1}^{\prime}) - f^{2}(x)\right|
+                \cdot \frac{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; Z_{c+1}, Z_{c+1}^{\prime}\right]}{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]} 
+                \1\left(X_{c+1}, X_{c+1}^{\prime} \in B(x, \delta)\right)
+            \right] \\
+            %
+            & \quad \leq \epsilon \E_{c+1}\left[
+                \frac{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; Z_{c+1}, Z_{c+1}^{\prime}\right]}{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]} 
+                \1\left(X_{c+1}, X_{c+1}^{\prime} \in B(x, \delta)\right)
+            \right]\\
+            %
+            & \quad \leq \epsilon \E_{c+1}\left[
+                \frac{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; Z_{c+1}, Z_{c+1}^{\prime}\right]}{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]}
+            \right]
+            = \epsilon
+        \end{aligned}
+    \end{equation}
+    Considering next the parts of the expectation that are not covered by the previous cases, we can find the following.
+    As in the original proof, we use the fact that if $X$ or $X^{\prime}$ do not lie within $B(x, \delta)$, then the following holds 
+    \begin{equation}
+        B(x, \delta) \subseteq B(x, \max\left(\|X - x\|, \|X^{\prime} - x\|\right)).
     \end{equation}
     {\color{red} LOREM IPSUM}
 \end{proof}
