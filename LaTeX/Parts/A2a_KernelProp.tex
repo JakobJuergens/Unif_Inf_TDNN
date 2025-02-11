@@ -37,7 +37,7 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
 \vspace{0.5cm}
 \hrule
 
-\begin{lem}[]\label{lem:double_cond1}\mbox{}\\*
+\begin{lem}[]\label{lem:expec_kernel_prod}\mbox{}\\*
     Fix sample size $n$, subsampling scale $s$, and $c$ such that $0 < c \leq s \leq n$.
 	Let $D = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}, \dotsc Z_s \right\}$ be an i.i.d.\ data set drawn from $P$ as described in Setup~\ref{asm:npr_dgp}.
 	Let $D^{\prime} = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$ be a second data set that shares the first $c$ observations with $D$.
@@ -61,7 +61,7 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
     \end{equation}
 \end{lem}
 
-\begin{proof}[Proof of Lemma \ref{lem:double_cond1}]\mbox{}\\*
+\begin{proof}[Proof of Lemma \ref{lem:expec_kernel_prod}]\mbox{}\\*
     Without loss of generality, we will consider the cases of $i = 1$ and $j = c + 1$ for the first two equations.
     \begin{equation}
         \begin{aligned}
@@ -114,13 +114,20 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
 \hrule
 
 \newpage
-\begin{lem}[]\label{lem:double_cond2}\mbox{}\\*
+\begin{lem}[]\label{lem:cond_expec_kernel_prod}\mbox{}\\*
     Fix sample size $n$, subsampling scale $s$, and $c$ such that $0 < c \leq s \leq n$.
 	Let $D = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}, \dotsc Z_s \right\}$ be an i.i.d.\ data set drawn from $P$ as described in Setup~\ref{asm:npr_dgp}.
 	Let $D^{\prime} = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$ be a second data set that shares the first $c$ observations with $D$.
 	The remaining $s - c$ observations of $D^{\prime}$, i.e.\ $\left\{Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$, are i.i.d.\ draws from $P$ that are independent of $D$.
 
     Then, the following statements hold.
+    \begin{equation}
+        \begin{aligned}
+            & \forall i \in [c]: \quad
+            \E\left[\kappa\left(x; Z_{i}, D\right)\kappa\left(x; Z_{i}, D^{\prime}\right) \; \middle| \; X_i\right]
+            = \left\{1-\varphi\left(B\left(x,\left\|X_{i}-x\right\|\right)\right)\right\}^{2s-c-1} 
+        \end{aligned}
+    \end{equation}
     \begin{equation}
         \begin{aligned}
             & \forall i \in [c] \; \forall j \in \{c+1, \dotsc, s\}: \quad
@@ -142,8 +149,28 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
     \end{equation}
 \end{lem}
 
-\begin{proof}[Proof of Lemma \ref{lem:double_cond2}]\mbox{}\\*
-    Without loss of generality, we will consider the cases of $i = 1$ and $j = c + 1$ for the first equation.
+\begin{proof}[Proof of Lemma \ref{lem:cond_expec_kernel_prod}]\mbox{}\\*
+    Without loss of generality, we will consider the cases of $i = 1$ for the first equation.
+    \begin{equation}
+        \begin{aligned}
+            & \E\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{1}, D^{\prime}\right) \; \middle| \; X_1\right]
+            = \E\left[\kappa\left(x; Z_{1}, D_{[c]}\right)
+            \kappa\left(x; Z_{1}, D_{(c+1):s}\right)
+            \kappa\left(x; Z_{1}, D^{\prime}_{(c+1):s}\right) 
+            \; \middle| \; X_1\right] \\
+            %
+            & \quad = \E\left[\kappa\left(x; Z_{1}, D_{[c]}\right)\; \middle| \; X_1\right]
+            \cdot \E\left[\kappa\left(x; Z_{1}, D_{(c+1):s}\right)\; \middle| \; X_1\right]
+            \cdot \E\left[\kappa\left(x; Z_{1}, D_{(c+1):s}^{\prime}\right)\; \middle| \; X_1\right]\\
+            %
+            & \quad = \left\{1-\varphi\left(B\left(x,\left\|X_{i}-x\right\|\right)\right)\right\}^{c-1}
+            \cdot \left\{1-\varphi\left(B\left(x,\left\|X_{i}-x\right\|\right)\right)\right\}^{s-c}
+            \cdot \left\{1-\varphi\left(B\left(x,\left\|X_{i}-x\right\|\right)\right)\right\}^{s-c} \\
+            %
+            & \quad = \left\{1-\varphi\left(B\left(x,\left\|X_{i}-x\right\|\right)\right)\right\}^{2s-c-1}
+        \end{aligned}
+    \end{equation}
+    Without loss of generality, we will consider the cases of $i = 1$ and $j = c + 1$ for the second equation.
     \begin{equation}
     \begin{aligned}
         & \E\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; X_1, X_{c+1}^{\prime}\right]\\
@@ -202,7 +229,7 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
             \cdot \left\{1-\varphi\left(B\left(x,\left\|X_{c+1}^{\prime}-x\right\|\right)\right)\right\}^{s-c-1}
     \end{aligned}
     \end{equation}
-    For the second case, without loss of generality, we consider the case of $i = j = c+1$.
+    For the third case, without loss of generality, we consider the case of $i = j = c+1$.
     \begin{equation}
 		\begin{aligned}
 			& \E\left[
@@ -266,7 +293,7 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
             & \E\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; X_1, X_{c+1}^{\prime}\right]\\
             & \quad = \1\left(\|X_{c+1}^{\prime} - x\| \leq \|X_{c+1} - x\|\right)
             \cdot \left\{1-\varphi\left(B\left(x,\left\|X_{c+1} - x\right\|\right)\right)\right\}^{s-1}
-            \cdot \left\{1-\varphi\left(B\left(x,\left\|X_{c+1}^{\prime}-x\right\|\right)\right)\right\}^{s-c-1}\\
+            \cdot \left\{1-\varphi\left(B\left(x,\left\|X_{c+1}^{\prime}-x\right\|\right)\right)\right\}^{s-c-2}\\
             & \quad \quad + \1\left(\|X_{c+1}^{\prime} - x\| > \|X_{c+1} - x\|\right)
             \cdot \left\{1-\varphi\left(B\left(x,\left\|X_{c+1} - x\right\|\right)\right)\right\}^{s-c-1}
             \cdot \left\{1-\varphi\left(B\left(x,\left\|X_{c+1}^{\prime}-x\right\|\right)\right)\right\}^{s-1}\\
@@ -277,16 +304,16 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
     \end{equation}
 \end{proof}
 
-\hrule
+\newpage
 
-\begin{lem}[]\label{lem:double_cond3}\mbox{}\\*
+\begin{lem}[]\label{lem:kernel_prod_dirac_convergence}\mbox{}\\*
     Fix sample size $n$, subsampling scale $s$, and $c$ such that $0 < c \leq s \leq n$.
 	Let $D = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}, \dotsc Z_s \right\}$ be an i.i.d.\ data set drawn from $P$ as described in Setup~\ref{asm:npr_dgp}.
 	Let $D^{\prime} = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$ be a second data set that shares the first $c$ observations with $D$.
 	The remaining $s - c$ observations of $D^{\prime}$, i.e.\ $\left\{Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$, are i.i.d.\ draws from $P$ that are independent of $D$.
 
     For any $L^1$ function $f$ that is continuous at $x$, it holds that
-        \begin{equation}
+    \begin{equation}
         \lim_{s \rightarrow \infty} \underbrace{\E_{1}\left[f^{2}(X_{1}) (2s - c) 
             \E_{2:s}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{1}, D^{\prime}\right)\right]
         \right]}_{(A)}
@@ -308,8 +335,7 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
     \end{equation}
 \end{lem}
 
-\newpage
-\begin{proof}[Proof of Lemma \ref{lem:double_cond3}]\mbox{}\\*
+\begin{proof}[Proof of Lemma \ref{lem:kernel_prod_dirac_convergence}]\mbox{}\\*
     We will largely argue along the same lines as the original proof in \citet{demirkaya_optimal_2024}.
     Thus, consider first the following inequalities.
     \begin{equation}
@@ -364,13 +390,13 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
                 \right]
             \right]\\
             %
-            & \quad \leq \epsilon \E_{1}\left[(2s - c) 
+            & \quad \leq \epsilon \cdot \E_{1}\left[(2s - c) 
                 \E_{2:s}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{1}, D^{\prime}\right) 
                 \1\left(X_1 \in B(x, \delta)\right)
                 \right]
             \right]\\
             %
-            & \quad \leq \epsilon \E_{1}\left[(2s - c) 
+            & \quad \leq \epsilon \cdot \E_{1}\left[(2s - c) 
                 \E_{2:s}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{1}, D^{\prime}\right)
                 \right]
             \right]
@@ -385,12 +411,12 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
                 \1\left(X_1, X_{c+1}^{\prime} \in B(x, \delta)\right)
             \right]\\
             %
-            & \quad \leq \epsilon \E_{1, (c+1)^{\prime}}\left[
+            & \quad \leq \epsilon \cdot \E_{1, (c+1)^{\prime}}\left[
                 \frac{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; Z_{1}, Z_{c+1}^{\prime}\right]}{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]}
                 \1\left(X_1, X_{c+1}^{\prime} \in B(x, \delta)\right)
             \right] \\
             %
-            & \quad \leq \epsilon \E_{1, (c+1)^{\prime}}\left[
+            & \quad \leq \epsilon \cdot \E_{1, (c+1)^{\prime}}\left[
                 \frac{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; Z_{1}, Z_{c+1}^{\prime}\right]}{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]}
             \right] 
             = \epsilon
@@ -404,21 +430,96 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
                 \1\left(X_{c+1}, X_{c+1}^{\prime} \in B(x, \delta)\right)
             \right] \\
             %
-            & \quad \leq \epsilon \E_{c+1}\left[
+            & \quad \leq \epsilon \cdot \E_{c+1}\left[
                 \frac{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; Z_{c+1}, Z_{c+1}^{\prime}\right]}{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]} 
                 \1\left(X_{c+1}, X_{c+1}^{\prime} \in B(x, \delta)\right)
             \right]\\
             %
-            & \quad \leq \epsilon \E_{c+1}\left[
+            & \quad \leq \epsilon \cdot \E_{c+1}\left[
                 \frac{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; Z_{c+1}, Z_{c+1}^{\prime}\right]}{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]}
             \right]
             = \epsilon
         \end{aligned}
     \end{equation}
     Considering next the parts of the expectation that are not covered by the previous cases, we can find the following.
+    In this step we use the fact that since $f$ is a bounded $L_1$ function, it is necessarily also an $L^2$ function.
+    Thus, $f^2$ is an $L^1$ function.
     As in the original proof, we use the fact that if $X$ or $X^{\prime}$ do not lie within $B(x, \delta)$, then the following holds 
     \begin{equation}
         B(x, \delta) \subseteq B(x, \max\left(\|X - x\|, \|X^{\prime} - x\|\right)).
+    \end{equation}
+    This allows us to find the following.
+    \begin{equation}
+        \begin{aligned}
+            & \E_{1}\left[\left|f^{2}(X_{1}) - f^{2}(x) \right| (2s - c) 
+                \E_{2:s}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{1}, D^{\prime}\right) 
+                \left(1 - \1\left(X_1 \in B(x, \delta)\right)\right)
+                \right]
+            \right] \\
+            %
+            & \quad \leq
+            \E_{1}\left[\left|f^{2}(X_{1}) - f^{2}(x) \right| (2s - c) 
+                \left\{1-\varphi\left(B\left(x,\delta\right)\right)\right\}^{2s-c-1}
+                \left(1 - \1\left(X_1 \in B(x, \delta)\right)\right)
+                \right] \\
+            %
+            & \quad \leq (2s - c) 1\cdot \left\{1-\varphi\left(B\left(x,\delta\right)\right)\right\}^{2s-c-1}
+            \cdot \E_{1}\left[\left|f^{2}(X_{1}) - f^{2}(x) \right| \right] \\
+            %
+            & \quad \leq (2s - c) 1\cdot \left\{1-\varphi\left(B\left(x,\delta\right)\right)\right\}^{2s-c-1}
+            \cdot \left(\|f^2\|_{L^1} + f^2(x)\right) 
+            \longrightarrow 0 \quad \text{as} \quad s \rightarrow \infty
+        \end{aligned}
+    \end{equation}
+    In the second case, first recall the form of the conditional expectation from Lemma \ref{lem:cond_expec_kernel_prod}.
+    \begin{equation}
+        \begin{aligned}
+            & \E\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; X_1, X_{c+1}^{\prime}\right]\\
+            %
+            & \quad = \1\left(\|X_{c+1}^{\prime} - x\| \leq \|X_{1} - x\|\right)
+            \cdot \left\{1-\varphi\left(B\left(x,\left\|X_1-x\right\|\right)\right)\right\}^{s-1}
+            \cdot \left\{1-\varphi\left(B\left(x,\left\|X_{c+1}^{\prime}-x\right\|\right)\right)\right\}^{s-c-1}
+        \end{aligned}
+    \end{equation}
+    The indicator variable in this expression is only non-zero if $\max\left(\|X_{1} - x\|, \|X_{c+1}^{\prime} - x\|\right) = \|X_{1} - x\|$.
+    Thus, in light of the conditioning, we can observe the following.
+    \begin{equation}
+        B(x, \delta) \subseteq B(x, \|X_{1} - x\|)
+    \end{equation}
+    {\color{red} THIS needs to be corrected!}
+    \begin{equation}
+        \begin{aligned}
+            & \E_{1, (c+1)^{\prime}}\left[
+                \left| f(X_{1}) f(X_{c+1}^{\prime}) - f^{2}(x)\right|
+                \cdot \frac{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; Z_{1}, Z_{c+1}^{\prime}\right]}{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]}
+                \left(1 - \1\left(X_1, X_{c+1}^{\prime} \in B(x, \delta)\right)\right)
+            \right]\\
+            %
+            & \quad \leq \frac{\left\{1-\varphi\left(B\left(x,\delta\right)\right)\right\}^{2s-c-2}}{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]}
+            \cdot \E_{1, (c+1)^{\prime}}\left[\left| f(X_{1}) f(X_{c+1}^{\prime}) - f^{2}(x)\right|
+            \left(1 - \1\left(X_1, X_{c+1}^{\prime} \in B(x, \delta)\right)\right)
+            \right]\\
+            %
+            & \quad \leq \frac{\left\{1-\varphi\left(B\left(x,\delta\right)\right)\right\}^{2s-c-2}}{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]}
+            \cdot \E_{1, (c+1)^{\prime}}\left[\left| f(X_{1}) f(X_{c+1}^{\prime}) - f^{2}(x)\right|
+            \right]\\
+            %
+            & \quad \leq \frac{\left\{1-\varphi\left(B\left(x,\delta\right)\right)\right\}^{2s-c-2}}{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]}
+            \cdot \left(\|f\|_{L^1}^{2} + f^2(x)\right) 
+            \longrightarrow 0 \quad \text{as} \quad s \rightarrow \infty
+        \end{aligned}
+    \end{equation}
+    Similarly, considering the third case, we observe the following.
+    \begin{equation}
+        \begin{aligned}
+            & \E_{c+1}\left[
+                \left|f(X_{c+1}) f(X_{c+1}^{\prime}) - f^{2}(x)\right|
+                \cdot \frac{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; Z_{c+1}, Z_{c+1}^{\prime}\right]}{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]} 
+                \left(1 - \1\left(X_{c+1}, X_{c+1}^{\prime} \in B(x, \delta)\right)\right)
+            \right]\\
+            %
+            & \quad = {\color{red} LOREM IPSUM}
+        \end{aligned}
     \end{equation}
     {\color{red} LOREM IPSUM}
 \end{proof}
