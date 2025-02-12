@@ -43,21 +43,28 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
 	Let $D^{\prime} = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$ be a second data set that shares the first $c$ observations with $D$.
 	The remaining $s - c$ observations of $D^{\prime}$, i.e.\ $\left\{Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$, are i.i.d.\ draws from $P$ that are independent of $D$.
 
-    Then the following three equalities hold.
+    Then the following three statements hold.
     \begin{equation}
         \forall i \in [c]: \quad
         \E_{D, D^{\prime}}\left[\kappa\left(x; Z_{i}, D\right)\kappa\left(x; Z_{i}, D^{\prime}\right)\right]
-        = (2s - c)^{-1}
+        = (2s - c)^{-1} = \omega(e^{-s})
     \end{equation}
     \begin{equation}
-        \forall i \in [c] \; \forall j \in \{c+1, \dotsc, s\}: \quad
-        \E_{D, D^{\prime}}\left[\kappa\left(x; Z_{i}, D\right)\kappa\left(x; Z_{j}^{\prime}, D^{\prime}\right)\right]
-        = \frac{(2s - c - 2)!}{(2s - c)!}\sum_{i = 0}^{s - c - 1}\binom{s - c - 1}{i}\binom{2s - c - 2}{i}^{-1}
+        \begin{aligned}
+            \forall i \in [c] \; \forall j \in \{c+1, \dotsc, s\}: \quad
+            \E_{D, D^{\prime}}\left[\kappa\left(x; Z_{i}, D\right)\kappa\left(x; Z_{j}^{\prime}, D^{\prime}\right)\right]
+            & = \frac{1}{(2s - c)(2s-c-1)}\sum_{i = 0}^{s - c - 1}\binom{s - c - 1}{i}\binom{2s - c - 2}{i}^{-1} \\
+            & = \omega(e^{-s})
+        \end{aligned}
     \end{equation}
     \begin{equation}
-        \forall i,j \in \{c+1, \dotsc, s\}: \quad
-        \E_{D, D^{\prime}}\left[\kappa\left(x; Z_{i}, D\right)\kappa\left(x; Z_{j}^{\prime}, D^{\prime}\right)\right]
-        = \frac{2(2s - c - 1)!}{(2s-c)!} \sum_{i = 0}^{s-c-1} \binom{s - c - 1}{i}\binom{2s - c - 1}{s-1+i}^{-1}
+        \begin{aligned}
+            \forall i,j \in \{c+1, \dotsc, s\}: \quad
+            \E_{D, D^{\prime}}\left[\kappa\left(x; Z_{i}, D\right)\kappa\left(x; Z_{j}^{\prime}, D^{\prime}\right)\right]
+            & = \frac{2}{2s-c}\sum_{i = 0}^{s-c-1} \binom{s - c - 1}{i}\binom{2s - c - 1}{s-1+i}^{-1}\\
+            %
+            & = \omega(e^{-s})
+        \end{aligned}
     \end{equation}
 \end{lem}
 
@@ -88,6 +95,24 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
     Next, notice that only those orderings where $\|X_{c+1}^{\prime} - x\| \leq \|X_{1}-x\|$ and $\|X_{1} - x\| \leq \|X_{i} - x\|$ for any $i = 2, \dotsc, c$ can possibly lead to a non-zero realization of the kernel term.
     Furthermore, out of the $(s-c-1)$ observations in $D^{\prime}_{(c+2):s}$, it is possible for $i = 0, \dotsc, s-c-1$ observations to lie at a distance to the point of interest that is smaller than $\|X_{1}-x\|$ but larger than $\|X_{c+1}^{\prime} - x\|$ in any permutation.
     The sum adjusts for those possible configurations.
+    Next, we can make the following observation concerning the expression we just derived.
+    \begin{equation}
+        \begin{aligned}
+            \E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]
+            & \geq \frac{1}{(2s - c)(2s-c-1)}\sum_{i = 0}^{s - c - 1}\frac{(s - c - i)^{i}}{i!}\frac{i!}{(2s-c-2)^{i}} \\
+            %
+            & = \frac{1}{(2s - c)(2s-c-1)}\left(1 + \sum_{i = 0}^{s - c - 1}\left(\frac{s - c - i}{2s-c-2}\right)^{i}\right)\\
+            %
+            & \geq \frac{1}{(2s - c)^{2}}
+        \end{aligned}
+    \end{equation}
+    We can now observe the following using the small Omega Bachmann-Landau notation.
+    \begin{equation}
+        \lim_{s \rightarrow \infty} \frac{(2s-c)^{-2}}{e^{-s}} = \infty
+        \quad \implies \quad
+        \E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]
+        = \omega(e^{-x})
+    \end{equation}
     
     Considering the third case, without loss of generality, we consider the case of $i = j = c+1$.
     We find the following.
@@ -100,15 +125,39 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
                 \kappa\left(x; Z_{c+1}, D_{(c+1):s}\right)\kappa\left(x; Z_{c+1}^{\prime}, D_{(c+1):s}^{\prime}\right)
             \right]\\
             %
-            & \quad = \frac{2}{(2s - c)!} \sum_{i = 0}^{s-c-1} \binom{s - c - 1}{i}(s - 1 + i)!(s-c-i)! \\
+            & \quad = \frac{2}{(2s - c)!} \sum_{i = 0}^{s-c-1} \binom{s - c - 1}{i}(s - 1 + i)!(s-c-1-i)! \\
             %
-            & \quad = \frac{2(2s - c - 1)!}{(2s-c)!} \sum_{i = 0}^{s-c-1} \binom{s - c - 1}{i}\binom{2s - c - 1}{s-1+i}^{-1}
+            & \quad = \frac{2(2s - c - 2)!}{(2s-c)!} \sum_{i = 0}^{s-c-1} \binom{s - c - 1}{i}\binom{2s - c - 2}{s-1+i}^{-1} \\
+            %
+            & \quad = \frac{2}{(2s-c)(2s-c-1)}\sum_{i = 0}^{s-c-1} \binom{s - c - 1}{i}\binom{2s - c - 2}{s-1+i}^{-1}
         \end{aligned}
     \end{equation}
     The third case follows from a similar combinatorial logic as the second.
     We consider without loss of generality the case that $\|X_{c+1}^{\prime} - x\| \leq \|X_{c+1}-x\|$ and adjust for this fact by multiplying the whole expression by two.
     Notice now that any number $i = 0, \dotsc, s-c-1$ of observations in $D^{\prime}_{(c+2):s}$ can be farther away from $x$ than $X_{c+1}$ or at a distance that is between $\|X_{c+1}^{\prime} - x\|$ and $\|X_{c+1}-x\|$.
     The summation adjusts for all possible permutations that fulfill this criterion.
+    Furthermore, we can make the following observation.
+    \begin{equation}
+        \begin{aligned}
+            & \E_{D, D^{\prime}}\left[\kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]
+            \geq \frac{1}{(2s-c)^{2}}\sum_{i = 0}^{s-c-1} \binom{s - c - 1}{i}\binom{2s - c - 2}{s-1+i}^{-1} \\
+            %
+            & \quad = \frac{1}{(2s-c)^{2}}\sum_{i = 0}^{s-c-1} \left(\frac{(s-c-1)!}{i!(s-c-1-i)!} \cdot \frac{(s-1+i)!(s-c-1-i)!}{(2s-c-2)!}\right)\\
+            %
+            & \quad = \frac{1}{(2s-c)^{2}} \cdot \frac{(s-c-1)!}{(2s-c-2)!}\sum_{i = 0}^{s-c-1} \frac{(s-1+i)!}{i!}\\
+            %
+            & \quad = \frac{1}{(2s-c)^{2}} \cdot \frac{(s-c-1)!}{(2s-c-2)!}\left(\frac{(2s-c-2)!}{(s-c-1)!} + \sum_{i = 0}^{s-c-2} \frac{(s-1+i)!}{i!}\right)\\
+            %
+            & \quad \geq \frac{1}{(2s-c)^{2}}
+        \end{aligned}
+    \end{equation}
+        We can now observe the following using the small Omega Bachmann-Landau notation.
+    \begin{equation}
+        \lim_{s \rightarrow \infty} \frac{(2s-c)^{-2}}{e^{-s}} = \infty
+        \quad \implies \quad
+        \E_{D, D^{\prime}}\left[\kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]
+        = \omega(e^{-x})
+    \end{equation}
 \end{proof}
 
 \hrule
@@ -495,18 +544,7 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
                 \left(1 - \1\left(X_1, X_{c+1}^{\prime} \in B(x, \delta)\right)\right)
             \right]\\
             %
-            & \quad \leq \frac{\left\{1-\varphi\left(B\left(x,\delta\right)\right)\right\}^{2s-c-2}}{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]}
-            \cdot \E_{1, (c+1)^{\prime}}\left[\left| f(X_{1}) f(X_{c+1}^{\prime}) - f^{2}(x)\right|
-            \left(1 - \1\left(X_1, X_{c+1}^{\prime} \in B(x, \delta)\right)\right)
-            \right]\\
-            %
-            & \quad \leq \frac{\left\{1-\varphi\left(B\left(x,\delta\right)\right)\right\}^{2s-c-2}}{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]}
-            \cdot \E_{1, (c+1)^{\prime}}\left[\left| f(X_{1}) f(X_{c+1}^{\prime}) - f^{2}(x)\right|
-            \right]\\
-            %
-            & \quad \leq \frac{\left\{1-\varphi\left(B\left(x,\delta\right)\right)\right\}^{2s-c-2}}{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]}
-            \cdot \left(\|f\|_{L^1}^{2} + f^2(x)\right) 
-            \longrightarrow 0 \quad \text{as} \quad s \rightarrow \infty
+            & \quad \leq {\color{red} LOREM IPSUM}
         \end{aligned}
     \end{equation}
     Similarly, considering the third case, we observe the following.
