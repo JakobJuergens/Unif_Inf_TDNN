@@ -535,7 +535,7 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
     \begin{equation}
         B(x, \delta) \subseteq B(x, \|X_{1} - x\|)
     \end{equation}
-    {\color{red} THIS needs to be corrected!}
+    Thus, we can make the following observation.
     \begin{equation}
         \begin{aligned}
             & \E_{1, (c+1)^{\prime}}\left[
@@ -544,7 +544,29 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
                 \left(1 - \1\left(X_1, X_{c+1}^{\prime} \in B(x, \delta)\right)\right)
             \right]\\
             %
-            & \quad \leq {\color{red} LOREM IPSUM}
+            & \quad \overset{\text{Lem \ref{lem:expec_kernel_prod}}}{\leq}
+            (2s-c)^{2} \cdot \E_{1, (c+1)^{\prime}}\Big[
+                \left| f(X_{1}) f(X_{c+1}^{\prime}) - f^{2}(x)\right|  \\
+                & \quad \quad \quad \cdot \E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; Z_{1}, Z_{c+1}^{\prime}\right]
+                \left(1 - \1\left(X_1, X_{c+1}^{\prime} \in B(x, \delta)\right)\right)
+            \Big]\\
+            %
+            & \quad \overset{\text{Lem \ref{lem:cond_expec_kernel_prod}}}{=} 
+            (2s-c)^{2} \cdot \E_{1, (c+1)^{\prime}}\Big[
+                \left| f(X_{1}) f(X_{c+1}^{\prime}) - f^{2}(x)\right|  
+                 \cdot \1\left(\|X_{c+1}^{\prime} - x\| \leq \|X_{1} - x\|\right) \\
+            & \quad \quad \quad \cdot \left\{1-\varphi\left(B\left(x,\left\|X_1-x\right\|\right)\right)\right\}^{s-1}
+            \cdot \left\{1-\varphi\left(B\left(x,\left\|X_{c+1}^{\prime}-x\right\|\right)\right)\right\}^{s-c-1}
+                \cdot \left(1 - \1\left(X_1, X_{c+1}^{\prime} \in B(x, \delta)\right)\right)
+            \Big]\\
+            %
+            & \quad \leq 
+            (2s-c)^{2} \cdot \left\{1-\varphi\left(B\left(x, \delta \right)\right)\right\}^{s-1} \cdot \E_{1, (c+1)^{\prime}}\Big[
+                \left| f(X_{1}) f(X_{c+1}^{\prime}) - f^{2}(x)\right| \cdot \1\left(\delta < \|X_{c+1}^{\prime} - x\| \leq \|X_{1} - x\|\right)
+            \Big]\\
+            %
+            & \quad \leq (2s-c)^{2} \cdot \left\{1-\varphi\left(B\left(x, \delta \right)\right)\right\}^{s-1} \cdot 
+            \E_{1, (c+1)^{\prime}}\left[\left| f(X_{1}) f(X_{c+1}^{\prime}) - f^{2}(x)\right|\right]
         \end{aligned}
     \end{equation}
     Similarly, considering the third case, we observe the following.
@@ -556,7 +578,36 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
                 \left(1 - \1\left(X_{c+1}, X_{c+1}^{\prime} \in B(x, \delta)\right)\right)
             \right]\\
             %
-            & \quad = {\color{red} LOREM IPSUM}
+            & \quad \overset{\text{Lem \ref{lem:expec_kernel_prod}}}{\leq} 
+                (2s-c)^{2} \cdot\E_{c+1}\Big[
+                \left|f(X_{c+1}) f(X_{c+1}^{\prime}) - f^{2}(x)\right|\\
+                & \quad \quad \quad \cdot \E_{D, D^{\prime}}\left[\kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; Z_{c+1}, Z_{c+1}^{\prime}\right]
+                \left(1 - \1\left(X_{c+1}, X_{c+1}^{\prime} \in B(x, \delta)\right)\right)
+            \Big]\\
+            %
+            & \quad \overset{\text{Lem \ref{lem:cond_expec_kernel_prod}}}{=} 
+                (2s-c)^{2} \cdot
+                \E_{c+1}\Big[\left|f(X_{c+1}) f(X_{c+1}^{\prime}) - f^{2}(x)\right|
+                \cdot \left\{1-\varphi\left(B\left(x, \min\left(\left\|X_{c+1} - x\right\|, \left\|X_{c+1}^{\prime}-x\right\|\right)\right)\right)\right\}^{s-c-1} \\
+                & \quad \quad \quad \cdot \left\{1-\varphi\left(B\left(x,\max\left(\left\|X_{c+1} - x\right\|, \left\|X_{c+1}^{\prime}-x\right\|\right)\right)\right)\right\}^{s-1}
+                \cdot \left(1 - \1\left(X_{c+1}, X_{c+1}^{\prime} \in B(x, \delta)\right)\right)
+            \Big]\\
+            %
+            & \quad \leq (2s-c)^{2} \cdot
+                \E_{c+1}\Big[\left|f(X_{c+1}) f(X_{c+1}^{\prime}) - f^{2}(x)\right|
+                \cdot \left\{1-\varphi\left(B\left(x, \min\left(\left\|X_{c+1} - x\right\|, \left\|X_{c+1}^{\prime}-x\right\|\right)\right)\right)\right\}^{s-c-1} \\
+                & \quad \quad \quad \cdot \left\{1-\varphi\left(B\left(x,\delta\right)\right)\right\}^{s-1}
+                \cdot \left(1 - \1\left(X_{c+1}, X_{c+1}^{\prime} \in B(x, \delta)\right)\right)
+            \Big]\\
+            %
+            & \quad \leq (2s-c)^{2} \cdot \left\{1-\varphi\left(B\left(x,\delta\right)\right)\right\}^{s-1} \cdot
+                \E_{c+1}\Big[\left|f(X_{c+1}) f(X_{c+1}^{\prime}) - f^{2}(x)\right|\Big]
+        \end{aligned}
+    \end{equation}
+    Concerning the last term in both of these expressions, we can then make the following observation.
+    \begin{equation}
+        \begin{aligned}
+            \E\Big[\left|f(X) f(X^{\prime}) - f^{2}(x)\right|\Big]
         \end{aligned}
     \end{equation}
     {\color{red} LOREM IPSUM}
