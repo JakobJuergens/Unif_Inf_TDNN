@@ -361,7 +361,7 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
 	Let $D^{\prime} = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$ be a second data set that shares the first $c$ observations with $D$.
 	The remaining $s - c$ observations of $D^{\prime}$, i.e.\ $\left\{Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$, are i.i.d.\ draws from $P$ that are independent of $D$.
 
-    For any $L^1$ function $f$ that is continuous at $x$, it holds that
+    For any $L^2$ function $f$ that is continuous at $x$, it holds that
     \begin{equation}
         \lim_{s \rightarrow \infty} \underbrace{\E_{1}\left[f^{2}(X_{1}) (2s - c) 
             \E_{2:s}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{1}, D^{\prime}\right)\right]
@@ -491,8 +491,6 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
         \end{aligned}
     \end{equation}
     Considering next the parts of the expectation that are not covered by the previous cases, we can find the following.
-    In this step we use the fact that since $f$ is a bounded $L_1$ function, it is necessarily also an $L^2$ function.
-    Thus, $f^2$ is an $L^1$ function.
     As in the original proof, we use the fact that if $X$ or $X^{\prime}$ do not lie within $B(x, \delta)$, then the following holds 
     \begin{equation}
         B(x, \delta) \subseteq B(x, \max\left(\|X - x\|, \|X^{\prime} - x\|\right)).
@@ -513,11 +511,7 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
                 \right] \\
             %
             & \quad \leq (2s - c) 1\cdot \left\{1-\varphi\left(B\left(x,\delta\right)\right)\right\}^{2s-c-1}
-            \cdot \E_{1}\left[\left|f^{2}(X_{1}) - f^{2}(x) \right| \right] \\
-            %
-            & \quad \leq (2s - c) 1\cdot \left\{1-\varphi\left(B\left(x,\delta\right)\right)\right\}^{2s-c-1}
-            \cdot \left(\|f^2\|_{L^1} + f^2(x)\right) 
-            \longrightarrow 0 \quad \text{as} \quad s \rightarrow \infty
+            \cdot \E_{1}\left[\left|f^{2}(X_{1}) - f^{2}(x) \right| \right]
         \end{aligned}
     \end{equation}
     In the second case, first recall the form of the conditional expectation from Lemma \ref{lem:cond_expec_kernel_prod}.
@@ -604,13 +598,58 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
                 \E_{c+1}\Big[\left|f(X_{c+1}) f(X_{c+1}^{\prime}) - f^{2}(x)\right|\Big]
         \end{aligned}
     \end{equation}
-    Concerning the last term in both of these expressions, we can then make the following observation.
+    Concerning the resulting terms in these three expressions, we can then make the following observations.
+    \begin{equation}
+        \begin{aligned}
+            \E\Big[\left|f^{2}(X) - f^{2}(x)\right|\Big]
+            & \leq \E\Big[f^{2}(X)\Big] + f^{2}(x)
+            = \|f\|_{L_2}^{2} + f^{2}(x)
+        \end{aligned}
+    \end{equation}
     \begin{equation}
         \begin{aligned}
             \E\Big[\left|f(X) f(X^{\prime}) - f^{2}(x)\right|\Big]
+            & \leq \E\Big[\left|f(X) f(X^{\prime})\right|\Big] + f^{2}(x)
+            \leq \E\Big[\left|f(X)\right|\cdot \left|f(X^{\prime})\right|\Big] + f^{2}(x)
+            = \|f\|_{L_1}^{2} + f^{2}(x)
         \end{aligned}
     \end{equation}
-    {\color{red} LOREM IPSUM}
+    As $f$ is an $L^2$ function on a bounded domain, observe that $\|f\|_{L_1}$ is finite.
+    Thus, we can find the following.
+    \begin{equation}
+        \begin{aligned}
+            \E_{1}\left[\left|f^{2}(X_{1}) - f^{2}(x) \right| (2s - c) 
+                \E_{2:s}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{1}, D^{\prime}\right) 
+                \left(1 - \1\left(X_1 \in B(x, \delta)\right)\right)
+                \right]
+            \right]
+            \longrightarrow 0 \quad \text{as} \quad s \rightarrow \infty
+        \end{aligned}
+    \end{equation}
+    \begin{equation}
+        \begin{aligned}
+            & \E_{1, (c+1)^{\prime}}\left[
+                \left| f(X_{1}) f(X_{c+1}^{\prime}) - f^{2}(x)\right|
+                \cdot \frac{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; Z_{1}, Z_{c+1}^{\prime}\right]}{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]}
+                \left(1 - \1\left(X_1, X_{c+1}^{\prime} \in B(x, \delta)\right)\right)
+            \right]\\
+            %
+            & \quad \longrightarrow 0 \quad \text{as} \quad s \rightarrow \infty
+        \end{aligned}
+    \end{equation}
+    \begin{equation}
+        \begin{aligned}
+            & \E_{c+1}\left[
+                \left|f(X_{c+1}) f(X_{c+1}^{\prime}) - f^{2}(x)\right|
+                \cdot \frac{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; Z_{c+1}, Z_{c+1}^{\prime}\right]}{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]} 
+                \left(1 - \1\left(X_{c+1}, X_{c+1}^{\prime} \in B(x, \delta)\right)\right)
+            \right]\\
+            %
+            & \quad \longrightarrow 0 \quad \text{as} \quad s \rightarrow \infty
+        \end{aligned}
+    \end{equation}
+    Combining these findings, for large enough $s$ we can bound the terms $\|(A) - f^{2}(x)\|$, $\|(B) - f^{2}(x)\|$, and $\|(C) - f^{2}(x)\|$ by $2\epsilon$, respectively.
+    As $\epsilon$ was arbitrary this concludes the proof.
 \end{proof}
 
 \hrule
