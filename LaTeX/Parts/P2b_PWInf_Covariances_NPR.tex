@@ -64,17 +64,13 @@ Similar to the previous part, we will first consider the nonparametric regressio
 	Then,
 	\begin{equation}
 		\Omega_{s}^{c}\left(x\right)
-		\lesssim \frac{s^2 + cs  - c^2}{s^2} \mu^2(x) + (c/s) \overline{\sigma}_{\varepsilon}^2 + o(1)
-		\quad \text{for} \quad s \quad \text{sufficiently large}
-	\end{equation}
-	and thus
-	\begin{equation}
-		\Omega_{s}^{c}\left(x\right)
 		\lesssim \mu^2(x) + \overline{\sigma}_{\varepsilon}^2 + o(1)
 		\quad \text{as} \quad s \rightarrow \infty.
 	\end{equation}
 \end{lem}
+
 \hrule
+
 \begin{proof}[Proof of Lemma~\ref{lem:omega_sc}]
 	\begin{equation}
 		\begin{aligned}
@@ -94,55 +90,56 @@ Similar to the previous part, we will first consider the nonparametric regressio
 			+  \E_{D, D^{\prime}}\left[\sum_{i = c+1}^{s}\sum_{j = c+1}^{s}\kappa\left(x; Z_{i}, D\right)\kappa\left(x; Z_{j}^{\prime}, D^{\prime}\right)Y_{i}Y_{j}^{\prime}\right] \\
 			%
 			 & = \underbrace{\E_{D, D^{\prime}}\left[c \kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{1}, D^{\prime}\right)Y_{1}^{2}\right]}_{(A)}
-			+ \underbrace{\E_{D, D^{\prime}}\left[c(s-c) \kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)Y_{1}Y_{c+1}^{\prime}\right]}_{(B)}                           \\
-			 & \quad + \underbrace{\E_{D, D^{\prime}}\left[c(s-c) \kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{1}, D^{\prime}\right)Y_{c+1}Y_{1}\right]}_{(C)}                                    \\
-			 & \quad + \underbrace{\E_{D, D^{\prime}}\left[(s-c)^2 \kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)Y_{c+1}Y_{c+1}^{\prime}\right]}_{(D)}
+			+ 2 \cdot \underbrace{\E_{D, D^{\prime}}\left[c(s-c) \kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)Y_{1}Y_{c+1}^{\prime}\right]}_{(B)}                                   \\
+			 & \quad + \underbrace{\E_{D, D^{\prime}}\left[(s-c)^2 \kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)Y_{c+1}Y_{c+1}^{\prime}\right]}_{(C)}
 		\end{aligned}
 	\end{equation}
-	Starting from this decomposition, we will analyze the terms one by one.
-	First, by Lemma~\ref{lem:limit_res}, we find the following.
+	Starting from this decomposition, we will analyze the terms one by one using Lemma \ref{lem:kernel_prod_dirac_convergence}.
 	\begin{equation}
 		\begin{aligned}
             (A) & = 
 			\E_{D, D^{\prime}}\left[c\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{1}, D^{\prime}\right)Y_{1}^{2}\right]
-			= (c/s) \E_{1}\left[Y_1^2 s \E_{2:s}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{1}, D^{\prime}\right)\right]\right] \\
+			= \frac{c}{2s-c} \cdot \E_{1}\left[\left(\mu(X_1) + \varepsilon_1\right)^2 \cdot (2s-c) \cdot \E_{2:s}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{1}, D^{\prime}\right)\right]\right] \\
 			%
-			 & \leq (c/s) \E_{1}\left[Y_1^2 s\E_{2:s}\left[\kappa\left(x; Z_{1}, D\right)\right]\right]                  
-			\overset{\text{(Lem~\ref{lem:limit_res})}}{\lesssim} (c/s)\left(\mu^2(x) + \sigma_{\varepsilon}(x)\right) + o(1)\\
+            & = \frac{c}{2s-c} \cdot \E_{1}\left[\left(\mu^{2}(X_1) + \sigma^{2}(X_1)\right) \cdot (2s-c) \cdot \E_{2:s}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{1}, D^{\prime}\right)\right]\right]\\
+            %
+		      & \overset{\text{(Lem~\ref{lem:kernel_prod_dirac_convergence})}}{\lesssim} \frac{c}{2s-c} \left(\mu^2(x) + \sigma_{\varepsilon}(x)\right) + o(1)
 		\end{aligned}
 	\end{equation}
-	Similarly, we can find that:
+	Similarly, we can find the following.
 	\begin{equation}
 		\begin{aligned}
-            (B)
-			 & = \E_{D, D^{\prime}}\left[c(s-c) \kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)Y_{1}Y_{c+1}^{\prime}\right]                                          
-			\overset{\text{Lem \ref{lem:npr_kern_ineq1}}}{\lesssim} \frac{c(s-c)}{s^2}\mu^2(x) + o(1)
+            (B) & = \E_{D, D^{\prime}}\left[c(s-c) \kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)Y_{1}Y_{c+1}^{\prime}\right] \\
+            %
+            & \overset{\text{Lem \ref{lem:expec_kernel_prod}}}{\leq} \frac{c(s-c)}{(2s-c)^2} \cdot
+            \E_{1, (c+1)^{\prime}}\left[
+                \left(\mu(X_1) + \varepsilon_{1}\right)\cdot\left(\mu(X_{c+1}^{\prime}) + \varepsilon_{c+1}^{\prime}\right) \cdot (2s-c)^2 
+                \cdot \frac{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; Z_{1}, Z_{c+1}^{\prime}\right]}{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]}
+            \right]\\
+            %
+            & = \frac{c(s-c)}{(2s-c)^2} \cdot
+            \E_{1, (c+1)^{\prime}}\left[
+                \mu(X_1) \cdot \mu(X_{c+1}^{\prime}) \cdot (2s-c)^2 
+                \cdot \frac{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; Z_{1}, Z_{c+1}^{\prime}\right]}{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]}
+            \right]\\
+            %
+			& \overset{\text{Lem \ref{lem:kernel_prod_dirac_convergence}}}{\lesssim}  \frac{c(s-c)}{(2s-c)^2} \cdot \mu^2(x) + o(1)
 		\end{aligned}
 	\end{equation}
-	Following analogous steps, we find the same result for the third term.
+	The third term can be asymptotically bounded in the following way.
 	\begin{equation}
 		\begin{aligned}
 			(C)
-            = \E_{D, D^{\prime}}\left[c(s-c) \kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{1}, D^{\prime}\right)Y_{c+1}Y_{1}\right]
-			\overset{\text{Lem \ref{lem:npr_kern_ineq1}}}{\lesssim} \frac{c(s-c)}{s^2}\mu^2(x) + o(1)
-		\end{aligned}
-	\end{equation}
-	The fourth term can be asymptotically bounded in the following way.
-	\begin{equation}
-		\begin{aligned}
-			(D)
             & = \E_{D, D^{\prime}}\left[(s-c)^2 \kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)Y_{c+1}Y_{c+1}^{\prime}\right]                                           \\
 			%
-			 & = \E_{D, D^{\prime}}\left[\mu(X_{c+1})\mu(X_{c+1}^{\prime})\, (s-c)^2 \, \kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right] \\
-			%
-			 & \leq \E_{D}\left[|\mu(X_{c+1})|\, (s-c) \, \kappa\left(x; Z_{c+1}, D\right)\right]
-			\E_{D^{\prime}}\left[|\mu(X_{c+1}^{\prime})|\, (s-c) \, \kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]                                                                                      \\
-			%
-			 & = \frac{(s-c)^2}{s^2} \E_{D}\left[|\mu(X_{c+1})|\, s \, \kappa\left(x; Z_{c+1}, D\right)\right]
-			\E_{D^{\prime}}\left[|\mu(X_{c+1}^{\prime})|\, s \, \kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]                                                                                          \\
-			%
-			 & \quad = \frac{(s-c)^2}{s^2} \left(\E_{D}\left[|\mu(X_{c+1})|\, s \, \kappa\left(x; Z_{c+1}, D\right)\right]\right)^2                                                                        
-			\lesssim \frac{(s-c)^2}{s^2}\mu^2(x) + o(1)
+			& \overset{\text{Lem \ref{lem:expec_kernel_prod}}}{\leq} \frac{(s-c)^{2}}{(2s-c)^2} 
+            \cdot \E_{c+1}\Bigg[
+                \mu(X_{c+1}) \cdot \mu(X_{c+1}^{\prime}) \cdot (2s-c)^2 
+                \cdot \frac{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; Z_{c+1}, Z_{c+1}^{\prime}\right]}{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]}
+            \Bigg]\\
+            %
+			& \overset{\text{Lem \ref{lem:kernel_prod_dirac_convergence}}}{\lesssim}
+            \frac{(s-c)^{2}}{(2s-c)^2} \cdot \mu^2(x) + o(1)
 		\end{aligned}
 	\end{equation}
 	The result of Lemma~\ref{lem:omega_sc} follows immediately by summing up the asymptotic bounds for the individual terms.

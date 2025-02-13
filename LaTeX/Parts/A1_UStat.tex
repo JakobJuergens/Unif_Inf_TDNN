@@ -179,11 +179,11 @@ Using the full expression for the CATE estimator, the following is obtained.
     \begin{aligned}
         \widehat{\operatorname{CATE}}\left(x; \mathbf{D}\right)
         & = \underbrace{\E_{D}\left[\widehat{\operatorname{CATE}}\left(x; \mathbf{D}\right)\right]}_{\text{Centering-Term}}
-        + \underbrace{\frac{s}{n}\sum_{i = 1}^{n} \chi_{s,0}^{(1)}\left(x; Z_{i}\right)}_{\text{Pseudo-H\'ajek-Projection}}
-        + \underbrace{\frac{s}{k} \sum_{l = 1}^{k} \frac{1}{m} \sum_{i \in \mathcal{I}_{k}}\left(\underbrace{\chi_{s}^{(1)}\left(x; Z_{i}, \hat{\eta}_{k}\right) - \chi_{s,0}^{(1)}\left(x; Z_{i}\right)}_{R_{1,k}\left(x; Z_{i}\right)}\right)}_{\text{Pseudo-H\'ajek-Projection Error}}\\
-        & \quad \quad + \underbrace{\sum_{j = 2}^{s} \binom{s}{j} \binom{n}{j}^{-1}\sum_{\ell \in L_{n,j}} \chi_{s,0}^{(j)}\left(x; \mathbf{D}_{\ell}\right)}_{\text{Pseudo-H\'ajek-Residual}}
+        + \underbrace{\frac{s}{n}\sum_{i = 1}^{n} \chi_{s,0}^{(1)}\left(x; Z_{i}\right)}_{\text{Oracle-H\'ajek-Projection}}
+        + \underbrace{\frac{s}{k} \sum_{l = 1}^{k} \frac{1}{m} \sum_{i \in \mathcal{I}_{k}}\left(\underbrace{\chi_{s}^{(1)}\left(x; Z_{i}, \hat{\eta}_{k}\right) - \chi_{s,0}^{(1)}\left(x; Z_{i}\right)}_{R_{1,k}\left(x; Z_{i}\right)}\right)}_{\text{Oracle-H\'ajek-Projection Error}}\\
+        & \quad \quad + \underbrace{\sum_{j = 2}^{s} \binom{s}{j} \binom{n}{j}^{-1}\sum_{\ell \in L_{n,j}} \chi_{s,0}^{(j)}\left(x; \mathbf{D}_{\ell}\right)}_{\text{Oracle-H\'ajek-Residual}}
          + \underbrace{\sum_{j = 2}^{s} \binom{s}{j} \binom{n}{j}^{-1}\sum_{\ell \in L_{n,j}} R_{j}\left(x; \mathbf{D}_{\ell}\right)}_{\text{Higher-Order Error Terms}}
     \end{aligned}
 \end{equation}
-I call these terms pseudo-H\'ajek projection and pseudo-H\'ajek residual because of the additional randomness due to the first-stage estimation of the functional nuisance parameters that is reflected in the $R_j$ terms.
+I call these terms Oracle-H\'ajek projection and Oracle-H\'ajek residual because of the additional randomness due to the first-stage estimation of the functional nuisance parameters that is reflected in the $R_j$ terms.
 An integral part of showing the asymptotic properties of the estimator is to show that a number of terms in this representation are asymptotically negligible as long as the first-stage estimator converges fast enough.

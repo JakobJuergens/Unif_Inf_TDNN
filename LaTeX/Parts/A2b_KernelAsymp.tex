@@ -1,193 +1,177 @@
 \subsection{Kernel Convergences and Asymptotic Bounds}
 \hrule
 
-\begin{lem}\label{lem:npr_kern_ineq1}\mbox{}\\*
-	Fix sample size $n$, subsampling scale $s$, and $c$ such that $0 < c \leq s \leq n$.
-	Let $D = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}, \dotsc Z_s \right\}$ be an i.i.d.\ data set drawn from $P$ as described in Setup~\ref{asm:npr_dgp}.
-	Let $D^{\prime} = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$ be a second data set that shares the first $c$ observations with $D$.
-	The remaining $s - c$ observations of $D^{\prime}$, i.e.\ $\left\{Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$, are i.i.d.\ draws from $P$ that are independent of $D$.
+% \begin{lem}\label{lem:npr_kern_ineq1}\mbox{}\\*
+% 	Fix sample size $n$, subsampling scale $s$, and $c$ such that $0 < c \leq s \leq n$.
+% 	Let $D = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}, \dotsc Z_s \right\}$ be an i.i.d.\ data set drawn from $P$ as described in Setup~\ref{asm:npr_dgp}.
+% 	Let $D^{\prime} = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$ be a second data set that shares the first $c$ observations with $D$.
+% 	The remaining $s - c$ observations of $D^{\prime}$, i.e.\ $\left\{Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$, are i.i.d.\ draws from $P$ that are independent of $D$.
 
-	Then, the following inequalities holds for sufficiently large $s$
-	\begin{equation}
-		\begin{aligned}
-			\E_{D, D^{\prime}}\left[Y_{1}Y_{c+1}^{\prime} \, c(s-c) \, \kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]
-			& \lesssim  \frac{c(s-c)}{s^2}\mu^2(x) + o(1) 	
-		\end{aligned}
-	\end{equation}
-\end{lem}
+% 	Then, the following inequalities holds for sufficiently large $s$
+% 	\begin{equation}
+% 		\begin{aligned}
+% 			\E_{D, D^{\prime}}\left[Y_{1}Y_{c+1}^{\prime} \, c(s-c) \, \kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]
+% 			& \lesssim  \frac{c(s-c)}{s^2}\mu^2(x) + o(1) 	
+% 		\end{aligned}
+% 	\end{equation}
+% \end{lem}
 
-\hrule
+% \hrule
 
-\begin{proof}[Proof of Lemma~\ref{lem:npr_kern_ineq1}]\mbox{}\\*
-	Consider first the following argument.
-	\begin{equation}
-		\begin{aligned}
-			 & \E_{D, D^{\prime}}\left[Y_{1}Y_{c+1}^{\prime} \, c(s-c) \, \kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]          \\
-			 & \quad = \E_{1, c+1}\left[\mu(X_1) \mu(X_{c+1}^{\prime}) \, c(s-c) \,
-			\E\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; X_1, X_{c+1}^{\prime}\right]\right]                    \\
-			%
-			 & \leq \frac{c(s-c)}{s^2} \cdot \E_{1, c+1}\left[\left|\mu(X_1)\right| \left|\mu(X_{c+1}^{\prime})\right| \, s^2 \,
-			\underbrace{\E\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; X_1, X_{c+1}^{\prime}\right]}_{(A)}\right] \\
-		\end{aligned}
-	\end{equation}
-	Analyzing term $(A)$ individually, we find the following.
-	\begin{equation}
-		\begin{aligned}
-			(A)
-			 & = \E\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; X_1, X_{c+1}^{\prime}\right]                                                                                       \\
-			%
-			 & = \E\left[\left(\prod_{i = 2}^{s}\1\left(\|X_1 - x\| < \|X_{i} - x\|\right)\right)
-				\left(\prod_{i = 1}^{c}\1\left(\|X_i - x\| > \|X_{c+1}^{\prime} - x\|\right)\right)
-			\left(\prod_{i = c+2}^{s}\1\left(\|X_i^{\prime} - x\| > \|X_{c+1}^{\prime} - x\|\right)\right) \; \middle| \; X_1, X_{c+1}^{\prime}\right]                                                                                      \\
-			%
-			 & = \1\left(\|X_1 - x\| > \|X_{c+1}^{\prime} - x\|\right) \cdot \E\left[\prod_{i = 2}^{c}\1\left(\|X_{i} - x\| > \max\left\{\|X_{1} - x\|, \|X_{c+1}^{\prime} - x\|\right\}\right) \; \middle| \; X_1, X_{c+1}^{\prime}\right] \\
-			 & \quad \quad  \cdot \E\left[\prod_{i = c+1}^{s}\1\left(\|X_i - x\| > \|X_{1} - x\|\right) \; \middle| \; X_{1}\right]
-			\cdot \E\left[\prod_{i = c+2}^{s}\1\left(\|X_i^{\prime} - x\| > \|X_{c+1}^{\prime} - x\|\right) \; \middle| \; X_{c+1}^{\prime}\right]                                                                                          \\
-			%
-			 & \leq \E\left[\kappa\left(x; Z_{1}, D\right) \; \middle| \; X_1\right]
-			\cdot \E\left[\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; X_{c+1}^{\prime}\right]
-		\end{aligned}
-	\end{equation}
-	Plugging back into the expression of interest, we find the desired result.
-	\begin{equation}
-		\begin{aligned}
-			 & \E_{D, D^{\prime}}\left[Y_{1}Y_{c+1}^{\prime} \, c(s-c) \, \kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]                \\
-			%
-			 & \quad \leq \frac{c(s-c)}{s^2} \cdot \E_{1, c+1}\left[\left|\mu(X_1)\right| \left|\mu(X_{c+1}^{\prime})\right| \, s^2 \,
-				\E\left[\kappa\left(x; Z_{1}, D\right) \; \middle| \; X_1\right]
-			\cdot \E\left[\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; X_{c+1}^{\prime}\right]\right]                                                       \\
-			%
-			 & \quad = \frac{c(s-c)}{s^2} \cdot \E_{1}\left[\left|\mu(X_1)\right| \, s \, \E\left[\kappa\left(x; Z_{1}, D\right) \; \middle| \; X_1\right]\right]
-			\E_{c+1}\left[\left|\mu(X_{c+1})\right| \, s \, \E\left[\kappa\left(x; Z_{c+1}^{\prime}, D\right) \; \middle| \; X_{c+1}^{\prime}\right]\right]                      \\
-			%
-			 & \quad = \frac{c(s-c)}{s^2} \cdot \left(\E_{1}\left[\left|\mu(X_1)\right| \, s \, \E\left[\kappa\left(x; Z_{1}, D\right) \; \middle| \; X_1\right]\right]\right)^2
-			\overset{\text{(Lem~\ref{lem:limit_res})}}{\lesssim}  \frac{c(s-c)}{s^2}\mu^2(x) + o(1)
-			\quad \text{as} \quad s \rightarrow \infty.
-		\end{aligned}
-	\end{equation}
-\end{proof}
+% \begin{proof}[Proof of Lemma~\ref{lem:npr_kern_ineq1}]\mbox{}\\*
+% 	Consider first the following argument.
+% 	\begin{equation}
+% 		\begin{aligned}
+% 			 & \E_{D, D^{\prime}}\left[Y_{1}Y_{c+1}^{\prime} \, c(s-c) \, \kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]          \\
+% 			 & \quad = \E_{1, c+1}\left[\mu(X_1) \mu(X_{c+1}^{\prime}) \, c(s-c) \,
+% 			\E\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; X_1, X_{c+1}^{\prime}\right]\right]                    \\
+% 			%
+% 			 & \leq \frac{c(s-c)}{s^2} \cdot \E_{1, c+1}\left[\left|\mu(X_1)\right| \left|\mu(X_{c+1}^{\prime})\right| \, s^2 \,
+% 			\underbrace{\E\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; X_1, X_{c+1}^{\prime}\right]}_{(A)}\right] \\
+% 		\end{aligned}
+% 	\end{equation}
+% 	Analyzing term $(A)$ individually, we find the following.
+% 	\begin{equation}
+% 		\begin{aligned}
+% 			(A)
+% 			 & = \E\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; X_1, X_{c+1}^{\prime}\right]                                                                                       \\
+% 			%
+% 			 & = \E\left[\left(\prod_{i = 2}^{s}\1\left(\|X_1 - x\| < \|X_{i} - x\|\right)\right)
+% 				\left(\prod_{i = 1}^{c}\1\left(\|X_i - x\| > \|X_{c+1}^{\prime} - x\|\right)\right)
+% 			\left(\prod_{i = c+2}^{s}\1\left(\|X_i^{\prime} - x\| > \|X_{c+1}^{\prime} - x\|\right)\right) \; \middle| \; X_1, X_{c+1}^{\prime}\right]                                                                                      \\
+% 			%
+% 			 & = \1\left(\|X_1 - x\| > \|X_{c+1}^{\prime} - x\|\right) \cdot \E\left[\prod_{i = 2}^{c}\1\left(\|X_{i} - x\| > \max\left\{\|X_{1} - x\|, \|X_{c+1}^{\prime} - x\|\right\}\right) \; \middle| \; X_1, X_{c+1}^{\prime}\right] \\
+% 			 & \quad \quad  \cdot \E\left[\prod_{i = c+1}^{s}\1\left(\|X_i - x\| > \|X_{1} - x\|\right) \; \middle| \; X_{1}\right]
+% 			\cdot \E\left[\prod_{i = c+2}^{s}\1\left(\|X_i^{\prime} - x\| > \|X_{c+1}^{\prime} - x\|\right) \; \middle| \; X_{c+1}^{\prime}\right]                                                                                          \\
+% 			%
+% 			 & \leq \E\left[\kappa\left(x; Z_{1}, D\right) \; \middle| \; X_1\right]
+% 			\cdot \E\left[\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; X_{c+1}^{\prime}\right]
+% 		\end{aligned}
+% 	\end{equation}
+% 	Plugging back into the expression of interest, we find the desired result.
+% 	\begin{equation}
+% 		\begin{aligned}
+% 			 & \E_{D, D^{\prime}}\left[Y_{1}Y_{c+1}^{\prime} \, c(s-c) \, \kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]                \\
+% 			%
+% 			 & \quad \leq \frac{c(s-c)}{s^2} \cdot \E_{1, c+1}\left[\left|\mu(X_1)\right| \left|\mu(X_{c+1}^{\prime})\right| \, s^2 \,
+% 				\E\left[\kappa\left(x; Z_{1}, D\right) \; \middle| \; X_1\right]
+% 			\cdot \E\left[\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; X_{c+1}^{\prime}\right]\right]                                                       \\
+% 			%
+% 			 & \quad = \frac{c(s-c)}{s^2} \cdot \E_{1}\left[\left|\mu(X_1)\right| \, s \, \E\left[\kappa\left(x; Z_{1}, D\right) \; \middle| \; X_1\right]\right]
+% 			\E_{c+1}\left[\left|\mu(X_{c+1})\right| \, s \, \E\left[\kappa\left(x; Z_{c+1}^{\prime}, D\right) \; \middle| \; X_{c+1}^{\prime}\right]\right]                      \\
+% 			%
+% 			 & \quad = \frac{c(s-c)}{s^2} \cdot \left(\E_{1}\left[\left|\mu(X_1)\right| \, s \, \E\left[\kappa\left(x; Z_{1}, D\right) \; \middle| \; X_1\right]\right]\right)^2
+% 			\overset{\text{(Lem~\ref{lem:limit_res})}}{\lesssim}  \frac{c(s-c)}{s^2}\mu^2(x) + o(1)
+% 			\quad \text{as} \quad s \rightarrow \infty.
+% 		\end{aligned}
+% 	\end{equation}
+% \end{proof}
 
-\hrule
+% \hrule
 
-\begin{lem}\label{lem:npr_kern_ineq2}\mbox{}\\*
-	Fix sample size $n$, subsampling scale $s$, and $c$ such that $0 < c \leq s \leq n$.
-	Let $D = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}, \dotsc Z_s \right\}$ be an i.i.d.\ data set drawn from $P$ as described in Setup~\ref{asm:npr_dgp}.
-	Let $D^{\prime} = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$ be a second data set that shares the first $c$ observations with $D$.
-	The remaining $s - c$ observations of $D^{\prime}$, i.e.\ $\left\{Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$, are i.i.d.\ draws from $P$ that are independent of $D$.
+% \begin{lem}\label{lem:npr_kern_ineq2}\mbox{}\\*
+% 	Fix sample size $n$, subsampling scale $s$, and $c$ such that $0 < c \leq s \leq n$.
+% 	Let $D = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}, \dotsc Z_s \right\}$ be an i.i.d.\ data set drawn from $P$ as described in Setup~\ref{asm:npr_dgp}.
+% 	Let $D^{\prime} = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$ be a second data set that shares the first $c$ observations with $D$.
+% 	The remaining $s - c$ observations of $D^{\prime}$, i.e.\ $\left\{Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$, are i.i.d.\ draws from $P$ that are independent of $D$.
 
-	Then, the following inequalities holds for sufficiently large $s$
-	\begin{equation}
-		\begin{aligned}
-			\E_{D, D^{\prime}}\left[Y^{2}_{1} \, c \, \kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{1}^{\prime}, D^{\prime}\right)\right]
-		 & \lesssim  \frac{c}{2s - c} \left(\mu^2(x) + \sigma^2_{\varepsilon}(x)\right) + o(1)         
-		 \leq \frac{c}{2s - c} \left(\mu^2(x) + \overline{\sigma}^2_{\varepsilon}\right) + o(1)          \\
-		\end{aligned}
-	\end{equation}
-\end{lem}
+% 	Then, the following inequalities holds for sufficiently large $s$
+% 	\begin{equation}
+% 		\begin{aligned}
+% 			\E_{D, D^{\prime}}\left[Y^{2}_{1} \, c \, \kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{1}^{\prime}, D^{\prime}\right)\right]
+% 		 & \lesssim  \frac{c}{2s - c} \left(\mu^2(x) + \sigma^2_{\varepsilon}(x)\right) + o(1)         
+% 		 \leq \frac{c}{2s - c} \left(\mu^2(x) + \overline{\sigma}^2_{\varepsilon}\right) + o(1)          \\
+% 		\end{aligned}
+% 	\end{equation}
+% \end{lem}
 
-\hrule
-\begin{proof}[Proof of Lemma~\ref{lem:npr_kern_ineq2}]\mbox{}\\*
-	We can make the following observation.
-	\begin{equation}
-		\begin{aligned}
-			 \E_{D, D^{\prime}}\left[Y^2_{1} \, c \, \kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{1}^{\prime}, D^{\prime}\right)\right] 
-			 & = \E_{1}\left[\E\left[\left(\mu(X_1) + \varepsilon_1\right)^2 \; \middle| \; X_1\right] \, c^2 \, \E\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{1}, D^{\prime}\right) \; \middle| \; X_1\right]\right]\\
-			 %
-			 & = \frac{c}{2s - c} \cdot \E_{1}\left[\left(\mu^2(X_1) + \sigma^2_{\varepsilon}(X_1)\right) \, \left(2s - c\right) \, 
-			 \E\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{1}, D^{\prime}\right) \; \middle| \; X_1\right]\right]\\
-			 %
-			 & \overset{\text{(Lem~\ref{lem:limit_res})}}{\lesssim} \frac{c}{2s - c} \left(\mu^2(x) + \sigma^2_{\varepsilon}(x)\right) + o(1)
-		\end{aligned}
-	\end{equation}
-\end{proof}
+% \hrule
+% \begin{proof}[Proof of Lemma~\ref{lem:npr_kern_ineq2}]\mbox{}\\*
+% 	We can make the following observation.
+% 	\begin{equation}
+% 		\begin{aligned}
+% 			 \E_{D, D^{\prime}}\left[Y^2_{1} \, c \, \kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{1}^{\prime}, D^{\prime}\right)\right] 
+% 			 & = \E_{1}\left[\E\left[\left(\mu(X_1) + \varepsilon_1\right)^2 \; \middle| \; X_1\right] \, c^2 \, \E\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{1}, D^{\prime}\right) \; \middle| \; X_1\right]\right]\\
+% 			 %
+% 			 & = \frac{c}{2s - c} \cdot \E_{1}\left[\left(\mu^2(X_1) + \sigma^2_{\varepsilon}(X_1)\right) \, \left(2s - c\right) \, 
+% 			 \E\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{1}, D^{\prime}\right) \; \middle| \; X_1\right]\right]\\
+% 			 %
+% 			 & \overset{\text{(Lem~\ref{lem:limit_res})}}{\lesssim} \frac{c}{2s - c} \left(\mu^2(x) + \sigma^2_{\varepsilon}(x)\right) + o(1)
+% 		\end{aligned}
+% 	\end{equation}
+% \end{proof}
 
-\hrule
+% \hrule
 
-\begin{lem}\label{lem:npr_kern_ineq3}\mbox{}\\*
-	Fix sample size $n$, subsampling scale $s$, and $c$ such that $0 < c \leq s \leq n$.
-	Let $D = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}, \dotsc Z_s \right\}$ be an i.i.d.\ data set drawn from $P$ as described in Setup~\ref{asm:npr_dgp}.
-	Let $D^{\prime} = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$ be a second data set that shares the first $c$ observations with $D$.
-	The remaining $s - c$ observations of $D^{\prime}$, i.e.\ $\left\{Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$, are i.i.d.\ draws from $P$ that are independent of $D$.
+% \begin{lem}\label{lem:npr_kern_ineq3}\mbox{}\\*
+% 	Fix sample size $n$, subsampling scale $s$, and $c$ such that $0 < c \leq s \leq n$.
+% 	Let $D = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}, \dotsc Z_s \right\}$ be an i.i.d.\ data set drawn from $P$ as described in Setup~\ref{asm:npr_dgp}.
+% 	Let $D^{\prime} = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$ be a second data set that shares the first $c$ observations with $D$.
+% 	The remaining $s - c$ observations of $D^{\prime}$, i.e.\ $\left\{Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$, are i.i.d.\ draws from $P$ that are independent of $D$.
 
-	Then, the following inequalities holds for sufficiently large $s$
-	\begin{equation}
-		\begin{aligned}
-			\E_{D, D^{\prime}}\left[Y_{c+1}Y_{c+1}^{\prime} \, (s-c)^2 \, \kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]
-		 & \lesssim \left(\frac{s - c}{s}\right)^{2} \mu^{2}\left(x\right) + o(1)
-		\end{aligned}
-	\end{equation}
-\end{lem}
+% 	Then, the following inequalities holds for sufficiently large $s$
+% 	\begin{equation}
+% 		\begin{aligned}
+% 			\E_{D, D^{\prime}}\left[Y_{c+1}Y_{c+1}^{\prime} \, (s-c)^2 \, \kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]
+% 		 & \lesssim \left(\frac{s - c}{s}\right)^{2} \mu^{2}\left(x\right) + o(1)
+% 		\end{aligned}
+% 	\end{equation}
+% \end{lem}
 
-\hrule
+% \hrule
 
-\begin{proof}[Proof of Lemma~\ref{lem:npr_kern_ineq3}]\mbox{}\\*
-	We can make a similar argument as before.
-	\begin{equation}
-		\begin{aligned}
-			& \E_{D, D^{\prime}}\left[Y_{c+1}Y_{c+1}^{\prime} \, (s-c)^2 \, \kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]\\
-			%
-			& \quad = \E_{D, D^{\prime}}\left[\E\left[\left(\mu(X_{c+1}) + \varepsilon_{c+1}\right) \cdot \left(\mu(X_{c+1}^{\prime}) + \varepsilon_{c+1}^{\prime}\right) \, \middle| \, X_{c+1}, X_{c+1}^{\prime}\right] \, (s-c)^2 \, \kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right] \\
-			% 
-			& \quad = \left(\frac{s-c}{s}\right)^2\E\left[\mu(X_{c+1})\mu(X_{c+1}^{\prime}) \, s^2 \, 
-			\E\left[\kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; X_{c+1}, X_{c+1}^{\prime}\right]\right]
-        \end{aligned}
-    \end{equation}
-    Using the argument presented in Lemma \ref{lem:double_cond}, and assuming without loss of generality that $\|X_{c+1} - x\| \leq \|X_{c+1}^{\prime} - x\|$, we can conclude as follows.
-    We use the fact that if $X_{c+1}^{\prime} \rightarrow x$, then necessarily $X_{c+1}\rightarrow x$.
-    \begin{equation}
-        \begin{aligned}
-            & \E\left[\mu(X_{c+1})\mu(X_{c+1}^{\prime}) \, (s-c)^2 \, 
-			\E\left[\kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; X_{c+1}, X_{c+1}^{\prime}\right]\right]
-            \lesssim \left(\frac{s - c}{s}\right)^{2} \mu^{2}\left(x\right) + o(1)
-		\end{aligned}
-	\end{equation}
-\end{proof}
+% \begin{proof}[Proof of Lemma~\ref{lem:npr_kern_ineq3}]\mbox{}\\*
+% 	We can make a similar argument as before.
+% 	\begin{equation}
+% 		\begin{aligned}
+% 			& \E_{D, D^{\prime}}\left[Y_{c+1}Y_{c+1}^{\prime} \, (s-c)^2 \, \kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]\\
+% 			%
+% 			& \quad = \E_{D, D^{\prime}}\left[\E\left[\left(\mu(X_{c+1}) + \varepsilon_{c+1}\right) \cdot \left(\mu(X_{c+1}^{\prime}) + \varepsilon_{c+1}^{\prime}\right) \, \middle| \, X_{c+1}, X_{c+1}^{\prime}\right] \, (s-c)^2 \, \kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right] \\
+% 			% 
+% 			& \quad = \left(\frac{s-c}{s}\right)^2\E\left[\mu(X_{c+1})\mu(X_{c+1}^{\prime}) \, s^2 \, 
+% 			\E\left[\kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; X_{c+1}, X_{c+1}^{\prime}\right]\right]
+%         \end{aligned}
+%     \end{equation}
+%     Using the argument presented in Lemma \ref{lem:double_cond}, and assuming without loss of generality that $\|X_{c+1} - x\| \leq \|X_{c+1}^{\prime} - x\|$, we can conclude as follows.
+%     We use the fact that if $X_{c+1}^{\prime} \rightarrow x$, then necessarily $X_{c+1}\rightarrow x$.
+%     \begin{equation}
+%         \begin{aligned}
+%             & \E\left[\mu(X_{c+1})\mu(X_{c+1}^{\prime}) \, (s-c)^2 \, 
+% 			\E\left[\kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; X_{c+1}, X_{c+1}^{\prime}\right]\right]
+%             \lesssim \left(\frac{s - c}{s}\right)^{2} \mu^{2}\left(x\right) + o(1)
+% 		\end{aligned}
+% 	\end{equation}
+% \end{proof}
 
-\hrule
+% \hrule
 
-\begin{lem}\label{lem:CATE_kern_ineqs}\mbox{}\\*
-	Fix sample size $n$, subsampling scale $s$, and $c$ such that $0 < c \leq s \leq n$.
-	Let $D = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}, \dotsc Z_s \right\}$ be an i.i.d.\ data set drawn from $Q$ as described in Setup~\ref{asm:CATE_dgp}.
-	Let $D^{\prime} = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$ be a second data set that shares the first $c$ observations with $D$.
-	The remaining $s - c$ observations of $D^{\prime}$, i.e.\ $\left\{Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$, are i.i.d.\ draws from $Q$ that are independent of $D$.
+% \begin{lem}\label{lem:CATE_kern_ineqs}\mbox{}\\*
+% 	Fix sample size $n$, subsampling scale $s$, and $c$ such that $0 < c \leq s \leq n$.
+% 	Let $D = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}, \dotsc Z_s \right\}$ be an i.i.d.\ data set drawn from $Q$ as described in Setup~\ref{asm:CATE_dgp}.
+% 	Let $D^{\prime} = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$ be a second data set that shares the first $c$ observations with $D$.
+% 	The remaining $s - c$ observations of $D^{\prime}$, i.e.\ $\left\{Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$, are i.i.d.\ draws from $Q$ that are independent of $D$.
 
-	Then, the following three inequalities hold.
+% 	Then, the following three inequalities hold.
 
 		
-	Similarly, consider the CATE estimation setting (Setup~\ref{asm:CATE_dgp}),
-	i.e.\ replacing observations drawn from $P$ by observations drawn from $Q$.
-	Then, analogous inequalities hold, where we replace\dots
-	\begin{multicols}{2}
-		\begin{itemize}
-			\item $Y_i$ by $m(Z_{i}, \eta_{0})$
-			\item $\mu^2(x)$ by $\left(\mu_{0}^{1}\left(x\right) - \mu_{0}^{0}\left(x\right)\right)^2$
-			\item $\sigma^{2}_{\varepsilon}(x)$ by $\frac{\sigma_{\varepsilon}^2\left(x\right)}{\pi_{0}(x)\left(1 - \pi_{0}(x)\right)}$
-			\item $\overline{\sigma}^{2}_{\varepsilon}$ by $\frac{\overline{\sigma}^2_{\varepsilon}}{\mathfrak{p}\left(1 - \mathfrak{p}\right)}$
-		\end{itemize}
-	\end{multicols}
-\end{lem}
+% 	Similarly, consider the CATE estimation setting (Setup~\ref{asm:CATE_dgp}),
+% 	i.e.\ replacing observations drawn from $P$ by observations drawn from $Q$.
+% 	Then, analogous inequalities hold, where we replace\dots
+% 	\begin{multicols}{2}
+% 		\begin{itemize}
+% 			\item $Y_i$ by $m(Z_{i}, \eta_{0})$
+% 			\item $\mu^2(x)$ by $\left(\mu_{0}^{1}\left(x\right) - \mu_{0}^{0}\left(x\right)\right)^2$
+% 			\item $\sigma^{2}_{\varepsilon}(x)$ by $\frac{\sigma_{\varepsilon}^2\left(x\right)}{\pi_{0}(x)\left(1 - \pi_{0}(x)\right)}$
+% 			\item $\overline{\sigma}^{2}_{\varepsilon}$ by $\frac{\overline{\sigma}^2_{\varepsilon}}{\mathfrak{p}\left(1 - \mathfrak{p}\right)}$
+% 		\end{itemize}
+% 	\end{multicols}
+% \end{lem}
 
-\hrule
+% \hrule
 
-\begin{proof}[Proof of Lemma~\ref{lem:CATE_kern_ineqs}]\mbox{}\\*
-	The inequalities follow analogous to the proofs of Lemma~\ref{lem:npr_kern_ineq1}, Lemma~\ref{lem:npr_kern_ineq2}, and Lemma~\ref{lem:npr_kern_ineq3}.
-\end{proof}
+% \begin{proof}[Proof of Lemma~\ref{lem:CATE_kern_ineqs}]\mbox{}\\*
+% 	The inequalities follow analogous to the proofs of Lemma~\ref{lem:npr_kern_ineq1}, Lemma~\ref{lem:npr_kern_ineq2}, and Lemma~\ref{lem:npr_kern_ineq3}.
+% \end{proof}
 
-\hrule
+% \hrule
 
-\begin{lem}[\citet{peng_bias_2021} - Lemma 1]\label{lem:peng1}\mbox{}\\*
-	Suppose that $\sum X_{i}^2 \xrightarrow{p} 1, \sum \E\left[X_{i}^2\right] \rightarrow 1$, and $\sum_{i=1}^n \E\left[Y_{i}^2\right] \rightarrow 0$, then
-	\begin{equation}
-		\sum\left[X_{i}+Y_{i}\right]^2 \xrightarrow{p} 1 \quad \text { and } \E\left[\sum\left(X_{i}+Y_{i}\right)^2\right] \rightarrow 1.
-	\end{equation}
-\end{lem}
-
-\hrule
-
-\begin{lem}[Honesty of the DNN/TDNN Estimators]\label{lem:honesty}\mbox{}\\*
-	The DNN and TDNN estimator kernels $\kappa\left(\cdot, \cdot, D_{\ell}\right)$ are Honest in the sense of \citet{wager_estimation_2018}.
-	\begin{equation*}
-		\kappa\left(x, X_{i}, D_{\ell}\right) \indep Y_{i} \mid X_{i}, D_{\ell,-i},
-	\end{equation*}
-	where $\indep$ denotes conditional independence and $D_{\ell,-i} = \{Z_l \, | \, l \in \ell \backslash \{i\}\}$.
-\end{lem}

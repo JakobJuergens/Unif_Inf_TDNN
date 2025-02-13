@@ -653,3 +653,20 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
 \end{proof}
 
 \hrule
+
+\begin{lem}[\citet{peng_bias_2021} - Lemma 1]\label{lem:peng1}\mbox{}\\*
+	Suppose that $\sum X_{i}^2 \xrightarrow{p} 1, \sum \E\left[X_{i}^2\right] \rightarrow 1$, and $\sum_{i=1}^n \E\left[Y_{i}^2\right] \rightarrow 0$, then
+	\begin{equation}
+		\sum\left[X_{i}+Y_{i}\right]^2 \xrightarrow{p} 1 \quad \text { and } \E\left[\sum\left(X_{i}+Y_{i}\right)^2\right] \rightarrow 1.
+	\end{equation}
+\end{lem}
+
+\hrule
+
+\begin{lem}[Honesty of the DNN/TDNN Estimators]\label{lem:honesty}\mbox{}\\*
+	The DNN and TDNN estimator kernels $\kappa\left(\cdot, \cdot, D_{\ell}\right)$ are Honest in the sense of \citet{wager_estimation_2018}.
+	\begin{equation*}
+		\kappa\left(x, X_{i}, D_{\ell}\right) \indep Y_{i} \mid X_{i}, D_{\ell,-i},
+	\end{equation*}
+	where $\indep$ denotes conditional independence and $D_{\ell,-i} = \{Z_l \, | \, l \in \ell \backslash \{i\}\}$.
+\end{lem}
