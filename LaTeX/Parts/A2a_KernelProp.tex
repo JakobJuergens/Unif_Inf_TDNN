@@ -361,7 +361,7 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
 	Let $D^{\prime} = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$ be a second data set that shares the first $c$ observations with $D$.
 	The remaining $s - c$ observations of $D^{\prime}$, i.e.\ $\left\{Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$, are i.i.d.\ draws from $P$ that are independent of $D$.
 
-    For any $L^2$ function $f$ that is continuous at $x$, it holds that
+    For any $L^{2}(\mathcal{X})$ function $f$ that is continuous at $x$, it holds that
     \begin{equation}
         \lim_{s \rightarrow \infty} \underbrace{\E_{1}\left[f^{2}(X_{1}) (2s - c) 
             \E_{2:s}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{1}, D^{\prime}\right)\right]
@@ -611,10 +611,10 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
             \E\Big[\left|f(X) f(X^{\prime}) - f^{2}(x)\right|\Big]
             & \leq \E\Big[\left|f(X) f(X^{\prime})\right|\Big] + f^{2}(x)
             \leq \E\Big[\left|f(X)\right|\cdot \left|f(X^{\prime})\right|\Big] + f^{2}(x)
-            = \|f\|_{L_1}^{2} + f^{2}(x)
+            = \|f\|_{L^{1}}^{2} + f^{2}(x)
         \end{aligned}
     \end{equation}
-    As $f$ is an $L^2$ function on a bounded domain, observe that $\|f\|_{L_1}$ is finite.
+    As $f$ is an $L^{2}(\mathcal{X})$ function on a bounded domain, observe that $\|f\|_{L^{1}}$ is finite.
     Thus, we can find the following.
     \begin{equation}
         \begin{aligned}

@@ -73,10 +73,12 @@ Throughout this paper, I will additionally rely on a number of assumptions that 
 			\item The feature space $\mathcal{X} = \operatorname{supp}(X)$ is a bounded, compact subset of $\mathbb{R}^k$
 			\item The density $f(\cdot)$ is bounded away from 0 and $\infty$
 			\item $f(\cdot)$ are $\mu(\cdot)$ are four times continuously differentiable with bounded second, third, and fourth-order partial derivatives in a neighborhood of $x$
+            \item $\mu(\cdot) \in L^{2}\left(\mathcal{X}\right)$ is a square-integrable function on $\mathcal{X}$.
 		\end{itemize}
 		In the Heterogeneous Treatment Effect setting (Assumption~\ref{asm:CATE_dgp}), the following additional condition holds:
 		\begin{itemize}
 			\item $\mu_{0}^{0}(\cdot)$ and $\mu_{0}^{1}(\cdot)$ are four times continuously differentiable with bounded second, third, and fourth-order partial derivatives in a neighborhood of $x$
+            \item $\mu_{0}^{0}(\cdot), \mu_{0}^{1}(\cdot) \in L^{2}\left(\mathcal{X}\right)$ are square-integrable functions on $\mathcal{X}$.
 		\end{itemize}
 	\end{asm}
 \end{boxD}
@@ -95,8 +97,12 @@ Furthermore, it is necessary to point out again that I are considering a highly 
 Additionally, I require a rather standard assumption in localized regression approaches, namely that the variance changes continuously.
 \begin{boxD}
 	\begin{asm}[Error Distribution Assumptions]\label{asm:errors}\mbox{}\\*
-		The error terms $\varepsilon$ defined in Setup~\ref{asm:npr_dgp} and Setup~\ref{asm:CATE_dgp}, respectively, have continuously varying variance.
-		In other words, $\sigma^2_{\varepsilon}: \mathcal{X} \rightarrow \mathbb{R}_{>0}$ is a continuous function.
+		The error terms $\varepsilon$ defined in Setup~\ref{asm:npr_dgp} and Setup~\ref{asm:CATE_dgp}, respectively, fulfill the following conditions.
+        \begin{itemize}
+            \item $\varepsilon$ has continuously varying variance.
+		      In other words, $\sigma^2_{\varepsilon}: \mathcal{X} \rightarrow \mathbb{R}_{>0}$ is a continuous function.
+            \item $\sigma^2_{\varepsilon} \in L^{2}\left(\mathcal{X}\right)$ is a square-integrable function on $\mathcal{X}$
+        \end{itemize}
 	\end{asm}
 \end{boxD}
 As $\mathcal{X}$ is a compact and bounded set, this implies that there exists a $\overline{\sigma}_{\varepsilon}^2 > 0$ such that for any $x \in \mathcal{X}$ we have $\sigma^{2}_{\varepsilon}\left(x\right) \leq \overline{\sigma}_{\varepsilon}^2$.
