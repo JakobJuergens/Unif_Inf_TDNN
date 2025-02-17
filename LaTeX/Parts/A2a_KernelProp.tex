@@ -61,7 +61,7 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
         \begin{aligned}
             \forall i,j \in \{c+1, \dotsc, s\}: \quad
             \E_{D, D^{\prime}}\left[\kappa\left(x; Z_{i}, D\right)\kappa\left(x; Z_{j}^{\prime}, D^{\prime}\right)\right]
-            & = \frac{2}{2s-c}\sum_{i = 0}^{s-c-1} \binom{s - c - 1}{i}\binom{2s - c - 1}{s-1+i}^{-1}\\
+            & = \frac{2}{(2s-c)(2s-c-1)}\sum_{i = 0}^{s-c-1} \binom{s - c - 1}{i}\binom{2s - c - 1}{s-1+i}^{-1}\\
             %
             & = \omega(e^{-s})
         \end{aligned}
@@ -650,6 +650,58 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
     \end{equation}
     Combining these findings, for large enough $s$ we can bound the terms $\|(A) - f^{2}(x)\|$, $\|(B) - f^{2}(x)\|$, and $\|(C) - f^{2}(x)\|$ by $2\epsilon$, respectively.
     As $\epsilon$ was arbitrary this concludes the proof.
+\end{proof}
+
+\hrule
+
+\begin{lem}[]\label{lem:expec_kernel_prod_bound}\mbox{}\\*
+    Fix sample size $n$, subsampling scale $s$, and $c$ such that $0 < c \leq s \leq n$.
+	Let $D = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}, \dotsc Z_s \right\}$ be an i.i.d.\ data set drawn from $P$ as described in Setup~\ref{asm:npr_dgp}.
+	Let $D^{\prime} = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$ be a second data set that shares the first $c$ observations with $D$.
+	The remaining $s - c$ observations of $D^{\prime}$, i.e.\ $\left\{Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$, are i.i.d.\ draws from $P$ that are independent of $D$.
+
+    Then the following inequalities hold.
+    \begin{equation}
+        \begin{aligned}
+            \forall i \in [c] \; \forall j \in \{c+1, \dotsc, s\}: \quad
+            \E_{D, D^{\prime}}\left[\kappa\left(x; Z_{i}, D\right)\kappa\left(x; Z_{j}^{\prime}, D^{\prime}\right)\right]
+            & \leq \frac{2}{(2s - c)(2s-c-1)}
+        \end{aligned}
+    \end{equation}
+    \begin{equation}
+        \begin{aligned}
+            \forall i,j \in \{c+1, \dotsc, s\}: \quad
+            \E_{D, D^{\prime}}\left[\kappa\left(x; Z_{i}, D\right)\kappa\left(x; Z_{j}^{\prime}, D^{\prime}\right)\right]
+            & \leq \frac{4}{(2s-c)(2s-c-1)}
+        \end{aligned}
+    \end{equation}
+\end{lem}
+
+\begin{proof}[Proof of Lemma \ref{lem:expec_kernel_prod_bound}]\mbox{}\\*
+    Recall the results of Lemma \ref{lem:expec_kernel_prod} and make the following observations.
+    \begin{equation}
+        \begin{aligned}
+            & \E_{D, D^{\prime}}\left[\kappa\left(x; Z_{i}, D\right)\kappa\left(x; Z_{j}^{\prime}, D^{\prime}\right)\right]
+            = \frac{1}{(2s - c)(2s-c-1)}\sum_{i = 0}^{s - c - 1}\binom{s - c - 1}{i}\binom{2s - c - 2}{i}^{-1}\\
+            %
+            & \quad \leq \frac{1}{(2s - c)(2s-c-1)}\sum_{i = 0}^{s - c - 1}\left(\frac{s - c - 1}{i} \cdot \frac{i}{2s - c - 2}\right)^{i}
+            = \frac{1}{(2s - c)(2s-c-1)}\sum_{i = 0}^{s - c - 1}\left(\frac{s - c - 1}{2s - c - 2}\right)^{i}\\
+            %
+            & \quad \leq \frac{1}{(2s - c)(2s-c-1)}\sum_{i = 0}^{\infty}\left(\frac{s - c - 1}{2s - c - 2}\right)^{i}\\
+            %
+            & \quad \leq \frac{1}{(2s - c)(2s-c-1)}\sum_{i = 0}^{\infty}2^{-i}
+            = \frac{2}{(2s - c)(2s-c-1)}
+        \end{aligned}
+    \end{equation}
+    \begin{equation}
+        \begin{aligned}
+            & \E_{D, D^{\prime}}\left[\kappa\left(x; Z_{i}, D\right)\kappa\left(x; Z_{j}^{\prime}, D^{\prime}\right)\right]
+            = \frac{2}{(2s-c)(2s-c-1)} \sum_{i = 0}^{s-c-1} \binom{s - c - 1}{i}\binom{2s - c - 1}{s-1+i}^{-1}\\
+            %
+            & \quad \leq \frac{2}{(2s-c)(2s-c-1)} \sum_{i = 0}^{\infty} 2^{-i}
+            = \frac{4}{(2s-c)(2s-c-1)}
+        \end{aligned}
+    \end{equation}
 \end{proof}
 
 \hrule
