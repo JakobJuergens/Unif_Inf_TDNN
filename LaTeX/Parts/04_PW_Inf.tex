@@ -110,14 +110,21 @@ As part of the proof of these results, I obtain general results on the consisten
 \subsection{Asymptotic Normality of the (T)DNN-DML2 CATE Estimator}\label{CATE_AsympNorm}
 \hrule
 
-As a first intermediate result in the analysis of the asymptotic properties of the CATE estimator, we can find the following concerning an oricale variant of the proposed estimator.
+As a first intermediate result in the analysis of the asymptotic properties of the CATE estimator, we can find the following concerning an oracale variant of the proposed estimator defined as the solution to the following problem.
+\begin{equation}
+    \begin{aligned}
+        0 
+        = \sum_{i = 1}^{n} K(x, X_{i}) m\left(Z_{i}; \widehat{\operatorname{CATE}}_{0}(x), \eta_{0}\right)
+        = \sum_{i = 1}^{n - s + 1} \frac{\binom{n-i}{s-1}}{\binom{n}{s}} m\left(Z_{(i)}; \widehat{\operatorname{CATE}}_{0}(x),\eta_{0}\right)
+    \end{aligned}
+\end{equation}
 This is a rather basic result that can be seen as a corollary to the nonparametric regression case.
 \begin{boxD}
 	\begin{thm}[{\color{red} PRELIMINARY! THIS IS NOT YET FORMALLY SHOWN}]\label{thm:DNNDML2_anorm_0}\mbox{}\\*
 		Assume that we observe data as described in Assumption~\ref{asm:CATE_dgp} and that Assumption~\ref{asm:technical} is valid.
 		Then, for any fixed $x \in \mathcal{X}$, we have for some positive sequence $\omega_n$ of order $\sqrt{s/n}$
 		\begin{equation}
-			\frac{\hat{\operatorname{CATE}}_{\text{oracle}}(x; \mathbf{D}_n) - \operatorname{CATE}(x)}{\omega_n}
+			\frac{\widehat{\operatorname{CATE}}_{0}(x; \mathbf{D}_n) - \operatorname{CATE}(x)}{\omega_n}
 			\rightsquigarrow \mathcal{N}\left(0,1\right)
 		\end{equation}
 		as $n,s \rightarrow \infty$ with $s = o(n)$.
