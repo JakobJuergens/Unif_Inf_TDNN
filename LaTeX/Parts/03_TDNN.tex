@@ -190,7 +190,7 @@ nuisance parameters on our estimation.
 		= 0
 		\quad \text{where} \quad                                                                                                                                                                                       \\
 		m\left(Z_{i}; \operatorname{CATE}, \eta\right)
-		 & = \mu_1\left(X_{i}\right) - \mu_0\left(X_{i}\right) + \beta\left(W_{i}, X_{i}\right)\left(Y_{i} - \mu_{W_{i}}\left(X_{i}\right)\right) - \operatorname{CATE}\left(X_{i}\right)
+		 & = \mu^{1}\left(X_{i}\right) - \mu^{0}\left(X_{i}\right) + \beta\left(W_{i}, X_{i}\right)\left(Y_{i} - \mu^{W_{i}}\left(X_{i}\right)\right) - \operatorname{CATE}\left(X_{i}\right)
 	\end{aligned}
 \end{equation}
 Here, I make use of the following notation, that is common in the potential
@@ -228,12 +228,12 @@ For the sake of simplicity, I will assume that $m = n/K$, i.e.\ the desired numb
 			      \begin{enumerate}
 				      \item to estimate the nuisance parameters $\mu_{0}^{0}$ and $\mu_{0}^{1}$:
 				            \begin{equation}
-					            \hat{\mu}_{k}^{w}\left(x\right) = \hat{\mu}_{w}\left(x; \mathbf{D}_{I_k^{C}}^{(w)}\right) \quad \text{for } w=0,1
+					            \hat{\mu}_{k}^{w}\left(x\right) = \hat{\mu}\left(x; \mathbf{D}_{I_k^{C}}^{(w)}\right) \quad \text{for } w=0,1
 				            \end{equation}
 				      \item if $\pi_{0}$ is unknown, i.e.\ we are not in a randomized experiment setting,
 				            additionally estimate $\pi_{0}$
 				            \begin{equation}
-					            \hat{\pi}_{k}\left(x\right) = \hat{\mu}_{s}\left(x; \mathbf{D}_{I_k^{C}}\right) \quad \text{where the predicted variable is $W$}
+					            \hat{\pi}_{k}\left(x\right) = \hat{\mu}\left(x; \mathbf{D}_{I_k^{C}}\right) \quad \text{where the predicted variable is $W$}
 				            \end{equation}
 			      \end{enumerate}
             For each fold $k$, denote the vector of estimates by $\hat{\eta}_{k} = \left(\hat{\mu}_{k}^{0}, \hat{\mu}_{k}^{1}, \hat{\pi}_{k}\right)^{\prime}$.
@@ -269,5 +269,3 @@ Using the score function in the equation that defines the estimator, we can obse
 \end{equation}
 Thus, given first-stage estimates of nuisance parameters, I have a closed-form representation of the CATE estimator for a given partition of $[n]$.
 Furthermore, given these first-stage estimates, the evaluation of the CATE-estimator at a different point of interest is merely a re-weighting of the terms corresponding to different observations.
-
-{\color{red} LOREM IPSUM}
