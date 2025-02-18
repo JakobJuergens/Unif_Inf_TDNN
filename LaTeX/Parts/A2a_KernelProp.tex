@@ -665,14 +665,14 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
         \begin{aligned}
             \forall i \in [c] \; \forall j \in \{c+1, \dotsc, s\}: \quad
             \E_{D, D^{\prime}}\left[\kappa\left(x; Z_{i}, D\right)\kappa\left(x; Z_{j}^{\prime}, D^{\prime}\right)\right]
-            & \leq \frac{2}{(2s - c)(2s-c-1)}
+            & \leq \frac{s}{(2s - c)(2s-c-1)(c+1)}
         \end{aligned}
     \end{equation}
     \begin{equation}
         \begin{aligned}
             \forall i,j \in \{c+1, \dotsc, s\}: \quad
             \E_{D, D^{\prime}}\left[\kappa\left(x; Z_{i}, D\right)\kappa\left(x; Z_{j}^{\prime}, D^{\prime}\right)\right]
-            & \leq \frac{4}{(2s-c)(2s-c-1)}
+            & \leq \frac{2(s-c)}{(2s-c)^{2}(2s-c-1)}
         \end{aligned}
     \end{equation}
 \end{lem}
@@ -684,22 +684,32 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
             & \E_{D, D^{\prime}}\left[\kappa\left(x; Z_{i}, D\right)\kappa\left(x; Z_{j}^{\prime}, D^{\prime}\right)\right]
             = \frac{1}{(2s - c)(2s-c-1)}\sum_{i = 0}^{s - c - 1}\binom{s - c - 1}{i}\binom{2s - c - 2}{i}^{-1}\\
             %
-            & \quad \leq \frac{1}{(2s - c)(2s-c-1)}\sum_{i = 0}^{s - c - 1}\left(\frac{s - c - 1}{i} \cdot \frac{i}{2s - c - 2}\right)^{i}
-            = \frac{1}{(2s - c)(2s-c-1)}\sum_{i = 0}^{s - c - 1}\left(\frac{s - c - 1}{2s - c - 2}\right)^{i}\\
+            & \quad \leq \frac{1}{(2s - c)(2s-c-1)}\sum_{i = 0}^{s - c - 1}\frac{(s - c - 1)^{i}}{i!} \cdot \frac{i!}{(2s - c - 1 - i)^{i}}
+            = \frac{1}{(2s - c)(2s-c-1)}\sum_{i = 0}^{s - c - 1}\left(\frac{s - c - 1}{2s - c - 1 - i}\right)^{i}\\
             %
-            & \quad \leq \frac{1}{(2s - c)(2s-c-1)}\sum_{i = 0}^{\infty}\left(\frac{s - c - 1}{2s - c - 2}\right)^{i}\\
+            & \quad \leq \frac{1}{(2s - c)(2s-c-1)}\sum_{i = 0}^{s - c - 1}\left(\frac{s - c - 1}{2s - c - 1 - i}\right)^{i}
+            \leq \frac{1}{(2s - c)(2s-c-1)}\sum_{i = 0}^{s - c - 1}\left(\frac{s - c - 1}{s}\right)^{i}\\
             %
-            & \quad \leq \frac{1}{(2s - c)(2s-c-1)}\sum_{i = 0}^{\infty}2^{-i}
-            = \frac{2}{(2s - c)(2s-c-1)}
+            & \quad \leq \frac{1}{(2s - c)(2s-c-1)}\sum_{i = 0}^{\infty}\left(\frac{s - c - 1}{s}\right)^{i}
+            = \frac{s}{(2s - c)(2s-c-1)(c+1)}
         \end{aligned}
     \end{equation}
+    Similarly, for the second case, we can make the following observation.
     \begin{equation}
         \begin{aligned}
             & \E_{D, D^{\prime}}\left[\kappa\left(x; Z_{i}, D\right)\kappa\left(x; Z_{j}^{\prime}, D^{\prime}\right)\right]
             = \frac{2}{(2s-c)(2s-c-1)} \sum_{i = 0}^{s-c-1} \binom{s - c - 1}{i}\binom{2s - c - 1}{s-1+i}^{-1}\\
             %
-            & \quad \leq \frac{2}{(2s-c)(2s-c-1)} \sum_{i = 0}^{\infty} 2^{-i}
-            = \frac{4}{(2s-c)(2s-c-1)}
+            & \quad = \frac{2}{(2s-c)(2s-c-1)} \sum_{i = 0}^{s-c-1} \binom{s - c - 1}{i}\binom{2s - c - 1}{s - c - i}^{-1}\\
+            %
+            & \quad = \frac{2}{(2s-c)(2s-c-1)} \sum_{i = 0}^{s-c-1} \frac{(s - c - 1)!}{(s - c - 1 - i)! i!}\frac{(s - 1 + i)! (s - c - i)!}{(2s - c - 1)!}\\
+            %
+            & \quad = \frac{2}{(2s-c)(2s-c-1)} \cdot \frac{(s - c - 1)!(s-1)!}{(2s - c - 1)!} \cdot \sum_{i = 0}^{s-c-1} (s-c-i) \binom{s-1+i}{i}\\
+            %
+            & \quad \leq \frac{2}{(2s-c)(2s-c-1)} \cdot \frac{(s - c)!(s-1)!}{(2s - c - 1)!} \cdot \sum_{i = 0}^{s-c-1} \binom{s-1+i}{i}\\
+            %
+            & \quad = \frac{2}{(2s-c)(2s-c-1)} \cdot \binom{2s-c}{s-c}^{-1} \cdot \binom{2s - c - 1}{s-c-1}
+            = \frac{2(s-c)}{(2s-c)^{2}(2s-c-1)}
         \end{aligned}
     \end{equation}
 \end{proof}
@@ -709,7 +719,9 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
 \begin{lem}[\citet{peng_bias_2021} - Lemma 1]\label{lem:peng1}\mbox{}\\*
 	Suppose that $\sum X_{i}^2 \xrightarrow{p} 1, \sum \E\left[X_{i}^2\right] \rightarrow 1$, and $\sum_{i=1}^n \E\left[Y_{i}^2\right] \rightarrow 0$, then
 	\begin{equation}
-		\sum\left[X_{i}+Y_{i}\right]^2 \xrightarrow{p} 1 \quad \text { and } \E\left[\sum\left(X_{i}+Y_{i}\right)^2\right] \rightarrow 1.
+		\sum\left[X_{i}+Y_{i}\right]^2 \xrightarrow{p} 1 
+        \quad \text { and } \quad 
+        \E\left[\sum\left(X_{i}+Y_{i}\right)^2\right] \rightarrow 1.
 	\end{equation}
 \end{lem}
 

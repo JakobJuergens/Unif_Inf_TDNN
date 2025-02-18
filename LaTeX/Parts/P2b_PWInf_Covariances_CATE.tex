@@ -161,10 +161,10 @@ Similar to before, we will start under the assumption that the functional nuisan
 			& = \E_{D, D^{\prime}}\left[c (s-c) \kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) 
 			m\left(Z_{1}; \eta_{0}\right) m\left(Z_{c+1}^{\prime}; \eta_{0}\right)\right]\\
 			%
-            & \overset{\text{Lem \ref{lem:expec_kernel_prod_bound}}}{\leq} \frac{2c(s-c)}{(2s-c)(2s-c-1)} \cdot \E_{1, (c+1)^{\prime}}\left[m\left(Z_{1}; \eta_{0}\right) m\left(Z_{c+1}^{\prime}; \eta_{0}\right)\cdot \frac{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; Z_{1}, Z_{c+1}^{\prime}\right]}{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]}\right]\\
+            & \overset{\text{Lem \ref{lem:expec_kernel_prod_bound}}}{\leq} \frac{c(s-c)s}{(2s - c)(2s-c-1)(c+1)} \cdot \E_{1, (c+1)^{\prime}}\left[m\left(Z_{1}; \eta_{0}\right) m\left(Z_{c+1}^{\prime}; \eta_{0}\right)\cdot \frac{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; Z_{1}, Z_{c+1}^{\prime}\right]}{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]}\right]\\
             %
 			& \overset{\text{Lem \ref{lem:kernel_prod_dirac_convergence}}}{\lesssim} 
-            \frac{2c(s-c)}{(2s-c)(2s-c-1)} \cdot \left(\mu_{0}^{1}\left(x\right) - \mu_{0}^{0}\left(x\right)\right)^2 + o(1)
+            \frac{c(s-c)s}{(2s - c)(2s-c-1)(c+1)} \cdot \left(\mu_{0}^{1}\left(x\right) - \mu_{0}^{0}\left(x\right)\right)^2 + o(1)
 		\end{aligned}
 	\end{equation}
 	% Applying the same principles to the third term we find a similar result.
@@ -188,11 +188,11 @@ Similar to before, we will start under the assumption that the functional nuisan
 			m\left(Z_{c+1}; \eta_{0}\right)  m\left(Z_{c+1}^{\prime}; \eta_{0}\right)\right] \\
 			%
 			& \overset{\text{Lem \ref{lem:expec_kernel_prod_bound}}}{\leq}
-            \frac{4(s-c)^2}{(2s-c)(2s-c-1)} \cdot \E_{c+1}\left[m\left(Z_{c+1}; \eta_{0}\right)  m\left(Z_{c+1}^{\prime}; \eta_{0}\right)
+            \frac{2(s-c)^{3}}{(2s-c)^{2}(2s-c-1)} \cdot \E_{c+1}\left[m\left(Z_{c+1}; \eta_{0}\right)  m\left(Z_{c+1}^{\prime}; \eta_{0}\right)
             \cdot \frac{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right) \; \middle| \; Z_{c+1}, Z_{c+1}^{\prime}\right]}{\E_{D, D^{\prime}}\left[\kappa\left(x; Z_{c+1}, D\right)\kappa\left(x; Z_{c+1}^{\prime}, D^{\prime}\right)\right]}\right]\\
             %
             & \overset{\text{Lem \ref{lem:kernel_prod_dirac_convergence}}}{\lesssim} 
-            \frac{4(s-c)^2}{(2s-c)(2s-c-1)} \cdot \left(\mu_{0}^{1}\left(x\right) - \mu_{0}^{0}\left(x\right)\right)^2 + o(1)
+            \frac{2(s-c)}{(2s-c-1)} \cdot \left(\mu_{0}^{1}\left(x\right) - \mu_{0}^{0}\left(x\right)\right)^2 + o(1)
 		\end{aligned}
 	\end{equation}
 	Thus, we find the desired result.
