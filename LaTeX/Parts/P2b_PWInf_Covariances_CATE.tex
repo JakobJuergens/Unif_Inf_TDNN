@@ -99,8 +99,8 @@ Similar to before, we will start under the assumption that the functional nuisan
 	Then,
 	\begin{equation}
 		\Omega_{s}^{c}\left(x\right)
-		\lesssim \left(\mu_{0}^{1}\left(x\right) - \mu_{0}^{0}\left(x\right)\right)^2
-		+ \frac{\overline{\sigma}^2_{\varepsilon}}{\mathfrak{p}\left(1 - \mathfrak{p}\right)} + o(1).
+		\lesssim C \left[\left(\mu_{0}^{1}\left(x\right) - \mu_{0}^{0}\left(x\right)\right)^2
+		+ \frac{\overline{\sigma}^2_{\varepsilon}}{\mathfrak{p}\left(1 - \mathfrak{p}\right)}\right] + o(1).
 	\end{equation}
 \end{lem}
 
@@ -201,7 +201,14 @@ Similar to before, we will start under the assumption that the functional nuisan
 			\Omega_{s}^{c}\left(x\right)
 			& = (A) + 2\cdot (B) + (C) \\
 			%
-			& \lesssim {\color{red} LOREM IPSUM}
+			& \lesssim 
+            \left(\frac{c}{2s-c} + \frac{4(s-c)}{2s-c-1} + \frac{2(s-c)}{2s-c-1}\right) \cdot \left(\mu_{0}^{1}\left(x\right) - \mu_{0}^{0}\left(x\right)\right)^2
+            + \frac{c}{2s-c} \cdot \frac{\overline{\sigma}^2_{\varepsilon}}{\mathfrak{p}\left(1 - \mathfrak{p}\right)}
+            + o(1) \\
+            %
+            & \leq \frac{6s-5c}{2s-c-1} \cdot \left(\mu_{0}^{1}\left(x\right) - \mu_{0}^{0}\left(x\right)\right)^2
+            + \frac{c}{2s-c} \cdot \frac{\overline{\sigma}^2_{\varepsilon}}{\mathfrak{p}\left(1 - \mathfrak{p}\right)}
+            + o(1) 
 		\end{aligned}
 	\end{equation}
 \end{proof}

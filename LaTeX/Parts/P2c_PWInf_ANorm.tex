@@ -44,6 +44,7 @@ where we have the following definition from Equation \ref{eq:DNNDML2_ResidDecomp
 \end{lem}
 
 \begin{proof}[Proof of Lemma \ref{lem:ps_hajek_error}]\mbox{}\\*
+    Consider first the average Oracle-error within a given fold $k$ and observe the following.
     \begin{equation}
         \begin{aligned}
             \bar{R}_{1, k}\left(x\right)
@@ -67,17 +68,39 @@ where we have the following definition from Equation \ref{eq:DNNDML2_ResidDecomp
             & \quad - \E_{D}\left[\chi_{s}(x; \mathbf{D}_{[s]}, \hat{\eta}_{k}) - \chi_{s,0}\left(x; \mathbf{D}_{[s]}\right)\right] \\
             %
             & = \frac{1}{m s!}\sum_{l \in I_{k}}
-            \Big\{\E_{D}\left[\kappa(x; Z_{1}, \mathbf{D}_{[s]})
-            \left(m\left(Z_{1}, \hat{\eta}_{k}\right) - m\left(Z_{1}, \eta_{0}\right)\right) \, \middle| \, Z_1 = Z_l \right]  \\
-            & \quad \quad  + (s-1)\E_{D}\left[\kappa(x; Z_{2}, \mathbf{D}_{[s]})
-            \left(m\left(Z_{2}, \hat{\eta}_{k}\right) - m\left(Z_{2}, \eta_{0}\right)\right) \, \middle| \, Z_1 = Z_l \right]
-            \Big\} \\
-            & \quad - \E_{D}\left[\chi_{s}(x; \mathbf{D}_{[s]}, \hat{\eta}_{k}) - \chi_{s,0}\left(x; \mathbf{D}_{[s]}\right)\right] \\
-            %
-            & = {\color{red} LOREM IPSUM}
+            \Bigg\{
+                \underbrace{\E_{D}\left[\kappa(x; Z_{1}, \mathbf{D}_{[s]})m\left(Z_{1}, \hat{\eta}_{k}\right)\, \middle| \, Z_1 = Z_l \right]}_{(A_{l})}
+                - \underbrace{m\left(Z_{l}, \eta_{0}\right)\E_{D}\left[\kappa(x; Z_{1}, \mathbf{D}_{[s]}) \, \middle| \, Z_1 = Z_l \right]}_{(B_{l})}  \\
+            & \quad \quad  + (s-1) \left( \underbrace{\E_{D}\left[\kappa(x; Z_{2}, \mathbf{D}_{[s]})m\left(Z_{2}, \hat{\eta}_{k}\right)\, \middle| \, Z_1 = Z_l \right]}_{(C_{l})}
+            - \underbrace{\E_{D}\left[\kappa(x; Z_{2}, \mathbf{D}_{[s]})m\left(Z_{2}, \eta_{0}\right) \, \middle| \, Z_1 = Z_l \right]}_{(D_{l})} \right)
+            \Bigg\} \\
+            & \quad - \E_{D}\left[\chi_{s}(x; \mathbf{D}_{[s]}, \hat{\eta}_{k}) - \chi_{s,0}\left(x; \mathbf{D}_{[s]}\right)\right]
         \end{aligned}
-    \end{equation}    
-
+    \end{equation}
+    Here, in analogy to the proof of Theorem 3.1 in \citet{chernozhukov_doubledebiased_2018}, we can now observe the following.
+    \begin{equation}
+        \begin{aligned}
+            \left|\bar{R}_{1, k}\left(x\right)\right|
+            & \leq \mathcal{I}_{1,k}^{(1)} + \mathcal{I}_{2,k}^{(1)}
+        \end{aligned}
+    \end{equation}
+    where
+    \begin{equation}
+        \begin{aligned}
+            \mathcal{I}_{1,k}^{(1)} 
+            & = \left|
+            \frac{1}{m s!}\sum_{l \in I_{k}}\left[(A_{l}) - (B_{l}) + (s-1)\left((C_{l}) - (D_{l})\right)\right]
+            - \E_{D}\left[\chi_{s}(x; \mathbf{D}_{[s]}, \hat{\eta}_{k}) - \chi_{s,0}\left(x; \mathbf{D}_{[s]}\right) \; \middle| \; \mathbf{D}_{I_{k}^{C}}\right]\right|
+        \end{aligned}
+    \end{equation}
+    \begin{equation}
+        \begin{aligned}
+            \mathcal{I}_{2,k}^{(1)} 
+            & = \left|\E_{D}\left[\chi_{s}(x; \mathbf{D}_{[s]}, \hat{\eta}_{k}) - \chi_{s,0}\left(x; \mathbf{D}_{[s]}\right) \; \middle| \; \mathbf{D}_{I_{k}^{C}}\right]
+            - \E_{D}\left[\chi_{s}(x; \mathbf{D}_{[s]}, \hat{\eta}_{k}) - \chi_{s,0}\left(x; \mathbf{D}_{[s]}\right)\right]\right|
+        \end{aligned}
+    \end{equation}
+{\color{red} LOREM IPSUM}
 \end{proof}
 
 \hrule
