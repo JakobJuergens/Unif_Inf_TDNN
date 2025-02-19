@@ -114,8 +114,8 @@ As a first intermediate result in the analysis of the asymptotic properties of t
 \begin{equation}
     \begin{aligned}
         0 
-        = \sum_{i = 1}^{n} K(x, X_{i}) m\left(Z_{i}; \widehat{\operatorname{CATE}}_{0}(x), \eta_{0}\right)
-        = \sum_{i = 1}^{n - s + 1} \frac{\binom{n-i}{s-1}}{\binom{n}{s}} m\left(Z_{(i)}; \widehat{\operatorname{CATE}}_{0}(x),\eta_{0}\right)
+        = \sum_{i = 1}^{n} K(x, X_{i}) m\left(Z_{i}; \hat{\theta}_{0}(x), \eta_{0}\right)
+        = \sum_{i = 1}^{n - s + 1} \frac{\binom{n-i}{s-1}}{\binom{n}{s}} m\left(Z_{(i)}; \hat{\theta}_{0}(x),\eta_{0}\right)
     \end{aligned}
 \end{equation}
 This is a rather basic result that can be seen as a corollary to the nonparametric regression case.
@@ -124,7 +124,7 @@ This is a rather basic result that can be seen as a corollary to the nonparametr
 		Assume that we observe data as described in Assumption~\ref{asm:CATE_dgp} and that Assumption~\ref{asm:technical} is valid.
 		Then, for any fixed $x \in \mathcal{X}$, we have for some positive sequence $\omega_n$ of order $\sqrt{s/n}$
 		\begin{equation}
-			\frac{\widehat{\operatorname{CATE}}_{0}(x; \mathbf{D}_n) - \operatorname{CATE}(x)}{\omega_n}
+			\frac{\hat{\theta}_{0}(x; \mathbf{D}_n) - \theta_{0}(x)}{\omega_n}
 			\rightsquigarrow \mathcal{N}\left(0,1\right)
 		\end{equation}
 		as $n,s \rightarrow \infty$ with $s = o(n)$.
@@ -164,30 +164,30 @@ Thus, I need to introduce some additional notation, where, for simplicity, I ass
 This bootstrap root will take the following structure.
 \begin{equation}
 	R^{*}_{n,s}\left(x; \mathbf{D}_{[n]}, \mathcal{I}\right)
-	= \overline{\operatorname{CATE}}_{\mathcal{H}}\left(x\right)
-	- \widehat{\operatorname{CATE}}\left(x\right)
+	= \overline{\theta}_{\mathcal{H}}\left(x\right)
+	- \hat{\theta}\left(x\right)
 \end{equation}
-Here, $\overline{\operatorname{CATE}}_{\mathcal{H}}\left(x\right)$ is the solution to the following equation, where $\mathcal{I}$ is a fixed partition of $[n]$ and $\mathcal{H}$ is a fixed half-sample corresponding to $\mathcal{I}$.
+Here, $\overline{\theta}_{\mathcal{H}}\left(x\right)$ is the solution to the following equation, where $\mathcal{I}$ is a fixed partition of $[n]$ and $\mathcal{H}$ is a fixed half-sample corresponding to $\mathcal{I}$.
 In analogy to the previously established notation, I let $K(x, X_{i} \, | \, \mathcal{H})$ denote the kernel as previously established but with respect to the chosen half-sample, and $Z_{(i \, | \, \mathcal{H})}$ denote the $i$'th closest observation to the point of interest $\mathbf{x}$ that is contained in $\mathcal{H}$.
 Furthermore, $k(i \, | \, \mathcal{H})$ denotes the fold $k \in [K]$ that the $i$'th closest observation in $\mathcal{H}$ is contained in.
 \begin{equation}
 	\begin{aligned}
 		0 & = \sum_{k = 1}^{K} \sum_{i \in H_k} K(x, X_{i} \, | \, \mathcal{H}) m\left(Z_{i}; \overline{CATE}_{\mathcal{H}}\left(x\right), \hat{\mu}_{k,s}, \hat{\pi}_{k,s}\right)\\
 		%
-	 	& = \sum_{i = 1}^{n/2 - s + 1} \left[\frac{\binom{n/2-i}{s-1}}{\binom{n/2}{s}} m\left(Z_{(i \, | \, \mathcal{H})}; \overline{\operatorname{CATE}}_{\mathcal{H}}\left(x\right), \hat{\mu}_{k(i \, | \, \mathcal{H}),s}, \hat{\pi}_{k(i\, | \, \mathcal{H}),s}\right)\right]
+	 	& = \sum_{i = 1}^{n/2 - s + 1} \left[\frac{\binom{n/2-i}{s-1}}{\binom{n/2}{s}} m\left(Z_{(i \, | \, \mathcal{H})}; \overline{\theta}_{\mathcal{H}}\left(x\right), \hat{\mu}_{k(i \, | \, \mathcal{H}),s}, \hat{\pi}_{k(i\, | \, \mathcal{H}),s}\right)\right]
 	\end{aligned}
 \end{equation}
 Plugging in for the moment under consideration once more, I find the following.
 \begin{equation}
 	\begin{aligned}
-		\overline{\operatorname{CATE}}_{\mathcal{H}}\left(x\right) 
+		\overline{\theta}_{\mathcal{H}}\left(x\right) 
 		& = \sum_{i = 1}^{n/2 - s + 1} \frac{\binom{n/2-i}{s-1}}{\binom{n/2}{s}} 
 		\left[\hat{\mu}_{k(i \, | \, \mathcal{H}),s}^{1}\left(X_{(i \, | \, \mathcal{H})}\right) 
 		- \hat{\mu}_{k(i \, | \, \mathcal{H}),s}^{0}\left(X_{(i \, | \, \mathcal{H})}\right) \right.\\
 		& \left. \quad + \hat{\beta}_{k(i \, | \, \mathcal{H}),s}\left(W_{(i \, | \, \mathcal{H})}, X_{(i \, | \, \mathcal{H})}\right)\left(Y_{(i \, | \, \mathcal{H})} - \mu_{W_{(i \, | \, \mathcal{H})}}\left(X_{(i \, | \, \mathcal{H})}\right)\right)\right]
 	\end{aligned}
 \end{equation}
-Recognizing the similarity to $\widehat{\operatorname{CATE}}\left(x\right)$, I can further simplify in the following way.
+Recognizing the similarity to $\hat{\theta}\left(x\right)$, I can further simplify in the following way.
 \begin{equation}
 	\begin{aligned}
 		R^{*}_{n,s}\left(x; \mathbf{D}_{[n]}, \mathcal{I}\right)

@@ -21,8 +21,8 @@
 Recall the decomposition of the DNN-DML2 estimator introduced in equation \ref{eq:DNNDML2_Decomp}.
 \begin{equation}
     \begin{aligned}
-        \widehat{\operatorname{CATE}}\left(x; \mathbf{D}\right)
-        & = \underbrace{\E_{D}\left[\widehat{\operatorname{CATE}}\left(x; \mathbf{D}\right)\right]}_{\text{Centering-Term}}
+        \hat{\theta}\left(x; \mathbf{D}\right)
+        & = \underbrace{\E_{D}\left[\hat{\theta}\left(x; \mathbf{D}\right)\right]}_{\text{Centering-Term}}
         + \underbrace{\frac{s}{n}\sum_{i = 1}^{n} \chi_{s,0}^{(1)}\left(x; Z_{i}\right)}_{\text{Oracle-H\'ajek-Projection}}
         + \underbrace{\frac{s}{k} \sum_{l = 1}^{k} \frac{1}{m} \sum_{i \in \mathcal{I}_{k}}\left(\underbrace{\chi_{s}^{(1)}\left(x; Z_{i}, \hat{\eta}_{k}\right) - \chi_{s,0}^{(1)}\left(x; Z_{i}\right)}_{R_{1,k}\left(x; Z_{i}\right)}\right)}_{\text{Oracle-H\'ajek-Projection Error}}\\
         & \quad \quad + \underbrace{\sum_{j = 2}^{s} \binom{s}{j} \binom{n}{j}^{-1}\sum_{\ell \in L_{n,j}} \chi_{s,0}^{(j)}\left(x; \mathbf{D}_{\ell}\right)}_{\text{Oracle-H\'ajek-Residual}}
@@ -100,6 +100,7 @@ where we have the following definition from Equation \ref{eq:DNNDML2_ResidDecomp
             - \E_{D}\left[\chi_{s}(x; \mathbf{D}_{[s]}, \hat{\eta}_{k}) - \chi_{s,0}\left(x; \mathbf{D}_{[s]}\right)\right]\right|
         \end{aligned}
     \end{equation}
+    Notice that conditional on $\mathbf{D}_{I_{k}^{C}}$ the first-stage estimate $\hat{\eta}_{k}$ is non-stochastic.
 {\color{red} LOREM IPSUM}
 \end{proof}
 

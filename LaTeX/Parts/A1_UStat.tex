@@ -107,7 +107,7 @@ As most of the theoretical results on these estimators will similarly rely on Ho
 First, observe that the DNN-DML2 CATE estimator can be rewritten as follows to explicitly show its construction as a generalized U-statistic.
 \begin{equation}
     \begin{aligned}
-        \widehat{\operatorname{CATE}}\left(x; \mathbf{D}\right) 
+        \hat{\theta}\left(x; \mathbf{D}\right) 
         & = \sum_{i = 1}^{n - s + 1} \frac{\binom{n-i}{s-1}}{\binom{n}{s}}
 		\left[\hat{\mu}_{k_{(i)}}^{1}\left(X_{(i)}\right) - \hat{\mu}_{k_{(i)}}^{0}\left(X_{(i)}\right) + \hat{\beta}_{k_{(i)}}\left(W_{(i)}, X_{(i)}\right)\left(Y_{(i)} - \hat{\mu}^{W_{(i)}}_{k_{(i)}}\left(X_{(i)}\right)\right)\right] \\
         %
@@ -177,8 +177,8 @@ Let $\hat{\mu}_{k}$ and $\hat{\pi}_{k}$ denote the nuisance parameter estimates 
 Using the full expression for the CATE estimator, the following is obtained.
 \begin{equation}\label{eq:DNNDML2_Decomp}
     \begin{aligned}
-        \widehat{\operatorname{CATE}}\left(x; \mathbf{D}\right)
-        & = \underbrace{\E_{D}\left[\widehat{\operatorname{CATE}}\left(x; \mathbf{D}\right)\right]}_{\text{Centering-Term}}
+        \hat{\theta}\left(x; \mathbf{D}\right)
+        & = \underbrace{\E_{D}\left[\hat{\theta}\left(x; \mathbf{D}\right)\right]}_{\text{Centering-Term}}
         + \underbrace{\frac{s}{n}\sum_{i = 1}^{n} \chi_{s,0}^{(1)}\left(x; Z_{i}\right)}_{\text{Oracle-H\'ajek-Projection}}
         + \underbrace{\frac{s}{k} \sum_{l = 1}^{k} \frac{1}{m} \sum_{i \in \mathcal{I}_{k}}\left(\underbrace{\chi_{s}^{(1)}\left(x; Z_{i}, \hat{\eta}_{k}\right) - \chi_{s,0}^{(1)}\left(x; Z_{i}\right)}_{R_{1,k}\left(x; Z_{i}\right)}\right)}_{\text{Oracle-H\'ajek-Projection Error}}\\
         & \quad \quad + \underbrace{\sum_{j = 2}^{s} \binom{s}{j} \binom{n}{j}^{-1}\sum_{\ell \in L_{n,j}} \chi_{s,0}^{(j)}\left(x; \mathbf{D}_{\ell}\right)}_{\text{Oracle-H\'ajek-Residual}}

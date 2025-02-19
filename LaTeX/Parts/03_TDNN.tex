@@ -179,18 +179,18 @@ The main goal at this stage is to construct a highly practical method based on t
 
 While considering the problem of point-estimation of a conditional average
 treatment effect given a feature vector $x$,
-$\operatorname{CATE}(x) = \E\left[Y_{i}\left(W_{i} = 1\right) -
+$\theta_{0}(x) = \E\left[Y_{i}\left(W_{i} = 1\right) -
 		Y_{i}\left(W_{i} = 0\right) \, \middle| \, X_{i} = x\right]$, I
 will employ a Neyman-orthogonal score function to curtail the influence of the
 nuisance parameters on our estimation.
 \begin{equation}
 	\begin{aligned}
-		M(x; \operatorname{CATE}, \eta)
-		 & = \E\left[m\left(Z_{i}; \operatorname{CATE}, \eta\right) \, \middle| \, X_{i} = x\right]
+		M(x; \theta_{0}, \eta)
+		 & = \E\left[m\left(Z_{i}; \theta, \eta\right) \, \middle| \, X_{i} = x\right]
 		= 0
 		\quad \text{where} \quad                                                                                                                                                                                       \\
-		m\left(Z_{i}; \operatorname{CATE}, \eta\right)
-		 & = \mu^{1}\left(X_{i}\right) - \mu^{0}\left(X_{i}\right) + \beta\left(W_{i}, X_{i}\right)\left(Y_{i} - \mu^{W_{i}}\left(X_{i}\right)\right) - \operatorname{CATE}\left(X_{i}\right)
+		m\left(Z_{i}; \theta, \eta\right)
+		 & = \mu^{1}\left(X_{i}\right) - \mu^{0}\left(X_{i}\right) + \beta\left(W_{i}, X_{i}\right)\left(Y_{i} - \mu^{W_{i}}\left(X_{i}\right)\right) - \theta\left(X_{i}\right)
 	\end{aligned}
 \end{equation}
 Here, I make use of the following notation, that is common in the potential
@@ -200,7 +200,7 @@ outcomes framework, and the well-known Horvitz-Thompson weight.
 	\quad \text{and} \quad
 	\beta\left(w, x\right) = \frac{w}{\pi\left(x\right)} - \frac{1 - w}{1 - \pi\left(x\right)}
 \end{equation}
-As a shorthand notation, I will furthermore use $m\left(Z_{i}; \eta\right) = m\left(Z_{i}; \operatorname{CATE}, \eta\right) + \operatorname{CATE}\left(X_{i}\right)$.
+As a shorthand notation, I will furthermore use $m\left(Z_{i}; \eta\right) = m\left(Z_{i}; \theta_{0}, \eta\right) + \theta_{0}\left(X_{i}\right)$.
 This notation will mainly be used to shorten the presentation of proofs in the appendix.
 Proceeding in an analogous fashion to the nonparametric regression setup leads us to the following empirical moment equation, where $\hat{\mu}$ and $\hat{\pi}$ are first-stage estimators and $K$ is the data-driven kernel function defined in Equation~\ref{eq:data_distance}.
 \begin{equation}
@@ -238,12 +238,12 @@ For the sake of simplicity, I will assume that $m = n/K$, i.e.\ the desired numb
 			      \end{enumerate}
             For each fold $k$, denote the vector of estimates by $\hat{\eta}_{k} = \left(\hat{\mu}_{k}^{0}, \hat{\mu}_{k}^{1}, \hat{\pi}_{k}\right)^{\prime}$.
             For each observation $i$, define the combined estimator as follows $\hat{\eta}(Z_i) = \hat{\eta}_{k_{i}}(Z_i)$.
-			\item Construct the estimator $\widehat{\operatorname{CATE}}\left(x\right)$
+			\item Construct the estimator $\hat{\theta}\left(x\right)$
 			      as the solution to the following equation.
 			      \begin{equation}
 				      \begin{aligned}
-					      0 = \sum_{k = 1}^{K} \sum_{i \in I_k} K(x, X_{i}) m\left(Z_{i}; \widehat{\operatorname{CATE}}\left(x\right), \hat{\eta}_{k}\right)
-					      = \sum_{i = 1}^{n - s + 1} \frac{\binom{n-i}{s-1}}{\binom{n}{s}} m\left(Z_{(i)}; \widehat{\operatorname{CATE}}\left(x\right),\hat{\eta}_{k_{(i)}}\right)
+					      0 = \sum_{k = 1}^{K} \sum_{i \in I_k} K(x, X_{i}) m\left(Z_{i}; \hat{\theta}\left(x\right), \hat{\eta}_{k}\right)
+					      = \sum_{i = 1}^{n - s + 1} \frac{\binom{n-i}{s-1}}{\binom{n}{s}} m\left(Z_{(i)}; \hat{\theta}\left(x\right),\hat{\eta}_{k_{(i)}}\right)
 				      \end{aligned}
 			      \end{equation}
 		\end{enumerate}
@@ -260,7 +260,7 @@ This is because a lower subsampling scale averages over a larger number of obser
 Using the score function in the equation that defines the estimator, we can observe the following.
 \begin{equation}
 	\begin{aligned}
-		\widehat{\operatorname{CATE}}\left(x\right) 
+		\hat{\theta}\left(x\right) 
         & = \sum_{i = 1}^{n - s + 1} \frac{\binom{n-i}{s-1}}{\binom{n}{s}}
 		\left[\hat{\mu}_{k_{(i)}}^{1}\left(X_{(i)}\right) - \hat{\mu}_{k_{(i)}}^{0}\left(X_{(i)}\right) + \hat{\beta}_{k_{(i)}}\left(W_{(i)}, X_{(i)}\right)\left(Y_{(i)} - \hat{\mu}^{W_{(i)}}_{k_{(i)}}\left(X_{(i)}\right)\right)\right] \\
         %
@@ -271,10 +271,26 @@ Thus, given first-stage estimates of nuisance parameters, I have a closed-form r
 Furthermore, given these first-stage estimates, the evaluation of the CATE-estimator at a different point of interest is merely a re-weighting of the terms corresponding to different observations.
 
 As is typical in the literature on doubly-robust inference, we need to make assumptions on the convergence rate of the first-stage estimators to allow for the desired type of inference.
-Specifically, I make the following assumptions.
+Specifically, I take the following slightly modified assumptions from Assumption 3.2 of \citet{chernozhukov_doubledebiased_2018}.
 \begin{boxD}
     \begin{asm}[DDML-Rate Conditions]\label{asm:DDML_Rate_Cond}\mbox{}\\*
         {\color{red} LOREM IPSUM}
+        \begin{enumerate}
+            \item Given a random subset $I$ of $[n]$ of size $m = n/k$, the nuisance parameter estimator $\hat{\eta}\left(\mathbf{D}_{I^{C}}\right)$ belongs to the realization set $\mathcal{T}_n$ with probability $1 - \Delta_{n}$, where $\mathcal{T}_{n}$ contains $\eta_{0}$ and is constrained by the following conditions. 
+            Denote the event that $\hat{\eta}\left(\mathbf{D}_{I^{C}}\right) \in \mathcal{T}_{n}$ by $\mathcal{E}_{n}$.
+            \item The following moment conditions hold:
+            \begin{align}
+                {\color{red} LOREM IPSUM}
+            \end{align}
+            \item The following conditions on the statistical rates $r_{n}$, $r_{n}^{\prime}$, and $\lambda_{n}^{\prime}$ hold:
+            \begin{align}
+                {\color{red} LOREM IPSUM}
+            \end{align}
+            \item The variance of the score is non-zero.
+            \begin{equation}
+                {\color{red} LOREM IPSUM}
+            \end{equation}
+        \end{enumerate}
     \end{asm}    
 \end{boxD}
 
