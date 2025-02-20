@@ -36,6 +36,11 @@ where we have the following definition from Equation \ref{eq:DNNDML2_ResidDecomp
         & = \chi_{s,0}^{(c)}\left(x; \mathbf{D}_{\ell}\right) + \underbrace{\chi_{s}^{(c)}\left(x; \mathbf{D}_{\ell}, \hat{\eta}\right) - \chi_{s,0}^{(c)}\left(x; \mathbf{D}_{\ell}\right)}_{R_{c}\left(x; \mathbf{D}_{\ell}\right)}
     \end{aligned}
 \end{equation}
+Recall that we are ultimately even more interested in the approximation errors of the following form.
+\begin{equation}
+    \tilde{R}_{c}\left(x; \mathbf{D}_{\ell}\right)
+     = R_{c}\left(x; \mathbf{D}_{\ell}\right) - (-1)^{c} \cdot \left(\E_{D}\left[\chi_{s}(x; \mathbf{D}_{[s]}, \hat{\eta}) - \chi_{s,0}\left(x; \mathbf{D}_{[s]}\right)\right]\right)
+\end{equation}
 
 \hrule
 
@@ -48,56 +53,68 @@ where we have the following definition from Equation \ref{eq:DNNDML2_ResidDecomp
     \begin{equation}
         \begin{aligned}
             \bar{R}_{1, k}\left(x\right)
-            & = \frac{1}{m}\sum_{l \in I_{k}}R_{1, k}\left(x, Z_{l}\right)
+            & = \frac{1}{m}\sum_{l \in I_{k}}\tilde{R}_{1, k}\left(x, Z_{l}\right)
+            % = \frac{1}{m}\sum_{l \in I_{k}}
+            % \left(\chi_{s}^{(1)}\left(x; Z_l, \hat{\eta}_{k}\right) - \chi_{s,0}^{(1)}\left(x; Z_l\right)\right) \\
+            % %
             = \frac{1}{m}\sum_{l \in I_{k}}
-            \left(\chi_{s}^{(1)}\left(x; Z_l, \hat{\eta}_{k}\right) - \chi_{s,0}^{(1)}\left(x; Z_l\right)\right) \\
-            %
-            & = \frac{1}{m}\sum_{l \in I_{k}}
             \left(\vartheta_{s}^{1}\left(x; Z_l, \hat{\eta}_{k}\right)
-            - \E_{D}\left[\chi_{s}(x; \mathbf{D}_{[s]}, \hat{\eta}_{k})\right]
             - \vartheta_{s,0}^{1}\left(x; Z_l\right) 
-            + \E_{D}\left[\chi_{s,0}\left(x; \mathbf{D}_{[s]}\right)\right]\right)\\
+            \right)\\
             %
             & = \frac{1}{m}\sum_{l \in I_{k}}
             \E_{D}\left[\chi_{s}(x; \mathbf{D}_{[s]}, \hat{\eta}_{k}) - \chi_{s,0}(x; \mathbf{D}_{[s]})\, \middle| \, Z_1 = Z_l \right]
-            - \E_{D}\left[\chi_{s}(x; \mathbf{D}_{[s]}, \hat{\eta}_{k}) - \chi_{s,0}\left(x; \mathbf{D}_{[s]}\right)\right] \\
-            %
-            & = \frac{1}{m s!}\sum_{l \in I_{k}}
-            \E_{D}\left[\sum_{i = 1}^{n}\kappa(x; Z_{i}, \mathbf{D}_{[s]})
-            \left(m\left(Z_{i}, \hat{\eta}_{k}\right) - m\left(Z_{i}, \eta_{0}\right)\right) \, \middle| \, Z_1 = Z_l \right] \\
-            & \quad - \E_{D}\left[\chi_{s}(x; \mathbf{D}_{[s]}, \hat{\eta}_{k}) - \chi_{s,0}\left(x; \mathbf{D}_{[s]}\right)\right] \\
-            %
-            & = \frac{1}{m s!}\sum_{l \in I_{k}}
-            \Bigg\{
-                \underbrace{\E_{D}\left[\kappa(x; Z_{1}, \mathbf{D}_{[s]})m\left(Z_{1}, \hat{\eta}_{k}\right)\, \middle| \, Z_1 = Z_l \right]}_{(A_{l})}
-                - \underbrace{m\left(Z_{l}, \eta_{0}\right)\E_{D}\left[\kappa(x; Z_{1}, \mathbf{D}_{[s]}) \, \middle| \, Z_1 = Z_l \right]}_{(B_{l})}  \\
-            & \quad \quad  + (s-1) \left( \underbrace{\E_{D}\left[\kappa(x; Z_{2}, \mathbf{D}_{[s]})m\left(Z_{2}, \hat{\eta}_{k}\right)\, \middle| \, Z_1 = Z_l \right]}_{(C_{l})}
-            - \underbrace{\E_{D}\left[\kappa(x; Z_{2}, \mathbf{D}_{[s]})m\left(Z_{2}, \eta_{0}\right) \, \middle| \, Z_1 = Z_l \right]}_{(D_{l})} \right)
-            \Bigg\} \\
-            & \quad - \E_{D}\left[\chi_{s}(x; \mathbf{D}_{[s]}, \hat{\eta}_{k}) - \chi_{s,0}\left(x; \mathbf{D}_{[s]}\right)\right]
+            % %
+            % & = \frac{1}{m s!}\sum_{l \in I_{k}}
+            % \E_{D}\left[\sum_{i = 1}^{n}\kappa(x; Z_{i}, \mathbf{D}_{[s]})
+            % \left(m\left(Z_{i}, \hat{\eta}_{k}\right) - m\left(Z_{i}, \eta_{0}\right)\right) \, \middle| \, Z_1 = Z_l \right]
+            % %
+            % & = \frac{1}{m s!}\sum_{l \in I_{k}}
+            % \Bigg\{
+            %     \underbrace{\E_{D}\left[\kappa(x; Z_{1}, \mathbf{D}_{[s]})m\left(Z_{1}, \hat{\eta}_{k}\right)\, \middle| \, Z_1 = Z_l \right]}_{(A_{l})}
+            %     - \underbrace{m\left(Z_{l}, \eta_{0}\right)\E_{D}\left[\kappa(x; Z_{1}, \mathbf{D}_{[s]}) \, \middle| \, Z_1 = Z_l \right]}_{(B_{l})}  \\
+            % & \quad \quad  + (s-1) \left( \underbrace{\E_{D}\left[\kappa(x; Z_{2}, \mathbf{D}_{[s]})m\left(Z_{2}, \hat{\eta}_{k}\right)\, \middle| \, Z_1 = Z_l \right]}_{(C_{l})}
+            % - \underbrace{\E_{D}\left[\kappa(x; Z_{2}, \mathbf{D}_{[s]})m\left(Z_{2}, \eta_{0}\right) \, \middle| \, Z_1 = Z_l \right]}_{(D_{l})} \right)
+            % \Bigg\}
         \end{aligned}
     \end{equation}
-    Here, in analogy to step 3 in the proof of Theorem 3.1 in \citet{chernozhukov_doubledebiased_2018}, we can now observe the following.
+    Define the following empirical process notation, where $f$ is any $Q$-integrable function on $\mathcal{Z}$.
+    \begin{equation}
+        \begin{aligned}
+            \mathbb{G}_{m,k}\left[f(Z)\right]
+            & = \sqrt{\frac{1}{m}} \sum_{i \in I_{k}} \Big(f(Z_i) - \E_{Z}\left[f(Z)\right]\Big)
+        \end{aligned}
+    \end{equation}
+    Here, in analogy to step 3 in the proof of Theorem 3.1 in \citet{chernozhukov_doubledebiased_2018}, we can now observe the following which follows from the triangle inequality.
     \begin{equation}
         \begin{aligned}
             \left|\bar{R}_{1, k}\left(x\right)\right|
-            & \leq \mathcal{I}_{3,k}^{(1)} + \mathcal{I}_{4,k}^{(1)}
+            & \leq \sqrt{\frac{1}{m}} \cdot \left(\mathcal{I}_{3,k}^{(1)} + \mathcal{I}_{4,k}^{(1)}\right)
         \end{aligned}
     \end{equation}
     where
     \begin{equation}
         \begin{aligned}
-            \mathcal{I}_{1,k}^{(1)} 
-            & = {\color{red} LOREM IPSUM}
+            \mathcal{I}_{3,k}^{(1)} 
+            & := \left|\mathbb{G}_{m,k}\left[\E_{D}\left[\chi_{s}(x; \mathbf{D}_{[s]}, \hat{\eta}_{k})\, \middle| \, Z_1 = Z \right]\right] 
+            - \mathbb{G}_{m,k}\left[\E_{D}\left[\chi_{s,0}(x; \mathbf{D}_{[s]})\, \middle| \, Z_1 = Z \right]\right]\right|
         \end{aligned}
     \end{equation}
     \begin{equation}
         \begin{aligned}
-            \mathcal{I}_{2,k}^{(1)} 
-            & = {\color{red} LOREM IPSUM}
+            \mathcal{I}_{4,k}^{(1)} 
+            & := \sqrt{m} \cdot \left|
+            \E_{Z}\left[\E_{D}\left[\chi_{s}(x; \mathbf{D}_{[s]}, \hat{\eta}_{k})\, \middle| \, Z_1 = Z \right] \, \middle| \, \mathbf{D}_{I_{k}^{C}}\right]
+            - \E_{Z}\left[\E_{D}\left[\chi_{s,0}(x; \mathbf{D}_{[s]})\, \middle| \, Z_1 = Z \right]\right]\right|
         \end{aligned}
     \end{equation}
     Notice that conditional on $\mathbf{D}_{I_{k}^{C}}$ the first-stage estimate $\hat{\eta}_{k}$ is non-stochastic.
+    This allows us to make the following observation given the event $\mathcal{E}_{n}$ obtains.
+    \begin{equation}
+        \begin{aligned}
+            {\color{red} LOREM IPSUM}
+        \end{aligned}
+    \end{equation}
 {\color{red} LOREM IPSUM}
 \end{proof}
 

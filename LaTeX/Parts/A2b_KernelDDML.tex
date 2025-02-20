@@ -3,10 +3,6 @@
 
 Recall first the conditions imposed in Assumption \ref{asm:DDML_Rate_Cond}.
 \begin{align}
-    m_{n} 
-    & :=\sup_{\eta \in \mathcal{T}_{n}}\left(\E_{Z}\left[\left|m\left(Z; \theta_0, \eta\right)\right|^q\right]\right)^{1 / q}
-    \leq c_1\\
-    %
     r_{n}^{\prime}
     & :=\sup_{\eta \in \mathcal{T}_{n}}\left(\E_{Z}\left[\left|m\left(Z; \theta_0, \eta\right)-m\left(Z; \theta_0, \eta_0\right)\right|^2\right]\right)^{1 / 2} 
     \leq \delta_{n}\\
@@ -22,29 +18,83 @@ Thus, recall the form of the error terms as introduced in Equation \ref{eq:DNNDM
     R_{c}\left(x; \mathbf{D}_{\ell}\right) 
     = \chi_{s}^{(c)}\left(x; \mathbf{D}_{\ell}, \hat{\eta}\right) - \chi_{s,0}^{(c)}\left(x; \mathbf{D}_{\ell}\right)
 \end{equation}
+More specifically, we are interested in the part absent the centering term as these mostly cancel out across the error terms of different order.
+\begin{equation}
+    \tilde{R}_{c}\left(x; \mathbf{D}_{\ell}\right)
+    = R_{c}\left(x; \mathbf{D}_{\ell}\right) - (-1)^{c} \cdot \left(\E_{D}\left[\chi_{s}(x; \mathbf{D}_{[s]}, \hat{\eta}) - \chi_{s,0}\left(x; \mathbf{D}_{[s]}\right)\right]\right)
+\end{equation}
 
-\begin{lem}[]\label{lem:rate_cond_errors}\mbox{}\\*
+\hrule
+
+\begin{lem}[]\label{lem:rate_cond_errors1}\mbox{}\\*
     {\color{red} LOREM IPSUM}
 \end{lem}
 
-\begin{proof}[Proof of Lemma \ref{lem:rate_cond_errors}]\mbox{}\\*
+\begin{proof}[Proof of Lemma \ref{lem:rate_cond_errors1}]\mbox{}\\*
     Consider the following argument.
     \begin{equation}
         \begin{aligned}
             & \sup_{\eta \in \mathcal{T}_{n}}\left(
                 \E_{Z}\left[
                     \left|\chi_{s}^{(1)}\left(x; Z, \eta\right) 
-                    - \chi_{s,0}^{(1)}\left(x; Z\right)\right|^2
+                    - \chi_{s,0}^{(1)}\left(x; Z\right)
+                    + \left(\E_{D}\left[\chi_{s}(x; \mathbf{D}_{[s]}, \hat{\eta}) - \chi_{s,0}\left(x; \mathbf{D}_{[s]}\right)\right]\right)
+                    \right|^2
                 \right]
             \right)^{1 / 2} \\
             %
             & \quad = \sup_{\eta \in \mathcal{T}_{n}}\left(
                 \E_{Z}\left[\left|\vartheta_{s}^{1}\left(x; Z, \eta\right)
-            - \E_{D}\left[\chi_{s}(x; \mathbf{D}_{[s]}, \eta)\right]
-            - \vartheta_{s,0}^{1}\left(x; Z\right) 
-            + \E_{D}\left[\chi_{s,0}\left(x; \mathbf{D}_{[s]}\right)\right]\right|^{2}\right]
-            \right)^{1 / 2}
+            - \vartheta_{s,0}^{1}\left(x; Z\right) \right|^{2}\right]
+            \right)^{1 / 2}\\
+            %
+            & \quad = \sup_{\eta \in \mathcal{T}_{n}}\Bigg(
+                \E_{Z}\Bigg[\Big|
+                \frac{m\left(Z, \theta_{0}, \eta\right) - m\left(Z, \theta_{0}, \eta_{0}\right)}{s!} \cdot \E_{D}\left[\kappa(x; Z_{1}, \mathbf{D}_{[s]}) \, \middle| \, Z_1 = Z \right]  \\
+            & \quad + \frac{s-1}{s!} \cdot \E_{D}\left[\kappa(x; Z_{2}, \mathbf{D}_{[s]})\cdot \left(m\left(Z_{2}, \theta_{0}, \eta\right)
+            - m\left(Z_{2}, \theta_{0}, \eta_{0}\right)\right) \, \middle| \, Z_1 = Z \right] 
+            \Big|^{2}\Bigg]
+            \Bigg)^{1 / 2}\\
+            %
+            & \quad \overset{\triangle\text{-ineq.}}{\leq} \sup_{\eta \in \mathcal{T}_{n}}\Bigg\{
+                \frac{1}{s!} \left(\E_{Z}\Bigg[\Big|\left(m\left(Z, \theta_{0}, \eta\right) - m\left(Z, \theta_{0}, \eta_{0}\right)\right) \cdot \E_{D}\left[\kappa(x; Z_{1}, \mathbf{D}_{[s]}) \, \middle| \, Z_1 = Z \right] \Big|^{2}\Bigg]\right)^{1/2}\\
+                & \quad \quad + \frac{s-1}{s!} \left(\E_{Z}\Bigg[\Big|\E_{D}\left[\kappa(x; Z_{2}, \mathbf{D}_{[s]})\cdot \left(m\left(Z_{2}, \theta_{0}, \eta\right)
+            - m\left(Z_{2}, \theta_{0}, \eta_{0}\right)\right) \, \middle| \, Z_1 = Z \right]\Big|^{2}\Bigg]\right)^{1/2}\Bigg\}
         \end{aligned}
     \end{equation}
+    Continuing from this step, we can further observe the following.
+    \begin{equation}
+        \begin{aligned}
+            & \sup_{\eta \in \mathcal{T}_{n}}\left(
+                \E_{Z}\left[
+                    \left|\chi_{s}^{(1)}\left(x; Z, \eta\right) 
+                    - \chi_{s,0}^{(1)}\left(x; Z\right)
+                    + \left(\E_{D}\left[\chi_{s}(x; \mathbf{D}_{[s]}, \hat{\eta}) - \chi_{s,0}\left(x; \mathbf{D}_{[s]}\right)\right]\right)\right|^2
+                \right]
+            \right)^{1 / 2} \\
+            %
+            & \quad \leq
+             \frac{1}{s!}\sup_{\eta \in \mathcal{T}_{n}}\left(\E_{Z}\Bigg[\left(m\left(Z, \theta_{0}, \eta\right) - m\left(Z, \theta_{0}, \eta_{0}\right)\right)^{2} \cdot \E_{D}\left[\kappa(x; Z_{1}, \mathbf{D}_{[s]}) \, \middle| \, Z_1 = Z \right]^{2}\Bigg]\right)^{1/2}\\
+            & \quad \quad + \frac{s-1}{s!} \sup_{\eta \in \mathcal{T}_{n}} \left(\E_{Z}\Bigg[\E_{D}\left[\kappa(x; Z_{2}, \mathbf{D}_{[s]})\cdot \left(m\left(Z_{2}, \theta_{0}, \eta\right)
+            - m\left(Z_{2}, \theta_{0}, \eta_{0}\right)\right) \, \middle| \, Z_1 = Z \right]^{2}\Bigg]\right)^{1/2} \\
+            %
+            & \quad \leq 
+            \frac{1}{s!}\sup_{\eta \in \mathcal{T}_{n}}\left(\E_{Z}\Bigg[\left(m\left(Z, \theta_{0}, \eta\right) - m\left(Z, \theta_{0}, \eta_{0}\right)\right)^{2}\Bigg]\right)^{1/2}
+            + \frac{s-1}{s!} \sup_{\eta \in \mathcal{T}_{n}} \left(\E_{Z}\Bigg[\E_{D}\left[m\left(Z_{2}, \theta_{0}, \eta\right)
+            - m\left(Z_{2}, \theta_{0}, \eta_{0}\right) \, \middle| \, Z_1 = Z \right]^{2}\Bigg]\right)^{1/2} \\
+            %
+            & \quad \leq \frac{\delta_{n}}{(s-1)!}
+        \end{aligned}
+    \end{equation}
+    {\color{red} LOREM IPSUM}
+\end{proof}
+
+\hrule
+
+\begin{lem}[]\label{lem:rate_cond_errors2}\mbox{}\\*
+    {\color{red} LOREM IPSUM}
+\end{lem}
+
+\begin{proof}[Proof of Lemma \ref{lem:rate_cond_errors2}]\mbox{}\\*
     {\color{red} LOREM IPSUM}
 \end{proof}

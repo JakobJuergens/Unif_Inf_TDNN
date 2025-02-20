@@ -18,7 +18,7 @@ The first statistical setup is a pure nonparametric regression setup that closel
 			\quad \text{from the model} \quad
 			Y = \mu(X) + \varepsilon,
 		\end{equation}
-		where $Y \in \mathbb{R}$ is the response, $X \in \mathcal{X} \subset \mathbb{R}^k$ is a feature vector of fixed dimension $k$ distributed according to a density function $f$ with associated probability measure $\varphi$ on $\mathcal{X}$, and $\mu(x)$ is the unknown mean regression function.
+		where $Y \in \mathcal{Y} \subset \mathbb{R}$ is the response, $X \in \mathcal{X} \subset \mathbb{R}^k$ is a feature vector of fixed dimension $k$ distributed according to a density function $f$ with associated probability measure $\varphi$ on $\mathcal{X}$, and $\mu(x)$ is the unknown mean regression function.
 		$\varepsilon$ is the unobservable model error on which I impose the following conditions.
 		\begin{equation}
 			\E\left[\varepsilon \, \middle| \, X\right] = 0, \quad
@@ -48,7 +48,7 @@ This statistical setup serves as a more immediately applicable version of the th
 				W_{i} & \sim \operatorname{Bern}\left(\pi_{0}\left(X_{i}\right)\right)
 			\end{aligned}
 		\end{equation}
-		where $Y \in \mathbb{R}$ is the response and $W \in \{0,1\}$ is an observed treatment indicator.
+		where $Y \in \mathcal{Y} \subset \mathbb{R}$ is the response and $W \in \{0,1\}$ is an observed treatment indicator.
 		$X \in \mathcal{X} \subset \mathbb{R}^k$ is a vector of covariates of fixed dimension $k$ distributed according to a density function $f$ with an associated probability measure $\varphi$ on $\mathcal{X}$ and $\varepsilon$ is the unobservable model error on which I impose the following conditions.
 		\begin{equation}
 			\varepsilon \indep W \, | \, X, \quad
@@ -58,7 +58,7 @@ This statistical setup serves as a more immediately applicable version of the th
 		Furthermore, $\mu_{0}^{0}:\mathcal{X} \rightarrow \mathbb{R}$ and $\mu_{0}^{1}:\mathcal{X} \rightarrow \mathbb{R}$ are the two unknown potential outcome functions and $\pi_{0}:\mathcal{X} \rightarrow [0,1]$ is a function describing the probability of treatment uptake, effectively corresponding to the propensity score.
         \begin{itemize}
             \item We denote the vector of functional nuisance parameters by $\eta_{0} = \left(\mu_{0}^{0}, \mu_{0}^{1}, \pi_{0}\right)^{\prime}$.
-            \item Let the distribution induced by this model be denoted by $Q$ and thus $Z_{i} = \left(X_{i}, W_{i}, Y_{i}\right) \overset{\text{iid}}{\sim} Q$.
+            \item Let the distribution induced by this model be denoted by $Q$ and thus $Z_{i} = \left(X_{i}, W_{i}, Y_{i}\right) \overset{\text{iid}}{\sim} Q$ supported on $\mathcal{Z} \subset \mathcal{X}\times\{0,1\}\times\mathcal{Y}$.
         \end{itemize}
 	\end{asm}
 \end{boxD}
