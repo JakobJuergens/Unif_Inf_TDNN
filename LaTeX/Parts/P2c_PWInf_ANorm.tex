@@ -60,10 +60,10 @@ Recall that we are ultimately even more interested in the approximation errors o
             = \frac{1}{m}\sum_{l \in I_{k}}
             \left(\vartheta_{s}^{1}\left(x; Z_l, \hat{\eta}_{k}\right)
             - \vartheta_{s,0}^{1}\left(x; Z_l\right) 
-            \right)\\
-            %
-            & = \frac{1}{m}\sum_{l \in I_{k}}
-            \E_{D}\left[\chi_{s}(x; \mathbf{D}_{[s]}, \hat{\eta}_{k}) - \chi_{s,0}(x; \mathbf{D}_{[s]})\, \middle| \, Z_1 = Z_l \right]
+            \right)
+            % %
+            % & = \frac{1}{m}\sum_{l \in I_{k}}
+            % \E_{D}\left[\chi_{s}(x; \mathbf{D}_{[s]}, \hat{\eta}_{k}) - \chi_{s,0}(x; \mathbf{D}_{[s]})\, \middle| \, Z_1 = Z_l \right]
             % %
             % & = \frac{1}{m s!}\sum_{l \in I_{k}}
             % \E_{D}\left[\sum_{i = 1}^{n}\kappa(x; Z_{i}, \mathbf{D}_{[s]})
@@ -96,16 +96,16 @@ Recall that we are ultimately even more interested in the approximation errors o
     \begin{equation}
         \begin{aligned}
             \mathcal{I}_{3,k}^{(1)} 
-            & := \left|\mathbb{G}_{m,k}\left[\E_{D}\left[\chi_{s}(x; \mathbf{D}_{[s]}, \hat{\eta}_{k})\, \middle| \, Z_1 = Z \right]\right] 
-            - \mathbb{G}_{m,k}\left[\E_{D}\left[\chi_{s,0}(x; \mathbf{D}_{[s]})\, \middle| \, Z_1 = Z \right]\right]\right|
+            & := \left|\mathbb{G}_{m,k}\left[\vartheta_{s}^{1}\left(x; Z, \hat{\eta}_{k}\right)\right] 
+            - \mathbb{G}_{m,k}\left[\vartheta_{s,0}^{1}\left(x; Z\right) \right]\right|
         \end{aligned}
     \end{equation}
     \begin{equation}
         \begin{aligned}
             \mathcal{I}_{4,k}^{(1)} 
             & := \sqrt{m} \cdot \left|
-            \E_{Z}\left[\E_{D}\left[\chi_{s}(x; \mathbf{D}_{[s]}, \hat{\eta}_{k})\, \middle| \, Z_1 = Z \right] \, \middle| \, \mathbf{D}_{I_{k}^{C}}\right]
-            - \E_{Z}\left[\E_{D}\left[\chi_{s,0}(x; \mathbf{D}_{[s]})\, \middle| \, Z_1 = Z \right]\right]\right|
+            \E_{Z}\left[\vartheta_{s}^{1}\left(x; Z, \hat{\eta}_{k}\right) \, \middle| \, \mathbf{D}_{I_{k}^{C}}\right]
+            - \E_{Z}\left[\vartheta_{s,0}^{1}\left(x; Z\right) \right]\right|
         \end{aligned}
     \end{equation}
     Notice that conditional on $\mathbf{D}_{I_{k}^{C}}$ the first-stage estimate $\hat{\eta}_{k}$ is non-stochastic.
