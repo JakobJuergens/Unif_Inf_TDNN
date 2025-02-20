@@ -276,15 +276,30 @@ Specifically, I take the following slightly modified assumptions from Assumption
     \begin{asm}[DDML-Rate Conditions]\label{asm:DDML_Rate_Cond}\mbox{}\\*
         {\color{red} LOREM IPSUM}
         \begin{enumerate}
-            \item Given a random subset $I$ of $[n]$ of size $m = n/k$, the nuisance parameter estimator $\hat{\eta}\left(\mathbf{D}_{I^{C}}\right)$ belongs to the realization set $\mathcal{T}_n$ with probability $1 - \Delta_{n}$, where $\mathcal{T}_{n}$ contains $\eta_{0}$ and is constrained by the following conditions. 
+            \item Given a random subset $I$ of $[n]$ of size $m = n/k$, the nuisance parameter estimator $\hat{\eta}\left(\mathbf{D}_{I^{C}}\right)$ belongs to the realization set $\mathcal{T}_{n}$ with probability $1 - \Delta_{n}$, where $\mathcal{T}_{n}$ contains $\eta_{0}$ and is constrained by the following conditions. 
             Denote the event that $\hat{\eta}\left(\mathbf{D}_{I^{C}}\right) \in \mathcal{T}_{n}$ by $\mathcal{E}_{n}$.
-            \item The following moment conditions hold:
+            \item The following moment condition holds:
             \begin{align}
-                {\color{red} LOREM IPSUM}
+                m_{n} 
+                & :=\sup_{\eta \in \mathcal{T}_{n}}\left(\E_{Z}\left[\left|m\left(Z; \theta_0, \eta\right)\right|^q\right]\right)^{1 / q}
+                \leq c_1
+                % m_{n}^{\prime} 
+                % & :=\sup_{\eta \in \mathcal{T}_{n}}\left(\E_{Z}\left[\left|\psi^a(Z; \eta)\right|^q\right]\right)^{1 / q} 
+                % \leq c_1 .
             \end{align}
             \item The following conditions on the statistical rates $r_{n}$, $r_{n}^{\prime}$, and $\lambda_{n}^{\prime}$ hold:
             \begin{align}
-                {\color{red} LOREM IPSUM}
+                % r_{n}
+                % & :=\sup_{\eta \in \mathcal{T}_{n}}\left|\E_{Z}\left[\psi^a(Z; \eta)\right]-\E_{Z}\left[\psi^a\left(Z; \eta_0\right)\right]\right| 
+                % \leq \delta_{n}, \\
+                % %
+                r_{n}^{\prime}
+                & :=\sup_{\eta \in \mathcal{T}_{n}}\left(\E_{Z}\left[\left|m\left(Z; \theta_0, \eta\right)-m\left(Z; \theta_0, \eta_0\right)\right|^2\right]\right)^{1 / 2} 
+                \leq \delta_{n}, \\
+                %
+                \lambda_{n}^{\prime}
+                & :=\sup_{r \in(0,1), \eta \in \mathcal{T}_{n}}\left|\partial_r^2 \E_{Z}\left[m\left(Z; \theta_0, \eta_0+r\left(\eta-\eta_0\right)\right)\right]\right| 
+                \leq \delta_{n} / \sqrt{n} .
             \end{align}
             \item The variance of the score is non-zero.
             \begin{equation}
@@ -293,4 +308,7 @@ Specifically, I take the following slightly modified assumptions from Assumption
         \end{enumerate}
     \end{asm}    
 \end{boxD}
+In contrast to the paper that these assumptions are taken from, there is an absence of conditions on what is named $\psi^{a}$ in the original paper.   This is due to the fact that in the case of the CATE, this term is $-1$ and thus independent of the nuisance parameters.
+Thus, specific constraints on the effects of the first-stage estimation problem are unnecessary.
+In a potential generalization of the method proposed in this paper to other doubly-robust inference problems, this aspect should be addressable with relatively minimal additional technical arguments along the lines in \citet{chernozhukov_doubledebiased_2018}.
 

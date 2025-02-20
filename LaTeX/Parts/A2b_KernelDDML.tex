@@ -1,0 +1,50 @@
+\subsection{Consequences of DDML Rate-Assumptions}
+\hrule
+
+Recall first the conditions imposed in Assumption \ref{asm:DDML_Rate_Cond}.
+\begin{align}
+    m_{n} 
+    & :=\sup_{\eta \in \mathcal{T}_{n}}\left(\E_{Z}\left[\left|m\left(Z; \theta_0, \eta\right)\right|^q\right]\right)^{1 / q}
+    \leq c_1\\
+    %
+    r_{n}^{\prime}
+    & :=\sup_{\eta \in \mathcal{T}_{n}}\left(\E_{Z}\left[\left|m\left(Z; \theta_0, \eta\right)-m\left(Z; \theta_0, \eta_0\right)\right|^2\right]\right)^{1 / 2} 
+    \leq \delta_{n}\\
+    %
+    \lambda_{n}^{\prime}
+    & :=\sup_{r \in(0,1), \eta \in \mathcal{T}_{n}}\left|\partial_r^2 \E_{Z}\left[m\left(Z; \theta_0, \eta_0+r\left(\eta-\eta_0\right)\right)\right]\right| 
+    \leq \delta_{n} / \sqrt{n}
+\end{align}
+
+We are interested in how these conditions translate into statements on the Oracle-Hoeffding decomposition errors.
+Thus, recall the form of the error terms as introduced in Equation \ref{eq:DNNDML2_ResidDecomp}.
+\begin{equation}
+    R_{c}\left(x; \mathbf{D}_{\ell}\right) 
+    = \chi_{s}^{(c)}\left(x; \mathbf{D}_{\ell}, \hat{\eta}\right) - \chi_{s,0}^{(c)}\left(x; \mathbf{D}_{\ell}\right)
+\end{equation}
+
+\begin{lem}[]\label{lem:rate_cond_errors}\mbox{}\\*
+    {\color{red} LOREM IPSUM}
+\end{lem}
+
+\begin{proof}[Proof of Lemma \ref{lem:rate_cond_errors}]\mbox{}\\*
+    Consider the following argument.
+    \begin{equation}
+        \begin{aligned}
+            & \sup_{\eta \in \mathcal{T}_{n}}\left(
+                \E_{Z}\left[
+                    \left|\chi_{s}^{(1)}\left(x; Z, \eta\right) 
+                    - \chi_{s,0}^{(1)}\left(x; Z\right)\right|^2
+                \right]
+            \right)^{1 / 2} \\
+            %
+            & \quad = \sup_{\eta \in \mathcal{T}_{n}}\left(
+                \E_{Z}\left[\left|\vartheta_{s}^{1}\left(x; Z, \eta\right)
+            - \E_{D}\left[\chi_{s}(x; \mathbf{D}_{[s]}, \eta)\right]
+            - \vartheta_{s,0}^{1}\left(x; Z\right) 
+            + \E_{D}\left[\chi_{s,0}\left(x; \mathbf{D}_{[s]}\right)\right]\right|^{2}\right]
+            \right)^{1 / 2}
+        \end{aligned}
+    \end{equation}
+    {\color{red} LOREM IPSUM}
+\end{proof}
