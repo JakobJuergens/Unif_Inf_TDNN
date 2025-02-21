@@ -68,22 +68,25 @@ Clearly, this model can be interpreted in the context of the potential outcomes 
 Throughout this paper, I will additionally rely on a number of assumptions that are more technical in nature.
 \begin{boxD}
 	\begin{asm}[Technical Assumptions]\label{asm:technical}\mbox{}\\*
-		In both settings (Setup~\ref{asm:npr_dgp} and Setup~\ref{asm:CATE_dgp}) the following conditions hold:
+		In both settings (Setup~\ref{asm:npr_dgp} and Setup~\ref{asm:CATE_dgp}) the following conditions hold as applicable to the settings, respectively.
 		\begin{itemize}
 			\item The feature space $\mathcal{X} = \operatorname{supp}(X)$ is a bounded, compact subset of $\mathbb{R}^k$
-			\item The density $f(\cdot)$ is bounded away from 0 and $\infty$
-			\item $f(\cdot)$ are $\mu(\cdot)$ are four times continuously differentiable with bounded second, third, and fourth-order partial derivatives in a neighborhood of $x$
-            \item $\mu(\cdot) \in L^{2}\left(\mathcal{X}\right)$ is a square-integrable function on $\mathcal{X}$.
-		\end{itemize}
-		In the Heterogeneous Treatment Effect setting (Assumption~\ref{asm:CATE_dgp}), the following additional condition holds:
-		\begin{itemize}
-			\item $\mu_{0}^{0}(\cdot)$ and $\mu_{0}^{1}(\cdot)$ are four times continuously differentiable with bounded second, third, and fourth-order partial derivatives in a neighborhood of $x$
-            \item $\mu_{0}^{0}(\cdot), \mu_{0}^{1}(\cdot) \in L^{2}\left(\mathcal{X}\right)$ are square-integrable functions on $\mathcal{X}$.
+			\item The density $f(\cdot)$ is bounded away from 0 and $\infty$.
+            \begin{equation}
+                \forall x \in \mathcal{X}: \quad 0 < \underline{\mathfrak{f}} \leq f(x) \leq \overline{\mathfrak{f}} < \infty
+            \end{equation}
+			\item $f(\cdot)$, $\mu(\cdot)$, $\mu_{0}^{0}(\cdot)$, $\mu_{0}^{1}(\cdot)$, and $\pi_{0}(\cdot)$ are four times continuously differentiable with bounded second, third, and fourth-order partial derivatives.
+            \begin{equation}
+                \forall x \in \mathcal{X} \quad \forall (i,j,k,l) \in [d]^{4}: \quad {\color{red} LOREM IPSUM}
+            \end{equation}
+            % in a neighborhood of $x$
+            \item $\mu(\cdot), \mu_{0}^{0}(\cdot), \mu_{0}^{1}(\cdot) \in L^{2}\left(\mathcal{X}\right)$ are square-integrable functions on $\mathcal{X}$.
 		\end{itemize}
 	\end{asm}
 \end{boxD}
-There is a potential to relax these assumptions at the cost of requiring both less interpretable conditions and more technically sophisticated proofs.
-Furthermore, it is necessary to point out again that I are considering a highly stylized example, as applying these conditions to the IT training program quickly runs into problems.
+There is considerable potential to relax these assumptions at the cost of requiring both less interpretable conditions and more technically sophisticated proofs. 
+For example, the bounded derivatives condition can be relaxed to hold only in a neighborhood of $x$ while requiring a weaker, more complex condition on the behavior of the derivatives beyond that neighborhood.
+Furthermore, it is necessary to point out again that this setup considers a highly stylized example, as applying these conditions to the IT training program quickly runs into problems.
 \begin{boxE}
     \addtocounter{exmp}{-1}
     \begin{exmp}[Average Hourly Earnings and IT Training - continued]\mbox{}\\*
