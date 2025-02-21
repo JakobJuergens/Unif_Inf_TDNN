@@ -75,10 +75,27 @@ Throughout this paper, I will additionally rely on a number of assumptions that 
             \begin{equation}
                 \forall x \in \mathcal{X}: \quad 0 < \underline{\mathfrak{f}} \leq f(x) \leq \overline{\mathfrak{f}} < \infty
             \end{equation}
-			\item $f(\cdot)$, $\mu(\cdot)$, $\mu_{0}^{0}(\cdot)$, $\mu_{0}^{1}(\cdot)$, and $\pi_{0}(\cdot)$ are four times continuously differentiable with bounded second, third, and fourth-order partial derivatives.
+			\item $f(\cdot)$, $\mu(\cdot)$, $\mu_{0}^{0}(\cdot)$, $\mu_{0}^{1}(\cdot)$, and $\pi_{0}(\cdot)$ are four times continuously differentiable with bounded second, third, and fourth-order partial derivatives. Specifically, in mathematical terms: 
             \begin{equation}
-                \forall x \in \mathcal{X} \quad \forall (i,j,k,l) \in [d]^{4}: \quad {\color{red} LOREM IPSUM}
+            \forall w\in \{0,1\} \quad \forall x \in \mathcal{X} \quad \forall (i,j,k,l) \in [d]^{4}:
             \end{equation}
+            \vspace{-0.8cm}
+            \begin{alignat*}{14}
+                -\infty & \; < \; & \underline{\mathfrak{f}}^{\prime} 
+                & \; \leq \; && \partial_{i,j} f(x), \; && \partial_{i,j,k} f(x), \; && \partial_{i,j,k,l} f(x) && \; \leq \; & \overline{\mathfrak{f}}^{\prime} & \; < \; & \infty \\
+                %
+                -\infty & \; < \; & \underline{\mathfrak{m}}^{\prime} 
+                & \; \leq \; && \partial_{i,j} \mu(x), \; && \partial_{i,j,k} \mu(x), \; && \partial_{i,j,k,l} \mu(x)
+                && \; \leq \; & \overline{\mathfrak{m}}^{\prime} & \; < \; & \infty \\
+                %
+                -\infty & \; < \; & \underline{\mathfrak{m}}^{\prime} 
+                & \; \leq \; && \partial_{i,j} \mu_{0}^{w}(x), \; && \partial_{i,j,k} \mu_{0}^{w}(x), \; && \partial_{i,j,k,l} \mu_{0}^{w}(x)
+                && \; \leq \; & \overline{\mathfrak{m}}^{\prime} & \; < \; & \infty \\
+                %
+                -\infty & \; < \; & \underline{\mathfrak{p}}^{\prime} 
+                & \; \leq \; && \partial_{i,j} \pi_{0}(x), \; && \partial_{i,j,k} \pi_{0}(x), \; && \partial_{i,j,k,l} \pi_{0}(x)
+                && \; \leq \; & \overline{\mathfrak{p}}^{\prime} & \; < \; & \infty
+            \end{alignat*}
             % in a neighborhood of $x$
             \item $\mu(\cdot), \mu_{0}^{0}(\cdot), \mu_{0}^{1}(\cdot) \in L^{2}\left(\mathcal{X}\right)$ are square-integrable functions on $\mathcal{X}$.
 		\end{itemize}
