@@ -1,0 +1,69 @@
+\subsection{Properties of the Score Function}
+\hrule
+
+Recall that the Neymann-orthogonal score function for the conditional average treatment effect takes the following form.
+\begin{equation}
+    \begin{aligned}
+        m\left(z; \theta, \eta\right)
+		& = \mu^{1}\left(x\right) - \mu^{0}\left(x\right) 
+        + \left(\frac{w}{\pi\left(x\right)} - \frac{1 - w}{1 - \pi\left(x\right)}\right) \cdot \left(y - \mu^{w}\left(x\right)\right) -  \theta\left(x\right)
+	\end{aligned}
+\end{equation}
+Many arguments in later parts of the proofs rely on properties of the derivatives of this score function.
+Thus, in the following Lemmas, I will derive the relevant derivatives with respect to changes in the nuisance parameters.
+Thus, introduce the following notation to simplify the notation of the matrices to follow.
+\begin{equation}
+    m\left(\eta, z\right) = \mu^{1} - \mu^{0} + \left(\frac{w}{\pi} - \frac{1 - w}{1 - \pi}\right) \cdot \left(y - \mu^{w}\right)
+\end{equation}
+
+\begin{lem}[Score Jacobian w.r.t. Nuisance Parameters]\label{lem:score_jacobian}\mbox{}\\*
+    \begin{equation}
+        \begin{aligned}
+            \mathbb{J}_{m}(z)
+            & = \begin{bmatrix}
+                \frac{\partial}{\partial \mu^{0}} m\left(\eta, w\right)\\
+                \frac{\partial}{\partial \mu^{1}} m\left(\eta, w\right)\\
+                \frac{\partial}{\partial \pi} m\left(\eta, w\right)
+            \end{bmatrix} 
+            = \begin{bmatrix}
+                -1 + \frac{1 - w}{1 - \pi} \\
+                1 - \frac{w}{\pi} \\
+                -\left(\frac{w}{\pi^2} + \frac{1-w}{\left(1-\pi\right)^{2}}\right)  \cdot \left(y - \mu^{w}\right)
+            \end{bmatrix} 
+        \end{aligned}
+    \end{equation}
+\end{lem}
+
+\begin{proof}[Proof of Lemma \ref{lem:score_jacobian}]\mbox{}\\*
+    Follows from simple calculus arguments.
+\end{proof}
+
+\hrule
+
+\begin{lem}[Score Hessian w.r.t. Nuisance Parameters]\label{lem:score_hessian}\mbox{}\\*
+    \begin{equation}
+        \begin{aligned}
+            \mathbb{H}_{m}(z)
+            & = \begin{bmatrix}
+                \frac{\partial^2}{\partial \left(\mu^{0}\right)^2} m\left(\eta, w\right)   & & \\
+                %
+                \frac{\partial^2}{\partial \mu^{0} \partial \mu^{1}} m\left(\eta, w\right) & \frac{\partial^2}{\partial \left(\mu^{0}\right)^2} m\left(\eta, w\right) & \\
+                %
+                \frac{\partial^2}{\partial \pi \partial \mu^{0}} m\left(\eta, w\right)     & \frac{\partial^2}{\partial \pi \partial \mu^{1}} m\left(\eta, w\right) & \frac{\partial^2}{\partial \pi^2} m\left(\eta, w\right)
+            \end{bmatrix} 
+            = \begin{bmatrix}
+                0  & & \\
+                %
+                0 & 0 & \\
+                %
+                \frac{1-w}{\left(1-\pi\right)^{2}} & \frac{w}{\pi^2} & 2\left(\frac{w}{\pi^3} - \frac{1-w}{\left(1-\pi\right)^{3}}\right)  \cdot \left(y - \mu^{w}\right)
+            \end{bmatrix}
+        \end{aligned}
+    \end{equation}
+\end{lem}
+
+\begin{proof}[Proof of Lemma \ref{lem:score_hessian}]\mbox{}\\*
+    Follows from simple calculus arguments.
+\end{proof}
+
+\hrule
