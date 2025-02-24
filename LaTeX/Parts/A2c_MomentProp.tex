@@ -13,7 +13,7 @@ Many arguments in later parts of the proofs rely on properties of the derivative
 Thus, in the following Lemmas, I will derive the relevant derivatives with respect to changes in the nuisance parameters.
 Thus, introduce the following notation to simplify the notation of the matrices to follow.
 \begin{equation}
-    m\left(\eta, z\right) = \mu^{1} - \mu^{0} + \left(\frac{w}{\pi} - \frac{1 - w}{1 - \pi}\right) \cdot \left(y - \mu^{w}\right)
+    m\left(z; \eta\right) = \mu^{1} - \mu^{0} + \left(\frac{w}{\pi} - \frac{1 - w}{1 - \pi}\right) \cdot \left(y - \mu^{w}\right)
 \end{equation}
 
 \begin{lem}[Score Jacobian w.r.t. Nuisance Parameters]\label{lem:score_jacobian}\mbox{}\\*
@@ -21,9 +21,9 @@ Thus, introduce the following notation to simplify the notation of the matrices 
         \begin{aligned}
             \mathbb{J}_{m}(z)
             & = \begin{bmatrix}
-                \frac{\partial}{\partial \mu^{0}} m\left(\eta, w\right)\\
-                \frac{\partial}{\partial \mu^{1}} m\left(\eta, w\right)\\
-                \frac{\partial}{\partial \pi} m\left(\eta, w\right)
+                \frac{\partial}{\partial \mu^{0}} m\left(z; \eta\right)\\
+                \frac{\partial}{\partial \mu^{1}} m\left(z; \eta\right)\\
+                \frac{\partial}{\partial \pi} m\left(z; \eta\right)
             \end{bmatrix} 
             = \begin{bmatrix}
                 -1 + \frac{1 - w}{1 - \pi} \\
@@ -40,16 +40,46 @@ Thus, introduce the following notation to simplify the notation of the matrices 
 
 \hrule
 
+\begin{lem}[Score Gateaux Derivative w.r.t. Nuisance Parameters]\label{lem:score_gateaux_derivative}\mbox{}\\*
+    
+    {\color{red} LOREM IPSUM}
+\end{lem}
+
+\begin{proof}[Proof of Lemma \ref{lem:score_gateaux_derivative}]\mbox{}\\*
+    \begin{equation}
+        \begin{aligned}
+                & \left[\frac{\partial}{\partial r} m\left(z; \eta_{0} + r \cdot (\eta(z) - \eta_{0}(z) \right)\right]_{r = 0}\\
+                & \quad = \Bigg[ 
+                    (\mu^{0}(x) - \mu_{0}^{0}(x)) \cdot \left(-1 + \frac{1 - w}{1 - \left[\pi_{0}(x) + r(\pi(x) - \pi_{0}(x))\right]}\right)
+                     + (\mu^{1}(x) - \mu_{0}^{1}(x)) \cdot \left(1 - \frac{w}{\pi_{0}(x) + r(\pi(x) - \pi_{0}(x))}\right) \\
+                    & \quad \quad - (\pi(x) - \pi_{0}(x)) \cdot \left(\frac{w}{\left[\pi_{0}(x) + r(\pi(x) - \pi_{0}(x))\right]^{2}(x)} + \frac{1-w}{\left(1-\left[\pi_{0}(x) + r(\pi(x) - \pi_{0}(x))\right]\right)^{2}}\right)  \\
+                    & \quad \quad \times \left[y - \left(\mu_{0}^{w}(x) + r \cdot (\mu^{w}(x) - \mu_{0}^{w}(x))\right)\right] 
+                \Bigg]_{r = 0} \\
+                %
+                & \quad = 
+                    (\mu^{0}(x) - \mu_{0}^{0}(x)) \cdot \left(-1 + \frac{1 - w}{1 - \pi_{0}(x) }\right)
+                     + (\mu^{1}(x) - \mu_{0}^{1}(x)) \cdot \left(1 - \frac{w}{\pi_{0}(x)}\right) \\
+                    & \quad \quad - (\pi(x) - \pi_{0}(x)) \cdot \left(\frac{w}{\left[\pi_{0}(x)\right]^{2}(x)} + \frac{1-w}{\left(1-\pi_{0}(x)\right)^{2}}\right) \cdot \left[y - \mu_{0}^{w}(x)\right] \\
+                %
+                & \quad = 
+        \end{aligned}
+    \end{equation}
+    
+    {\color{red} LOREM IPSUM}
+\end{proof}
+
+\hrule
+
 \begin{lem}[Score Hessian w.r.t. Nuisance Parameters]\label{lem:score_hessian}\mbox{}\\*
     \begin{equation}
         \begin{aligned}
             \mathbb{H}_{m}(z)
             & = \begin{bmatrix}
-                \frac{\partial^2}{\partial \left(\mu^{0}\right)^2} m\left(\eta, w\right)   & & \\
+                \frac{\partial^2}{\partial \left(\mu^{0}\right)^2} m\left(z; \eta\right)   & & \\
                 %
-                \frac{\partial^2}{\partial \mu^{0} \partial \mu^{1}} m\left(\eta, w\right) & \frac{\partial^2}{\partial \left(\mu^{0}\right)^2} m\left(\eta, w\right) & \\
+                \frac{\partial^2}{\partial \mu^{0} \partial \mu^{1}} m\left(z; \eta\right) & \frac{\partial^2}{\partial \left(\mu^{0}\right)^2} m\left(z; \eta\right) & \\
                 %
-                \frac{\partial^2}{\partial \pi \partial \mu^{0}} m\left(\eta, w\right)     & \frac{\partial^2}{\partial \pi \partial \mu^{1}} m\left(\eta, w\right) & \frac{\partial^2}{\partial \pi^2} m\left(\eta, w\right)
+                \frac{\partial^2}{\partial \pi \partial \mu^{0}} m\left(z; \eta\right)     & \frac{\partial^2}{\partial \pi \partial \mu^{1}} m\left(z; \eta\right) & \frac{\partial^2}{\partial \pi^2} m\left(z; \eta\right)
             \end{bmatrix} 
             = \begin{bmatrix}
                 0  & & \\
@@ -64,6 +94,22 @@ Thus, introduce the following notation to simplify the notation of the matrices 
 
 \begin{proof}[Proof of Lemma \ref{lem:score_hessian}]\mbox{}\\*
     Follows from simple calculus arguments.
+\end{proof}
+
+\hrule
+
+\begin{lem}[Score 2nd Gateaux Derivative w.r.t. Nuisance Parameters]\label{lem:score_2gateaux_derivative}\mbox{}\\*
+    {\color{red} LOREM IPSUM}
+\end{lem}
+
+\begin{proof}[Proof of Lemma \ref{lem:score_2gateaux_derivative}]\mbox{}\\*
+    \begin{equation}
+        \begin{aligned}
+            \frac{\partial^{2}}{\partial r^{2}} m\left(z; \eta_{0} + r\left(\eta - \eta_{0}\right)\right)
+            & = {\color{red} LOREM IPSUM}
+        \end{aligned}
+    \end{equation}
+    {\color{red} LOREM IPSUM}
 \end{proof}
 
 \hrule
