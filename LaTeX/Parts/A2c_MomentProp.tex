@@ -172,7 +172,10 @@ Thus, in the following Lemmas, I will derive the relevant derivatives with respe
     We can bound the second Gateaux derivative of the score function at a point $x$ in the following way.
     \begin{equation}
         \mathbb{D}_{\eta}^{2} m(z, \eta_{0}) 
-        \leq {\color{red} LOREM IPSUM}
+        \leq \frac{2 \cdot \left|\pi(x) - \pi_{0}(x)\right|}{\mathfrak{p}^2} \Bigg\{
+                \frac{\left|\pi(x) - \pi_{0}(x)\right|}{\mathfrak{p}} \cdot \left|\varepsilon\right|
+                +  \max_{w = 1,2} \left|\mu^{w}(x) - \mu_{0}^{w}(x)\right|
+            \Bigg\}
     \end{equation}
 \end{lem}
 
@@ -180,7 +183,15 @@ Thus, in the following Lemmas, I will derive the relevant derivatives with respe
     \begin{equation}
         \begin{aligned}
             \mathbb{D}_{\eta}^{2} m(z, \eta_{0}) 
-            & \leq {\color{red} LOREM IPSUM}
+            & \leq 2\left|\pi(x) - \pi_{0}(x)\right| \cdot \Bigg\{
+                \left|\pi(x) - \pi_{0}(x)\right| \cdot \frac{1}{\mathfrak{p}^{3}} \cdot \left|\varepsilon\right|
+                +  \left|\mu^{w}(x) - \mu_{0}^{w}(x)\right| \cdot \frac{1}{\mathfrak{p}^2}
+            \Bigg\}\\
+            %
+            & = \frac{2 \cdot \left|\pi(x) - \pi_{0}(x)\right|}{\mathfrak{p}^2} \Bigg\{
+                \frac{\left|\pi(x) - \pi_{0}(x)\right|}{\mathfrak{p}} \cdot \left|\varepsilon\right|
+                +  \max_{w = 1,2} \left|\mu^{w}(x) - \mu_{0}^{w}(x)\right|
+            \Bigg\}
         \end{aligned}
     \end{equation}
 \end{proof}
