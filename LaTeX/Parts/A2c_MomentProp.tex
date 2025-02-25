@@ -48,24 +48,19 @@ Thus, introduce the following notation to simplify the notation of the matrices 
 \begin{proof}[Proof of Lemma \ref{lem:score_gateaux_derivative}]\mbox{}\\*
     \begin{equation}
         \begin{aligned}
-                & \left[\frac{\partial}{\partial r} m\left(z; \eta_{0} + r \cdot (\eta(z) - \eta_{0}(z) \right)\right]_{r = 0}\\
+                & \left[\frac{\partial}{\partial r} m\left(z; \eta_{0}(z) + r \cdot (\eta(z) - \eta_{0}(z) \right)\right]_{r = 0}\\
                 & \quad = \Bigg[ 
                     (\mu^{0}(x) - \mu_{0}^{0}(x)) \cdot \left(-1 + \frac{1 - w}{1 - \left[\pi_{0}(x) + r(\pi(x) - \pi_{0}(x))\right]}\right)
                      + (\mu^{1}(x) - \mu_{0}^{1}(x)) \cdot \left(1 - \frac{w}{\pi_{0}(x) + r(\pi(x) - \pi_{0}(x))}\right) \\
-                    & \quad \quad - (\pi(x) - \pi_{0}(x)) \cdot \left(\frac{w}{\left[\pi_{0}(x) + r(\pi(x) - \pi_{0}(x))\right]^{2}(x)} + \frac{1-w}{\left(1-\left[\pi_{0}(x) + r(\pi(x) - \pi_{0}(x))\right]\right)^{2}}\right)  \\
-                    & \quad \quad \times \left[y - \left(\mu_{0}^{w}(x) + r \cdot (\mu^{w}(x) - \mu_{0}^{w}(x))\right)\right] 
+                    & \quad \quad - (\pi(x) - \pi_{0}(x)) \cdot \left(\frac{w}{\left[\pi_{0}(x) + r(\pi(x) - \pi_{0}(x))\right]^{2}} + \frac{1-w}{\left(1-\left[\pi_{0}(x) + r(\pi(x) - \pi_{0}(x))\right]\right)^{2}}\right) \\
+                    & \quad \quad \cdot \left[y - \left(\mu_{0}^{w}(x) + r \cdot (\mu^{w}(x) - \mu_{0}^{w}(x))\right)\right]
                 \Bigg]_{r = 0} \\
                 %
-                & \quad = 
-                    (\mu^{0}(x) - \mu_{0}^{0}(x)) \cdot \left(-1 + \frac{1 - w}{1 - \pi_{0}(x) }\right)
+                & \quad = (\mu^{0}(x) - \mu_{0}^{0}(x)) \cdot \left(-1 + \frac{1 - w}{1 - \pi_{0}(x) }\right)
                      + (\mu^{1}(x) - \mu_{0}^{1}(x)) \cdot \left(1 - \frac{w}{\pi_{0}(x)}\right) \\
-                    & \quad \quad - (\pi(x) - \pi_{0}(x)) \cdot \left(\frac{w}{\left[\pi_{0}(x)\right]^{2}(x)} + \frac{1-w}{\left(1-\pi_{0}(x)\right)^{2}}\right) \cdot \left[y - \mu_{0}^{w}(x)\right] \\
-                %
-                & \quad = 
+                    & \quad \quad - (\pi(x) - \pi_{0}(x)) \cdot \left(\frac{w}{\pi_{0}^{2}(x)} + \frac{1-w}{\left(1-\pi_{0}(x)\right)^{2}}\right) \cdot \left[y - \mu_{0}^{w}(x)\right]
         \end{aligned}
     \end{equation}
-    
-    {\color{red} LOREM IPSUM}
 \end{proof}
 
 \hrule
@@ -105,11 +100,38 @@ Thus, introduce the following notation to simplify the notation of the matrices 
 \begin{proof}[Proof of Lemma \ref{lem:score_2gateaux_derivative}]\mbox{}\\*
     \begin{equation}
         \begin{aligned}
-            \frac{\partial^{2}}{\partial r^{2}} m\left(z; \eta_{0} + r\left(\eta - \eta_{0}\right)\right)
-            & = {\color{red} LOREM IPSUM}
+            & \left[\frac{\partial^{2}}{\partial r^{2}} m\left(z; \eta_{0}(z) + r\left(\eta(z) - \eta_{0}(z)\right)\right)\right]_{r = 0}\\
+            & \quad = \Bigg[
+                \frac{\partial}{\partial r} \Bigg\{
+                    (\mu^{0}(x) - \mu_{0}^{0}(x)) \cdot \left(-1 + \frac{1 - w}{1 - \left[\pi_{0}(x) + r(\pi(x) - \pi_{0}(x))\right]}\right)
+                     + (\mu^{1}(x) - \mu_{0}^{1}(x)) \cdot \left(1 - \frac{w}{\pi_{0}(x) + r(\pi(x) - \pi_{0}(x))}\right) \\
+                    & \quad \quad - (\pi(x) - \pi_{0}(x)) \cdot \left(\frac{w}{\left[\pi_{0}(x) + r(\pi(x) - \pi_{0}(x))\right]^{2}} + \frac{1-w}{\left(1-\left[\pi_{0}(x) + r(\pi(x) - \pi_{0}(x))\right]\right)^{2}}\right)  \\
+                    & \quad \quad \times \left[y - \left(\mu_{0}^{w}(x) + r \cdot (\mu^{w}(x) - \mu_{0}^{w}(x))\right)\right]        
+                \Bigg\}
+            \Bigg]_{r = 0} \\
+            %
+            & \quad = \Bigg[
+                \left(\pi(x) - \pi_{0}(x)\right) \cdot \left\{\frac{(1 - w)\cdot \left(\mu^{0}(x) - \mu_{0}^{0}(x)\right)}{\left(1 - \left[\pi_{0}(x) + r(\pi(x) - \pi_{0}(x))\right]\right)^{2}} + \frac{w \cdot \left(\mu^{1}(x) - \mu_{0}^{1}(x)\right)}{\left(\pi_{0}(x) + r(\pi(x) - \pi_{0}(x))\right)^2}\right\} \\
+                & \quad \quad + 2 \left(\pi(x) - \pi_{0}(x)\right)^{2} \cdot \left(
+                    \frac{w}{\left[\pi_{0}(x) + r(\pi(x) - \pi_{0}(x))\right]^{3}} 
+                    + \frac{1-w}{\left(1-\left[\pi_{0}(x) + r(\pi(x) - \pi_{0}(x))\right]\right)^{3}}\right) 
+                    \cdot \left[y - \left(\mu_{0}^{w}(x) + r \cdot (\mu^{w}(x) - \mu_{0}^{w}(x))\right)\right] \\
+                & \quad \quad + (\pi(x) - \pi_{0}(x)) \cdot \left(\mu^{w}(x) - \mu_{0}^{w}(x)\right) \cdot \left(\frac{w}{\left[\pi_{0}(x) + r(\pi(x) - \pi_{0}(x))\right]^{2}} + \frac{1-w}{\left(1-\left[\pi_{0}(x) + r(\pi(x) - \pi_{0}(x))\right]\right)^{2}}\right)
+            \Bigg]_{r = 0} \\
+            %
+            & \quad = \left(\pi(x) - \pi_{0}(x)\right) \cdot \left(\frac{(1 - w)\cdot \left(\mu^{0}(x) - \mu_{0}^{0}(x)\right)}{\left(1 - \pi_{0}(x)\right)^{2}} + \frac{w \cdot \left(\mu^{1}(x) - \mu_{0}^{1}(x)\right)}{\pi_{0}^2(x)}\right) \\
+                & \quad \quad + 2 \left(\pi(x) - \pi_{0}(x)\right)^{2} \cdot \left(
+                    \frac{w}{\pi_{0}^{3}(x)} 
+                    + \frac{1-w}{\left(1-\pi_{0}(x)\right)^{3}}\right) 
+                    \cdot \left(y - \mu_{0}^{w}(x)\right) 
+                    + (\pi(x) - \pi_{0}(x)) \cdot \left(\mu^{w}(x) - \mu_{0}^{w}(x)\right) \cdot \left(\frac{w}{\pi_{0}^{2}(x)} + \frac{1-w}{\left(1-\pi_{0}(x)\right)^{2}}\right) \\
+            %
+            & = \quad 2\left(\pi(x) - \pi_{0}(x)\right) \cdot \Bigg\{
+                \left(\pi(x) - \pi_{0}(x)\right) \cdot \left(\frac{w}{\pi_{0}^{3}(x)} + \frac{1-w}{\left(1-\pi_{0}(x)\right)^{3}}\right) \cdot \left(y - \mu_{0}^{w}(x)\right)
+                +  \left(\mu^{w}(x) - \mu_{0}^{w}(x)\right) \cdot \left(\frac{w}{\pi_{0}^{2}(x)} + \frac{1-w}{\left(1-\pi_{0}(x)\right)^{2}}\right)
+            \Bigg\}
         \end{aligned}
     \end{equation}
-    {\color{red} LOREM IPSUM}
 \end{proof}
 
 \hrule
