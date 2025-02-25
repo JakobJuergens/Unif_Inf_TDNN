@@ -115,7 +115,7 @@ More specifically, we are interested in the part absent the centering term as th
             %
             & \quad = \frac{1}{s!} \cdot \sup_{r \in(0,1), \eta \in \mathcal{T}_{n}}\left|
                 \partial_r^2  \E_{D}\left[
-                    m(Z, \theta_{0}, \eta_{0} + r\left(\eta-\eta_{0}\right)) \cdot s \kappa(x; Z, \mathbf{D}_{[s]})
+                    m(Z, \theta_{0}, \eta_{0} + r\left(\eta-\eta_{0}\right)) \cdot \kappa(x; Z, \mathbf{D}_{[s]})
                 \right]
             \right| \\
             %
@@ -123,13 +123,28 @@ More specifically, we are interested in the part absent the centering term as th
                 \partial_r^2  \E_{1}\left[
                     m(Z_1, \theta_{0}, \eta_{0} + r\left(\eta-\eta_{0}\right)) \cdot s \E_{2:s}\left[\kappa(x; Z_{1}, \mathbf{D}_{[s]})\right]
                 \right]
-            \right| \\
-            %
-            & \quad = {\color{red} LOREM IPSUM}
+            \right|
         \end{aligned}
     \end{equation}
+    Now, assuming that the neighborhood $\mathcal{T}_{n}$ for sufficiently large $n$ is such that the conditions of the appropriate version of the dominated convergence theorem hold (or more precisely, the conditions for the measure theoretic version of the Leibniz integral rule), we can pull the derivative inside the expectation.
+    \begin{equation}
+        \begin{aligned}
+            & \sup_{r \in(0,1), \eta \in \mathcal{T}_{n}}\left|
+                \partial_r^2 \E_{Z}\left[
+                    \vartheta_{s}^{1}\left(x; Z, \eta_{0} + r\left(\eta-\eta_{0}\right)\right)
+                \right]
+            \right| 
+            = \frac{1}{s!} \cdot \sup_{r \in(0,1), \eta \in \mathcal{T}_{n}}\left| \E_{1}\left[
+                    \partial_r^2 m(Z_1, \theta_{0}, \eta_{0} + r\left(\eta-\eta_{0}\right)) \cdot s \E_{2:s}\left[\kappa(x; Z_{1}, \mathbf{D}_{[s]})\right]
+                \right]
+            \right| \\
+            %
+            & \quad  {\color{red} LOREM IPSUM}
+        \end{aligned}
+    \end{equation}
+    
     {\color{blue} effectively, we need a decaying second derivative in a shrinking neighborhood of $x$.
-    This might be easier to do with a slightly weaker but more explicit rate condition that I would need to show for the CATE moment.
-    I might be able to do something with DCT here!}
+    $\E_{2:s}\left[\kappa(x; Z_{1}, \mathbf{D}_{[s]})\right]$ decays exponentially $\implies$ maybe I can formulate this as a subgaussian/subexponential growth of the error relative to the point of interest.
+    This might be easier to do with a slightly weaker but more explicit rate condition that I would need to show for the CATE moment.}
     {\color{red} LOREM IPSUM}
 \end{proof}

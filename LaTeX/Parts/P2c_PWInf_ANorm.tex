@@ -92,27 +92,34 @@ Recall that we are ultimately even more interested in the approximation errors o
             & \leq \sqrt{\frac{1}{m}} \cdot \left(\mathcal{I}_{3,k}^{(1)} + \mathcal{I}_{4,k}^{(1)}\right)
         \end{aligned}
     \end{equation}
-    where
-    \begin{equation}
-        \begin{aligned}
-            \mathcal{I}_{3,k}^{(1)} 
-            & := \left|\mathbb{G}_{m,k}\left[\vartheta_{s}^{1}\left(x; Z, \hat{\eta}_{k}\right)\right] 
-            - \mathbb{G}_{m,k}\left[\vartheta_{s,0}^{1}\left(x; Z\right) \right]\right|
-        \end{aligned}
-    \end{equation}
-    \begin{equation}
-        \begin{aligned}
-            \mathcal{I}_{4,k}^{(1)} 
-            & := \sqrt{m} \cdot \left|
-            \E_{Z}\left[\vartheta_{s}^{1}\left(x; Z, \hat{\eta}_{k}\right) \, \middle| \, \mathbf{D}_{I_{k}^{C}}\right]
-            - \E_{Z}\left[\vartheta_{s,0}^{1}\left(x; Z\right) \right]\right|
-        \end{aligned}
-    \end{equation}
+    where we use the following two definitions.
+    \begin{align}
+        \mathcal{I}_{3,k}^{(1)} 
+        & := \left|\mathbb{G}_{m,k}\left[\vartheta_{s}^{1}\left(x; Z, \hat{\eta}_{k}\right)\right] 
+        - \mathbb{G}_{m,k}\left[\vartheta_{s,0}^{1}\left(x; Z\right) \right]\right|\\
+        %
+        \mathcal{I}_{4,k}^{(1)} 
+        & := \sqrt{m} \cdot \left|
+        \E_{Z}\left[\vartheta_{s}^{1}\left(x; Z, \hat{\eta}_{k}\right) \, \middle| \, \mathbf{D}_{I_{k}^{C}}\right]
+        - \E_{Z}\left[\vartheta_{s,0}^{1}\left(x; Z\right) \right]\right|
+    \end{align}
     Notice that conditional on $\mathbf{D}_{I_{k}^{C}}$ the first-stage estimate $\hat{\eta}_{k}$ is non-stochastic.
     This allows us to make the following observation given the event $\mathcal{E}_{n}$ obtains.
     \begin{equation}
         \begin{aligned}
-            {\color{red} LOREM IPSUM}
+            \E_{D}\left[\left(\mathcal{I}_{3,k}^{(1)}\right)^{2} \, \middle| \, \mathbf{D}_{I_{k}^{C}}\right] 
+            & = \E_{D}\left[ \left(\mathbb{G}_{m,k}\left[\vartheta_{s}^{1}\left(x; Z, \hat{\eta}_{k}\right)\right] 
+            - \mathbb{G}_{m,k}\left[\vartheta_{s,0}^{1}\left(x; Z\right)\right]\right)^{2} \, \middle| \, \mathbf{D}_{I_{k}^{C}}\right]
+            = \E_{D}\left[\left|\vartheta_{s}^{1}\left(x; Z, \hat{\eta}_{k}\right) - \vartheta_{s,0}^{1}\left(x; Z\right)\right|^{2}
+            \, \middle| \, \mathbf{D}_{I_{k}^{C}}\right]\\
+            %
+            & \overset{\mathcal{E}_{n}}{\leq} \sup_{\eta \in \mathcal{T}_{n}} 
+             \E_{D}\left[\left|\vartheta_{s}^{1}\left(x; Z, \eta\right) - \vartheta_{s,0}^{1}\left(x; Z\right)\right|^{2}
+            \, \middle| \, \mathbf{D}_{I_{k}^{C}}\right]
+            \leq \sup_{\eta \in \mathcal{T}_{n}} 
+             \E_{D}\left[\left|\vartheta_{s}^{1}\left(x; Z, \eta\right) - \vartheta_{s,0}^{1}\left(x; Z\right)\right|^{2}\right]\\ 
+             %
+             & = {\color{red} LOREM IPSUM}
         \end{aligned}
     \end{equation}
 {\color{red} LOREM IPSUM}
