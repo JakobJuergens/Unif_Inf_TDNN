@@ -11,34 +11,34 @@ Recall that the Neymann-orthogonal score function for the conditional average tr
 \end{equation}
 Many arguments in later parts of the proofs rely on properties of the derivatives of this score function.
 Thus, in the following Lemmas, I will derive the relevant derivatives with respect to changes in the nuisance parameters.
-Thus, introduce the following notation to simplify the notation of the matrices to follow.
-\begin{equation}
-    m\left(z; \eta\right) = \mu^{1} - \mu^{0} + \left(\frac{w}{\pi} - \frac{1 - w}{1 - \pi}\right) \cdot \left(y - \mu^{w}\right)
-\end{equation}
+% Thus, introduce the following notation to simplify the notation of the matrices to follow.
+% \begin{equation}
+%     m\left(z; \eta\right) = \mu^{1} - \mu^{0} + \left(\frac{w}{\pi} - \frac{1 - w}{1 - \pi}\right) \cdot \left(y - \mu^{w}\right)
+% \end{equation}
 
-\begin{lem}[Score Jacobian w.r.t. Nuisance Parameters]\label{lem:score_jacobian}\mbox{}\\*
-    \begin{equation}
-        \begin{aligned}
-            \mathbb{J}_{m}(z)
-            & = \begin{bmatrix}
-                \frac{\partial}{\partial \mu^{0}} m\left(z; \eta\right)\\
-                \frac{\partial}{\partial \mu^{1}} m\left(z; \eta\right)\\
-                \frac{\partial}{\partial \pi} m\left(z; \eta\right)
-            \end{bmatrix} 
-            = \begin{bmatrix}
-                -1 + \frac{1 - w}{1 - \pi} \\
-                1 - \frac{w}{\pi} \\
-                -\left(\frac{w}{\pi^2} + \frac{1-w}{\left(1-\pi\right)^{2}}\right)  \cdot \left(y - \mu^{w}\right)
-            \end{bmatrix} 
-        \end{aligned}
-    \end{equation}
-\end{lem}
+% \begin{lem}[Score Jacobian w.r.t. Nuisance Parameters]\label{lem:score_jacobian}\mbox{}\\*
+%     \begin{equation}
+%         \begin{aligned}
+%             \mathbb{J}_{m}(z)
+%             & = \begin{bmatrix}
+%                 \frac{\partial}{\partial \mu^{0}} m\left(z; \eta\right)\\
+%                 \frac{\partial}{\partial \mu^{1}} m\left(z; \eta\right)\\
+%                 \frac{\partial}{\partial \pi} m\left(z; \eta\right)
+%             \end{bmatrix} 
+%             = \begin{bmatrix}
+%                 -1 + \frac{1 - w}{1 - \pi} \\
+%                 1 - \frac{w}{\pi} \\
+%                 -\left(\frac{w}{\pi^2} + \frac{1-w}{\left(1-\pi\right)^{2}}\right)  \cdot \left(y - \mu^{w}\right)
+%             \end{bmatrix} 
+%         \end{aligned}
+%     \end{equation}
+% \end{lem}
 
-\begin{proof}[Proof of Lemma \ref{lem:score_jacobian}]\mbox{}\\*
-    Follows from simple calculus arguments.
-\end{proof}
+% \begin{proof}[Proof of Lemma \ref{lem:score_jacobian}]\mbox{}\\*
+%     Follows from simple calculus arguments.
+% \end{proof}
 
-\hrule
+% \hrule
 
 \begin{lem}[Score Gateaux Derivative w.r.t. Nuisance Parameters]\label{lem:score_gateaux_derivative}\mbox{}\\*
     
@@ -48,7 +48,9 @@ Thus, introduce the following notation to simplify the notation of the matrices 
 \begin{proof}[Proof of Lemma \ref{lem:score_gateaux_derivative}]\mbox{}\\*
     \begin{equation}
         \begin{aligned}
-                & \left[\frac{\partial}{\partial r} m\left(z; \eta_{0}(z) + r \cdot (\eta(z) - \eta_{0}(z) \right)\right]_{r = 0}\\
+                & \mathbb{D}_{\eta} m(z, \eta_{0}) 
+                = \left[\frac{\partial}{\partial r} m\left(z; \eta_{0}(z) + r \cdot (\eta(z) - \eta_{0}(z) \right)\right]_{r = 0}\\
+                %
                 & \quad = \Bigg[ 
                     (\mu^{0}(x) - \mu_{0}^{0}(x)) \cdot \left(-1 + \frac{1 - w}{1 - \left[\pi_{0}(x) + r(\pi(x) - \pi_{0}(x))\right]}\right)
                      + (\mu^{1}(x) - \mu_{0}^{1}(x)) \cdot \left(1 - \frac{w}{\pi_{0}(x) + r(\pi(x) - \pi_{0}(x))}\right) \\
@@ -65,31 +67,59 @@ Thus, introduce the following notation to simplify the notation of the matrices 
 
 \hrule
 
-\begin{lem}[Score Hessian w.r.t. Nuisance Parameters]\label{lem:score_hessian}\mbox{}\\*
+\begin{lem}[Score Gateaux Derivative Bounds]\label{lem:score_gateaux_derivative_bd}\mbox{}\\*
+    We can bound the first Gateaux derivative of the score function at a point $x$ in the following way.
     \begin{equation}
-        \begin{aligned}
-            \mathbb{H}_{m}(z)
-            & = \begin{bmatrix}
-                \frac{\partial^2}{\partial \left(\mu^{0}\right)^2} m\left(z; \eta\right)   & & \\
-                %
-                \frac{\partial^2}{\partial \mu^{0} \partial \mu^{1}} m\left(z; \eta\right) & \frac{\partial^2}{\partial \left(\mu^{0}\right)^2} m\left(z; \eta\right) & \\
-                %
-                \frac{\partial^2}{\partial \pi \partial \mu^{0}} m\left(z; \eta\right)     & \frac{\partial^2}{\partial \pi \partial \mu^{1}} m\left(z; \eta\right) & \frac{\partial^2}{\partial \pi^2} m\left(z; \eta\right)
-            \end{bmatrix} 
-            = \begin{bmatrix}
-                0  & & \\
-                %
-                0 & 0 & \\
-                %
-                \frac{1-w}{\left(1-\pi\right)^{2}} & \frac{w}{\pi^2} & 2\left(\frac{w}{\pi^3} - \frac{1-w}{\left(1-\pi\right)^{3}}\right)  \cdot \left(y - \mu^{w}\right)
-            \end{bmatrix}
-        \end{aligned}
+        \left| \mathbb{D}_{\eta} m(z, \eta_{0}) \right| \leq \left(\left| \mu^{0}(x) - \mu_{0}^{0}(x) \right| + \left| \mu^{1}(x) - \mu_{0}^{1}(x) \right|\right) \cdot \frac{2}{\mathfrak{p}}
+            + \left| \pi(x) - \pi_{0}(x) \right| \cdot \frac{2}{\mathfrak{p}^{2}} \cdot \left| \varepsilon \right|
     \end{equation}
 \end{lem}
 
-\begin{proof}[Proof of Lemma \ref{lem:score_hessian}]\mbox{}\\*
-    Follows from simple calculus arguments.
+\begin{proof}[Proof of Lemma \ref{lem:score_gateaux_derivative_bd}]\mbox{}\\*
+    \begin{equation}
+        \begin{aligned}
+            \left| \mathbb{D}_{\eta} m(z, \eta_{0}) \right|
+            & \leq \left|(\mu^{0}(x) - \mu_{0}^{0}(x)) \cdot \left(-1 + \frac{1 - w}{1 - \pi_{0}(x) }\right)\right|
+            + \left| (\mu^{1}(x) - \mu_{0}^{1}(x)) \cdot \left(1 - \frac{w}{\pi_{0}(x)}\right)\right|\\
+            & \quad + \left| (\pi(x) - \pi_{0}(x)) \cdot \left(\frac{w}{\pi_{0}^{2}(x)} + \frac{1-w}{\left(1-\pi_{0}(x)\right)^{2}}\right) \cdot \left[y - \mu_{0}^{w}(x)\right]\right| \\
+            %
+            & \leq \left| \mu^{0}(x) - \mu_{0}^{0}(x) \right| \cdot \left|\frac{\pi_{0}(x) - w}{1 - \pi_{0}(x)}\right|
+            + \left| \mu^{1}(x) - \mu_{0}^{1}(x) \right| \cdot \left|\frac{\pi_{0}(x) - w}{\pi_{0}(x)}\right|\\
+            & \quad + \left| \pi(x) - \pi_{0}(x) \right| \cdot \left|\frac{w}{\pi_{0}^{2}(x)} + \frac{1-w}{\left(1-\pi_{0}(x)\right)^{2}} \right| \cdot \left| \varepsilon \right| \\
+            %
+            & \leq \left(\left| \mu^{0}(x) - \mu_{0}^{0}(x) \right| + \left| \mu^{1}(x) - \mu_{0}^{1}(x) \right|\right) \cdot \frac{2}{\mathfrak{p}}
+            + \left| \pi(x) - \pi_{0}(x) \right| \cdot \frac{2}{\mathfrak{p}^{2}} \cdot \left| \varepsilon \right|
+        \end{aligned}
+    \end{equation}
 \end{proof}
+
+% \hrule
+
+% \begin{lem}[Score Hessian w.r.t. Nuisance Parameters]\label{lem:score_hessian}\mbox{}\\*
+%     \begin{equation}
+%         \begin{aligned}
+%             \mathbb{H}_{m}(z)
+%             & = \begin{bmatrix}
+%                 \frac{\partial^2}{\partial \left(\mu^{0}\right)^2} m\left(z; \eta\right)   & & \\
+%                 %
+%                 \frac{\partial^2}{\partial \mu^{0} \partial \mu^{1}} m\left(z; \eta\right) & \frac{\partial^2}{\partial \left(\mu^{0}\right)^2} m\left(z; \eta\right) & \\
+%                 %
+%                 \frac{\partial^2}{\partial \pi \partial \mu^{0}} m\left(z; \eta\right)     & \frac{\partial^2}{\partial \pi \partial \mu^{1}} m\left(z; \eta\right) & \frac{\partial^2}{\partial \pi^2} m\left(z; \eta\right)
+%             \end{bmatrix} 
+%             = \begin{bmatrix}
+%                 0  & & \\
+%                 %
+%                 0 & 0 & \\
+%                 %
+%                 \frac{1-w}{\left(1-\pi\right)^{2}} & \frac{w}{\pi^2} & 2\left(\frac{w}{\pi^3} - \frac{1-w}{\left(1-\pi\right)^{3}}\right)  \cdot \left(y - \mu^{w}\right)
+%             \end{bmatrix}
+%         \end{aligned}
+%     \end{equation}
+% \end{lem}
+
+% \begin{proof}[Proof of Lemma \ref{lem:score_hessian}]\mbox{}\\*
+%     Follows from simple calculus arguments.
+% \end{proof}
 
 \hrule
 
@@ -100,7 +130,9 @@ Thus, introduce the following notation to simplify the notation of the matrices 
 \begin{proof}[Proof of Lemma \ref{lem:score_2gateaux_derivative}]\mbox{}\\*
     \begin{equation}
         \begin{aligned}
-            & \left[\frac{\partial^{2}}{\partial r^{2}} m\left(z; \eta_{0}(z) + r\left(\eta(z) - \eta_{0}(z)\right)\right)\right]_{r = 0}\\
+            & \mathbb{D}_{\eta}^{2} m(z, \eta_{0}) 
+            = \left[\frac{\partial^{2}}{\partial r^{2}} m\left(z; \eta_{0}(z) + r\left(\eta(z) - \eta_{0}(z)\right)\right)\right]_{r = 0}\\
+            %
             & \quad = \Bigg[
                 \frac{\partial}{\partial r} \Bigg\{
                     (\mu^{0}(x) - \mu_{0}^{0}(x)) \cdot \left(-1 + \frac{1 - w}{1 - \left[\pi_{0}(x) + r(\pi(x) - \pi_{0}(x))\right]}\right)
@@ -135,3 +167,20 @@ Thus, introduce the following notation to simplify the notation of the matrices 
 \end{proof}
 
 \hrule
+
+\begin{lem}[Score 2nd Gateaux Derivative Bounds]\label{lem:score_2gateaux_derivative_bd}\mbox{}\\*
+    We can bound the second Gateaux derivative of the score function at a point $x$ in the following way.
+    \begin{equation}
+        \mathbb{D}_{\eta}^{2} m(z, \eta_{0}) 
+        \leq {\color{red} LOREM IPSUM}
+    \end{equation}
+\end{lem}
+
+\begin{proof}[Proof of Lemma \ref{lem:score_2gateaux_derivative_bd}]\mbox{}\\*
+    \begin{equation}
+        \begin{aligned}
+            \mathbb{D}_{\eta}^{2} m(z, \eta_{0}) 
+            & \leq {\color{red} LOREM IPSUM}
+        \end{aligned}
+    \end{equation}
+\end{proof}
