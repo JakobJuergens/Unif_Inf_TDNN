@@ -119,10 +119,15 @@ Recall that we are ultimately even more interested in the approximation errors o
             %
             & \leq \sup_{\eta \in \mathcal{T}_{n}} 
              \E_{D}\left[\left|\vartheta_{s}^{1}\left(x; Z, \eta\right) - \vartheta_{s,0}^{1}\left(x; Z\right)\right|^{2}\right]
-             \overset{\text{Lem \ref{lem:rate_cond_errors1}}}{=} \frac{r_{n}^{\prime}}{(s-1)!}
+             \overset{\text{Lem \ref{lem:rate_cond_errors1}}}{=} \left(\frac{r_{n}^{\prime}}{(s-1)!}\right)^{2}
         \end{aligned}
     \end{equation}
-    {\color{blue} use \citet{chernozhukov_conditional_2024} Lemma 6.1 to show consequence for $I_{3,k}^{(1)}$}\\
+    By \citet{chernozhukov_doubledebiased_2018} Lemma 6.1, this allows us to draw the following conclusion.
+    \begin{equation}
+        \begin{aligned}
+            \mathcal{I}_{3,k}^{(1)} = O_{p}\left(\frac{r_{n}^{\prime}}{(s-1)!}\right)
+        \end{aligned}
+    \end{equation}  
     Next, to bound $\mathcal{I}_{4,k}^{(1)}$, we introduce a function analogous to the proof presented in \citet{chernozhukov_doubledebiased_2018}.
     \begin{equation}
         \begin{aligned}
@@ -141,11 +146,15 @@ Recall that we are ultimately even more interested in the approximation errors o
     \begin{equation}
         f_{k}^{(1)}(1)
         = \frac{1}{2}\left[\frac{\partial^{2}}{\partial r^{2}}f_{k}^{(1)}(r)\right]_{r = \tilde{r}}
+        \leq \sup_{x \in (0,1)} \frac{1}{2}\left[\frac{\partial^{2}}{\partial r^{2}}f_{k}^{(1)}(r)\right]_{r = x}
+        \overset{\text{Lem \ref{lem:rate_cond_errors2}}}{\leq} {\color{red} LOREM IPSUM}
     \end{equation}
 {\color{red} LOREM IPSUM}
 \end{proof}
 
 \hrule
+
+To obtain results on the asymptotic distribution of the proposed estimator it remains to analyze the behavior of the higher-order error terms due to the first-stage estimation error.
 
 \begin{lem}[Behavior of Higher-Order Error Terms]\label{lem:HO_error}\mbox{}\\*
     
