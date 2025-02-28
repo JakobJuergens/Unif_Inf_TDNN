@@ -24,7 +24,7 @@ Recall the decomposition of the DNN-DML2 estimator introduced in equation \ref{e
         \hat{\theta}\left(x; \mathbf{D}\right)
         & = \underbrace{\E_{D}\left[\hat{\theta}\left(x; \mathbf{D}\right)\right]}_{\text{Centering-Term}}
         + \underbrace{\frac{s}{n}\sum_{i = 1}^{n} \chi_{s,0}^{(1)}\left(x; Z_{i}\right)}_{\text{Oracle-H\'ajek-Projection}}
-        + \underbrace{\frac{s}{k} \sum_{l = 1}^{k} \frac{1}{m} \sum_{i \in \mathcal{I}_{k}}\left(\underbrace{\chi_{s}^{(1)}\left(x; Z_{i}, \hat{\eta}_{k}\right) - \chi_{s,0}^{(1)}\left(x; Z_{i}\right)}_{R_{1,k}\left(x; Z_{i}\right)}\right)}_{\text{Oracle-H\'ajek-Projection Error}}\\
+        + \underbrace{\frac{s}{K} \sum_{k = 1}^{K} \frac{1}{m} \sum_{i \in \mathcal{I}_{k}}\left(\underbrace{\chi_{s}^{(1)}\left(x; Z_{i}, \hat{\eta}_{k}\right) - \chi_{s,0}^{(1)}\left(x; Z_{i}\right)}_{R_{1,k}\left(x; Z_{i}\right)}\right)}_{\text{Oracle-H\'ajek-Projection Error}}\\
         & \quad \quad + \underbrace{\sum_{j = 2}^{s} \binom{s}{j} \binom{n}{j}^{-1}\sum_{\ell \in L_{n,j}} \chi_{s,0}^{(j)}\left(x; \mathbf{D}_{\ell}\right)}_{\text{Oracle-H\'ajek-Residual}}
          + \underbrace{\sum_{j = 2}^{s} \binom{s}{j} \binom{n}{j}^{-1}\sum_{\ell \in L_{n,j}} R_{j}\left(x; \mathbf{D}_{\ell}\right)}_{\text{Higher-Order Error Terms}}
     \end{aligned}
@@ -141,13 +141,31 @@ Recall that we are ultimately even more interested in the approximation errors o
         f_{k}^{(1)}(1)
         = f_{k}^{(1)}(0) + \left[\frac{\partial}{\partial r}f_{k}^{(1)}(r)\right]_{r = 0} + \frac{1}{2}\left[\frac{\partial^{2}}{\partial r^{2}}f_{k}^{(1)}(r)\right]_{r = \tilde{r}}
     \end{equation}
-    However, clearly $f_{k}^{(1)}(0) = 0$.
-    Furthermore, on the event $\mathcal{E}_{n}$ we have $\left[\frac{\partial}{\partial r}f_{k}^{(1)}(r)\right]_{r = 0} = 0$ by Neyman orthogonality and thus, find the following.
+    It can be easily recognized that $f_{k}^{(1)}(0) = 0$.
+    Additionally, by Neyman orthogonality, we find that $\left[\frac{\partial}{\partial r}f_{k}^{(1)}(r)\right]_{r = 0} = 0$.
+    Thus, on the event $\mathcal{E}_{n}$ we find the following.
     \begin{equation}
-        f_{k}^{(1)}(1)
-        = \frac{1}{2}\left[\frac{\partial^{2}}{\partial r^{2}}f_{k}^{(1)}(r)\right]_{r = \tilde{r}}
-        \leq \sup_{x \in (0,1)} \frac{1}{2}\left[\frac{\partial^{2}}{\partial r^{2}}f_{k}^{(1)}(r)\right]_{r = x}
-        \overset{\text{Lem \ref{lem:rate_cond_errors2}}}{\leq} {\color{red} LOREM IPSUM}
+        \begin{aligned}
+            \mathcal{I}_{4,k}^{(1)}
+            & = \sqrt{n} \cdot f_{k}^{(1)}(1)
+            = \sqrt{n} \cdot \frac{1}{2}\left[\frac{\partial^{2}}{\partial r^{2}}f_{k}^{(1)}(r)\right]_{r = \tilde{r}}
+            \leq \sqrt{n} \cdot \sup_{x \in (0,1)} \frac{1}{2}\left[\frac{\partial^{2}}{\partial r^{2}}f_{k}^{(1)}(r)\right]_{r = x}
+            \overset{\text{Lem \ref{lem:rate_cond_errors2}}}{\leq} {\color{red} LOREM IPSUM}
+        \end{aligned}
+    \end{equation}
+    Combining these bounds, we obtain the following intermediate result.
+    \begin{equation}
+        \begin{aligned}
+            \bar{R}_{1, k}\left(x\right)
+            & = O_{p}\left(\sqrt{\frac{1}{n}} \cdot \frac{r_{n}^{\prime}}{(s-1)!} + {\color{red} LOREM IPSUM}\right)
+        \end{aligned}
+    \end{equation}
+    Now, recognizing that since $k$ is fixed, we can apply this logic to each individual fold, we obtain the desired result.
+    \begin{equation}
+        \begin{aligned}
+            \frac{s}{K} \sum_{k = 1}^{K} \bar{R}_{1, k}\left(x\right) 
+            = O_{p}\left(\sqrt{\frac{1}{n}} \cdot \frac{s \cdot r_{n}^{\prime}}{(s-1)!} + {\color{red} LOREM IPSUM}\right)
+        \end{aligned}
     \end{equation}
 {\color{red} LOREM IPSUM}
 \end{proof}
@@ -155,13 +173,33 @@ Recall that we are ultimately even more interested in the approximation errors o
 \hrule
 
 To obtain results on the asymptotic distribution of the proposed estimator it remains to analyze the behavior of the higher-order error terms due to the first-stage estimation error.
+Thus, similar to the analysis presented in Lemma \ref{lem:ps_hajek_error}, we obtain the following result.
 
 \begin{lem}[Behavior of Higher-Order Error Terms]\label{lem:HO_error}\mbox{}\\*
     
 \end{lem}
 
 \begin{proof}[Proof of Lemma \ref{lem:HO_error}]\mbox{}\\*
-    
+    Consider a data set $\mathbf{D}_{[n]}$ and an arbitrary subset $\ell \subseteq [n]$ such that $1 < \left|\ell\right| \leq s$.
+    Recognize that for each such subset there is exactly one observation $Z^{*}$ in $\mathbf{D}_{\ell}$ that is closest to the point of interest $x$.
+    Let $k^{*}\left(\mathbf{D}_{\ell}\right) \in [K]$ denote the fold to which this closest observation belongs.
+    Now, define the following random variables for $j = 2, \dotsc, s$ and $k \in [K]$.
+    \begin{equation}
+        m_{k}^{(j)}\left(\mathbf{D}_{[n]}\right) 
+        = \sum_{\ell \in L_{n,j}} \1\left(k^{*}\left(\mathbf{D}_{\ell}\right) = k\right) 
+        \quad \text{and} \quad
+        \mathbf{M}_{k}^{(j)}\left(\mathbf{D}_{[n]}\right) 
+        = \left\{\ell \in L_{n,j} \, \middle| \,  \1\left(k^{*}\left(\mathbf{D}_{\ell}\right) = k\right) \right\}
+    \end{equation}
+    Choose now an arbitrary $k \in [K]$ and consider the following analogous argument to the previous proof.
+    \begin{equation}
+        \begin{aligned}
+            {\color{red} LOREM IPSUM}
+        \end{aligned}
+    \end{equation}
+
+
+    {\color{blue} Can I condition on $\mathbf{D}_{I_{k^{*}}^{C}}$ in a similar way to the previous Lemma?}
 \end{proof}
 
 \hrule
