@@ -270,6 +270,55 @@ Using the score function in the equation that defines the estimator, we can obse
 Thus, given first-stage estimates of nuisance parameters, I have a closed-form representation of the CATE estimator for a given partition of $[n]$.
 Furthermore, given these first-stage estimates, the evaluation of the CATE-estimator at a different point of interest is merely a re-weighting of the terms corresponding to different observations.
 
+\begin{boxD}
+	\begin{dfn}{Honest Double-Crossfitting Random Forest}\mbox{}\\*
+		To estimate the Conditional Average Treatment Effect at a point of interest $x \in \mathcal{X}$, proceed as follows.
+		\begin{enumerate}
+			\item Take a $K$-fold random partition $\mathcal{I} = \left(I_k\right)_{k = 1}^{K}$ of the observation indices $[n]$ such that the size of each fold $I_k$ is $m = n/K$ where $K$ is an even number.
+            Furthermore, for the observation being assigned rank $i \in [n]$, denote by $k_{(i)}$ the fold that the observation appears in.
+            In contrast, for observation $j$ (\textbf{NOT} the observation being assigned rank $j$) denote the corresponding fold by $k_j$.
+			Furthermore, define the following sets. 
+            \begin{equation}
+                \mathcal{J}_k = [n] \backslash \left(I_{k} \cup I_{k^{\prime}}\right) 
+                \quad \text{where} \quad
+                k^{\prime} = \begin{cases}
+                    k+1 \quad & \quad \text{if $k$ is an odd number} \\
+                    k-1 \quad & \quad \text{if $k$ is an even number}
+                \end{cases}.
+            \end{equation}
+            For each $k \in [K]$, use a first-stage estimator for the functional nuisance parameters on the data set $\mathbf{D}_{\mathcal{J}_{k}} \dots$
+			      \begin{enumerate}
+				      \item to estimate the nuisance parameters $\mu_{0}^{0}$ and $\mu_{0}^{1}$:
+				            \begin{equation}
+					            \hat{\mu}_{k}^{w}\left(x\right) = \hat{\mu}\left(x; \mathbf{D}_{\mathcal{J}_{k}}^{(w)}\right) \quad \text{for } w=0,1
+				            \end{equation}
+				      \item if $\pi_{0}$ is unknown, i.e.\ we are not in a randomized experiment setting,
+				            additionally estimate $\pi_{0}$
+				            \begin{equation}
+					            \hat{\pi}_{k}\left(x\right) = \hat{\mu}\left(x; \mathbf{D}_{\mathcal{J}_{k}}\right) \quad \text{where the predicted variable is $W$}
+				            \end{equation}
+			      \end{enumerate}
+            For each fold $k$, denote the vector of estimates by $\hat{\eta}_{k} = \left(\hat{\mu}_{k}^{0}, \hat{\mu}_{k}^{1}, \hat{\pi}_{k}\right)^{\prime}$.
+            For each observation $i$, define the combined estimator as follows $\hat{\eta}(Z_i) = \hat{\eta}_{k_{i}}(Z_i)$.
+            \item Obtain a Kernel function $K(x, X_{i})$ by \dots
+            \begin{enumerate}
+                \item For each fold $k$, estimate a random forest consisting of $B$ trees on $\mathbf{D}_{I_{k^{\prime}}}$ predicting $m(Z_{(i)}, \hat{\eta}_{k_{(i)}})$.
+                For each observation in $\mathbf{D}_{I_{k}}$ let $w(x; i)$ denote in how many trees the observation under consideration lies in the same terminal node as the point of interest $x$. 
+                \item For each observation $i \in [n]$, define the Kernel function as follows.
+                \begin{equation}
+                    K(x, X_{i}) = \frac{w(x; i)}{\sum_{j = 1}^{n} w(x; j)}
+                \end{equation}
+            \end{enumerate}
+			\item Construct the estimator $\hat{\theta}\left(x\right)$ as the solution to the following equation.
+			      \begin{equation}
+				      \begin{aligned}
+					      0 = \sum_{k = 1}^{K} \sum_{i \in I_k} K(x, X_{i}) m\left(Z_{i}; \hat{\theta}\left(x\right), \hat{\eta}_{k}\right)
+				      \end{aligned}
+			      \end{equation}
+		\end{enumerate}
+	\end{dfn}
+\end{boxD}
+
 As is typical in the literature on doubly-robust inference, we need to make assumptions on the convergence rate of the first-stage estimators to allow for the desired type of inference.
 Specifically, I take the following slightly modified assumptions from Assumption 3.2 of \citet{chernozhukov_doubledebiased_2018}.
 \begin{boxD}
