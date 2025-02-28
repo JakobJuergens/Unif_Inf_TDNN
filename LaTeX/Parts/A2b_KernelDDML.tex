@@ -148,3 +148,80 @@ More specifically, we are interested in the part absent the centering term as th
     This might be easier to do with a slightly weaker but more explicit rate condition that I would need to show for the CATE moment.}
     {\color{red} LOREM IPSUM}
 \end{proof}
+
+\hrule
+
+\begin{lem}
+    
+\end{lem}
+
+\begin{proof}
+    \begin{equation}
+        \begin{aligned}
+            & \sup_{\eta \in \mathcal{T}_{n}}\left(
+                \E_{D}\left[
+                    \left|\chi_{s}(x; \mathbf{D}_{[s]}, \eta) - \chi_{s,0}\left(x; \mathbf{D}_{[s]}\right)
+                    \right|^2
+                \right]
+            \right)^{1 / 2} \\
+            %
+            & \quad = \sup_{\eta \in \mathcal{T}_{n}}\left(
+                \E_{D}\left[
+                    \left|\sum_{i = 1}^{s}\frac{\1\left(\kappa(x; Z_{i}, \mathbf{D}_{[s]}) = 1\right)}{s!} 
+                    \left(m(Z_{i}, \eta) - m(Z_{i}, \eta_{0})\right)
+                    \right|^2
+                \right]
+            \right)^{1 / 2} \\
+            %
+            & \quad \leq \sup_{\eta \in \mathcal{T}_{n}}\left(
+                \E_{D}\left[\sum_{i = 1}^{s}\frac{\1\left(\kappa(x; Z_{i}, \mathbf{D}_{[s]}) = 1\right)}{(s!)^{2}}
+                    \left| m(Z_{i}, \eta) - m(Z_{i}, \eta_{0})\right|^2
+                \right]
+            \right)^{1 / 2} \\
+            %
+            & \quad = \frac{\sqrt{s}}{s!} \cdot \sup_{\eta \in \mathcal{T}_{n}}\left(
+                 \E_{D}\left[\1\left(\kappa(x; Z, \mathbf{D}_{[s]}) = 1\right)
+                    \left| m(Z, \eta) - m(Z, \eta_{0})\right|^2
+                \right]
+            \right)^{1 / 2} \\
+            %
+            & \quad \leq \frac{\sqrt{s}}{s!} \cdot \sup_{\eta \in \mathcal{T}_{n}}\left(
+                \E_{D}\left[\left| m(Z, \eta) - m(Z, \eta_{0})\right|^2\right]
+            \right)^{1 / 2} \\
+            %
+            & \quad = \frac{\sqrt{s}}{s!} \cdot r_{n}^{\prime}
+        \end{aligned}
+    \end{equation}
+\end{proof}
+
+\hrule
+
+\begin{lem}
+    
+\end{lem}
+
+\begin{proof}
+    \begin{equation}
+        \begin{aligned}
+            & \sup_{r \in(0,1), \eta \in \mathcal{T}_{n}}\left|
+                \partial_r^2 \E_{D}\left[
+                    \chi_{s}\left(x; \mathbf{D}_{[s]}, \eta_{0} + r\left(\eta-\eta_{0}\right)\right)
+                \right]
+            \right| \\
+            %
+            & \quad = \sup_{r \in(0,1), \eta \in \mathcal{T}_{n}}\left|
+                \partial_r^2 \E_{D}\left[
+                    \sum_{i = 1}^{s}\frac{\1\left(\kappa(x; Z_{i}, \mathbf{D}_{[s]}) = 1\right)}{s!} 
+                    m\left(Z_{i}, \eta_{0} + r\left(\eta-\eta_{0}\right)\right)
+                \right]
+            \right| \\
+            %
+            & \quad = \frac{s}{s!} \cdot \sup_{r \in(0,1), \eta \in \mathcal{T}_{n}}\left|
+                \partial_r^2 \E_{D}\left[
+                    \1\left(\kappa(x; Z, \mathbf{D}_{[s]}) = 1\right) 
+                    m\left(Z, \eta_{0} + r\left(\eta-\eta_{0}\right)\right)
+                \right]
+            \right| \\
+        \end{aligned}
+    \end{equation}
+\end{proof}
