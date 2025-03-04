@@ -271,7 +271,7 @@ Thus, given first-stage estimates of nuisance parameters, I have a closed-form r
 Furthermore, given these first-stage estimates, the evaluation of the CATE-estimator at a different point of interest is merely a re-weighting of the terms corresponding to different observations.
 
 \begin{boxD}
-	\begin{dfn}{Honest Double-Crossfitting Random Forest}\mbox{}\\*
+	\begin{dfn}{Honest Double-Cross-Fitting Forest}\mbox{}\\*
 		To estimate the Conditional Average Treatment Effect at a point of interest $x \in \mathcal{X}$, proceed as follows.
 		\begin{enumerate}
 			\item Take a $K$-fold random partition $\mathcal{I} = \left(I_k\right)_{k = 1}^{K}$ of the observation indices $[n]$ such that the size of each fold $I_k$ is $m = n/K$ where $K$ is an even number.
@@ -284,22 +284,10 @@ Furthermore, given these first-stage estimates, the evaluation of the CATE-estim
                 k^{\prime} = \begin{cases}
                     k+1 \quad & \quad \text{if $k$ is an odd number} \\
                     k-1 \quad & \quad \text{if $k$ is an even number}
-                \end{cases}.
+                \end{cases}
             \end{equation}
-            For each $k \in [K]$, use a first-stage estimator for the functional nuisance parameters on the data set $\mathbf{D}_{\mathcal{J}_{k}} \dots$
-			      \begin{enumerate}
-				      \item to estimate the nuisance parameters $\mu_{0}^{0}$ and $\mu_{0}^{1}$:
-				            \begin{equation}
-					            \hat{\mu}_{k}^{w}\left(x\right) = \hat{\mu}\left(x; \mathbf{D}_{\mathcal{J}_{k}}^{(w)}\right) \quad \text{for } w=0,1
-				            \end{equation}
-				      \item if $\pi_{0}$ is unknown, i.e.\ we are not in a randomized experiment setting,
-				            additionally estimate $\pi_{0}$
-				            \begin{equation}
-					            \hat{\pi}_{k}\left(x\right) = \hat{\mu}\left(x; \mathbf{D}_{\mathcal{J}_{k}}\right) \quad \text{where the predicted variable is $W$}
-				            \end{equation}
-			      \end{enumerate}
-            For each fold $k$, denote the vector of estimates by $\hat{\eta}_{k} = \left(\hat{\mu}_{k}^{0}, \hat{\mu}_{k}^{1}, \hat{\pi}_{k}\right)^{\prime}$.
-            For each observation $i$, define the combined estimator as follows $\hat{\eta}(Z_i) = \hat{\eta}_{k_{i}}(Z_i)$.
+            For each $k \in [K]$, use a first-stage estimator for the functional nuisance parameters on the data set $\mathbf{D}_{\mathcal{J}_{k}}$ to estimate the nuisance parameter $\eta_{0}$.
+            For each fold $k$, denote the estimate by $\hat{\eta}_{k}$ and for each observation $i$, define the combined estimator as follows $\hat{\eta}(Z_i) = \hat{\eta}_{k_{i}}(Z_i)$.
             \item Obtain a Kernel function $K(x, X_{i})$ by \dots
             \begin{enumerate}
                 \item For each fold $k$, estimate a random forest consisting of $B$ trees on $\mathbf{D}_{I_{k^{\prime}}}$ predicting $m(Z_{(i)}, \hat{\eta}_{k_{(i)}})$.

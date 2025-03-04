@@ -48,6 +48,10 @@ Recall that we are ultimately even more interested in the approximation errors o
     \tilde{R}_{c}\left(x; \mathbf{D}_{\ell}\right)
      = R_{c}\left(x; \mathbf{D}_{\ell}\right) - (-1)^{c} \cdot \left(\E_{D}\left[\chi_{s}(x; \mathbf{D}_{[s]}, \hat{\eta}) - \chi_{s,0}\left(x; \mathbf{D}_{[s]}\right)\right]\right)
 \end{equation}
+This follows from the following combinatorial fact describing the elimination of centering terms in successive Hoeffding projection terms.
+\begin{equation}
+    \sum_{j = 1}^{s-1}(-1)^{j+1} \binom{s}{j} = 1 + (-1)^{s}
+\end{equation}
 
 \hrule
 
@@ -188,25 +192,40 @@ Thus, similar to the analysis presented in Lemma \ref{lem:ps_hajek_error}, we ob
 
 \begin{proof}[Proof of Lemma \ref{lem:HO_error}]\mbox{}\\*
     Consider a data set $\mathbf{D}_{[n]}$ and an arbitrary subset $\ell \subseteq [n]$ such that $1 < \left|\ell\right| \leq s$.
-    Recognize that for each such subset there is exactly one observation $Z^{*}$ in $\mathbf{D}_{\ell}$ that is closest to the point of interest $x$.
+    Recognize that for each such subset there is exactly one observation $Z^{*}\left(\mathbf{D}_{\ell}\right)$ in $\mathbf{D}_{\ell}$ that is closest to the point of interest $x$.
     Let $k^{*}\left(\mathbf{D}_{\ell}\right) \in [K]$ denote the fold to which this closest observation belongs.
     Now, define the following random variables for $j = 2, \dotsc, s$ and $k \in [K]$.
     \begin{equation}
-        m_{k}^{(j)}\left(\mathbf{D}_{[n]}\right) 
+        m_{k}^{(j)}
         = \sum_{\ell \in L_{n,j}} \1\left(k^{*}\left(\mathbf{D}_{\ell}\right) = k\right) 
         \quad \text{and} \quad
-        \mathbf{M}_{k}^{(j)}\left(\mathbf{D}_{[n]}\right) 
+        \mathbf{M}_{k}^{(j)}
         = \left\{\ell \in L_{n,j} \, \middle| \,  \1\left(k^{*}\left(\mathbf{D}_{\ell}\right) = k\right) \right\}
     \end{equation}
-    Choose now an arbitrary $k \in [K]$ and consider the following analogous argument to the previous proof.
+    Choose now an arbitrary $k \in [K]$ and consider the following argument.
     \begin{equation}
         \begin{aligned}
-            {\color{red} LOREM IPSUM}
+            \bar{R}_{j, k}\left(x\right) 
+            & := \binom{s}{j}\binom{n}{j}^{-1} \sum_{\ell \in \mathbf{M}_{k}^{(j)}} \left(\vartheta_{s}^{j}(x; \mathbf{D}_{\ell}, \hat{\eta}_{k}) - \vartheta_{s,0}^{j}(x; \mathbf{D}_{\ell})\right) \\
+            %
+            & = \binom{s}{j}\binom{n}{j}^{-1} \sum_{\ell \in \mathbf{M}_{k}^{(j)}} \E_{D}\left[\chi_{s}(x; \mathbf{D}_{[s]}, \hat{\eta}_{k}) - \chi_{s,0}(x; \mathbf{D}_{[s]}) \, \middle| \, \mathbf{D}_{[j]} = \mathbf{D}_{\ell}\right] \\
+            %
+            & = \binom{s}{j}\binom{n}{j}^{-1} \sum_{\ell \in \mathbf{M}_{k}^{(j)}} \E_{D}\left[
+                \sum_{i = 1}^{s}\frac{\1\left(\kappa(x; Z_{i}, \mathbf{D}_{[s]}) = 1\right)}{s!} \left(m(Z_{i}, \hat{\eta}_{k_i}) - m(Z_{i}, \eta_{0})\right)
+            \, \middle| \, \mathbf{D}_{[j]} = \mathbf{D}_{\ell}\right] \\
+            %
+            & = \binom{s}{j}\binom{n}{j}^{-1}  \sum_{\ell \in \mathbf{M}_{k}^{(j)}} \Bigg\{\E_{D}\left[
+                \sum_{i = 1}^{j}\frac{\1\left(\kappa(x; Z_{i}, \mathbf{D}_{[s]}) = 1\right)}{s!} \left(m(Z_{i}, \hat{\eta}_{k}) - m(Z_{i}, \eta_{0})\right)
+                \, \middle| \, \mathbf{D}_{[j]} = \mathbf{D}_{\ell}\right]\\
+                & \quad \quad + \E_{D}\left[\sum_{i = j + 1}^{s}\frac{\1\left(\kappa(x; Z_{i}, \mathbf{D}_{[s]}) = 1\right)}{s!} \left(m(Z_{i}, \hat{\eta}_{k_i}) - m(Z_{i}, \eta_{0})\right)
+            \, \middle| \, \mathbf{D}_{[j]} = \mathbf{D}_{\ell}\right] \Bigg\}\\
+            %
+            & = \binom{s}{j}\binom{n}{j}^{-1} \sum_{\ell \in \mathbf{M}_{k}^{(j)}} \Bigg\{\frac{1}{s!} \E_{D}\left[
+                m(Z^{*}\left(\mathbf{D}_{\ell}\right), \hat{\eta}_{k}) - m(Z^{*}\left(\mathbf{D}_{\ell}\right), \eta_{0})\right]\\
+                & \quad \quad + \frac{s-j}{s!}\E_{D}\left[\1\left(\kappa(x; Z_{s}, \mathbf{D}_{[s]}) = 1\right) \left(m(Z_{s}, \hat{\eta}_{k_s}) - m(Z_{s}, \eta_{0})\right)
+            \, \middle| \, \mathbf{D}_{[j]} = \mathbf{D}_{\ell}\right] \Bigg\}\\
         \end{aligned}
     \end{equation}
-
-
-    {\color{blue} Can I condition on $\mathbf{D}_{I_{k^{*}}^{C}}$ in a similar way to the previous Lemma?}
 \end{proof}
 
 \hrule

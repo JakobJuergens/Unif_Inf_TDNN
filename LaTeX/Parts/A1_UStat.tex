@@ -6,10 +6,10 @@ As most of the theoretical results in \citet{demirkaya_optimal_2024} rely on rep
 Recalling Equation~\ref{eq:U_stat}, the DNN and TDNN estimators can be expressed in the following U-statistic form and are thus a type of generalized complete U-statistic as introduced by \citet{peng_rates_2022}.
 \begin{equation}
 	\tilde{\mu}_{s}(x; \mathbf{D}_n)
-	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} h_{s}(x; D_{\ell})
+	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} h_{s}(x; \mathbf{D}_{\ell})
 	\quad \text{and} \quad
 	\hat{\mu}_{s_1, s_2}(x; \mathbf{D}_n)
-	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s_2}} h_{s_1, s_2}(x; D_{\ell})
+	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s_2}} h_{s_1, s_2}(x; \mathbf{D}_{\ell})
 \end{equation}
 It is worth pointing out that in contrast to the DNN estimator, the kernel for the TDNN estimator is of order $s_2 > s_1$.
 The authors derive an explicit formula for the kernel that shows the connection between the DNN and TDNN estimators.
@@ -20,7 +20,7 @@ This connection will prove useful going forward.
 		\begin{equation}
 			\begin{aligned}
 				h_{s_1, s_2}\left(x; D\right)
-				 & = w_{1}^{*}\left[\binom{s_2}{s_1}^{-1}\sum_{\ell \in L_{s_2, s_1}} h_{s_1}\left(x; D_{\ell}\right)\right] + w_{2}^{*} h_{s_2}\left(x; D\right) \\
+				 & = w_{1}^{*}\left[\binom{s_2}{s_1}^{-1}\sum_{\ell \in L_{s_2, s_1}} h_{s_1}\left(x; \mathbf{D}_{\ell}\right)\right] + w_{2}^{*} h_{s_2}\left(x; D\right) \\
 				 & = w_{1}^{*} \tilde{\mu}_{s_1}\left(x; D\right) + w_{2}^{*} h_{s_2}\left(x; D\right)                                                            \\
 			\end{aligned}
 		\end{equation}
@@ -37,7 +37,7 @@ Borrowing the notational conventions from \citet{lee_u-statistics_2019}, I addit
 \end{equation}
 \begin{equation}
 	h_{s}^{(c)}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}\right)
-	= \psi_{s}^{c}(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}) - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{n,j}}h_{s}^{(j)}(x; \mathbf{z}_{\ell})\right) - \mu(x)
+	= \psi_{s}^{c}(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}) - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{c,j}}h_{s}^{(j)}(x; \mathbf{z}_{\ell})\right) - \mu(x)
 	\quad \text{for } c = 2, \dotsc, s
 \end{equation}
 In contrast to the notational inspiration, the subsampling size $s$ is made explicit.
@@ -61,10 +61,10 @@ As a byproduct (or main purpose depending on the perspective) these terms can be
 \begin{equation}\label{eq:H_projection}
 	\begin{aligned}
 		H_{s}^{c}\left(x; \mathbf{D}_n\right)
-		= \binom{n}{c}^{-1} \sum_{\ell \in L_{n,c}} h^{(c)}_{s}(x; D_{\ell})
+		= \binom{n}{c}^{-1} \sum_{\ell \in L_{n,c}} h^{(c)}_{s}(x; \mathbf{D}_{\ell})
 		\quad \text{and} \quad
 		H_{s_1, s_2}^{c}\left(x; \mathbf{D}_n\right)
-		= \binom{n}{c}^{-1} \sum_{\ell \in L_{n,c}} h^{(c)}_{s_1, s_2}(x; D_{\ell})
+		= \binom{n}{c}^{-1} \sum_{\ell \in L_{n,c}} h^{(c)}_{s_1, s_2}(x; \mathbf{D}_{\ell})
 	\end{aligned}
 \end{equation}
 These projection terms can then be used to construct the following Hoeffding decompositions.
@@ -112,11 +112,11 @@ First, observe that the DNN-DML2 CATE estimator can be rewritten as follows to e
 		\left[\hat{\mu}_{k_{(i)}}^{1}\left(X_{(i)}\right) - \hat{\mu}_{k_{(i)}}^{0}\left(X_{(i)}\right) + \hat{\beta}_{k_{(i)}}\left(W_{(i)}, X_{(i)}\right)\left(Y_{(i)} - \hat{\mu}^{W_{(i)}}_{k_{(i)}}\left(X_{(i)}\right)\right)\right] \\
         %
         & = \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}}
-        \sum_{i = 1}^{n}\frac{\1\left(\rk(x; Z_{i}, D_{\ell}) = 1\right)}{s!} 
+        \sum_{i = 1}^{n}\frac{\1\left(\rk(x; Z_{i}, \mathbf{D}_{\ell}) = 1\right)}{s!} 
         \left[\hat{\mu}_{k_i}^{1}\left(X_{i}\right) - \hat{\mu}_{k_i}^{0}\left(X_{i}\right) + \hat{\beta}_{k_i}\left(W_{i}, X_{i}\right)\left(Y_{i} - \hat{\mu}^{W_{i}}_{k_i}\left(X_{i}\right)\right)\right] \\
         %
         & = \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}}
-        \underbrace{\sum_{i = 1}^{n}\frac{\1\left(\kappa(x; Z_{i}, D_{\ell}) = 1\right)}{s!} 
+        \underbrace{\sum_{i = 1}^{n}\frac{\1\left(\kappa(x; Z_{i}, \mathbf{D}_{\ell}) = 1\right)}{s!} 
         m(Z_{i}, \hat{\eta}_{k_i})}_{\chi_{s}(x; \mathbf{D}_{\ell}, \hat{\eta})} \\
         %
         & = \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}}\chi_{s}(x; \mathbf{D}_{\ell}, \hat{\eta})
@@ -124,21 +124,22 @@ First, observe that the DNN-DML2 CATE estimator can be rewritten as follows to e
 \end{equation}
 In the same fashion as in the previous case, I can now define the Hoeffding decomposition for the estimator.
 Note that in this step, the functional nuisance parameter estimates $\hat{\mu}$ and $\hat{\pi}$ are considered as depending on the data that we form the expectation over and are thus itself random and part of the expectation.
+Next, consider the following Hoeffding projection terms.
 \begin{equation}
-    \vartheta_{s}^{c}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \hat{\eta}\right)
-    = \E_{D}\left[\chi_{s}(x; \mathbf{D}, \hat{\eta}) \, \middle| \, Z_1 = \mathbf{z}_1, \dotsc, Z_c = \mathbf{z}_c\right]
+    \vartheta_{s}^{c}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \eta\right)
+    = \E_{D}\left[\chi_{s}(x; \mathbf{D}, \eta) \, \middle| \, Z_1 = \mathbf{z}_1, \dotsc, Z_c = \mathbf{z}_c\right]
 \end{equation}
 \begin{equation}
-    \chi_{s}^{(1)}\left(x; \mathbf{z}_{1}, \hat{\eta}\right)
-	= \vartheta_{s}^{1}\left(x; \mathbf{z}_{1}, \hat{\eta}\right)
-    - \E_{D}\left[\chi_{s}(x; \mathbf{D}, \hat{\eta})\right]
+    \chi_{s}^{(1)}\left(x; \mathbf{z}_{1}, \eta\right)
+	= \vartheta_{s}^{1}\left(x; \mathbf{z}_{1}, \eta\right)
+    - \E_{D}\left[\chi_{s}(x; \mathbf{D}, \eta)\right]
 \end{equation}
 As before, I define the higher-order projection terms, i.e. for $c = 2, \dotsc, s$, in the following way.
 \begin{equation}
-    \chi_{s}^{(c)}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \hat{\eta}\right)
-	= \vartheta_{s}^{c}(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \hat{\eta}) 
-    - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{n,j}} \chi_{s}^{(j)}(x; \mathbf{z}_{\ell}, \hat{\eta})\right) 
-    - \E_{D}\left[\chi_{s}(x; \mathbf{D}, \hat{\eta})\right]
+    \chi_{s}^{(c)}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \eta\right)
+	= \vartheta_{s}^{c}(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \eta) 
+    - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{c,j}} \chi_{s}^{(j)}(x; \mathbf{z}_{\ell}, \eta)\right) 
+    - \E_{D}\left[\chi_{s}(x; \mathbf{D}, \eta)\right]
 \end{equation}
 In anticipation of arguments involving empirical process theory, I define as follows.
 \begin{equation}
@@ -161,15 +162,15 @@ In anticipation of arguments involving empirical process theory, I define as fol
 	    & = \chi_{s}^{(c)}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \eta_{0}\right) \\
         %
         & = \vartheta_{s,0}^{c}(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}) 
-        - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{n,j}} \chi_{s,0}^{(j)}(x; \mathbf{z}_{\ell})\right) 
-        - \E_{D}\left[\chi_{s,0}^{(c)}\left(x; Z_{1}, \dotsc, Z_{c}\right)\right]
+        - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{c,j}} \chi_{s,0}^{(j)}(x; \mathbf{z}_{\ell})\right) 
+        - \E_{D}\left[\chi_{s,0}\left(x; Z_{1}, \dotsc, Z_{c}\right)\right]
     \end{aligned}
 \end{equation}
-These definitions allow us to use the following decomposition, where now I acknowledge the randomness in the first-stage estimation.
+These definitions allow us to use the following decomposition.
 \begin{equation}\label{eq:DNNDML2_ResidDecomp}
     \begin{aligned}
-        \chi_{s}^{(c)}\left(x; \mathbf{D}_{\ell}, \hat{\eta}\right)
-        & = \chi_{s,0}^{(c)}\left(x; \mathbf{D}_{\ell}\right) + \underbrace{\chi_{s}^{(c)}\left(x; \mathbf{D}_{\ell}, \hat{\eta}\right) - \chi_{s,0}^{(c)}\left(x; \mathbf{D}_{\ell}\right)}_{R_{c}\left(x; \mathbf{D}_{\ell}\right)}
+        \chi_{s}^{(c)}\left(x; \mathbf{D}_{\ell}, \eta\right)
+        & = \chi_{s,0}^{(c)}\left(x; \mathbf{D}_{\ell}\right) + \underbrace{\chi_{s}^{(c)}\left(x; \mathbf{D}_{\ell}, \eta\right) - \chi_{s,0}^{(c)}\left(x; \mathbf{D}_{\ell}\right)}_{R_{c}\left(x; \mathbf{D}_{\ell}, \eta\right)}
     \end{aligned}
 \end{equation}
 Considering this decomposition will be of great usefulness when analyzing the asymptotic properties of the CATE estimators.
@@ -197,9 +198,10 @@ Using the full expression for the CATE estimator, the following is obtained.
 If necessary, we can furthermore decompose the error component in the following way.
 \begin{equation}
     \begin{aligned}
-        \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}}\left(\chi_{s}\left(x; \mathbf{D}_{\ell}, \hat{\eta}\right) - \chi_{s,0}\left(x; \mathbf{D}_{\ell}\right)\right)
-        & = \underbrace{\frac{s}{K} \sum_{k = 1}^{K} \frac{1}{m} \sum_{i \in \mathcal{I}_{k}}\left(\underbrace{\chi_{s}^{(1)}\left(x; Z_{i}, \hat{\eta}_{k}\right) - \chi_{s,0}^{(1)}\left(x; Z_{i}\right)}_{R_{1,k}\left(x; Z_{i}\right)}\right)}_{\text{Oracle-H\'ajek-Projection Error}}
-         + \underbrace{\sum_{j = 2}^{s} \binom{s}{j} \binom{n}{j}^{-1}\sum_{\ell \in L_{n,j}} R_{j}\left(x; \mathbf{D}_{\ell}\right)}_{\text{Higher-Order Error Terms}}
+        & \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}}\left(\chi_{s}\left(x; \mathbf{D}_{\ell}, \hat{\eta}\right) - \chi_{s,0}\left(x; \mathbf{D}_{\ell}\right)\right)\\
+        %
+        & \quad = \underbrace{\frac{s}{K} \sum_{k = 1}^{K} \frac{1}{m} \sum_{i \in \mathcal{I}_{k}}\left(\underbrace{\chi_{s}^{(1)}\left(x; Z_{i}, \hat{\eta}_{k}\right) - \chi_{s,0}^{(1)}\left(x; Z_{i}\right)}_{R_{1,k}\left(x; Z_{i}, \hat{\eta}\right)}\right)}_{\text{Oracle-H\'ajek-Projection Error}}
+         + \underbrace{\sum_{j = 2}^{s} \binom{s}{j} \binom{n}{j}^{-1}\sum_{\ell \in L_{n,j}} R_{j}\left(x; \mathbf{D}_{\ell}, \hat{\eta}\right)}_{\text{Higher-Order Error Terms}}
     \end{aligned}
 \end{equation}
 I call these terms Oracle-H\'ajek projection and Oracle-H\'ajek residual because of the additional randomness due to the first-stage estimation of the functional nuisance parameters that is reflected in the $R_j$ terms.
