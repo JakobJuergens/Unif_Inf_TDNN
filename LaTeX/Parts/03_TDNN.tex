@@ -286,11 +286,11 @@ Furthermore, given these first-stage estimates, the evaluation of the CATE-estim
                     k-1 \quad & \quad \text{if $k$ is an even number}
                 \end{cases}
             \end{equation}
-            For each $k \in [K]$, use a first-stage estimator for the functional nuisance parameters on the data set $\mathbf{D}_{\mathcal{J}_{k}}$ to estimate the nuisance parameter $\eta_{0}$.
+            For each $k \in [K]$, use a first-stage estimator on the data set $\mathbf{D}_{\mathcal{J}_{k}}$ to estimate the nuisance parameter $\eta_{0}$.
             For each fold $k$, denote the estimate by $\hat{\eta}_{k}$ and for each observation $i$, define the combined estimator as follows $\hat{\eta}(Z_i) = \hat{\eta}_{k_{i}}(Z_i)$.
             \item Obtain a Kernel function $K(x, X_{i})$ by \dots
             \begin{enumerate}
-                \item For each fold $k$, estimate a random forest consisting of $B$ trees on $\mathbf{D}_{I_{k^{\prime}}}$ predicting $m(Z_{(i)}, \hat{\eta}_{k_{(i)}})$.
+                \item For each fold $k$, estimate a random forest consisting of $B$ trees on $\mathbf{D}_{I_{k^{\prime}}}$ predicting $m(Z_{i}, \hat{\eta}_{k_{i}})$.
                 For each observation in $\mathbf{D}_{I_{k}}$ let $w(x; i)$ denote in how many trees the observation under consideration lies in the same terminal node as the point of interest $x$. 
                 \item For each observation $i \in [n]$, define the Kernel function as follows.
                 \begin{equation}
@@ -308,7 +308,7 @@ Furthermore, given these first-stage estimates, the evaluation of the CATE-estim
 \end{boxD}
 
 As is typical in the literature on doubly-robust inference, we need to make assumptions on the convergence rate of the first-stage estimators to allow for the desired type of inference.
-Specifically, I take the following slightly modified assumptions from Assumption 3.2 of \citet{chernozhukov_doubledebiased_2018}.
+Specifically, I take the following slightly modified assumptions from Assumption 3.2 of \citet{chernozhukov_doubledebiased_2018}, where $\left\{\delta_n\right\}_{n \geq 1}$ and $\left\{\Delta_n\right\}_{n \geq 1}$ are some sequences of positive constants converging to zero such that $\delta_n \geq n^{-1 / 2}$. 
 \begin{boxD}
     \begin{asm}[DDML-Rate Conditions]\label{asm:DDML_Rate_Cond}\mbox{}\\*
         {\color{red} LOREM IPSUM}
