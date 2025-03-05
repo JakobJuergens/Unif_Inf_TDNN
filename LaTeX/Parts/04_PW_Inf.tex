@@ -14,12 +14,12 @@ This is motivated by the closed-form representation of the estimators in questio
 Define the following variance we need to estimate to perform pointwise inference at a point of interest $x$.
 \begin{equation}\label{eq:TDNN_Var}
 	\omega^{2}\left(x\right)
-	= \Var_{D}\left(\hat{\mu}_{s_1, s_2}\left(x; \mathbf{D}_n\right)\right)
+	= \Var_{D}\left(\hat{\mu}_{s_1, s_2}\left(x; \mathbf{D}_{[n]}\right)\right)
 \end{equation}
-We denote by $\mathbf{D}_{n, -i}$ the data set $\mathbf{D}_n$ after removing the $i$'th observation.
+We denote by $\mathbf{D}_{n, -i}$ the data set $\mathbf{D}_{[n]}$ after removing the $i$'th observation.
 Then, the proposed Jackknife variance estimator takes the following form.
 \begin{equation}\label{eq:JK_Var_Est}
-	\hat{\omega}_{JK}^2\left(x; \mathbf{D}_n\right)
+	\hat{\omega}_{JK}^2\left(x; \mathbf{D}_{[n]}\right)
 	= \frac{n-1}{n} \sum_{i = 1}^{n}\left(\hat{\mu}_{s_1, s_2}\left(x; \mathbf{D}_{n, -i}\right) - \hat{\mu}_{s_1, s_2}\left(x; \mathbf{D}_{n}\right)\right)^2
 \end{equation}
 
@@ -39,7 +39,7 @@ Then, the proposed Jackknife variance estimator takes the following form.
 As a generalization to the Jackknife, we can also consider the delete-d Jackknife that builds on the same working principle but averages over all possible d-subset removals.
 This leads to the following representation.
 \begin{equation}\label{eq:JKD_Var_Est}
-	\hat{\omega}_{JKD}^2\left(x; d, \mathbf{D}_n\right)
+	\hat{\omega}_{JKD}^2\left(x; d, \mathbf{D}_{[n]}\right)
 	= \frac{n-d}{d}\binom{n}{d}^{-1} \sum_{\ell \in L_{n,d}}
 	\left(\hat{\mu}_{s_1, s_2}\left(x; \mathbf{D}_{n, -\ell}\right)
 	- \hat{\mu}_{s_1, s_2}\left(x; \mathbf{D}_{n}\right)
@@ -52,10 +52,10 @@ However, because of the unwieldiness of the closed form, I refrain from deriving
 In this section, I will loosen that restrictive condition to make use of the attractive performance of U-statistics with large subsampling rates in the context of inference.
 The PIJK variance estimator applied to the TDNN estimator is as follows.
 \begin{equation}\label{eq:PIJK_Var_Est}
-	\hat{\omega}_{PI}^2\left(x; \mathbf{D}_n\right)
+	\hat{\omega}_{PI}^2\left(x; \mathbf{D}_{[n]}\right)
 	= \frac{s_2^2}{n^2}\sum_{i = 1}^{n}\left[\left(
 		\binom{n-1}{s-1}^{-1} \sum_{\ell \in L_{s_2-1}([n]\backslash\{i\})} h_{s_1, s_2}\left(x; D_{\ell \cup \{i\}}\right)\right)
-		- \hat{\mu}_{s_1, s_2}\left(x; \mathbf{D}_n\right)\right]^2
+		- \hat{\mu}_{s_1, s_2}\left(x; \mathbf{D}_{[n]}\right)\right]^2
 \end{equation}
 
 {\color{red} LOREM IPSUM}
@@ -78,7 +78,7 @@ Thus, I obtain the following result.
 	\begin{thm}[Pseudo-Infinitesimal Jackknife Variance Estimator Consistency]\label{thm:PI_JK_Cons}\mbox{}\\*
 		Let $0 < \mathfrak{c} \leq s_1/s_2 \leq 1 - \mathfrak{c} < 1$ and $s_2 = o(n)$, then
 		\begin{equation}
-			\frac{\hat{\omega}_{PI}^2\left(x; \mathbf{D}_n\right)}{\omega^{2}\left(x; \mathbf{D}_n\right)} \longrightarrow_{p} 1.
+			\frac{\hat{\omega}_{PI}^2\left(x; \mathbf{D}_{[n]}\right)}{\omega^{2}\left(x; \mathbf{D}_{[n]}\right)} \longrightarrow_{p} 1.
 		\end{equation}
 	\end{thm}
 \end{boxD}
@@ -92,7 +92,7 @@ As part of the proof of these results, I obtain general results on the consisten
 	\begin{thm}[Jackknife Variance Estimator Consistency]\label{thm:JK_Cons}\mbox{}\\*
 		Let $0 < \mathfrak{c} \leq s_1/s_2 \leq 1 - \mathfrak{c} < 1$ and $s_2 = o(n)$, then
 		\begin{equation}
-			\frac{\hat{\omega}_{JK}^2\left(x; \mathbf{D}_n\right)}{\omega^{2}\left(x; \mathbf{D}_n\right)} \longrightarrow_{p} 1.
+			\frac{\hat{\omega}_{JK}^2\left(x; \mathbf{D}_{[n]}\right)}{\omega^{2}\left(x; \mathbf{D}_{[n]}\right)} \longrightarrow_{p} 1.
 		\end{equation}
 	\end{thm}
 \end{boxD}
@@ -101,7 +101,7 @@ As part of the proof of these results, I obtain general results on the consisten
 	\begin{thm}[delete-d Jackknife Variance Estimator Consistency]\label{thm:JKD_Cons}\mbox{}\\*
 		Let $0 < \mathfrak{c} \leq s_1/s_2 \leq 1 - \mathfrak{c} < 1$, $s_2 = o(n)$, and $d = o(n)$, then
 		\begin{equation}
-			\frac{\hat{\omega}_{JKD}^2\left(x; d, \mathbf{D}_n\right)}{\omega^{2}\left(x; \mathbf{D}_n\right)} \longrightarrow_{p} 1.
+			\frac{\hat{\omega}_{JKD}^2\left(x; d, \mathbf{D}_{[n]}\right)}{\omega^{2}\left(x; \mathbf{D}_{[n]}\right)} \longrightarrow_{p} 1.
 		\end{equation}
 	\end{thm}
 \end{boxD}
@@ -110,7 +110,7 @@ As part of the proof of these results, I obtain general results on the consisten
 \subsection{Asymptotic Normality of the (T)DNN-DML2 CATE Estimator}\label{CATE_AsympNorm}
 \hrule
 
-As a first intermediate result in the analysis of the asymptotic properties of the CATE estimator, we can find the following concerning an oracale variant of the proposed estimator defined as the solution to the following problem.
+As a first intermediate result in the analysis of the asymptotic properties of the CATE estimator, we can find the following concerning an oracle variant of the proposed estimator defined as the solution to the following problem.
 \begin{equation}
     \begin{aligned}
         0 
@@ -120,17 +120,30 @@ As a first intermediate result in the analysis of the asymptotic properties of t
 \end{equation}
 This is a rather basic result that can be seen as a corollary to the nonparametric regression case.
 \begin{boxD}
-	\begin{thm}[{\color{red} PRELIMINARY! THIS IS NOT YET FORMALLY SHOWN}]\label{thm:DNNDML2_anorm_0}\mbox{}\\*
-		Assume that we observe data as described in Assumption~\ref{asm:CATE_dgp} and that Assumption~\ref{asm:technical} is valid.
-		Then, for any fixed $x \in \mathcal{X}$, we have for some positive sequence $\omega_n$ of order $\sqrt{s/n}$
+	\begin{thm}[Asymptotic Normality of the Oracle-DNN-DML2 CATE Estimator]\label{thm:DNNDML2_anorm_0}\mbox{}\\*
+		Assume that we observe a data set $\mathbf{D}_{[n]}$ as described in Assumption~\ref{asm:CATE_dgp}. 
+        Furthermore, assume that Assumptions \ref{asm:technical}, \ref{asm:errors}, and \ref{asm:treatment_overlap} are valid.
+		Then, for any fixed $x \in \mathcal{X}$, we have for some positive sequence $\omega_{n,0}$ of order $\sqrt{s/n}$
 		\begin{equation}
-			\frac{\hat{\theta}_{0}(x; \mathbf{D}_n) - \theta_{0}(x)}{\omega_n}
+			\frac{\hat{\theta}_{0}(x; \mathbf{D}_{[n]}) - \theta_{0}(x)}{\omega_{n,0}}
 			\rightsquigarrow \mathcal{N}\left(0,1\right)
 		\end{equation}
 		as $n,s \rightarrow \infty$ with $s = o(n)$.
 	\end{thm}
 \end{boxD}
-
+More important is the following result showing asymptotic normality of the full estimator using cross-fitted first-stage estimates for the functional nuisance parameters.
+\begin{boxD}
+	\begin{thm}[Asymptotic Normality of the DNN-DML2 CATE Estimator]\label{thm:DNNDML2_anorm}\mbox{}\\*
+		Assume that we observe a data set $\mathbf{D}_{[n]}$ as described in Assumption~\ref{asm:CATE_dgp}.
+        Furthermore, assume that Assumptions \ref{asm:technical}, \ref{asm:errors}, \ref{asm:treatment_overlap}, and \ref{asm:DDML_Rate_Cond} are valid.
+		Then, for any fixed $x \in \mathcal{X}$, we have for some positive sequence $\omega_n$ of order $\sqrt{s/n}$
+		\begin{equation}
+			\frac{\hat{\theta}(x; \mathbf{D}_{[n]}) - \theta_{0}(x)}{\omega_n}
+			\rightsquigarrow \mathcal{N}\left(0,1\right)
+		\end{equation}
+		as $n,s \rightarrow \infty$ with $s = o(\sqrt{n})$.
+	\end{thm}
+\end{boxD}
 {\color{red} LOREM IPSUM}
 
 \subsection{Variance Estimation for the (T)DNN-DML2 CATE Estimator}\label{CATE_Var_Ests}
