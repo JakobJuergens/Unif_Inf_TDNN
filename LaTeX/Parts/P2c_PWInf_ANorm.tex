@@ -16,7 +16,12 @@
 \subsection{NPR-Estimators - Asymptotic Normality}
 \hrule
 
-\subsection{CATE-Estimators - Asymptotic Normality}
+\newpage
+\subsection{Oracle-CATE-Estimator - Asymptotic Normality}
+\hrule
+
+\newpage
+\subsection{CATE-Estimator - Asymptotic Normality}
 \hrule
 Recall the decomposition of the DNN-DML2 estimator introduced in equation \ref{eq:DNNDML2_Decomp}.
 \begin{equation}
@@ -175,11 +180,10 @@ Additionally, define the following empirical process notation, where $f$ is any 
     \end{equation}
     Since $k$ is fixed, we thus obtain the desired result.
     \begin{equation}
-        \mathbf{R}\left(x; \mathbf{D}_{\ell}, \hat{\eta}\right)
-         = O_{p}\left(s \cdot \left(n^{-1/2} r_{n}^{\prime} + \lambda_{n}^{\prime}\right)\right)
+        \sqrt{n} \cdot \mathbf{R}\left(x; \mathbf{D}_{\ell}, \hat{\eta}\right)
+         = O_{p}\left(s \cdot \left(r_{n}^{\prime} + \sqrt{n} \cdot \lambda_{n}^{\prime}\right)\right)
     \end{equation}
-    If the subsampling scale $s$ is of order $o(\sqrt{n})$ this term is thus asymptotically negligible.
-    However, it seems feasible to improve this condition to the regime of $s = o(n)$ using a more sophisticated bound in Equation \ref{eq:equal_weight_ineq}.
+    If the subsampling scale $s$ is of order $o\left(\min\left\{1/r_{n}^{\prime}, \left(\sqrt{n} \cdot \lambda_{n}^{\prime}\right)^{-1}\right\}\right)$ this term is thus asymptotically negligible.
 \end{proof}
 
 
