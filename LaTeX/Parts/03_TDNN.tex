@@ -269,44 +269,6 @@ Using the score function in the equation that defines the estimator, we can obse
 \end{equation}
 Thus, given first-stage estimates of nuisance parameters, I have a closed-form representation of the CATE estimator for a given partition of $[n]$.
 Furthermore, given these first-stage estimates, the evaluation of the CATE-estimator at a different point of interest is merely a re-weighting of the terms corresponding to different observations.
-
-% \begin{boxD}
-% 	\begin{dfn}{Honest Double-Cross-Fitting Forest}\mbox{}\\*
-% 		To estimate the Conditional Average Treatment Effect at a point of interest $x \in \mathcal{X}$, proceed as follows.
-% 		\begin{enumerate}
-% 			\item Take a $K$-fold random partition $\mathcal{I} = \left(I_k\right)_{k = 1}^{K}$ of the observation indices $[n]$ such that the size of each fold $I_k$ is $m = n/K$ where $K$ is an even number.
-%             Furthermore, for the observation being assigned rank $i \in [n]$, denote by $k_{(i)}$ the fold that the observation appears in.
-%             In contrast, for observation $j$ (\textbf{NOT} the observation being assigned rank $j$) denote the corresponding fold by $k_j$.
-% 			Furthermore, define the following sets. 
-%             \begin{equation}
-%                 \mathcal{J}_k = [n] \backslash \left(I_{k} \cup I_{k^{\prime}}\right) 
-%                 \quad \text{where} \quad
-%                 k^{\prime} = \begin{cases}
-%                     k+1 \quad & \quad \text{if $k$ is an odd number} \\
-%                     k-1 \quad & \quad \text{if $k$ is an even number}
-%                 \end{cases}
-%             \end{equation}
-%             For each $k \in [K]$, use a first-stage estimator on the data set $\mathbf{D}_{\mathcal{J}_{k}}$ to estimate the nuisance parameter $\eta_{0}$.
-%             For each fold $k$, denote the estimate by $\hat{\eta}_{k}$ and for each observation $i$, define the combined estimator as follows $\hat{\eta}(Z_i) = \hat{\eta}_{k_{i}}(Z_i)$.
-%             \item Obtain a Kernel function $K(x, X_{i})$ by \dots
-%             \begin{enumerate}
-%                 \item For each fold $k$, estimate a random forest consisting of $B$ trees on $\mathbf{D}_{I_{k^{\prime}}}$ predicting $m(Z_{i}, \hat{\eta}_{k_{i}})$.
-%                 For each observation in $\mathbf{D}_{I_{k}}$ let $w(x; i)$ denote in how many trees the observation under consideration lies in the same terminal node as the point of interest $x$. 
-%                 \item For each observation $i \in [n]$, define the Kernel function as follows.
-%                 \begin{equation}
-%                     K(x, X_{i}) = \frac{w(x; i)}{\sum_{j = 1}^{n} w(x; j)}
-%                 \end{equation}
-%             \end{enumerate}
-% 			\item Construct the estimator $\hat{\theta}\left(x\right)$ as the solution to the following equation.
-% 			      \begin{equation}
-% 				      \begin{aligned}
-% 					      0 = \sum_{k = 1}^{K} \sum_{i \in I_k} K(x, X_{i}) m\left(Z_{i}; \hat{\theta}\left(x\right), \hat{\eta}_{k}\right)
-% 				      \end{aligned}
-% 			      \end{equation}
-% 		\end{enumerate}
-% 	\end{dfn}
-% \end{boxD}
-
 As is typical in the literature on doubly-robust inference, we need to make assumptions on the convergence rate of the first-stage estimators to allow for the desired type of inference.
 Specifically, I take the following slightly modified assumptions from Assumption 3.2 of \citet{chernozhukov_doubledebiased_2018}. 
 \begin{boxD}
@@ -354,7 +316,6 @@ In a potential generalization of the method proposed in this paper to other doub
 \hrule
 
 As most of the theoretical results in \citet{demirkaya_optimal_2024} rely on representations as a U-statistic, it is helpful to introduce additional concepts and notation at this stage.
-% In analogy to the main part of this paper, I will first start with the regression context and then go on to consider the CATE estimation scenario separately.
 Recalling Equation~\ref{eq:U_stat}, the DNN and TDNN estimators can be expressed in the following U-statistic form and are thus a type of generalized complete U-statistic as introduced by \citet{peng_rates_2022}.
 \begin{equation}
 	\tilde{\mu}_{s}(x; \mathbf{D}_n)
@@ -471,70 +432,51 @@ First, observe that the DNN-DML2 CATE estimator can be rewritten as follows to e
         & = \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}}\chi_{s}(x; \mathbf{D}_{\ell}, \hat{\eta})
     \end{aligned}
 \end{equation}
-In the same fashion as in the previous case, I can now define the Hoeffding decomposition for the estimator.
-Note that in this step, the functional nuisance parameter estimates $\hat{\mu}$ and $\hat{\pi}$ are considered as depending on the data that we form the expectation over and are thus itself random and part of the expectation.
-Next, consider the following Hoeffding projection terms.
-\begin{equation}
-    \vartheta_{s}^{c}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \eta\right)
-    = \E_{D}\left[\chi_{s}(x; \mathbf{D}, \eta) \, \middle| \, Z_1 = \mathbf{z}_1, \dotsc, Z_c = \mathbf{z}_c\right]
-\end{equation}
-\begin{equation}
-    \chi_{s}^{(1)}\left(x; \mathbf{z}_{1}, \eta\right)
-	= \vartheta_{s}^{1}\left(x; \mathbf{z}_{1}, \eta\right)
-    - \E_{D}\left[\chi_{s}(x; \mathbf{D}, \eta)\right]
-\end{equation}
-As before, I define the higher-order projection terms, i.e. for $c = 2, \dotsc, s$, in the following way.
-\begin{equation}
-    \chi_{s}^{(c)}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \eta\right)
-	= \vartheta_{s}^{c}(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \eta) 
-    - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{c,j}} \chi_{s}^{(j)}(x; \mathbf{z}_{\ell}, \eta)\right) 
-    - \E_{D}\left[\chi_{s}(x; \mathbf{D}, \eta)\right]
-\end{equation}
-In anticipation of arguments involving empirical process theory, I define as follows.
-\begin{equation}
-    \chi_{s, 0}(x; \mathbf{D}_{[s]})
-    = \chi_{s}(x; \mathbf{D}_{[s]}, \eta_{0})
-\end{equation}
-\begin{equation}
-    \vartheta_{s,0}^{c}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}\right)
-    = \vartheta_{s}^{c}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \eta_{0}\right)
-\end{equation}
-\begin{equation}
-    \chi_{s,0}^{(1)}\left(x; \mathbf{z}_{1}\right)
-	= \chi_{s}^{(1)}\left(x; \mathbf{z}_{1}, \eta_{0}\right)
-    = \vartheta_{s,0}^{1}\left(x; \mathbf{z}_{1}\right) 
-    - \E_{D}\left[\chi_{s,0}\left(x; \mathbf{D}\right)\right]
-\end{equation}
-\begin{equation}
-    \begin{aligned}
-        \chi_{s,0}^{(c)}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}\right)
-	    & = \chi_{s}^{(c)}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \eta_{0}\right) \\
-        %
-        & = \vartheta_{s,0}^{c}(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}) 
-        - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{c,j}} \chi_{s,0}^{(j)}(x; \mathbf{z}_{\ell})\right) 
-        - \E_{D}\left[\chi_{s,0}\left(x; Z_{1}, \dotsc, Z_{c}\right)\right]
-    \end{aligned}
-\end{equation}
-These definitions allow us to use the following decomposition.
-\begin{equation}\label{eq:DNNDML2_ResidDecomp}
-    \begin{aligned}
-        \chi_{s}^{(c)}\left(x; \mathbf{D}_{\ell}, \eta\right)
-        & = \chi_{s,0}^{(c)}\left(x; \mathbf{D}_{\ell}\right) + \underbrace{\chi_{s}^{(c)}\left(x; \mathbf{D}_{\ell}, \eta\right) - \chi_{s,0}^{(c)}\left(x; \mathbf{D}_{\ell}\right)}_{R_{c}\left(x; \mathbf{D}_{\ell}, \eta\right)}
-    \end{aligned}
-\end{equation}
-Considering this decomposition will be of great usefulness when analyzing the asymptotic properties of the CATE estimators.
-Let $\hat{\mu}_{k}$ and $\hat{\pi}_{k}$ denote the nuisance parameter estimates calculated on the complement of fold $k$.
-Using the full expression for the CATE estimator, the following is obtained.
+To use arguments based on the Hoeffding-projection of this estimator, introduce the following additional notation.
+\begin{alignat}{4}
+    &\chi_{s, 0}(x; \mathbf{D}_{[s]})
+    & \; := \; &\chi_{s}(x; \mathbf{D}_{[s]}, \eta_{0}),\\
+    %
+    &\vartheta_{s}^{c}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \eta\right)
+    & \; := \; &\E_{D}\left[\chi_{s}(x; \mathbf{D}, \eta) \, \middle| \, Z_1 = \mathbf{z}_1, \dotsc, Z_c = \mathbf{z}_c\right], &
+    \hspace{1cm}
+    &\vartheta_{s,0}^{c}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}\right)
+    & \; := \; &\vartheta_{s}^{c}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \eta_{0}\right), \\
+    %
+    &\chi_{s}^{(1)}\left(x; \mathbf{z}_{1}, \eta\right)
+	& \; := \; &\vartheta_{s}^{1}\left(x; \mathbf{z}_{1}, \eta\right)
+    - \E_{D}\left[\chi_{s}(x; \mathbf{D}, \eta)\right], &
+    \hspace{1cm}
+    &\chi_{s,0}^{(1)}\left(x; \mathbf{z}_{1}\right)
+	& \; := \; &\chi_{s}^{(1)}\left(x; \mathbf{z}_{1}, \eta_{0}\right)
+\end{alignat}
+% As before, I define the higher-order projection terms, i.e. for $c = 2, \dotsc, s$, in the following way.
+% \begin{equation}
+%     \chi_{s}^{(c)}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \eta\right)
+% 	= \vartheta_{s}^{c}(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \eta) 
+%     - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{c,j}} \chi_{s}^{(j)}(x; \mathbf{z}_{\ell}, \eta)\right) 
+%     - \E_{D}\left[\chi_{s}(x; \mathbf{D}, \eta)\right]
+% \end{equation}
 % \begin{equation}
 %     \begin{aligned}
-%         \hat{\theta}\left(x; \mathbf{D}\right)
-%         & = \underbrace{\E_{D}\left[\hat{\theta}\left(x; \mathbf{D}\right)\right]}_{\text{Centering-Term}}
-%         + \underbrace{\frac{s}{n}\sum_{i = 1}^{n} \chi_{s,0}^{(1)}\left(x; Z_{i}\right)}_{\text{Oracle-H\'ajek-Projection}}
-%         + \underbrace{\frac{s}{k} \sum_{l = 1}^{k} \frac{1}{m} \sum_{i \in \mathcal{I}_{k}}\left(\underbrace{\chi_{s}^{(1)}\left(x; Z_{i}, \hat{\eta}_{k}\right) - \chi_{s,0}^{(1)}\left(x; Z_{i}\right)}_{R_{1,k}\left(x; Z_{i}\right)}\right)}_{\text{Oracle-H\'ajek-Projection Error}}\\
-%         & \quad \quad + \underbrace{\sum_{j = 2}^{s} \binom{s}{j} \binom{n}{j}^{-1}\sum_{\ell \in L_{n,j}} \chi_{s,0}^{(j)}\left(x; \mathbf{D}_{\ell}\right)}_{\text{Oracle-H\'ajek-Residual}}
-%          + \underbrace{\sum_{j = 2}^{s} \binom{s}{j} \binom{n}{j}^{-1}\sum_{\ell \in L_{n,j}} R_{j}\left(x; \mathbf{D}_{\ell}\right)}_{\text{Higher-Order Error Terms}}
+%         \chi_{s,0}^{(c)}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}\right)
+% 	    & = \chi_{s}^{(c)}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \eta_{0}\right) \\
+%         %
+%         & = \vartheta_{s,0}^{c}(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}) 
+%         - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{c,j}} \chi_{s,0}^{(j)}(x; \mathbf{z}_{\ell})\right) 
+%         - \E_{D}\left[\chi_{s,0}\left(x; Z_{1}, \dotsc, Z_{c}\right)\right]
 %     \end{aligned}
 % \end{equation}
+% These definitions allow us to use the following decomposition.
+% \begin{equation}\label{eq:DNNDML2_ResidDecomp}
+%     \begin{aligned}
+%         \chi_{s}^{(c)}\left(x; \mathbf{D}_{\ell}, \eta\right)
+%         & = \chi_{s,0}^{(c)}\left(x; \mathbf{D}_{\ell}\right) + \underbrace{\chi_{s}^{(c)}\left(x; \mathbf{D}_{\ell}, \eta\right) - \chi_{s,0}^{(c)}\left(x; \mathbf{D}_{\ell}\right)}_{R_{c}\left(x; \mathbf{D}_{\ell}, \eta\right)}
+%     \end{aligned}
+% \end{equation}
+% Considering this decomposition will be of great usefulness when analyzing the asymptotic properties of the CATE estimators.
+% Let $\hat{\mu}_{k}$ and $\hat{\pi}_{k}$ denote the nuisance parameter estimates calculated on the complement of fold $k$.
+Using the full expression for the CATE estimator, we obtain the following representation of the estimator.
 \begin{equation}\label{eq:DNNDML2_Decomp}
     \begin{aligned}
         \hat{\theta}\left(x; \mathbf{D}\right)
@@ -544,17 +486,17 @@ Using the full expression for the CATE estimator, the following is obtained.
         & \quad \quad + \underbrace{\binom{n}{s}^{-1}\sum_{\ell \in L_{n,s}}\left(\chi_{s}\left(x; \mathbf{D}_{\ell}, \hat{\eta}\right) - \chi_{s,0}\left(x; \mathbf{D}_{\ell}\right)\right)}_{\text{First-Stage Approximation Error}}
     \end{aligned}
 \end{equation}
-If necessary, we can furthermore decompose the error component in the following way.
-\begin{equation}
-    \begin{aligned}
-        & \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}}\left(\chi_{s}\left(x; \mathbf{D}_{\ell}, \hat{\eta}\right) - \chi_{s,0}\left(x; \mathbf{D}_{\ell}\right)\right)\\
-        %
-        & \quad = \underbrace{\frac{s}{K} \sum_{k = 1}^{K} \frac{1}{m} \sum_{i \in \mathcal{I}_{k}}\left(\underbrace{\chi_{s}^{(1)}\left(x; Z_{i}, \hat{\eta}_{k}\right) - \chi_{s,0}^{(1)}\left(x; Z_{i}\right)}_{R_{1,k}\left(x; Z_{i}, \hat{\eta}\right)}\right)}_{\text{Oracle-H\'ajek-Projection Error}}
-         + \underbrace{\sum_{j = 2}^{s} \binom{s}{j} \binom{n}{j}^{-1}\sum_{\ell \in L_{n,j}} R_{j}\left(x; \mathbf{D}_{\ell}, \hat{\eta}\right)}_{\text{Higher-Order Error Terms}}
-    \end{aligned}
-\end{equation}
-I call these terms Oracle-H\'ajek projection and Oracle-H\'ajek residual because of the additional randomness due to the first-stage estimation of the functional nuisance parameters that is reflected in the $R_j$ terms.
-An integral part of showing the asymptotic properties of the estimator is to show that a number of terms in this representation are asymptotically negligible as long as the first-stage estimator converges fast enough.
+% If necessary, we can furthermore decompose the error component in the following way.
+% \begin{equation}
+%     \begin{aligned}
+%         & \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}}\left(\chi_{s}\left(x; \mathbf{D}_{\ell}, \hat{\eta}\right) - \chi_{s,0}\left(x; \mathbf{D}_{\ell}\right)\right)\\
+%         %
+%         & \quad = \underbrace{\frac{s}{K} \sum_{k = 1}^{K} \frac{1}{m} \sum_{i \in \mathcal{I}_{k}}\left(\underbrace{\chi_{s}^{(1)}\left(x; Z_{i}, \hat{\eta}_{k}\right) - \chi_{s,0}^{(1)}\left(x; Z_{i}\right)}_{R_{1,k}\left(x; Z_{i}, \hat{\eta}\right)}\right)}_{\text{Oracle-H\'ajek-Projection Error}}
+%          + \underbrace{\sum_{j = 2}^{s} \binom{s}{j} \binom{n}{j}^{-1}\sum_{\ell \in L_{n,j}} R_{j}\left(x; \mathbf{D}_{\ell}, \hat{\eta}\right)}_{\text{Higher-Order Error Terms}}
+%     \end{aligned}
+% \end{equation}
+% I call these terms Oracle-H\'ajek projection and Oracle-H\'ajek residual because of the additional randomness due to the first-stage estimation of the functional nuisance parameters that is reflected in the $R_j$ terms.
+% An integral part of showing the asymptotic properties of the estimator is to show that a number of terms in this representation are asymptotically negligible as long as the first-stage estimator converges fast enough.
 
 \newpage
 \subsection{Asymptotic Normality of the DNN-DML2 CATE Estimator}\label{CATE_AsympNorm}

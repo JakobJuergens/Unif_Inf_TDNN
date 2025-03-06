@@ -26,6 +26,7 @@ These novel developments have the potential to significantly extend the applicab
 Section~\ref{sec:simulations} contains multiple simulation experiments that show the performance of the methods presented in this paper in a setting that mimics an economic analysis.
 Lastly, Section~\ref{sec:conclusion} concludes.
 
+\newpage
 \subsection{Notation}
 \hrule
 Let $[n] = \{1, \dotsc, n\}$.
@@ -39,13 +40,9 @@ For a data set $\mathbf{D}_{[n]} = \left(Z_1, \dotsc, Z_{n}\right)$ and a vector
 To simplify the notation in the case that a single observation (say the $i'th$ observation) is removed, I use the notation $\mathbf{D}_{n, -i}$.
 Similarly, given such a data set $\mathbf{D}_{[n]}$ and index vector $\ell$, denote by $\mathbf{D}_{\ell}$ the data set consisting only of the observations in $\mathbf{D}_{[n]}$ corresponding to the indices in $\ell$.
 In an abuse of notation, when considering two index vectors $\ell$ and $\iota$ that do not share any entries, I denote by $\ell \cup \iota$ the concatenation of the two vectors, e.g., if $\ell = (8,2,5)$ and $\iota = (1,6)$, then $\ell \cup \iota = (8,2,5,1,6)$.
-
-In the following, $\rightsquigarrow$ denotes weak convergence, while
-$\rightarrow_{p}$ denotes convergence in probability, and $\rightarrow_{a.s.}$
-denotes almost sure convergence. We will use the symbol $\lesssim$ to denote an
-inequality that holds for sufficiently large sample sizes $n$ or kernel orders
-$s$. As we consider settings where these diverge together, the specific
-reference parameter will be clear from the context.
+In the following, $\rightsquigarrow$ denotes weak convergence, while $\rightarrow_{p}$ denotes convergence in probability, and $\rightarrow_{a.s.}$ denotes almost sure convergence. 
+We will use the symbol $\lesssim$ to denote an inequality that holds for sufficiently large sample sizes $n$ or kernel orders $s$. 
+As we consider settings where these diverge together, the specific reference parameter will be clear from the context.
 
 \subsection{Related Literature}
 \hrule

@@ -118,11 +118,11 @@
 \hrule
 \onehalfspacing
 \begin{abstract}
-    This paper presents a computationally simple method for estimating heterogeneous treatment effects based on a weighted nearest-neighbor-type estimator.
+    This paper presents a novel method for estimating heterogeneous treatment effects based on a weighted nearest-neighbor estimator.
     As part of this analysis, for a class of generalized U-statistics, I improve on conditions currently available in the literature required for consistent variance estimation.
     Furthermore, I provide corresponding results for asymptotically valid pointwise inference in a nonparametric regression setup.
     I extend the ideas of this nonparametric regression estimator to the estimation of conditional average treatment effects using ideas from double / debiased machine learning including Neyman-orthogonal moments and cross-fitting.
-    This effectively results in a weighted-nearest-nearest-based DDML variant a that is new to the literature and resembles recent Kernel-based approaches under a data-adaptive kernel.
+    This results in a nonparametrically weighted DDML variant that is new to the literature and resembles recent kernel-based approaches under a data-adaptive kernel.
     Corresponding variance estimation results are provided that allow for asymptotically valid inference.
     \blfootnote{The author thanks Jack Porter and Harold D. Chiang for their invaluable feedback.}
 \end{abstract}
@@ -148,8 +148,6 @@
 
 \newpage
 \input{Parts/01_Introduction.tex}
-
-\newpage
 \input{Parts/02_Setup.tex}
 
 \newpage
@@ -201,6 +199,6 @@
 \input{Parts/P2b_PWInf_Covariances_CATE.tex}
 
 \newpage
-\input{Parts/P2d_PWInf_VarEst.tex}
+\input{Parts/P3_VarEst.tex}
 
 \end{document}
