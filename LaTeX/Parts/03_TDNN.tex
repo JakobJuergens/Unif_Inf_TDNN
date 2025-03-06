@@ -350,3 +350,249 @@ In contrast to the paper that these assumptions are taken from, there is an abse
 Thus, specific constraints on the effects of the first-stage estimation problem are unnecessary.
 In a potential generalization of the method proposed in this paper to other doubly-robust inference problems, this aspect should be addressable with relatively minimal additional technical arguments along the lines in \citet{chernozhukov_doubledebiased_2018}.
 
+\subsection{DNN Estimators as Generalized U-Statistics}\label{sec:U_stat}
+\hrule
+
+As most of the theoretical results in \citet{demirkaya_optimal_2024} rely on representations as a U-statistic, it is helpful to introduce additional concepts and notation at this stage.
+% In analogy to the main part of this paper, I will first start with the regression context and then go on to consider the CATE estimation scenario separately.
+Recalling Equation~\ref{eq:U_stat}, the DNN and TDNN estimators can be expressed in the following U-statistic form and are thus a type of generalized complete U-statistic as introduced by \citet{peng_rates_2022}.
+\begin{equation}
+	\tilde{\mu}_{s}(x; \mathbf{D}_n)
+	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} h_{s}(x; \mathbf{D}_{\ell})
+	\quad \text{and} \quad
+	\hat{\mu}_{s_1, s_2}(x; \mathbf{D}_n)
+	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s_2}} h_{s_1, s_2}(x; \mathbf{D}_{\ell})
+\end{equation}
+It is worth pointing out that in contrast to the DNN estimator, the kernel for the TDNN estimator is of order $s_2 > s_1$.
+The authors derive an explicit formula for the kernel that shows the connection between the DNN and TDNN estimators.
+This connection will prove useful going forward.
+\begin{boxD}
+	\begin{lem}[Kernel of TDNN Estimator - Adapted from Lemma 8 of \citet{demirkaya_optimal_2024}]\label{lem:dem8}\mbox{}\\*
+		The kernel of the TDNN estimator takes the following form.
+		\begin{equation}
+			\begin{aligned}
+				h_{s_1, s_2}\left(x; D\right)
+				 & = w_{1}^{*}\left[\binom{s_2}{s_1}^{-1}\sum_{\ell \in L_{s_2, s_1}} h_{s_1}\left(x; \mathbf{D}_{\ell}\right)\right] + w_{2}^{*} h_{s_2}\left(x; D\right) \\
+				 & = w_{1}^{*} \tilde{\mu}_{s_1}\left(x; D\right) + w_{2}^{*} h_{s_2}\left(x; D\right)                                                            \\
+			\end{aligned}
+		\end{equation}
+	\end{lem}
+\end{boxD}
+Borrowing the notational conventions from \citet{lee_u-statistics_2019}, I additionally introduce the following notation.
+\begin{equation}\label{eq:psi_s_c}
+	\psi_{s}^{c}(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c})
+	= \E_{D}\left[h_{s}\left(x; D\right) \, | \,  Z_1 = \mathbf{z}_{1}, \dotsc, Z_c = \mathbf{z}_{c}\right]
+\end{equation}
+\begin{equation}
+	h_{s}^{(1)}\left(x; \mathbf{z}_{1}\right)
+	= \psi_{s}^{1}(x; \mathbf{z}_{1}) - \mu(x)
+\end{equation}
+\begin{equation}
+	h_{s}^{(c)}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}\right)
+	= \psi_{s}^{c}(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}) - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{c,j}}h_{s}^{(j)}(x; \mathbf{z}_{\ell})\right) - \mu(x)
+	\quad \text{for } c = 2, \dotsc, s
+\end{equation}
+In contrast to the notational inspiration, the subsampling size $s$ is made explicit.
+Since we are dealing with an infinite-order U-statistic, $s$ will be diverging with $n$.
+Completely analogous, define the corresponding objects for the TDNN estimator.
+For the DNN estimator and any $1 \leq c \leq s$, define
+\begin{equation}\label{eq:xi_s_c}
+	\xi_{s}^{c}\left(x\right)
+	= \Var_{1:c}\left(\psi_{s}^{c}(x; Z_{1}, \dotsc, Z_{c})\right)
+\end{equation}
+where $Z_{c+1}^{\prime}, \ldots, Z_n^{\prime}$ are i.i.d.\ from $P$ and independent of $Z_1, \ldots, Z_n$ and thus
+$\xi_{s}^{s}\left(x\right) = \Var\left(h_s\left(x; Z_1, \ldots, Z_s\right)\right)$.
+% Then, I have the following result from the original paper.
+Similarly, for the TDNN estimator and any $1 \leq c \leq s_2$, let
+\begin{equation}\label{eq:zeta_s1s2_c}
+	\zeta_{s_1, s_2}^{c}\left(x\right)
+	= \Var_{1:c}\left(\psi_{s_1, s_2}^{c}(x; Z_{1}, \dotsc, Z_{c})\right)
+\end{equation}
+with an analogous definition of $Z^{\prime}$.
+As a byproduct (or main purpose depending on the perspective) these terms can be used to derive the Hoeffding decomposition of the TDNN estimator.
+\begin{equation}\label{eq:H_projection}
+	\begin{aligned}
+		H_{s}^{c}\left(x; \mathbf{D}_n\right)
+		= \binom{n}{c}^{-1} \sum_{\ell \in L_{n,c}} h^{(c)}_{s}(x; \mathbf{D}_{\ell})
+		\quad \text{and} \quad
+		H_{s_1, s_2}^{c}\left(x; \mathbf{D}_n\right)
+		= \binom{n}{c}^{-1} \sum_{\ell \in L_{n,c}} h^{(c)}_{s_1, s_2}(x; \mathbf{D}_{\ell})
+	\end{aligned}
+\end{equation}
+These projection terms can then be used to construct the following Hoeffding decompositions.
+\begin{equation}\label{eq:H_Decomp}
+	\tilde{\mu}_{s}\left(x; \mathbf{D}_n\right)
+	= \mu(x) + \sum_{j = 1}^{s}\binom{s}{j}H_{s}^{j}\left(x; \mathbf{D}_n\right)\\
+	\quad \text{and} \quad
+	\hat{\mu}_{s_1, s_2}\left(x; \mathbf{D}_n\right)
+	= \mu(x) + \sum_{j = 1}^{s_2}\binom{s_2}{j}H_{s_1, s_2}^{j}\left(x; \mathbf{D}_n\right)
+\end{equation}
+
+Standard results for U-statistics (see, for example, \citet{lee_u-statistics_2019}) now give us a number of useful results.
+First, an immediate result on the expectations of the Hoeffding-projection kernels.
+\begin{align}\label{eq:H_k_expectation}
+	\forall c = 1,2,\dotsc, j-1: \quad & \E_{D}\left[h_{s_1, s_2}^{(j)}\left(x; D\right) \, | \, Z_1 = \mathbf{z}_1, \dotsc, Z_c = \mathbf{z}_c\right] = 0
+	\quad \text{and} \quad
+	\E_{D}\left[h_{s_1, s_2}^{(j)}\left(x; D\right)\right] = 0
+\end{align}
+Second, I obtain a useful variance decomposition in terms of the Hoeffding-projection variances.
+\begin{align}\label{eq:Var_decomp}
+	\Var_{D}\left(\hat{\mu}_{s_1, s_2}\left(x; D\right)\right)
+	 & = \sum_{j = 1}^{s_2} \binom{s_2}{j}^2 \Var_{D}\left(H_{s_1, s_2}^{j}\left(x; D\right)\right) \\
+	%
+	\Var_{D}\left(H_{s_1, s_2}^{j}\left(x; D\right)\right)
+	 & = \binom{n}{j}^{-1} \Var_{D}\left(h_{s_1, s_2}^{(j)}\left(x; D\right)\right)
+	=: \binom{n}{j}^{-1} V_{s_1, s_2}^{j}\left(x\right)
+\end{align}
+Third, the following equivalent expression for the kernel variance.
+\begin{equation}\label{eq:k_var}
+	\zeta_{s_1, s_2}^{s_2}\left(x\right)
+	= \Var_{D}\left(h_{s_1, s_2}\left(x; D\right)\right)
+	= \sum_{j = 1}^{s_2} \binom{s_2}{j}V_{s_1, s_2}^{j}
+\end{equation}
+
+Given estimates of the functional nuisance parameters, the proposed CATE estimators can be analyzed as generalized U-statistics in the same way as in the nonparametric regression context.
+As most of the theoretical results on these estimators will similarly rely on Hoeffding projection arguments, I will introduce analogous notation in this more general scenario.
+First, observe that the DNN-DML2 CATE estimator can be rewritten as follows to explicitly show its construction as a generalized U-statistic.
+\begin{equation}
+    \begin{aligned}
+        \hat{\theta}\left(x; \mathbf{D}\right) 
+        & = \sum_{i = 1}^{n - s + 1} \frac{\binom{n-i}{s-1}}{\binom{n}{s}}
+		\left[\hat{\mu}_{k_{(i)}}^{1}\left(X_{(i)}\right) - \hat{\mu}_{k_{(i)}}^{0}\left(X_{(i)}\right) + \hat{\beta}_{k_{(i)}}\left(W_{(i)}, X_{(i)}\right)\left(Y_{(i)} - \hat{\mu}^{W_{(i)}}_{k_{(i)}}\left(X_{(i)}\right)\right)\right] \\
+        %
+        & = \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}}
+        \sum_{i = 1}^{n}\frac{\1\left(\rk(x; Z_{i}, \mathbf{D}_{\ell}) = 1\right)}{s!} 
+        \left[\hat{\mu}_{k_i}^{1}\left(X_{i}\right) - \hat{\mu}_{k_i}^{0}\left(X_{i}\right) + \hat{\beta}_{k_i}\left(W_{i}, X_{i}\right)\left(Y_{i} - \hat{\mu}^{W_{i}}_{k_i}\left(X_{i}\right)\right)\right] \\
+        %
+        & = \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}}
+        \underbrace{\sum_{i = 1}^{n}\frac{\1\left(\kappa(x; Z_{i}, \mathbf{D}_{\ell}) = 1\right)}{s!} 
+        m(Z_{i}, \hat{\eta}_{k_i})}_{\chi_{s}(x; \mathbf{D}_{\ell}, \hat{\eta})} \\
+        %
+        & = \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}}\chi_{s}(x; \mathbf{D}_{\ell}, \hat{\eta})
+    \end{aligned}
+\end{equation}
+In the same fashion as in the previous case, I can now define the Hoeffding decomposition for the estimator.
+Note that in this step, the functional nuisance parameter estimates $\hat{\mu}$ and $\hat{\pi}$ are considered as depending on the data that we form the expectation over and are thus itself random and part of the expectation.
+Next, consider the following Hoeffding projection terms.
+\begin{equation}
+    \vartheta_{s}^{c}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \eta\right)
+    = \E_{D}\left[\chi_{s}(x; \mathbf{D}, \eta) \, \middle| \, Z_1 = \mathbf{z}_1, \dotsc, Z_c = \mathbf{z}_c\right]
+\end{equation}
+\begin{equation}
+    \chi_{s}^{(1)}\left(x; \mathbf{z}_{1}, \eta\right)
+	= \vartheta_{s}^{1}\left(x; \mathbf{z}_{1}, \eta\right)
+    - \E_{D}\left[\chi_{s}(x; \mathbf{D}, \eta)\right]
+\end{equation}
+As before, I define the higher-order projection terms, i.e. for $c = 2, \dotsc, s$, in the following way.
+\begin{equation}
+    \chi_{s}^{(c)}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \eta\right)
+	= \vartheta_{s}^{c}(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \eta) 
+    - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{c,j}} \chi_{s}^{(j)}(x; \mathbf{z}_{\ell}, \eta)\right) 
+    - \E_{D}\left[\chi_{s}(x; \mathbf{D}, \eta)\right]
+\end{equation}
+In anticipation of arguments involving empirical process theory, I define as follows.
+\begin{equation}
+    \chi_{s, 0}(x; \mathbf{D}_{[s]})
+    = \chi_{s}(x; \mathbf{D}_{[s]}, \eta_{0})
+\end{equation}
+\begin{equation}
+    \vartheta_{s,0}^{c}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}\right)
+    = \vartheta_{s}^{c}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \eta_{0}\right)
+\end{equation}
+\begin{equation}
+    \chi_{s,0}^{(1)}\left(x; \mathbf{z}_{1}\right)
+	= \chi_{s}^{(1)}\left(x; \mathbf{z}_{1}, \eta_{0}\right)
+    = \vartheta_{s,0}^{1}\left(x; \mathbf{z}_{1}\right) 
+    - \E_{D}\left[\chi_{s,0}\left(x; \mathbf{D}\right)\right]
+\end{equation}
+\begin{equation}
+    \begin{aligned}
+        \chi_{s,0}^{(c)}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}\right)
+	    & = \chi_{s}^{(c)}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}, \eta_{0}\right) \\
+        %
+        & = \vartheta_{s,0}^{c}(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}) 
+        - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{c,j}} \chi_{s,0}^{(j)}(x; \mathbf{z}_{\ell})\right) 
+        - \E_{D}\left[\chi_{s,0}\left(x; Z_{1}, \dotsc, Z_{c}\right)\right]
+    \end{aligned}
+\end{equation}
+These definitions allow us to use the following decomposition.
+\begin{equation}\label{eq:DNNDML2_ResidDecomp}
+    \begin{aligned}
+        \chi_{s}^{(c)}\left(x; \mathbf{D}_{\ell}, \eta\right)
+        & = \chi_{s,0}^{(c)}\left(x; \mathbf{D}_{\ell}\right) + \underbrace{\chi_{s}^{(c)}\left(x; \mathbf{D}_{\ell}, \eta\right) - \chi_{s,0}^{(c)}\left(x; \mathbf{D}_{\ell}\right)}_{R_{c}\left(x; \mathbf{D}_{\ell}, \eta\right)}
+    \end{aligned}
+\end{equation}
+Considering this decomposition will be of great usefulness when analyzing the asymptotic properties of the CATE estimators.
+Let $\hat{\mu}_{k}$ and $\hat{\pi}_{k}$ denote the nuisance parameter estimates calculated on the complement of fold $k$.
+Using the full expression for the CATE estimator, the following is obtained.
+% \begin{equation}
+%     \begin{aligned}
+%         \hat{\theta}\left(x; \mathbf{D}\right)
+%         & = \underbrace{\E_{D}\left[\hat{\theta}\left(x; \mathbf{D}\right)\right]}_{\text{Centering-Term}}
+%         + \underbrace{\frac{s}{n}\sum_{i = 1}^{n} \chi_{s,0}^{(1)}\left(x; Z_{i}\right)}_{\text{Oracle-H\'ajek-Projection}}
+%         + \underbrace{\frac{s}{k} \sum_{l = 1}^{k} \frac{1}{m} \sum_{i \in \mathcal{I}_{k}}\left(\underbrace{\chi_{s}^{(1)}\left(x; Z_{i}, \hat{\eta}_{k}\right) - \chi_{s,0}^{(1)}\left(x; Z_{i}\right)}_{R_{1,k}\left(x; Z_{i}\right)}\right)}_{\text{Oracle-H\'ajek-Projection Error}}\\
+%         & \quad \quad + \underbrace{\sum_{j = 2}^{s} \binom{s}{j} \binom{n}{j}^{-1}\sum_{\ell \in L_{n,j}} \chi_{s,0}^{(j)}\left(x; \mathbf{D}_{\ell}\right)}_{\text{Oracle-H\'ajek-Residual}}
+%          + \underbrace{\sum_{j = 2}^{s} \binom{s}{j} \binom{n}{j}^{-1}\sum_{\ell \in L_{n,j}} R_{j}\left(x; \mathbf{D}_{\ell}\right)}_{\text{Higher-Order Error Terms}}
+%     \end{aligned}
+% \end{equation}
+\begin{equation}\label{eq:DNNDML2_Decomp}
+    \begin{aligned}
+        \hat{\theta}\left(x; \mathbf{D}\right)
+        & = \underbrace{\underbrace{\E_{D}\left[\hat{\theta}_{0}\left(x; \mathbf{D}\right)\right]}_{\text{Centering-Term}}
+        + \underbrace{\frac{s}{n}\sum_{i = 1}^{n} \chi_{s,0}^{(1)}\left(x; Z_{i}\right)}_{\text{Oracle-H\'ajek-Projection}}
+        + \underbrace{\sum_{j = 2}^{s} \binom{s}{j} \binom{n}{j}^{-1}\sum_{\ell \in L_{n,j}} \chi_{s,0}^{(j)}\left(x; \mathbf{D}_{\ell}\right)}_{\text{Oracle-H\'ajek-Residual}}}_{\text{Oracle-Hoeffding-Projection}}\\
+        & \quad \quad + \underbrace{\binom{n}{s}^{-1}\sum_{\ell \in L_{n,s}}\left(\chi_{s}\left(x; \mathbf{D}_{\ell}, \hat{\eta}\right) - \chi_{s,0}\left(x; \mathbf{D}_{\ell}\right)\right)}_{\text{First-Stage Approximation Error}}
+    \end{aligned}
+\end{equation}
+If necessary, we can furthermore decompose the error component in the following way.
+\begin{equation}
+    \begin{aligned}
+        & \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}}\left(\chi_{s}\left(x; \mathbf{D}_{\ell}, \hat{\eta}\right) - \chi_{s,0}\left(x; \mathbf{D}_{\ell}\right)\right)\\
+        %
+        & \quad = \underbrace{\frac{s}{K} \sum_{k = 1}^{K} \frac{1}{m} \sum_{i \in \mathcal{I}_{k}}\left(\underbrace{\chi_{s}^{(1)}\left(x; Z_{i}, \hat{\eta}_{k}\right) - \chi_{s,0}^{(1)}\left(x; Z_{i}\right)}_{R_{1,k}\left(x; Z_{i}, \hat{\eta}\right)}\right)}_{\text{Oracle-H\'ajek-Projection Error}}
+         + \underbrace{\sum_{j = 2}^{s} \binom{s}{j} \binom{n}{j}^{-1}\sum_{\ell \in L_{n,j}} R_{j}\left(x; \mathbf{D}_{\ell}, \hat{\eta}\right)}_{\text{Higher-Order Error Terms}}
+    \end{aligned}
+\end{equation}
+I call these terms Oracle-H\'ajek projection and Oracle-H\'ajek residual because of the additional randomness due to the first-stage estimation of the functional nuisance parameters that is reflected in the $R_j$ terms.
+An integral part of showing the asymptotic properties of the estimator is to show that a number of terms in this representation are asymptotically negligible as long as the first-stage estimator converges fast enough.
+
+\newpage
+\subsection{Asymptotic Normality of the DNN-DML2 CATE Estimator}\label{CATE_AsympNorm}
+\hrule
+
+As a first intermediate result in the analysis of the asymptotic properties of the CATE estimator, we can find the following concerning an oracle variant of the proposed estimator defined as the solution to the following problem.
+\begin{equation}
+    \begin{aligned}
+        0 
+        = \sum_{i = 1}^{n} K(x, X_{i}) m\left(Z_{i}; \hat{\theta}_{0}(x), \eta_{0}\right)
+        = \sum_{i = 1}^{n - s + 1} \frac{\binom{n-i}{s-1}}{\binom{n}{s}} m\left(Z_{(i)}; \hat{\theta}_{0}(x),\eta_{0}\right)
+    \end{aligned}
+\end{equation}
+This is a rather basic result that can be seen as a corollary to the nonparametric regression case.
+\begin{boxD}
+	\begin{thm}[Asymptotic Normality of the Oracle-DNN-DML2 CATE Estimator]\label{thm:DNNDML2_anorm_0}\mbox{}\\*
+		Assume that we observe a data set $\mathbf{D}_{[n]}$ as described in Assumption~\ref{asm:CATE_dgp}. 
+        Furthermore, assume that Assumptions \ref{asm:technical}, \ref{asm:errors}, and \ref{asm:treatment_overlap} are valid.
+		Then, for any fixed $x \in \mathcal{X}$, we have for some positive sequence $\omega_{n,0}$ of order $\sqrt{s/n}$
+		\begin{equation}
+			\frac{\hat{\theta}_{0}(x; \mathbf{D}_{[n]}) - \theta_{0}(x)}{\omega_{n,0}}
+			\rightsquigarrow \mathcal{N}\left(0,1\right)
+		\end{equation}
+		as $n,s \rightarrow \infty$ with $s = o(n)$.
+	\end{thm}
+\end{boxD}
+More important is the following result showing asymptotic normality of the full estimator using cross-fitted first-stage estimates for the functional nuisance parameters.
+\begin{boxD}
+	\begin{thm}[Asymptotic Normality of the DNN-DML2 CATE Estimator]\label{thm:DNNDML2_anorm}\mbox{}\\*
+		Assume that we observe a data set $\mathbf{D}_{[n]}$ as described in Assumption~\ref{asm:CATE_dgp}.
+        Furthermore, assume that Assumptions \ref{asm:technical}, \ref{asm:errors}, \ref{asm:treatment_overlap}, and \ref{asm:DDML_Rate_Cond} are valid.
+		Then, for any fixed $x \in \mathcal{X}$, we have for some positive sequence $\omega_n$ of order $\sqrt{s/n}$
+		\begin{equation}
+			\frac{\hat{\theta}(x; \mathbf{D}_{[n]}) - \theta_{0}(x)}{\omega_n}
+			\rightsquigarrow \mathcal{N}\left(0,1\right)
+		\end{equation}
+		as $n,s \rightarrow \infty$ with $s = o\left(\min\left\{1/r_{n}^{\prime}, \left(\sqrt{n} \cdot \lambda_{n}^{\prime}\right)^{-1}\right\}\right)$ with rates corresponding to Assumption \ref{asm:DDML_Rate_Cond}.
+	\end{thm}
+\end{boxD}
+{\color{red} LOREM IPSUM}
+
