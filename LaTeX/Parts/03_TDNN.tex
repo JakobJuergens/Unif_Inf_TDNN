@@ -168,8 +168,67 @@ As this edge case is irrelevant in practice and as it would be simpler to employ
 		\end{equation*}
 	\end{thm}
 \end{boxD}
+As most of the theoretical results in this paper rely on representing the estimators as a U-statistics, it is helpful to introduce additional concepts and notation at this stage.
+Recalling Equation~\ref{eq:U_stat}, the DNN and TDNN estimators can be expressed in the following U-statistic form and are thus a type of generalized complete U-statistic as introduced by \citet{peng_rates_2022}.
+\begin{equation}
+	\tilde{\mu}_{s}(x; \mathbf{D}_n)
+	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} h_{s}(x; \mathbf{D}_{\ell})
+	\quad \text{and} \quad
+	\hat{\mu}_{s_1, s_2}(x; \mathbf{D}_n)
+	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s_2}} h_{s_1, s_2}(x; \mathbf{D}_{\ell})
+\end{equation}
+It is worth pointing out that in contrast to the DNN estimator, the kernel for the TDNN estimator is of order $s_2 > s_1$.
+The authors derive an explicit formula for the kernel that shows the connection between the DNN and TDNN estimators.
+This connection will prove useful going forward.
+\begin{boxD}
+	\begin{lem}[Kernel of TDNN Estimator - Adapted from Lemma 8 of \citet{demirkaya_optimal_2024}]\label{lem:dem8}\mbox{}\\*
+		The kernel of the TDNN estimator takes the following form.
+		\begin{equation}
+			\begin{aligned}
+				h_{s_1, s_2}\left(x; D\right)
+				 & = w_{1}^{*}\left[\binom{s_2}{s_1}^{-1}\sum_{\ell \in L_{s_2, s_1}} h_{s_1}\left(x; \mathbf{D}_{\ell}\right)\right] + w_{2}^{*} h_{s_2}\left(x; D\right) \\
+				 & = w_{1}^{*} \tilde{\mu}_{s_1}\left(x; D\right) + w_{2}^{*} h_{s_2}\left(x; D\right)                                                            \\
+			\end{aligned}
+		\end{equation}
+	\end{lem}
+\end{boxD}
+Borrowing the notational conventions from \citet{lee_u-statistics_2019}, I furthermore introduce the following definitions for the purposes of studying the Hoeffding decompositions of the estimators of interest.
+\begin{equation}\label{eq:psi_s_c}
+	\psi_{s}^{c}(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c})
+	= \E_{D}\left[h_{s}\left(x; D\right) \, | \,  Z_1 = \mathbf{z}_{1}, \dotsc, Z_c = \mathbf{z}_{c}\right]
+\end{equation}
+\begin{equation}
+	h_{s}^{(1)}\left(x; \mathbf{z}_{1}\right)
+	= \psi_{s}^{1}(x; \mathbf{z}_{1}) - \mu(x)
+\end{equation}
+\begin{equation}
+	h_{s}^{(c)}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}\right)
+	= \psi_{s}^{c}(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}) - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{c,j}}h_{s}^{(j)}(x; \mathbf{z}_{\ell})\right) - \mu(x)
+	\quad \text{for } c = 2, \dotsc, s
+\end{equation}
+In contrast to the notational inspiration, the subsampling size $s$ is made explicit.
+Since we are dealing with an infinite-order U-statistic, $s$ will be diverging with $n$.
+Completely analogous, define the corresponding objects for the TDNN estimator.
+The main purpose of this additional notation is to derive the Hoeffding decomposition of the TDNN estimator.
+\begin{equation}\label{eq:H_projection}
+	\begin{aligned}
+		H_{s}^{c}\left(x; \mathbf{D}_n\right)
+		= \binom{n}{c}^{-1} \sum_{\ell \in L_{n,c}} h^{(c)}_{s}(x; \mathbf{D}_{\ell})
+		\quad \text{and} \quad
+		H_{s_1, s_2}^{c}\left(x; \mathbf{D}_n\right)
+		= \binom{n}{c}^{-1} \sum_{\ell \in L_{n,c}} h^{(c)}_{s_1, s_2}(x; \mathbf{D}_{\ell})
+	\end{aligned}
+\end{equation}
+These projection terms can then be used to construct the following Hoeffding decompositions.
+\begin{equation}\label{eq:H_Decomp}
+	\tilde{\mu}_{s}\left(x; \mathbf{D}_n\right)
+	= \mu(x) + \sum_{j = 1}^{s}\binom{s}{j}H_{s}^{j}\left(x; \mathbf{D}_n\right)\\
+	\quad \text{and} \quad
+	\hat{\mu}_{s_1, s_2}\left(x; \mathbf{D}_n\right)
+	= \mu(x) + \sum_{j = 1}^{s_2}\binom{s_2}{j}H_{s_1, s_2}^{j}\left(x; \mathbf{D}_n\right)
+\end{equation}
 
-\subsection{DNN in Heterogeneous Treatment Effect Estimation}
+\subsection{DNN in CATE Estimation}
 \hrule
 Motivated by the nonparametric regression setup, I set out to apply the underlying idea in the context of heterogeneous treatment effects.
 Similarly to before, I start by specifying a moment corresponding to our object of interest, taking into account the additional factors that come into play.
@@ -249,12 +308,7 @@ For the sake of simplicity, I will assume that $m = n/K$, i.e.\ the desired numb
 		\end{enumerate}
 	\end{dfn}
 \end{boxD}
-% This description shows the case of the DNN estimator.
 Observe that the weights $K(x, X_{i})$ chosen in the second step are chosen according to the whole sample - not according to the chosen folds.
-% The corresponding TDNN-based estimator is defined analogously, employing the TDNN estimator in the first-stage estimation procedure and using the corresponding weights of the TDNN estimator in the second stage.
-% It should be pointed out that the use of the TDNN estimator in the estimation of the propensity score can have the potentially adverse property of generating estimates outside the unit interval.
-% This is due to the presence of negative weights for specific combinations of subsampling scales.
-% Thus, restricting the procedure to relying on the DNN estimator for the estimation of propensity scores in the first stage might be desirable.
 Using a lower choice of subsampling scale for this estimation step can help avoid extreme values in the Neyman-orthogonal score function due to estimated propensity scores close to zero or one.
 This is because a lower subsampling scale averages over a larger number of observations and thus can contribute to better smoothing properties for the propensity score.
 Using the score function in the equation that defines the estimator, we can observe the following.
@@ -312,106 +366,6 @@ In contrast to the paper that these assumptions are taken from, there is an abse
 Thus, specific constraints on the effects of the first-stage estimation problem are unnecessary.
 In a potential generalization of the method proposed in this paper to other doubly-robust inference problems, this aspect should be addressable with relatively minimal additional technical arguments along the lines in \citet{chernozhukov_doubledebiased_2018}.
 
-\subsection{DNN Estimators as Generalized U-Statistics}\label{sec:U_stat}
-\hrule
-
-As most of the theoretical results in \citet{demirkaya_optimal_2024} rely on representations as a U-statistic, it is helpful to introduce additional concepts and notation at this stage.
-Recalling Equation~\ref{eq:U_stat}, the DNN and TDNN estimators can be expressed in the following U-statistic form and are thus a type of generalized complete U-statistic as introduced by \citet{peng_rates_2022}.
-\begin{equation}
-	\tilde{\mu}_{s}(x; \mathbf{D}_n)
-	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} h_{s}(x; \mathbf{D}_{\ell})
-	\quad \text{and} \quad
-	\hat{\mu}_{s_1, s_2}(x; \mathbf{D}_n)
-	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s_2}} h_{s_1, s_2}(x; \mathbf{D}_{\ell})
-\end{equation}
-It is worth pointing out that in contrast to the DNN estimator, the kernel for the TDNN estimator is of order $s_2 > s_1$.
-The authors derive an explicit formula for the kernel that shows the connection between the DNN and TDNN estimators.
-This connection will prove useful going forward.
-\begin{boxD}
-	\begin{lem}[Kernel of TDNN Estimator - Adapted from Lemma 8 of \citet{demirkaya_optimal_2024}]\label{lem:dem8}\mbox{}\\*
-		The kernel of the TDNN estimator takes the following form.
-		\begin{equation}
-			\begin{aligned}
-				h_{s_1, s_2}\left(x; D\right)
-				 & = w_{1}^{*}\left[\binom{s_2}{s_1}^{-1}\sum_{\ell \in L_{s_2, s_1}} h_{s_1}\left(x; \mathbf{D}_{\ell}\right)\right] + w_{2}^{*} h_{s_2}\left(x; D\right) \\
-				 & = w_{1}^{*} \tilde{\mu}_{s_1}\left(x; D\right) + w_{2}^{*} h_{s_2}\left(x; D\right)                                                            \\
-			\end{aligned}
-		\end{equation}
-	\end{lem}
-\end{boxD}
-Borrowing the notational conventions from \citet{lee_u-statistics_2019}, I additionally introduce the following notation.
-\begin{equation}\label{eq:psi_s_c}
-	\psi_{s}^{c}(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c})
-	= \E_{D}\left[h_{s}\left(x; D\right) \, | \,  Z_1 = \mathbf{z}_{1}, \dotsc, Z_c = \mathbf{z}_{c}\right]
-\end{equation}
-\begin{equation}
-	h_{s}^{(1)}\left(x; \mathbf{z}_{1}\right)
-	= \psi_{s}^{1}(x; \mathbf{z}_{1}) - \mu(x)
-\end{equation}
-\begin{equation}
-	h_{s}^{(c)}\left(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}\right)
-	= \psi_{s}^{c}(x; \mathbf{z}_{1}, \dotsc, \mathbf{z}_{c}) - \sum_{j = 1}^{c-1}\left(\sum_{\ell \in L_{c,j}}h_{s}^{(j)}(x; \mathbf{z}_{\ell})\right) - \mu(x)
-	\quad \text{for } c = 2, \dotsc, s
-\end{equation}
-In contrast to the notational inspiration, the subsampling size $s$ is made explicit.
-Since we are dealing with an infinite-order U-statistic, $s$ will be diverging with $n$.
-Completely analogous, define the corresponding objects for the TDNN estimator.
-For the DNN estimator and any $1 \leq c \leq s$, define
-\begin{equation}\label{eq:xi_s_c}
-	\xi_{s}^{c}\left(x\right)
-	= \Var_{1:c}\left(\psi_{s}^{c}(x; Z_{1}, \dotsc, Z_{c})\right)
-\end{equation}
-where $Z_{c+1}^{\prime}, \ldots, Z_n^{\prime}$ are i.i.d.\ from $P$ and independent of $Z_1, \ldots, Z_n$ and thus
-$\xi_{s}^{s}\left(x\right) = \Var\left(h_s\left(x; Z_1, \ldots, Z_s\right)\right)$.
-% Then, I have the following result from the original paper.
-Similarly, for the TDNN estimator and any $1 \leq c \leq s_2$, let
-\begin{equation}\label{eq:zeta_s1s2_c}
-	\zeta_{s_1, s_2}^{c}\left(x\right)
-	= \Var_{1:c}\left(\psi_{s_1, s_2}^{c}(x; Z_{1}, \dotsc, Z_{c})\right)
-\end{equation}
-with an analogous definition of $Z^{\prime}$.
-As a byproduct (or main purpose depending on the perspective) these terms can be used to derive the Hoeffding decomposition of the TDNN estimator.
-\begin{equation}\label{eq:H_projection}
-	\begin{aligned}
-		H_{s}^{c}\left(x; \mathbf{D}_n\right)
-		= \binom{n}{c}^{-1} \sum_{\ell \in L_{n,c}} h^{(c)}_{s}(x; \mathbf{D}_{\ell})
-		\quad \text{and} \quad
-		H_{s_1, s_2}^{c}\left(x; \mathbf{D}_n\right)
-		= \binom{n}{c}^{-1} \sum_{\ell \in L_{n,c}} h^{(c)}_{s_1, s_2}(x; \mathbf{D}_{\ell})
-	\end{aligned}
-\end{equation}
-These projection terms can then be used to construct the following Hoeffding decompositions.
-\begin{equation}\label{eq:H_Decomp}
-	\tilde{\mu}_{s}\left(x; \mathbf{D}_n\right)
-	= \mu(x) + \sum_{j = 1}^{s}\binom{s}{j}H_{s}^{j}\left(x; \mathbf{D}_n\right)\\
-	\quad \text{and} \quad
-	\hat{\mu}_{s_1, s_2}\left(x; \mathbf{D}_n\right)
-	= \mu(x) + \sum_{j = 1}^{s_2}\binom{s_2}{j}H_{s_1, s_2}^{j}\left(x; \mathbf{D}_n\right)
-\end{equation}
-
-Standard results for U-statistics (see, for example, \citet{lee_u-statistics_2019}) now give us a number of useful results.
-First, an immediate result on the expectations of the Hoeffding-projection kernels.
-\begin{align}\label{eq:H_k_expectation}
-	\forall c = 1,2,\dotsc, j-1: \quad & \E_{D}\left[h_{s_1, s_2}^{(j)}\left(x; D\right) \, | \, Z_1 = \mathbf{z}_1, \dotsc, Z_c = \mathbf{z}_c\right] = 0
-	\quad \text{and} \quad
-	\E_{D}\left[h_{s_1, s_2}^{(j)}\left(x; D\right)\right] = 0
-\end{align}
-Second, I obtain a useful variance decomposition in terms of the Hoeffding-projection variances.
-\begin{align}\label{eq:Var_decomp}
-	\Var_{D}\left(\hat{\mu}_{s_1, s_2}\left(x; D\right)\right)
-	 & = \sum_{j = 1}^{s_2} \binom{s_2}{j}^2 \Var_{D}\left(H_{s_1, s_2}^{j}\left(x; D\right)\right) \\
-	%
-	\Var_{D}\left(H_{s_1, s_2}^{j}\left(x; D\right)\right)
-	 & = \binom{n}{j}^{-1} \Var_{D}\left(h_{s_1, s_2}^{(j)}\left(x; D\right)\right)
-	=: \binom{n}{j}^{-1} V_{s_1, s_2}^{j}\left(x\right)
-\end{align}
-Third, the following equivalent expression for the kernel variance.
-\begin{equation}\label{eq:k_var}
-	\zeta_{s_1, s_2}^{s_2}\left(x\right)
-	= \Var_{D}\left(h_{s_1, s_2}\left(x; D\right)\right)
-	= \sum_{j = 1}^{s_2} \binom{s_2}{j}V_{s_1, s_2}^{j}
-\end{equation}
-
 Given estimates of the functional nuisance parameters, the proposed CATE estimators can be analyzed as generalized U-statistics in the same way as in the nonparametric regression context.
 As most of the theoretical results on these estimators will similarly rely on Hoeffding projection arguments, I will introduce analogous notation in this more general scenario.
 First, observe that the DNN-DML2 CATE estimator can be rewritten as follows to explicitly show its construction as a generalized U-statistic.
@@ -427,9 +381,8 @@ First, observe that the DNN-DML2 CATE estimator can be rewritten as follows to e
         %
         & = \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}}
         \underbrace{\sum_{i = 1}^{n}\frac{\1\left(\kappa(x; Z_{i}, \mathbf{D}_{\ell}) = 1\right)}{s!} 
-        m(Z_{i}, \hat{\eta}_{k_i})}_{\chi_{s}(x; \mathbf{D}_{\ell}, \hat{\eta})} \\
-        %
-        & = \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}}\chi_{s}(x; \mathbf{D}_{\ell}, \hat{\eta})
+        m(Z_{i}, \hat{\eta}_{k_i})}_{\chi_{s}(x; \mathbf{D}_{\ell}, \hat{\eta})}
+        = \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}}\chi_{s}(x; \mathbf{D}_{\ell}, \hat{\eta})
     \end{aligned}
 \end{equation}
 To use arguments based on the Hoeffding-projection of this estimator, introduce the following additional notation.
@@ -476,7 +429,7 @@ To use arguments based on the Hoeffding-projection of this estimator, introduce 
 % \end{equation}
 % Considering this decomposition will be of great usefulness when analyzing the asymptotic properties of the CATE estimators.
 % Let $\hat{\mu}_{k}$ and $\hat{\pi}_{k}$ denote the nuisance parameter estimates calculated on the complement of fold $k$.
-Using the full expression for the CATE estimator, we obtain the following representation of the estimator.
+Using the full expression for the CATE estimator, we obtain the following crucial representation of the estimator.
 \begin{equation}\label{eq:DNNDML2_Decomp}
     \begin{aligned}
         \hat{\theta}\left(x; \mathbf{D}\right)
@@ -486,19 +439,7 @@ Using the full expression for the CATE estimator, we obtain the following repres
         & \quad \quad + \underbrace{\binom{n}{s}^{-1}\sum_{\ell \in L_{n,s}}\left(\chi_{s}\left(x; \mathbf{D}_{\ell}, \hat{\eta}\right) - \chi_{s,0}\left(x; \mathbf{D}_{\ell}\right)\right)}_{\text{First-Stage Approximation Error}}
     \end{aligned}
 \end{equation}
-% If necessary, we can furthermore decompose the error component in the following way.
-% \begin{equation}
-%     \begin{aligned}
-%         & \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}}\left(\chi_{s}\left(x; \mathbf{D}_{\ell}, \hat{\eta}\right) - \chi_{s,0}\left(x; \mathbf{D}_{\ell}\right)\right)\\
-%         %
-%         & \quad = \underbrace{\frac{s}{K} \sum_{k = 1}^{K} \frac{1}{m} \sum_{i \in \mathcal{I}_{k}}\left(\underbrace{\chi_{s}^{(1)}\left(x; Z_{i}, \hat{\eta}_{k}\right) - \chi_{s,0}^{(1)}\left(x; Z_{i}\right)}_{R_{1,k}\left(x; Z_{i}, \hat{\eta}\right)}\right)}_{\text{Oracle-H\'ajek-Projection Error}}
-%          + \underbrace{\sum_{j = 2}^{s} \binom{s}{j} \binom{n}{j}^{-1}\sum_{\ell \in L_{n,j}} R_{j}\left(x; \mathbf{D}_{\ell}, \hat{\eta}\right)}_{\text{Higher-Order Error Terms}}
-%     \end{aligned}
-% \end{equation}
-% I call these terms Oracle-H\'ajek projection and Oracle-H\'ajek residual because of the additional randomness due to the first-stage estimation of the functional nuisance parameters that is reflected in the $R_j$ terms.
-% An integral part of showing the asymptotic properties of the estimator is to show that a number of terms in this representation are asymptotically negligible as long as the first-stage estimator converges fast enough.
 
-\newpage
 \subsection{Asymptotic Normality of the DNN-DML2 CATE Estimator}\label{CATE_AsympNorm}
 \hrule
 

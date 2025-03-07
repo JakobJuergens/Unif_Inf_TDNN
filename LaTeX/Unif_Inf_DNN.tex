@@ -4,6 +4,7 @@
 \usepackage{hyperref}
 \usepackage{multicol}
 \usepackage[english]{babel}
+\usepackage{datetime2}
 \usepackage{setspace}
 \setlength{\parskip}{1em} % Set space when paragraphs are used
 \setlength{\parindent}{0in}
@@ -112,7 +113,7 @@
 \begin{document}
 \singlespacing
 \title{Inference for Conditional Average Treatment Effects using \\ Distributional Nearest Neighbors}
-\date{Last edited: \today}
+\date{Last edited: \DTMtoday}
 \author{Jakob R. Juergens \\ University of Wisconsin - Madison}
 \maketitle
 \hrule
@@ -143,8 +144,8 @@
 \pagenumbering{arabic}
 \onehalfspacing
 
-\newpage
-\tableofcontents
+% \newpage
+% \tableofcontents
 
 \newpage
 \input{Parts/01_Introduction.tex}
@@ -158,11 +159,7 @@
 
 \newpage
 \input{Parts/06_Simulations.tex}
-
-\newpage
 \input{Parts/07_Application.tex}
-
-\newpage
 \input{Parts/08_Conclusion.tex}
 
 \newpage
@@ -170,6 +167,9 @@
 
 \newpage
 \appendix
+
+\newpage
+\input{LaTeX/Parts/A2_UStat_Results.tex}
 
 \newpage
 \input{LaTeX/Parts/A2a_KernelProp.tex}

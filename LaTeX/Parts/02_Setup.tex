@@ -150,27 +150,27 @@ As long as there is sufficient overlap in those neighborhoods the ideas of our i
     \end{exmp}    
 \end{boxE}
 
-\begin{boxD}
-	\begin{asm}[Stable Unit Treatment Value Assumption (SUTVA)]\label{asm:sutva}\mbox{}\\*
-		For any $n$, let $\mathfrak{W}_{n}: \mathcal{X}^{n} \rightarrow \{0,1\}^{n}$ and $\mathfrak{W}_{n}^{\prime}: \mathcal{X}^{n} \rightarrow \{0,1\}^{n}$ be two functions characterizing treatment assignment among a group of $n$ potential observations.
-		Fixing a collection of potential observations corresponding to a collection of feature vectors $\mathbf{X} \in  \mathcal{X}^{n}$ for the potential observations and $i \in [n]$, we impose that given $\left[\mathfrak{W}_{n}(\mathbf{X})\right]_{i} = \left[\mathfrak{W}_{n}^{\prime}(\mathbf{X})\right]_{i}$, the following holds.
-		\begin{equation}
-			\begin{aligned}
-				Y_{i} = & \1\left(\left[\mathfrak{W}_{n}(\mathbf{X})\right]_{i} = 0\right)\mu_{0}^{0}(\mathbf{X}_i)
-				+ \1\left(\left[\mathfrak{W}_{n}(\mathbf{X})\right]_{i} = 1\right)\mu_{0}^{1}(\mathbf{X}_i)
-				+ \epsilon_i \\
-				%
-				&\quad  = 
-				\1\left(\left[\mathfrak{W}_{n}^{\prime}(\mathbf{X})\right]_{i} = 0\right)\mu_{0}^{0}(\mathbf{X}_i)
-				+\1\left(\left[\mathfrak{W}_{n}^{\prime}(\mathbf{X})\right]_{i} = 1\right)\mu_{0}^{1}(\mathbf{X}_i)
-				+ \epsilon_i
-				= Y_{i}^{\prime}
-			\end{aligned}
-		\end{equation}
-	\end{asm}
-\end{boxD}
-Technically, since we are assuming i.i.d. observations in the characterization of the CATE setup, this is already implied.
-However, due to the importance of the SUTVA assumption in the treatment estimation literature, it seems appropriate to explicitly point out that it is implicitly assumed that the assumption holds.
+% \begin{boxD}
+% 	\begin{asm}[Stable Unit Treatment Value Assumption (SUTVA)]\label{asm:sutva}\mbox{}\\*
+% 		For any $n$, let $\mathfrak{W}_{n}: \mathcal{X}^{n} \rightarrow \{0,1\}^{n}$ and $\mathfrak{W}_{n}^{\prime}: \mathcal{X}^{n} \rightarrow \{0,1\}^{n}$ be two functions characterizing treatment assignment among a group of $n$ potential observations.
+% 		Fixing a collection of potential observations corresponding to a collection of feature vectors $\mathbf{X} \in  \mathcal{X}^{n}$ for the potential observations and $i \in [n]$, we impose that given $\left[\mathfrak{W}_{n}(\mathbf{X})\right]_{i} = \left[\mathfrak{W}_{n}^{\prime}(\mathbf{X})\right]_{i}$, the following holds.
+% 		\begin{equation}
+% 			\begin{aligned}
+% 				Y_{i} = & \1\left(\left[\mathfrak{W}_{n}(\mathbf{X})\right]_{i} = 0\right)\mu_{0}^{0}(\mathbf{X}_i)
+% 				+ \1\left(\left[\mathfrak{W}_{n}(\mathbf{X})\right]_{i} = 1\right)\mu_{0}^{1}(\mathbf{X}_i)
+% 				+ \epsilon_i \\
+% 				%
+% 				&\quad  = 
+% 				\1\left(\left[\mathfrak{W}_{n}^{\prime}(\mathbf{X})\right]_{i} = 0\right)\mu_{0}^{0}(\mathbf{X}_i)
+% 				+\1\left(\left[\mathfrak{W}_{n}^{\prime}(\mathbf{X})\right]_{i} = 1\right)\mu_{0}^{1}(\mathbf{X}_i)
+% 				+ \epsilon_i
+% 				= Y_{i}^{\prime}
+% 			\end{aligned}
+% 		\end{equation}
+% 	\end{asm}
+% \end{boxD}
+% Technically, since we are assuming i.i.d. observations in the characterization of the CATE setup, this is already implied.
+% However, due to the importance of the SUTVA assumption in the treatment estimation literature, it seems appropriate to explicitly point out that it is implicitly assumed that the assumption holds.
 % \begin{boxE}
 %     \addtocounter{exmp}{-1}
 %     \begin{exmp}[Average Hourly Earnings and IT Training - continued]\mbox{}\\*

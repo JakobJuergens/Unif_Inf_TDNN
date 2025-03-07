@@ -1,0 +1,43 @@
+\section{Preparatory Definitions and Lemmas}
+\hrule
+
+\subsection{Definitions and Results on U-Statistics}
+\hrule
+
+Recall the definitions of Section \ref{sec:TDNN}.
+First, for the DNN estimator and any $1 \leq c \leq s$, define
+\begin{equation}\label{eq:xi_s_c}
+	\xi_{s}^{c}\left(x\right)
+	= \Var_{1:c}\left(\psi_{s}^{c}(x; Z_{1}, \dotsc, Z_{c})\right)
+\end{equation}
+where $Z_{c+1}^{\prime}, \ldots, Z_n^{\prime}$ are i.i.d.\ from $P$ and independent of $Z_1, \ldots, Z_n$ and thus
+$\xi_{s}^{s}\left(x\right) = \Var\left(h_s\left(x; Z_1, \ldots, Z_s\right)\right)$.
+% Then, I have the following result from the original paper.
+Similarly, for the TDNN estimator and any $1 \leq c \leq s_2$, let
+\begin{equation}\label{eq:zeta_s1s2_c}
+	\zeta_{s_1, s_2}^{c}\left(x\right)
+	= \Var_{1:c}\left(\psi_{s_1, s_2}^{c}(x; Z_{1}, \dotsc, Z_{c})\right)
+\end{equation}
+with an analogous definition of $Z^{\prime}$.
+Standard results for U-statistics (see, for example, \citet{lee_u-statistics_2019}) give us a number of useful results.
+First, an immediate result on the expectations of the Hoeffding-projection kernels.
+\begin{align}\label{eq:H_k_expectation}
+	\forall c = 1,2,\dotsc, j-1: \quad & \E_{D}\left[h_{s_1, s_2}^{(j)}\left(x; D\right) \, | \, Z_1 = \mathbf{z}_1, \dotsc, Z_c = \mathbf{z}_c\right] = 0
+	\quad \text{and} \quad
+	\E_{D}\left[h_{s_1, s_2}^{(j)}\left(x; D\right)\right] = 0
+\end{align}
+Second, I obtain a useful variance decomposition in terms of the Hoeffding-projection variances.
+\begin{align}\label{eq:Var_decomp}
+	\Var_{D}\left(\hat{\mu}_{s_1, s_2}\left(x; D\right)\right)
+	 & = \sum_{j = 1}^{s_2} \binom{s_2}{j}^2 \Var_{D}\left(H_{s_1, s_2}^{j}\left(x; D\right)\right) \\
+	%
+	\Var_{D}\left(H_{s_1, s_2}^{j}\left(x; D\right)\right)
+	 & = \binom{n}{j}^{-1} \Var_{D}\left(h_{s_1, s_2}^{(j)}\left(x; D\right)\right)
+	=: \binom{n}{j}^{-1} V_{s_1, s_2}^{j}\left(x\right)
+\end{align}
+Third, the following equivalent expression for the kernel variance.
+\begin{equation}\label{eq:k_var}
+	\zeta_{s_1, s_2}^{s_2}\left(x\right)
+	= \Var_{D}\left(h_{s_1, s_2}\left(x; D\right)\right)
+	= \sum_{j = 1}^{s_2} \binom{s_2}{j}V_{s_1, s_2}^{j}
+\end{equation}
