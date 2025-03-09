@@ -2,6 +2,7 @@
 \usepackage[letterpaper, hmargin=1.8cm, vmargin = 2.5cm]{geometry} %Sets the page geometry
 \usepackage{url}
 \usepackage{hyperref}
+\usepackage{caption}
 
 \usepackage{multicol}
 \setlength{\columnsep}{1cm}
@@ -23,6 +24,7 @@
 \usepackage{amssymb}
 \usepackage{amsmath}
 \numberwithin{equation}{section}
+
 %%%%% Boxes Setup %%%%%
 \usepackage[many]{tcolorbox}    	% for COLORED BOXES (tikz and xcolor included)
 \definecolor{main}{HTML}{dedcdc}    % setting main color to be used
@@ -149,9 +151,9 @@
 \onehalfspacing
 
 \newpage
-    \begin{multicols*}{2}
-        {\small \tableofcontents}
-    \end{multicols*}
+\begin{multicols*}{2}
+    {\small \tableofcontents}
+\end{multicols*}
 
 \newpage
 \input{Parts/01_Introduction.tex}
@@ -199,6 +201,12 @@
 \input{LaTeX/Parts/P2a_ClosedForms.tex}
 
 \newpage
+\input{Parts/P3_VarEst_NPR.tex}
+
+\newpage
+\input{Parts/P3_VarEst_CATE.tex}
+
+\newpage
 \input{Parts/P2a_PWInf_Expectations_NPR.tex}
 
 \newpage
@@ -209,12 +217,6 @@
 
 \newpage
 \input{Parts/P2b_PWInf_Covariances_CATE.tex}
-
-\newpage
-\input{Parts/P3_VarEst_NPR.tex}
-
-\newpage
-\input{Parts/P3_VarEst_CATE.tex}
 
 
 \end{document}

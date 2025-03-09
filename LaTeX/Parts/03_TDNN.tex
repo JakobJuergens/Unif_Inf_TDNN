@@ -42,14 +42,22 @@ In fact, any distance induced by a norm that captures the geometry of the featur
 The generated ordering implies an associated ordering on the response variables and I denote by $Y_{(i)}$ the response corresponding to $X_{(i)}$.
 Let $\rk(x; X_{i}, D)$ denote the \textit{rank} that is assigned to observation $i$ in a sample $D$ relative to a point of interest $x$, setting $\rk(x; X_{i}, D) = \infty$ if $Z_{i} \not\in D$.
 Similarly, let $Y_{(1)}(x; D)$ indicate the response value of the closest neighbor in set $D$.
-This enables us to define a data-driven kernel function $\kappa$ following the notation of \citet{ritzwoller_simultaneous_2024}.
-\begin{equation}
-	\kappa(x; Z_{i}, D, \xi)
-	= \1\left(\rk(x; X_{i}, D) = 1\right)
-\end{equation}
-Here, $\xi$ is an additional source of randomness in the construction of the base learner that comes into play when analyzing, for example, random forests as proposed by \citet{breiman_random_2001} using the CART-algorithm described in \citet{breiman_classification_2017}.
-As the DNN estimator does not incorporate such additional randomness, the term is omitted in further considerations.
-In future research, additional randomness such as, for example, column subsampling could be considered, in turn making the addition of $\xi$ necessary again.
+\begin{minipage}{.5\textwidth}
+    This enables us to define a data-driven kernel function $\kappa$ following the notation of \citet{ritzwoller_simultaneous_2024}.
+    \begin{equation}
+        \kappa(x; Z_{i}, D, \xi)
+        = \1\left(\rk(x; X_{i}, D) = 1\right)
+    \end{equation}
+    Here, $\xi$ is an additional source of randomness in the construction of the base learner that comes into play when analyzing, for example, random forests as proposed by \citet{breiman_random_2001} using the CART-algorithm described in \citet{breiman_classification_2017}.
+    As the DNN estimator does not incorporate such additional randomness, the term is omitted in further considerations.
+    In future research, additional randomness such as, for example, column subsampling could be considered, in turn making the addition of $\xi$ necessary again.
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.8\linewidth]{Graphics/DNN_Estimator_Vis.png}
+    \captionof{figure}{Visualization of the DNN Kernel Function}
+\end{minipage}
+
 Using $\kappa$, it is straightforward to find an expression for the distance function $K$ in Equation~\ref{EmpCondMomEq} corresponding to the DNN estimator.
 \begin{equation}\label{eq:data_distance}
 	K(x, X_{i})
@@ -121,13 +129,9 @@ As part of their paper, \citet{demirkaya_optimal_2024} develop an explicit expre
 	\end{thm}
 \end{boxD}
 
-Starting from this set-up, \citet{demirkaya_optimal_2024} develop a novel
-bias correction method for the DNN estimator that leads to appealing
-finite-sample properties of the resulting Two-Scale Distributional Nearest
-Neighbor (TDNN) estimator. Their method is based on the explicit formula for
-the first-order bias term of the DNN estimator, which in turn allows them to
-eliminate it through a clever combination of two DNN estimators. Choosing two
-subsampling scales $1 \leq s_1 < s_2 \leq n$ and two corresponding weights
+Starting from this set-up, \citet{demirkaya_optimal_2024} develop a novel bias correction method for the DNN estimator that leads to appealing finite-sample properties of the resulting Two-Scale Distributional Nearest Neighbor (TDNN) estimator. 
+Their method is based on the explicit formula for the first-order bias term of the DNN estimator, which in turn allows them to eliminate it through a clever combination of two DNN estimators. 
+Choosing two subsampling scales $1 \leq s_1 < s_2 \leq n$ and two corresponding weights
 \begin{equation}
 	w_{1}^{*}(s_1, s_2) = \frac{1}{1-(s_1/s_2)^{-2/k}}
 	\quad\text{and}\quad
