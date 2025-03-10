@@ -7,7 +7,8 @@ As the first stage is effectively covered by the nonparametric regression setup,
 \vspace{0.5cm}
 \hrule
 
-\begin{lem}[CATE - DNN Kernel Expectation]\label{lem:CATE_DNN_k_exp}\mbox{}\\*
+\begin{boxD}
+    \begin{lem}[CATE - DNN Kernel Expectation]\label{lem:CATE_DNN_k_exp}\mbox{}\\*
 	Let $x$ denote a point of interest.
 	Then
 	\begin{equation}
@@ -20,7 +21,8 @@ As the first stage is effectively covered by the nonparametric regression setup,
 		\end{aligned}
 	\end{equation}
 \end{lem}
-\hrule
+\end{boxD}
+
 \begin{proof}[Proof of Lemma~\ref{lem:CATE_DNN_k_exp}]
 	This result follows immediately from Lemma~\ref{lem:dem13} and the following observation.
 	\begin{equation}
@@ -39,9 +41,8 @@ As the first stage is effectively covered by the nonparametric regression setup,
 	\end{equation}
 \end{proof}
 
-\hrule
-
-\begin{lem}[CATE - DNN Haj\'ek Kernel Expectation]\label{lem:CATE_chi_s_1}\mbox{}\\*
+\begin{boxD}
+    \begin{lem}[CATE - DNN Haj\'ek Kernel Expectation]\label{lem:CATE_chi_s_1}\mbox{}\\*
 	Let $z_1 = (x_1, W_{1}, y_1)$ denote a specific realization of $Z$ and $x$ denote a point of interest.
 	Then
 	\begin{equation}
@@ -51,14 +52,14 @@ As the first stage is effectively covered by the nonparametric regression setup,
 		\, \Big| \, Z_1 = z_1 \right]
 	\end{equation}
 \end{lem}
-\hrule
+\end{boxD}
+
 \begin{proof}[Proof of Lemma~\ref{lem:CATE_chi_s_1}]
 	\begin{equation}
 		\begin{aligned}
 			\psi_{s}^{1}\left(x; z_1\right)
-			 & = \E_{D}\left[\chi_{s,0}\left(x; D\right) \, | \, Z_1 = z_1 \right] \\
-			 %
-			 & = \E_{D}\left[\sum_{i = 1}^{s} \kappa\left(x; Z_{i}, D\right) m(Z_i, \eta_0)
+			 & = \E_{D}\left[\chi_{s,0}\left(x; D\right) \, | \, Z_1 = z_1 \right] 
+			  = \E_{D}\left[\sum_{i = 1}^{s} \kappa\left(x; Z_{i}, D\right) m(Z_i, \eta_0)
 			 \, \Big| \, Z_1 = z_1 \right]\\
 			 %
 			 & = \left(\mu_{0}^{1}\left(X_1\right) - \mu_{0}^{0}\left(X_1\right) + \beta\left(W_{1}, X_1\right)\varepsilon_{1}\right)\E\left[\kappa\left(x; Z_1, D\right) \; \middle| \; X_1 = x_1\right]\\
@@ -71,7 +72,6 @@ As the first stage is effectively covered by the nonparametric regression setup,
 		\end{aligned}
 	\end{equation}
 \end{proof}
-
 
 % \begin{lem}[TDNN Haj\'ek Kernel Expectation]\label{lem:psi_s1s2_1}\mbox{}\\*
 % 	Let $z_1 = (x_1, y_1)$ denote a specific realization of $Z$ and $x$ denote a point of interest.
@@ -143,5 +143,3 @@ As the first stage is effectively covered by the nonparametric regression setup,
 % 		\end{aligned}
 % 	\end{equation}
 % \end{proof}
-
-\newpage

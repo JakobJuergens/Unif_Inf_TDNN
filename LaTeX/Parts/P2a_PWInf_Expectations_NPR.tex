@@ -9,7 +9,8 @@ First, we start with the nonparametric regression setup.
 \vspace{0.5cm}
 \hrule
 
-\begin{lem}[NPR - DNN Kernel Expectation]\label{lem:DNN_k_exp}\mbox{}\\*
+\begin{boxD}
+    \begin{lem}[NPR - DNN Kernel Expectation]\label{lem:DNN_k_exp}\mbox{}\\*
 	Let $x$ denote a point of interest.
 	Then
 	\begin{equation}
@@ -18,7 +19,8 @@ First, we start with the nonparametric regression setup.
 		  \longrightarrow \mu\left(x\right) \quad \text{as} \quad s \rightarrow \infty
 	\end{equation}
 \end{lem}
-\hrule
+\end{boxD}
+
 \begin{proof}[Proof of Lemma~\ref{lem:DNN_k_exp}]
 	This result follows immediately from Lemma~\ref{lem:dem13} and the following observation.
     \begin{equation}
@@ -35,9 +37,8 @@ First, we start with the nonparametric regression setup.
 	\end{equation}
 \end{proof}
 
-\hrule
-
-\begin{lem}[NPR - DNN Haj\'ek Kernel Expectation]\label{lem:psi_s_1}\mbox{}\\*
+\begin{boxD}
+    \begin{lem}[NPR - DNN Haj\'ek Kernel Expectation]\label{lem:psi_s_1}\mbox{}\\*
 	Let $z_1 = (x_1, y_1)$ denote a specific realization of $Z$ and $x$ denote a point of interest.
 	Then
 	\begin{equation}
@@ -46,7 +47,8 @@ First, we start with the nonparametric regression setup.
 		+ \E_{D}\left[\sum_{i = 2}^{s} \kappa\left(x; Z_{i}, D\right) \mu(X_{i})\, \Big| \, X_1 = x_1 \right]
 	\end{equation}
 \end{lem}
-\hrule
+\end{boxD}
+
 \begin{proof}[Proof of Lemma~\ref{lem:psi_s_1}]
 	\begin{equation}
 		\begin{aligned}

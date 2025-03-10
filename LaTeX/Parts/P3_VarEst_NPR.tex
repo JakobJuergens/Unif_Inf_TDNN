@@ -1,7 +1,8 @@
 \subsection{Variance Estimation Consistency Theorems - Nonparametric Regression}
 \hrule
 
-\begin{lem}[Asymptotic Dominance of H\'ajek Projection]\label{lem:Hajek_Dominance}\mbox{}\\*
+\begin{boxD}
+    \begin{lem}[Asymptotic Dominance of H\'ajek Projection]\label{lem:Hajek_Dominance}\mbox{}\\*
 	Let $U_{s}\left(\mathbf{D}_{[n]}\right)$ be a non-randomized complete generalized U-statistic with kernel $h_s$.
 	Let the kernel variance terms $\zeta_{s}^{s}$ and $\zeta_{s}^{1}$ be defined in analogy to Section~\ref{sec:TDNN}.
 	Assume that the following condition holds.
@@ -14,7 +15,8 @@
 		\rightarrow 1.
 	\end{equation}
 \end{lem}
-\hrule
+\end{boxD}
+
 \begin{proof}
 	\begin{equation}
 		\begin{aligned}
@@ -29,12 +31,12 @@
 	\end{equation}
 \end{proof}
 
-\hrule
-
-\begin{lem}[H\'ajek Dominance for TDNN Estimator]\label{lem:TDNN_Hajek_Dominance}\mbox{}\\*
+\begin{boxD}
+    \begin{lem}[H\'ajek Dominance for TDNN Estimator]\label{lem:TDNN_Hajek_Dominance}\mbox{}\\*
 	Let $0 < \mathfrak{c} \leq s_1/s_2 \leq 1 - \mathfrak{c} < 1$ and $s_2 = o(n)$, then under Assumptions~\ref{asm:DGP},~\ref{asm:subexp_tails} and~\ref{asm:smoothness}, then the TDNN estimator fulfills the asymptotic H\'ajek dominance condition shown in Lemma~\ref{lem:Hajek_Dominance}.
 \end{lem}
-\hrule
+\end{boxD}
+
 \begin{proof}
 	Recall the results from Lemmas~\ref{lem:Var_TDNN_k} and \ref{lem:dem10}.
 	\begin{equation*}
@@ -52,7 +54,6 @@
 		\end{aligned}
 	\end{equation}
 \end{proof}
-\hrule
 
 \begin{proof}[Proof of Theorem~\ref{thm:PI_JK_Cons}]\mbox{}\\*
 	The desired result immediately follows from an application of Theorem 6 from \citet{peng_bias_2021}.

@@ -1,7 +1,8 @@
 \subsection{Properties of the $\kappa$ Function}
 \hrule
 
-\begin{lem}[\citet{demirkaya_optimal_2024} - Lemma 12]\label{lem:dem12}\mbox{}\\*
+\begin{boxD}
+    \begin{lem}[\citet{demirkaya_optimal_2024} - Lemma 12]\label{lem:dem12}\mbox{}\\*
 	Let $D = \{Z_1, \dotsc, Z_s\}$ an i.i.d.\ sample drawn from $P$.
 	The indicator functions $\kappa\left(x; Z_{i}, D\right)$ satisfy the following properties.
 	\begin{enumerate}
@@ -14,32 +15,29 @@
 	\end{enumerate}
 	Here $\E_{i: s}$ denotes the expectation with respect to $\left\{Z_{i}, Z_{i+1}, \dotsc, Z_s\right\}$.
 	Furthermore, $\varphi$ denotes the probability measure on $\mathbb{R}^{d}$ induced by the random vector $X$.
-\end{lem}
+    \end{lem}
+\end{boxD}
 
-\hrule
-
-\begin{lem}[\citet{demirkaya_optimal_2024} - Lemma 13]\label{lem:dem13}\mbox{}\\*
+\begin{boxD}
+    \begin{lem}[\citet{demirkaya_optimal_2024} - Lemma 13]\label{lem:dem13}\mbox{}\\*
 	For any $L^1$ function $f$ that is continuous at $x$, it holds that
 	\begin{equation}
 		\lim _{s \rightarrow \infty} \E_{1}\left[f\left(X_1\right) s \E_{2:s}\left[\kappa(x; Z_1, D)\right]\right]
 		= f(x).
 	\end{equation}
 \end{lem}
-
-\hrule
+\end{boxD}
 
 As an additional tool, we will make use of the following analogous results concerning products of two kernel functions with nonzero expectation.
 These results will then be used to construct an analogon of Lemma \ref{lem:dem13} for the corresponding cases.
 This will serve very similar purposes in the analysis of (conditional) covariance terms as the previous results serve for (conditional) expectations.
-\vspace{0.5cm}
-\hrule
 
-\begin{lem}[]\label{lem:expec_kernel_prod}\mbox{}\\*
+\begin{boxD}
+    \begin{lem}[]\label{lem:expec_kernel_prod}\mbox{}\\*
     Fix sample size $n$, subsampling scale $s$, and $c$ such that $0 < c \leq s \leq n$.
 	Let $D = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}, \dotsc Z_s \right\}$ be an i.i.d.\ data set drawn from $P$ as described in Setup~\ref{asm:npr_dgp}.
 	Let $D^{\prime} = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$ be a second data set that shares the first $c$ observations with $D$.
 	The remaining $s - c$ observations of $D^{\prime}$, i.e.\ $\left\{Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$, are i.i.d.\ draws from $P$ that are independent of $D$.
-
     Then the following three statements hold.
     \begin{equation}
         \forall i \in [c]: \quad
@@ -48,7 +46,7 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
     \end{equation}
     \begin{equation}
         \begin{aligned}
-            \forall i \in [c] \; \forall j \in \{c+1, \dotsc, s\}: \quad
+            \forall i \in [c] \; \forall j \in \{c+1, \dotsc, s\}: \\ 
             \E_{D, D^{\prime}}\left[\kappa\left(x; Z_{i}, D\right)\kappa\left(x; Z_{j}^{\prime}, D^{\prime}\right)\right]
             & = \frac{1}{(2s - c)(2s-c-1)}\sum_{i = 0}^{s - c - 1}\binom{s - c - 1}{i}\binom{2s - c - 2}{i}^{-1} \\
             & = \omega(e^{-s})
@@ -56,7 +54,7 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
     \end{equation}
     \begin{equation}
         \begin{aligned}
-            \forall i,j \in \{c+1, \dotsc, s\}: \quad
+            \forall i,j \in \{c+1, \dotsc, s\}: \\
             \E_{D, D^{\prime}}\left[\kappa\left(x; Z_{i}, D\right)\kappa\left(x; Z_{j}^{\prime}, D^{\prime}\right)\right]
             & = \frac{2}{(2s-c)(2s-c-1)}\sum_{i = 0}^{s-c-1} \binom{s - c - 1}{i}\binom{2s - c - 1}{s-1+i}^{-1}\\
             %
@@ -64,6 +62,7 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
         \end{aligned}
     \end{equation}
 \end{lem}
+\end{boxD}
 
 \begin{proof}[Proof of Lemma \ref{lem:expec_kernel_prod}]\mbox{}\\*
     Without loss of generality, we will consider the cases of $i = 1$ and $j = c + 1$ for the first two equations.
@@ -157,10 +156,10 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
     \end{equation}
 \end{proof}
 
-\hrule
-
 \newpage
-\begin{lem}[]\label{lem:cond_expec_kernel_prod}\mbox{}\\*
+
+\begin{boxD}
+    \begin{lem}[]\label{lem:cond_expec_kernel_prod}\mbox{}\\*
     Fix sample size $n$, subsampling scale $s$, and $c$ such that $0 < c \leq s \leq n$.
 	Let $D = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}, \dotsc Z_s \right\}$ be an i.i.d.\ data set drawn from $P$ as described in Setup~\ref{asm:npr_dgp}.
 	Let $D^{\prime} = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$ be a second data set that shares the first $c$ observations with $D$.
@@ -194,6 +193,7 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
         \end{aligned}
     \end{equation}
 \end{lem}
+\end{boxD}
 
 \begin{proof}[Proof of Lemma \ref{lem:cond_expec_kernel_prod}]\mbox{}\\*
     Without loss of generality, we will consider the cases of $i = 1$ for the first equation.
@@ -352,7 +352,8 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
 
 \newpage
 
-\begin{lem}[]\label{lem:kernel_prod_dirac_convergence}\mbox{}\\*
+\begin{boxD}
+    \begin{lem}[]\label{lem:kernel_prod_dirac_convergence}\mbox{}\\*
     Fix sample size $n$, subsampling scale $s$, and $c$ such that $0 < c \leq s \leq n$.
 	Let $D = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}, \dotsc Z_s \right\}$ be an i.i.d.\ data set drawn from $P$ as described in Setup~\ref{asm:npr_dgp}.
 	Let $D^{\prime} = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$ be a second data set that shares the first $c$ observations with $D$.
@@ -380,6 +381,7 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
         = f^{2}(x)
     \end{equation}
 \end{lem}
+\end{boxD}
 
 \begin{proof}[Proof of Lemma \ref{lem:kernel_prod_dirac_convergence}]\mbox{}\\*
     We will largely argue along the same lines as the original proof in \citet{demirkaya_optimal_2024}.
@@ -649,9 +651,8 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
     As $\epsilon$ was arbitrary this concludes the proof.
 \end{proof}
 
-\hrule
-
-\begin{lem}[]\label{lem:expec_kernel_prod_bound}\mbox{}\\*
+\begin{boxD}
+    \begin{lem}[]\label{lem:expec_kernel_prod_bound}\mbox{}\\*
     Fix sample size $n$, subsampling scale $s$, and $c$ such that $0 < c \leq s \leq n$.
 	Let $D = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}, \dotsc Z_s \right\}$ be an i.i.d.\ data set drawn from $P$ as described in Setup~\ref{asm:npr_dgp}.
 	Let $D^{\prime} = \left\{Z_1, Z_2, \dotsc, Z_c, Z_{c+1}^{\prime}, \dotsc Z_s^{\prime} \right\}$ be a second data set that shares the first $c$ observations with $D$.
@@ -673,6 +674,8 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
         \end{aligned}
     \end{equation}
 \end{lem}
+
+\end{boxD}
 
 \begin{proof}[Proof of Lemma \ref{lem:expec_kernel_prod_bound}]\mbox{}\\*
     Recall the results of Lemma \ref{lem:expec_kernel_prod} and make the following observations.
@@ -711,9 +714,8 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
     \end{equation}
 \end{proof}
 
-\hrule
-
-\begin{lem}[\citet{peng_bias_2021} - Lemma 1]\label{lem:peng1}\mbox{}\\*
+\begin{boxD}
+    \begin{lem}[\citet{peng_bias_2021} - Lemma 1]\label{lem:peng1}\mbox{}\\*
 	Suppose that $\sum X_{i}^2 \xrightarrow{p} 1, \sum \E\left[X_{i}^2\right] \rightarrow 1$, and $\sum_{i=1}^n \E\left[Y_{i}^2\right] \rightarrow 0$, then
 	\begin{equation}
 		\sum\left[X_{i}+Y_{i}\right]^2 \xrightarrow{p} 1 
@@ -721,13 +723,15 @@ This will serve very similar purposes in the analysis of (conditional) covarianc
         \E\left[\sum\left(X_{i}+Y_{i}\right)^2\right] \rightarrow 1.
 	\end{equation}
 \end{lem}
+\end{boxD}
 
-\hrule
-
-\begin{lem}[Honesty of the DNN/TDNN Estimators]\label{lem:honesty}\mbox{}\\*
+\begin{boxD}
+    \begin{lem}[Honesty of the DNN/TDNN Estimators]\label{lem:honesty}\mbox{}\\*
 	The DNN and TDNN estimator kernels $\kappa\left(\cdot, \cdot, D_{\ell}\right)$ are Honest in the sense of \citet{wager_estimation_2018}.
 	\begin{equation*}
 		\kappa\left(x, X_{i}, D_{\ell}\right) \indep Y_{i} \mid X_{i}, D_{\ell,-i},
 	\end{equation*}
 	where $\indep$ denotes conditional independence and $D_{\ell,-i} = \{Z_l \, | \, l \in \ell \backslash \{i\}\}$.
 \end{lem}
+\end{boxD}
+

@@ -16,7 +16,8 @@ Thus, introduce the following notation to simplify the notation of the matrices 
     m\left(z; \eta\right) = \mu^{1} - \mu^{0} + \left(\frac{w}{\pi} - \frac{1 - w}{1 - \pi}\right) \cdot \left(y - \mu^{w}\right)
 \end{equation}
 
-\begin{lem}[Score Jacobian w.r.t. Nuisance Parameters]\label{lem:score_jacobian}\mbox{}\\*
+\begin{boxD}
+    \begin{lem}[Score Jacobian w.r.t. Nuisance Parameters]\label{lem:score_jacobian}\mbox{}\\*
     \begin{equation}
         \begin{aligned}
             \mathbb{J}_{m}(z)
@@ -33,14 +34,14 @@ Thus, introduce the following notation to simplify the notation of the matrices 
         \end{aligned}
     \end{equation}
 \end{lem}
+\end{boxD}
 
 \begin{proof}[Proof of Lemma \ref{lem:score_jacobian}]\mbox{}\\*
-    Follows from simple calculus arguments.
+    Follows from standard calculus arguments.
 \end{proof}
 
-\hrule
-
-\begin{lem}[Score Hessian w.r.t. Nuisance Parameters]\label{lem:score_hessian}\mbox{}\\*
+\begin{boxD}
+    \begin{lem}[Score Hessian w.r.t. Nuisance Parameters]\label{lem:score_hessian}\mbox{}\\*
     \begin{equation}
         \begin{aligned}
             \mathbb{H}_{m}(z)
@@ -61,18 +62,17 @@ Thus, introduce the following notation to simplify the notation of the matrices 
         \end{aligned}
     \end{equation}
 \end{lem}
+\end{boxD}
 
 \begin{proof}[Proof of Lemma \ref{lem:score_hessian}]\mbox{}\\*
-    Follows from simple calculus arguments.
+    Follows from standard calculus arguments.
 \end{proof}
 
-
-\hrule
-
-\begin{lem}[Score Gateaux Derivative w.r.t. Nuisance Parameters]\label{lem:score_gateaux_derivative}\mbox{}\\*
-    
-    {\color{red} LOREM IPSUM}
-\end{lem}
+\begin{boxD}
+    \begin{lem}[Score Gateaux Derivative w.r.t. Nuisance Parameters]\label{lem:score_gateaux_derivative}\mbox{}\\*
+        {\color{red} LOREM IPSUM}
+    \end{lem}    
+\end{boxD}
 
 \begin{proof}[Proof of Lemma \ref{lem:score_gateaux_derivative}]\mbox{}\\*
     \begin{equation}
@@ -94,15 +94,15 @@ Thus, introduce the following notation to simplify the notation of the matrices 
     \end{equation}
 \end{proof}
 
-\hrule
-
-\begin{lem}[Score Gateaux Derivative Bounds]\label{lem:score_gateaux_derivative_bd}\mbox{}\\*
+\begin{boxD}
+    \begin{lem}[Score Gateaux Derivative Bounds]\label{lem:score_gateaux_derivative_bd}\mbox{}\\*
     We can bound the first Gateaux derivative of the score function at a point $x$ in the following way.
     \begin{equation}
         \left| \mathbb{D}_{\eta} m(z, \eta_{0}) \right| \leq \left(\left| \mu^{0}(x) - \mu_{0}^{0}(x) \right| + \left| \mu^{1}(x) - \mu_{0}^{1}(x) \right|\right) \cdot \frac{2}{\mathfrak{p}}
             + \left| \pi(x) - \pi_{0}(x) \right| \cdot \frac{2}{\mathfrak{p}^{2}} \cdot \left| \varepsilon \right|
     \end{equation}
 \end{lem}
+\end{boxD}
 
 \begin{proof}[Proof of Lemma \ref{lem:score_gateaux_derivative_bd}]\mbox{}\\*
     \begin{equation}
@@ -122,11 +122,11 @@ Thus, introduce the following notation to simplify the notation of the matrices 
     \end{equation}
 \end{proof}
 
-\hrule
-
-\begin{lem}[Score 2nd Gateaux Derivative w.r.t. Nuisance Parameters]\label{lem:score_2gateaux_derivative}\mbox{}\\*
+\begin{boxD}
+    \begin{lem}[Score 2nd Gateaux Derivative w.r.t. Nuisance Parameters]\label{lem:score_2gateaux_derivative}\mbox{}\\*
     {\color{red} LOREM IPSUM}
 \end{lem}
+\end{boxD}
 
 \begin{proof}[Proof of Lemma \ref{lem:score_2gateaux_derivative}]\mbox{}\\*
     \begin{equation}
@@ -167,9 +167,8 @@ Thus, introduce the following notation to simplify the notation of the matrices 
     \end{equation}
 \end{proof}
 
-\hrule
-
-\begin{lem}[Score 2nd Gateaux Derivative Bounds]\label{lem:score_2gateaux_derivative_bd}\mbox{}\\*
+\begin{boxD}
+    \begin{lem}[Score 2nd Gateaux Derivative Bounds]\label{lem:score_2gateaux_derivative_bd}\mbox{}\\*
     We can bound the second Gateaux derivative of the score function at a point $x$ in the following way.
     \begin{equation}
         \mathbb{D}_{\eta}^{2} m(z, \eta_{0}) 
@@ -179,6 +178,7 @@ Thus, introduce the following notation to simplify the notation of the matrices 
             \Bigg\}
     \end{equation}
 \end{lem}
+\end{boxD}
 
 \begin{proof}[Proof of Lemma \ref{lem:score_2gateaux_derivative_bd}]\mbox{}\\*
     \begin{equation}

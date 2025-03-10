@@ -5,7 +5,9 @@ These results will play an important role in the derivation of consistency prope
 Similar to the previous part, we will first consider the nonparametric regression setup and then proceed to the conditional average treatment effect setup.
 \vspace{0.5cm}
 \hrule
-\begin{lem}[Adapted from \citet{demirkaya_optimal_2024}]\label{lem:omega_s}\mbox{}\\*
+
+\begin{boxD}
+    \begin{lem}[Adapted from \citet{demirkaya_optimal_2024}]\label{lem:omega_s}\mbox{}\\*
 	Let $D = \{Z_1, \dotsc, Z_{s}\}$ be a vector of i.i.d.\ random variables drawn from $P$.
 	Furthermore, let
 	\begin{equation}
@@ -20,7 +22,8 @@ Similar to the previous part, we will first consider the nonparametric regressio
 		\quad \text{as} \quad s \rightarrow \infty.
 	\end{equation}
 \end{lem}
-\hrule
+\end{boxD}
+
 \begin{proof}[Proof of Lemma~\ref{lem:omega_s}]\mbox{}\\*
     This result follows immediately from Lemma~\ref{lem:dem13} and the following observation.
 	\begin{equation}
@@ -50,9 +53,8 @@ Similar to the previous part, we will first consider the nonparametric regressio
 	Thus, we obtain the desired result.
 \end{proof}
 
-\hrule
-
-\begin{lem}\label{lem:omega_sc}\mbox{}\\*
+\begin{boxD}
+    \begin{lem}\label{lem:omega_sc}\mbox{}\\*
 	Let $D = \{Z_1, \dotsc, Z_{s}\}$ be a vector of i.i.d.\ random variables drawn from $P$.
 	Let $D^{\prime} = \{Z_1, \dotsc, Z_{c}, Z_{c+1}^{\prime}, \dotsc,  Z_{s}^{\prime}\}$ where $Z_{c+1}^{\prime}, \dotsc,  Z_{s}^{\prime}$ are i.i.d.\ draws from $P$ that are independent of $D$.
 	Furthermore, let
@@ -68,8 +70,7 @@ Similar to the previous part, we will first consider the nonparametric regressio
 		\quad \text{as} \quad s \rightarrow \infty.
 	\end{equation}
 \end{lem}
-
-\hrule
+\end{boxD}
 
 \begin{proof}[Proof of Lemma~\ref{lem:omega_sc}]
 	\begin{equation}
@@ -143,8 +144,8 @@ Similar to the previous part, we will first consider the nonparametric regressio
 	The result of Lemma~\ref{lem:omega_sc} follows immediately by summing up the asymptotic bounds for the individual terms.
 \end{proof}
 
-\newpage
-\begin{lem}\label{lem:upsilon_s}\mbox{}\\*
+\begin{boxD}
+    \begin{lem}\label{lem:upsilon_s}\mbox{}\\*
 	Let $D = \{Z_1, \dotsc, Z_{s_2}\}$ be a vector of i.i.d.\ random variables drawn from $P$ for $s_2 > s_1$.
 	Furthermore, let
 	\begin{equation}
@@ -161,7 +162,8 @@ Similar to the previous part, we will first consider the nonparametric regressio
 		0 < \mathfrak{c} \leq s_1 / s_2 \leq 1 - \mathfrak{c} < 1.
 	\end{equation}
 \end{lem}
-\hrule
+\end{boxD}
+
 \begin{proof}[Proof of Lemma~\ref{lem:upsilon_s}]
 	\begin{equation}
 		\begin{aligned}
@@ -196,8 +198,8 @@ Similar to the previous part, we will first consider the nonparametric regressio
 	\end{equation}
 \end{proof}
 
-\newpage
-\begin{lem}\label{lem:upsilon_sc}\mbox{}\\*
+\begin{boxD}
+    \begin{lem}\label{lem:upsilon_sc}\mbox{}\\*
 	Let $D = \{Z_1, \dotsc, Z_{s_2}\}$ be a vector of i.i.d.\ random variables drawn from $P$ for $s_2 > s_1$.
 	Let $D^{\prime} = \{Z_1, \dotsc, Z_{c}, Z_{c+1}^{\prime}, \dotsc,  Z_{s_1}^{\prime}\}$ where $Z_{c+1}^{\prime}, \dotsc,  Z_{s_1}^{\prime}$ are i.i.d.\ draws from $P$ that are independent of $D$.
 	Furthermore, let
@@ -226,7 +228,8 @@ Similar to the previous part, we will first consider the nonparametric regressio
 		0 < \mathfrak{c} \leq s_1 / s_2 \leq 1 - \mathfrak{c} < 1.
 	\end{equation}
 \end{lem}
-\hrule
+\end{boxD}
+
 \begin{proof}[Proof of Lemma~\ref{lem:upsilon_sc}]
 	\begin{equation}
 		\begin{aligned}
@@ -318,8 +321,8 @@ Similar to the previous part, we will first consider the nonparametric regressio
 	\end{equation}
 \end{proof}
 
-\newpage
-\begin{lem}[Kernel Variance of the TDNN Kernel]\label{lem:Var_TDNN_k}
+\begin{boxD}
+    \begin{lem}[Kernel Variance of the TDNN Kernel]\label{lem:Var_TDNN_k}
 	For the kernel of the TDNN estimator with subsampling scales $s_1$ and $s_2$, it holds that
 	\begin{equation}
 		\zeta_{s_1, s_2}^{s_2}\left(x\right)
@@ -329,7 +332,8 @@ Similar to the previous part, we will first consider the nonparametric regressio
 		0 < \mathfrak{c} \leq s_1 / s_2 \leq 1 - \mathfrak{c} < 1.
 	\end{equation}
 \end{lem}
-\hrule
+\end{boxD}
+
 \begin{proof}[Proof of Lemma~\ref{lem:Var_TDNN_k}]
 	Consider first the following decomposition.
 	\begin{equation}
@@ -399,9 +403,8 @@ Similar to the previous part, we will first consider the nonparametric regressio
 	\end{equation}
 \end{proof}
 
-\newpage
-
-\begin{lem}[Lemma 10 - \citet{demirkaya_optimal_2024}]\label{lem:dem10}
+\begin{boxD}
+    \begin{lem}[Lemma 10 - \citet{demirkaya_optimal_2024}]\label{lem:dem10}
 	For the kernel of the TDNN estimator with subsampling scales $s_1$ and $s_2$ satisfying
 	\begin{equation}
 		0 < \mathfrak{c} \leq s_1 / s_2 \leq 1 - \mathfrak{c} < 1
@@ -414,3 +417,4 @@ Similar to the previous part, we will first consider the nonparametric regressio
 		\sim s_2^{-1}.
 	\end{equation}
 \end{lem}
+\end{boxD}
