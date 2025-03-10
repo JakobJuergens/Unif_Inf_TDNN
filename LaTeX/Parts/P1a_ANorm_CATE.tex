@@ -237,13 +237,13 @@ Additionally, define the following empirical process notation, where $f$ is any 
             %
             & \leq \sup_{\eta \in \mathcal{T}_{n}} 
              \E_{D}\left[\left|\vartheta_{s}^{1}\left(x; Z, \eta\right) - \vartheta_{s,0}^{1}\left(x; Z\right)\right|^{2}\right]
-             \overset{\text{Lem \ref{lem:rate_cond_errors1}}}{=} \left(\frac{r_{n}^{\prime}}{(s-1)!}\right)^{2}
+             \overset{\text{Lem \ref{lem:rate_cond_errors1}}}{=} \left(s r_{n}^{\prime}\right)^{2}
         \end{aligned}
     \end{equation}
     By \citet{chernozhukov_doubledebiased_2018} Lemma 6.1, this allows us to draw the following conclusion.
     \begin{equation}
         \begin{aligned}
-            \mathcal{I}_{3,k}^{(1)} = O_{p}\left(\frac{r_{n}^{\prime}}{(s-1)!}\right)
+            \mathcal{I}_{3,k}^{(1)} = O_{p}\left(s r_{n}^{\prime}\right)
         \end{aligned}
     \end{equation}  
     Next, to bound $\mathcal{I}_{4,k}^{(1)}$, we introduce a function analogous to the proof presented in \citet{chernozhukov_doubledebiased_2018}.
@@ -275,14 +275,14 @@ Additionally, define the following empirical process notation, where $f$ is any 
     \begin{equation}
         \begin{aligned}
             \bar{R}_{1, k}\left(x\right)
-            & = O_{p}\left(\sqrt{\frac{1}{n}} \cdot \frac{r_{n}^{\prime}}{(s-1)!} + {\color{red} LOREM IPSUM}\right)
+            & = O_{p}\left(\sqrt{\frac{1}{n}} \cdot s r_{n}^{\prime} + {\color{red} LOREM IPSUM}\right)
         \end{aligned}
     \end{equation}
     Now, recognizing that since $k$ is fixed, we can apply this logic to each individual fold, we obtain the desired result.
     \begin{equation}
         \begin{aligned}
             \frac{s}{K} \sum_{k = 1}^{K} \bar{R}_{1, k}\left(x\right) 
-            = O_{p}\left(\sqrt{\frac{1}{n}} \cdot \frac{s \cdot r_{n}^{\prime}}{(s-1)!} + {\color{red} LOREM IPSUM}\right)
+            = O_{p}\left(\frac{s}{\sqrt{n}} \cdot r_{n}^{\prime} + {\color{red} LOREM IPSUM}\right)
         \end{aligned}
     \end{equation}
 {\color{red} LOREM IPSUM}
@@ -321,18 +321,18 @@ Thus, similar to the analysis presented in Lemma \ref{lem:ps_hajek_error}, we ob
             & = \binom{s}{j}\binom{n}{j}^{-1} \sum_{\ell \in \mathbf{M}_{k}^{(j)}} \E_{D}\left[\chi_{s}(x; \mathbf{D}_{[s]}, \hat{\eta}_{k}) - \chi_{s,0}(x; \mathbf{D}_{[s]}) \, \middle| \, \mathbf{D}_{[j]} = \mathbf{D}_{\ell}\right] \\
             %
             & = \binom{s}{j}\binom{n}{j}^{-1} \sum_{\ell \in \mathbf{M}_{k}^{(j)}} \E_{D}\left[
-                \sum_{i = 1}^{s}\frac{\1\left(\kappa(x; Z_{i}, \mathbf{D}_{[s]}) = 1\right)}{s!} \left(m(Z_{i}, \hat{\eta}_{k_i}) - m(Z_{i}, \eta_{0})\right)
+                \sum_{i = 1}^{s}\kappa(x; Z_{i}, \mathbf{D}_{[s]}) \left(m(Z_{i}, \hat{\eta}_{k_i}) - m(Z_{i}, \eta_{0})\right)
             \, \middle| \, \mathbf{D}_{[j]} = \mathbf{D}_{\ell}\right] \\
             %
             & = \binom{s}{j}\binom{n}{j}^{-1}  \sum_{\ell \in \mathbf{M}_{k}^{(j)}} \Bigg\{\E_{D}\left[
-                \sum_{i = 1}^{j}\frac{\1\left(\kappa(x; Z_{i}, \mathbf{D}_{[s]}) = 1\right)}{s!} \left(m(Z_{i}, \hat{\eta}_{k}) - m(Z_{i}, \eta_{0})\right)
+                \sum_{i = 1}^{j}\kappa(x; Z_{i}, \mathbf{D}_{[s]}) \left(m(Z_{i}, \hat{\eta}_{k}) - m(Z_{i}, \eta_{0})\right)
                 \, \middle| \, \mathbf{D}_{[j]} = \mathbf{D}_{\ell}\right]\\
-                & \quad \quad + \E_{D}\left[\sum_{i = j + 1}^{s}\frac{\1\left(\kappa(x; Z_{i}, \mathbf{D}_{[s]}) = 1\right)}{s!} \left(m(Z_{i}, \hat{\eta}_{k_i}) - m(Z_{i}, \eta_{0})\right)
+                & \quad \quad + \E_{D}\left[\sum_{i = j + 1}^{s}\kappa(x; Z_{i}, \mathbf{D}_{[s]}) \left(m(Z_{i}, \hat{\eta}_{k_i}) - m(Z_{i}, \eta_{0})\right)
             \, \middle| \, \mathbf{D}_{[j]} = \mathbf{D}_{\ell}\right] \Bigg\}\\
             %
-            & = \binom{s}{j}\binom{n}{j}^{-1} \sum_{\ell \in \mathbf{M}_{k}^{(j)}} \Bigg\{\frac{1}{s!} \E_{D}\left[
+            & = \binom{s}{j}\binom{n}{j}^{-1} \sum_{\ell \in \mathbf{M}_{k}^{(j)}} \Bigg\{\E_{D}\left[
                 m(Z^{*}\left(\mathbf{D}_{\ell}\right), \hat{\eta}_{k}) - m(Z^{*}\left(\mathbf{D}_{\ell}\right), \eta_{0})\right]\\
-                & \quad \quad + \frac{s-j}{s!}\E_{D}\left[\1\left(\kappa(x; Z_{s}, \mathbf{D}_{[s]}) = 1\right) \left(m(Z_{s}, \hat{\eta}_{k_s}) - m(Z_{s}, \eta_{0})\right)
+                & \quad \quad + (s-j)\E_{D}\left[\1\left(\kappa(x; Z_{s}, \mathbf{D}_{[s]}) = 1\right) \left(m(Z_{s}, \hat{\eta}_{k_s}) - m(Z_{s}, \eta_{0})\right)
             \, \middle| \, \mathbf{D}_{[j]} = \mathbf{D}_{\ell}\right] \Bigg\}\\
         \end{aligned}
     \end{equation}

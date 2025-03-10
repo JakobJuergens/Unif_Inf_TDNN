@@ -44,7 +44,11 @@ Third, the following equivalent expression for the kernel variance.
 
 For the asymptotic normality results presented in this paper, we rely on Theorem 1 from \citet{peng_rates_2022}.
 \begin{boxD}
-    \begin{thm}[\citet{peng_rates_2022} - Theorem 1]
-        {\color{red} LOREM IPSUM}
+    \begin{thm}[\citet{peng_rates_2022} - Theorem 1]\label{thm:peng1}\mbox{}\\*
+        Let $Z_1, \ldots, Z_n$ be i.i.d. from $F_Z$ and $U_{n, s}$ be a generalized complete $U$-statistic with kernel $h\left(Z_1, \ldots, Z_s\right)$. 
+        Let $\theta=\mathbb{E}[h], \zeta_{s}^{1}=\Var\left(\mathbb{E}\left[h \mid Z_1\right]\right)$ and $\zeta_{s}^{s}=\Var(h)$. If $\frac{s}{n} \left(\frac{\zeta_{s}^{s}}{s \zeta_{s}^{1}}\right) \rightarrow 0$, then
+        \begin{equation}
+            \frac{U_{n, s, \omega}-\theta}{\sqrt{s^2 \zeta_{1, \omega} / n}} \rightsquigarrow N(0,1) .
+        \end{equation}
     \end{thm}    
 \end{boxD}

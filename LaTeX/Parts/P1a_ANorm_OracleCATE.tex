@@ -2,6 +2,33 @@
 \hrule
 
 \begin{proof}[Proof of Theorem \ref{thm:DNNDML2_anorm_0}]\mbox{}\\*
-    {\color{red} Use Theorem 1 of \citet{peng_rates_2022}!}
-    {\color{red} LOREM IPSUM}
+    We begin by making observations about the terms of interest in Theorem \ref{thm:peng1}.
+    \begin{equation}
+        \begin{aligned}
+            \zeta_{s}^{s}(x)
+            & = \Var_{D}\left(\chi_{s,0}\left(x; Z_{1}, \dotsc, Z_{s}\right)\right)
+            \leq \E_{D}\left[\chi_{s,0}^{2}\left(x; Z_{1}, \dotsc, Z_{s}\right)\right]
+            = \Omega_{s}(x)\\
+            %
+            & \overset{Lem \ref{lem:CATE_omega_s}}{\lesssim} \left(\mu_{0}^{1}\left(x\right) - \mu_{0}^{0}\left(x\right)\right)^2 + \frac{\overline{\sigma}^2_{\varepsilon}}{\mathfrak{p}\left(1 - \mathfrak{p}\right)} + o(1)
+        \end{aligned}
+    \end{equation}
+    Similarly, we can observe the following.
+    \begin{equation}
+        \begin{aligned}
+            \zeta_{s}^{1}(x)
+            & = \Var_{Z}\left(\vartheta_{s,0}^{1}\left(x; Z\right)\right)
+            \overset{\text{Lem \ref{lem:CATE_zeta_s1_ub}}}{\gtrsim} 
+            \frac{1}{2s} \cdot \left(\pi(x) \beta^{2}\left(1 , x\right) + \left(1-\pi(x)\right) \beta^{2}\left(0 , x\right) \right)\cdot \sigma^{2}(x) - o(s^{-1})
+        \end{aligned}
+    \end{equation}
+    Using these terms, we can check the condition that $\frac{s}{n} \frac{\zeta_{s}^{s}}{s \zeta_{s}^{1}} \rightarrow 0$.
+    \begin{equation}
+        \begin{aligned}
+            \frac{s}{n} \frac{\zeta_{s}^{s}(x)}{s \zeta_{s}^{1}(x)}
+            \sim \frac{s}{n} \cdot \frac{\left(\mu_{0}^{1}\left(x\right) - \mu_{0}^{0}\left(x\right)\right)^2 + \frac{\overline{\sigma}^2_{\varepsilon}}{\mathfrak{p}\left(1 - \mathfrak{p}\right)}}{\frac{1}{2s} \cdot \left(\pi(x) \beta^{2}\left(1 , x\right) + \left(1-\pi(x)\right) \beta^{2}\left(0 , x\right) \right)\cdot \sigma^{2}(x)}
+            = O(s/n)
+        \end{aligned}
+    \end{equation}
+    As $s/n \rightarrow 0$ this shows that the desired condition holds.
 \end{proof}

@@ -70,7 +70,15 @@ Thus, introduce the following notation to simplify the notation of the matrices 
 
 \begin{boxD}
     \begin{lem}[Score Gateaux Derivative w.r.t. Nuisance Parameters]\label{lem:score_gateaux_derivative}\mbox{}\\*
-        {\color{red} LOREM IPSUM}
+        The first Gateaux derivative of the score function at a point $x \in \mathcal{X}$ with respect to the nuisance parameters takes the following form.
+        \begin{equation}
+        \begin{aligned}
+            & \mathbb{D}_{\eta} m(z, \eta_{0}) 
+            = (\mu^{0}(x) - \mu_{0}^{0}(x)) \cdot \left(-1 + \frac{1 - w}{1 - \pi_{0}(x) }\right)
+            + (\mu^{1}(x) - \mu_{0}^{1}(x)) \cdot \left(1 - \frac{w}{\pi_{0}(x)}\right) \\
+            & \quad \quad - (\pi(x) - \pi_{0}(x)) \cdot \left(\frac{w}{\pi_{0}^{2}(x)} + \frac{1-w}{\left(1-\pi_{0}(x)\right)^{2}}\right) \cdot \left[y - \mu_{0}^{w}(x)\right]
+        \end{aligned}
+        \end{equation}
     \end{lem}    
 \end{boxD}
 
@@ -124,8 +132,17 @@ Thus, introduce the following notation to simplify the notation of the matrices 
 
 \begin{boxD}
     \begin{lem}[Score 2nd Gateaux Derivative w.r.t. Nuisance Parameters]\label{lem:score_2gateaux_derivative}\mbox{}\\*
-    {\color{red} LOREM IPSUM}
-\end{lem}
+        The second Gateaux derivative of the score function at a point $x \in \mathcal{X}$ with respect to the nuisance parameters takes the following form.
+        \begin{equation}
+            \begin{aligned}
+                & \mathbb{D}_{\eta}^{2} m(z, \eta_{0})
+                = \quad 2\left(\pi(x) - \pi_{0}(x)\right) \cdot \Bigg\{
+                \left(\pi(x) - \pi_{0}(x)\right) \cdot \left(\frac{w}{\pi_{0}^{3}(x)} + \frac{1-w}{\left(1-\pi_{0}(x)\right)^{3}}\right) \cdot \left(y - \mu_{0}^{w}(x)\right) \\
+                & \quad \quad +  \left(\mu^{w}(x) - \mu_{0}^{w}(x)\right) \cdot \left(\frac{w}{\pi_{0}^{2}(x)} + \frac{1-w}{\left(1-\pi_{0}(x)\right)^{2}}\right)
+            \Bigg\}
+            \end{aligned}
+        \end{equation}
+    \end{lem}
 \end{boxD}
 
 \begin{proof}[Proof of Lemma \ref{lem:score_2gateaux_derivative}]\mbox{}\\*
@@ -167,6 +184,7 @@ Thus, introduce the following notation to simplify the notation of the matrices 
     \end{equation}
 \end{proof}
 
+\newpage 
 \begin{boxD}
     \begin{lem}[Score 2nd Gateaux Derivative Bounds]\label{lem:score_2gateaux_derivative_bd}\mbox{}\\*
     We can bound the second Gateaux derivative of the score function at a point $x$ in the following way.

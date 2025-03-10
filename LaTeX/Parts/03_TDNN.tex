@@ -43,10 +43,10 @@ The generated ordering implies an associated ordering on the response variables 
 Let $\rk(x; X_{i}, D)$ denote the \textit{rank} that is assigned to observation $i$ in a sample $D$ relative to a point of interest $x$, setting $\rk(x; X_{i}, D) = \infty$ if $Z_{i} \not\in D$.
 Similarly, let $Y_{(1)}(x; D)$ indicate the response value of the closest neighbor in set $D$.
 \begin{minipage}{.5\textwidth}
-    This enables us to define a data-driven kernel function $\kappa$ following the notation of \citet{ritzwoller_simultaneous_2024}.
+    This enables us to define a data-driven kernel function $\kappa$ following the notation of \citet{ritzwoller_simultaneous_2024} when given an index set $\ell \in L_{n,s}$.
     \begin{equation}
-        \kappa(x; Z_{i}, D, \xi)
-        = \1\left(\rk(x; X_{i}, D) = 1\right)
+        \kappa(x; Z_{i}, \mathbf{D}_{\ell}, \xi)
+        = \1(i \in \ell) \cdot \1\left(\rk(x; X_{i}, \mathbf{D}_{\ell}) = 1\right)
     \end{equation}
     Here, $\xi$ is an additional source of randomness in the construction of the base learner that comes into play when analyzing, for example, random forests as proposed by \citet{breiman_random_2001} using the CART-algorithm described in \citet{breiman_classification_2017}.
     As the DNN estimator does not incorporate such additional randomness, the term is omitted in further considerations.
@@ -61,14 +61,13 @@ Similarly, let $Y_{(1)}(x; D)$ indicate the response value of the closest neighb
 Using $\kappa$, it is straightforward to find an expression for the distance function $K$ in Equation~\ref{EmpCondMomEq} corresponding to the DNN estimator.
 \begin{equation}\label{eq:data_distance}
 	K(x, X_{i})
-	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} \1(i \in \ell)\frac{\kappa(x; Z_{i}, D_{\ell})}{s!}
-	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} \frac{\1\left(\rk(x; Z_{i}, D_{\ell}) = 1\right)}{s!}
+	= \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} \kappa(x; Z_{i}, D_{\ell})
 \end{equation}
 Inserting into Equation~\ref{EmpCondMomEq}, this gives us the following empirical conditional moment equation.
 \begin{equation}
 	\begin{aligned}
 		M_n(x; \mu, \mathbf{D}_n)
-		= \sum_{i = 1}^{n}\left(\binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} \frac{\1\left(\rk(x; Z_{i}, D_{\ell}) = 1\right)}{s!}\right)\left(Y_{i} - \mu(X_{i})\right)
+		= \sum_{i = 1}^{n}\left(\binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}} \kappa(x; Z_{i}, D_{\ell})\right)\left(Y_{i} - \mu(X_{i})\right)
 		= 0
 	\end{aligned}
 \end{equation}
@@ -377,12 +376,12 @@ First, observe that the DNN-DML2 CATE estimator can be rewritten as follows to e
         & = \sum_{i = 1}^{n - s + 1} \frac{\binom{n-i}{s-1}}{\binom{n}{s}}
 		\left[\hat{\mu}_{k_{(i)}}^{1}\left(X_{(i)}\right) - \hat{\mu}_{k_{(i)}}^{0}\left(X_{(i)}\right) + \hat{\beta}_{k_{(i)}}\left(W_{(i)}, X_{(i)}\right)\left(Y_{(i)} - \hat{\mu}^{W_{(i)}}_{k_{(i)}}\left(X_{(i)}\right)\right)\right] \\
         %
+        % & = \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}}
+        % \sum_{i = 1}^{n}\frac{\1\left(\rk(x; Z_{i}, \mathbf{D}_{\ell}) = 1\right)}{s!} 
+        % \left[\hat{\mu}_{k_i}^{1}\left(X_{i}\right) - \hat{\mu}_{k_i}^{0}\left(X_{i}\right) + \hat{\beta}_{k_i}\left(W_{i}, X_{i}\right)\left(Y_{i} - \hat{\mu}^{W_{i}}_{k_i}\left(X_{i}\right)\right)\right] \\
+        % %
         & = \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}}
-        \sum_{i = 1}^{n}\frac{\1\left(\rk(x; Z_{i}, \mathbf{D}_{\ell}) = 1\right)}{s!} 
-        \left[\hat{\mu}_{k_i}^{1}\left(X_{i}\right) - \hat{\mu}_{k_i}^{0}\left(X_{i}\right) + \hat{\beta}_{k_i}\left(W_{i}, X_{i}\right)\left(Y_{i} - \hat{\mu}^{W_{i}}_{k_i}\left(X_{i}\right)\right)\right] \\
-        %
-        & = \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}}
-        \underbrace{\sum_{i = 1}^{n}\frac{\1\left(\kappa(x; Z_{i}, \mathbf{D}_{\ell}) = 1\right)}{s!} 
+        \underbrace{\sum_{i = 1}^{n}\kappa(x; Z_{i}, \mathbf{D}_{\ell}) 
         m(Z_{i}, \hat{\eta}_{k_i})}_{\chi_{s}(x; \mathbf{D}_{\ell}, \hat{\eta})}
         = \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}}\chi_{s}(x; \mathbf{D}_{\ell}, \hat{\eta})
     \end{aligned}

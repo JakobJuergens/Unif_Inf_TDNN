@@ -1,9 +1,7 @@
-\subsection{CATE - Kernel Variances \& Covariances}
+\subsection{CATE - Kernel Variances \& Covariances}\label{sec:CATE_cov}
 \hrule
 Next, we will continue by showing analogous properties in the CATE setting.
 Similar to before, we will start under the assumption that the functional nuisance parameters are known a priori, to then show that the estimation of said parameters does not impact the asymptotic behavior of the estimator.
-\vspace{0.5cm}
-\hrule
 
 \begin{boxD}
     \begin{lem}\label{lem:CATE_omega_s}\mbox{}\\*
@@ -212,6 +210,56 @@ Similar to before, we will start under the assumption that the functional nuisan
             + o(1) 
 		\end{aligned}
 	\end{equation}
+\end{proof}
+
+\newpage 
+
+\begin{boxD}
+    \begin{lem}\label{lem:CATE_zeta_s1_ub}\mbox{}\\*
+        {\color{red} LOREM IPSUM}
+    \end{lem}
+\end{boxD}
+
+\begin{proof}[Proof of Lemma \ref{lem:CATE_zeta_s1_ub}]\mbox{}\\*
+     \begin{equation}
+         \begin{aligned}
+            \zeta_{s}^{1}(x)
+            & = \Var_{Z}\left(\E_{D}\left[\chi_{s,0}\left(x; \mathbf{D}\right) \, \middle| \, Z_{1} = Z\right]\right)
+            = \Var_{Z}\left(\E_{D}\left[
+                \sum_{i = 1}^{s}\kappa(x; Z_{i}, \mathbf{D}_{[s]}) 
+                m(Z_{i}, \eta_{0})
+            \, \middle| \, Z_{1} = Z\right]\right) \\
+            %
+            & = \Var_{Z}\Bigg(
+                \E_{2:s}\left[\kappa(x; Z, \mathbf{D}_{[s]}) \cdot \beta\left(W, X\right) \cdot \varepsilon\right]
+                + \E_{D}\left[\sum_{i = 1}^{s}\kappa(x; Z_{i}, \mathbf{D}_{[s]})m(Z_{i}, \eta_{0})
+                \, \middle| \, X_{1} = X\right]
+            \Bigg) \\
+            %
+            & = \Var_{Z}\Bigg(
+                \E_{2:s}\left[\kappa(x; Z, \mathbf{D}_{[s]}) \cdot \beta\left(W, X\right) \cdot \varepsilon\right]\Bigg) 
+                + \Var_{X}\Bigg(\E_{D}\left[\sum_{i = 1}^{s}\kappa(x; Z_{2}, \mathbf{D}_{[s]})m(Z_{i}, \eta_{0})
+                \, \middle| \, X_{1} = X\right]
+            \Bigg) \\
+            %
+            & \geq \Var_{Z}\Bigg(\E_{2:s}\left[\kappa(x; Z, \mathbf{D}_{[s]}) \cdot \beta\left(W, X\right) \cdot \varepsilon\right]\Bigg) 
+            = \Var_{Z}\Bigg(\E_{2:s}\left[\kappa(x; Z, \mathbf{D}_{[s]})\right] \cdot \beta\left(W, X\right) \cdot \varepsilon \Bigg)\\
+            %
+            & = \E_{Z}\left[\left(\E_{2:s}\left[\kappa(x; Z, \mathbf{D}_{[s]})\right] \cdot \beta\left(W, X\right) \cdot \varepsilon\right)^2\right]
+            - \left(\E_{Z}\left[\E_{2:s}\left[\kappa(x; Z, \mathbf{D}_{[s]})\right] \cdot \beta\left(W, X\right) \cdot \varepsilon\right]\right)^{2} \\
+            %
+            & = \E_{Z}\left[\left(\E_{2:s}\left[\kappa(x; Z, \mathbf{D}_{[s]})\right] \cdot \beta\left(W, X\right) \cdot \varepsilon\right)^2\right]
+            = \E_{Z}\left[\left(\E_{2:s}\left[\kappa(x; Z, \mathbf{D}_{[s]})\right] \cdot \beta\left(W, X\right)\right)^2 \cdot \E\left[\varepsilon^{2} \, \middle| \, X\right]\right]\\
+            %
+            & = \E_{Z}\left[\E_{2:(2s-1)}\left[\kappa(x; Z, \mathbf{D}_{[2s - 1]})\right] \cdot \beta^{2}\left(W, X\right) \cdot \sigma^{2}(X)\right]\\
+            %
+            & = \frac{1}{2s} \cdot \E_{Z}\left[\beta^{2}\left(W, X\right) \cdot \sigma^{2}(X) \cdot 2s\E_{2:(2s-1)}\left[\kappa(x; Z, \mathbf{D}_{[2s - 1]})\right]\right]\\
+            %
+            & \gtrsim \frac{1}{2s} \cdot \left(\pi(x) \beta^{2}\left(1 , x\right) + \left(1-\pi(x)\right) \beta^{2}\left(0 , x\right) \right)\cdot \sigma^{2}(x) - o(s^{-1}) \quad 
+            \text{for} \quad s \quad \text{sufficiently large}
+         \end{aligned}
+     \end{equation}
+    {\color{red} Last step needs to be justified still. LOREM IPSUM}
 \end{proof}
 
 % \newpage

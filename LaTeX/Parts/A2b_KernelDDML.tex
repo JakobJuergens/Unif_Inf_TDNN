@@ -52,15 +52,15 @@ More specifically, we are interested in the part absent the centering term as th
             %
             & \quad = \sup_{\eta \in \mathcal{T}_{n}}\Bigg(
                 \E_{Z}\Bigg[\Big|
-                \frac{m\left(Z, \theta_{0}, \eta\right) - m\left(Z, \theta_{0}, \eta_{0}\right)}{s!} \cdot \E_{D}\left[\kappa(x; Z_{1}, \mathbf{D}_{[s]}) \, \middle| \, Z_1 = Z \right]  \\
-            & \quad + \frac{s-1}{s!} \cdot \E_{D}\left[\kappa(x; Z_{2}, \mathbf{D}_{[s]})\cdot \left(m\left(Z_{2}, \theta_{0}, \eta\right)
+                \left(m\left(Z, \theta_{0}, \eta\right) - m\left(Z, \theta_{0}, \eta_{0}\right)\right) \cdot \E_{D}\left[\kappa(x; Z_{1}, \mathbf{D}_{[s]}) \, \middle| \, Z_1 = Z \right]  \\
+            & \quad + (s-1) \cdot \E_{D}\left[\kappa(x; Z_{2}, \mathbf{D}_{[s]})\cdot \left(m\left(Z_{2}, \theta_{0}, \eta\right)
             - m\left(Z_{2}, \theta_{0}, \eta_{0}\right)\right) \, \middle| \, Z_1 = Z \right] 
             \Big|^{2}\Bigg]
             \Bigg)^{1 / 2}\\
             %
             & \quad \overset{\triangle\text{-ineq.}}{\leq} \sup_{\eta \in \mathcal{T}_{n}}\Bigg\{
-                \frac{1}{s!} \left(\E_{Z}\Bigg[\Big|\left(m\left(Z, \theta_{0}, \eta\right) - m\left(Z, \theta_{0}, \eta_{0}\right)\right) \cdot \E_{D}\left[\kappa(x; Z_{1}, \mathbf{D}_{[s]}) \, \middle| \, Z_1 = Z \right] \Big|^{2}\Bigg]\right)^{1/2}\\
-                & \quad \quad + \frac{s-1}{s!} \left(\E_{Z}\Bigg[\Big|\E_{D}\left[\kappa(x; Z_{2}, \mathbf{D}_{[s]})\cdot \left(m\left(Z_{2}, \theta_{0}, \eta\right)
+                \left(\E_{Z}\Bigg[\Big|\left(m\left(Z, \theta_{0}, \eta\right) - m\left(Z, \theta_{0}, \eta_{0}\right)\right) \cdot \E_{D}\left[\kappa(x; Z_{1}, \mathbf{D}_{[s]}) \, \middle| \, Z_1 = Z \right] \Big|^{2}\Bigg]\right)^{1/2}\\
+                & \quad \quad + (s-1) \left(\E_{Z}\Bigg[\Big|\E_{D}\left[\kappa(x; Z_{2}, \mathbf{D}_{[s]})\cdot \left(m\left(Z_{2}, \theta_{0}, \eta\right)
             - m\left(Z_{2}, \theta_{0}, \eta_{0}\right)\right) \, \middle| \, Z_1 = Z \right]\Big|^{2}\Bigg]\right)^{1/2}\Bigg\}
         \end{aligned}
     \end{equation}
@@ -76,16 +76,16 @@ More specifically, we are interested in the part absent the centering term as th
             \right)^{1 / 2} \\
             %
             & \quad \leq
-             \frac{1}{s!}\sup_{\eta \in \mathcal{T}_{n}}\left(\E_{Z}\Bigg[\left(m\left(Z, \theta_{0}, \eta\right) - m\left(Z, \theta_{0}, \eta_{0}\right)\right)^{2} \cdot \E_{D}\left[\kappa(x; Z_{1}, \mathbf{D}_{[s]}) \, \middle| \, Z_1 = Z \right]^{2}\Bigg]\right)^{1/2}\\
-            & \quad \quad + \frac{s-1}{s!} \sup_{\eta \in \mathcal{T}_{n}} \left(\E_{Z}\Bigg[\E_{D}\left[\kappa(x; Z_{2}, \mathbf{D}_{[s]})\cdot \left(m\left(Z_{2}, \theta_{0}, \eta\right)
+             \sup_{\eta \in \mathcal{T}_{n}}\left(\E_{Z}\Bigg[\left(m\left(Z, \theta_{0}, \eta\right) - m\left(Z, \theta_{0}, \eta_{0}\right)\right)^{2} \cdot \E_{D}\left[\kappa(x; Z_{1}, \mathbf{D}_{[s]}) \, \middle| \, Z_1 = Z \right]^{2}\Bigg]\right)^{1/2}\\
+            & \quad \quad + (s-1) \sup_{\eta \in \mathcal{T}_{n}} \left(\E_{Z}\Bigg[\E_{D}\left[\kappa(x; Z_{2}, \mathbf{D}_{[s]})\cdot \left(m\left(Z_{2}, \theta_{0}, \eta\right)
             - m\left(Z_{2}, \theta_{0}, \eta_{0}\right)\right) \, \middle| \, Z_1 = Z \right]^{2}\Bigg]\right)^{1/2} \\
             %
             & \quad \leq 
-            \frac{1}{s!}\sup_{\eta \in \mathcal{T}_{n}}\left(\E_{Z}\Bigg[\left(m\left(Z, \theta_{0}, \eta\right) - m\left(Z, \theta_{0}, \eta_{0}\right)\right)^{2} \Bigg]\right)^{1/2}
-            + \frac{s-1}{s!} \sup_{\eta \in \mathcal{T}_{n}} \left(\E_{Z}\left[\left(m\left(Z, \theta_{0}, \eta\right)
+            \sup_{\eta \in \mathcal{T}_{n}}\left(\E_{Z}\Bigg[\left(m\left(Z, \theta_{0}, \eta\right) - m\left(Z, \theta_{0}, \eta_{0}\right)\right)^{2} \Bigg]\right)^{1/2}
+            + (s-1) \sup_{\eta \in \mathcal{T}_{n}} \left(\E_{Z}\left[\left(m\left(Z, \theta_{0}, \eta\right)
             - m\left(Z_{2}, \theta_{0}, \eta_{0}\right)\right)^{2}\right]\right)^{1/2}\\
             %
-            & \quad = \frac{r_{n}^{\prime}}{(s-1)!}
+            & \quad = s r_{n}^{\prime}
         \end{aligned}
     \end{equation}
     {\color{red} LOREM IPSUM}
@@ -117,13 +117,13 @@ More specifically, we are interested in the part absent the centering term as th
                 \partial_r^2 \E_{D}\left[\chi_{s}(x; \mathbf{D}_{[s]}, \eta_{0} + r\left(\eta-\eta_{0}\right))\right]
             \right| \\
             %
-            & \quad = \frac{1}{s!} \cdot \sup_{r \in(0,1), \eta \in \mathcal{T}_{n}}\left|
+            & \quad =  \sup_{r \in(0,1), \eta \in \mathcal{T}_{n}}\left|
                 \partial_r^2  \E_{D}\left[
                     m(Z, \theta_{0}, \eta_{0} + r\left(\eta-\eta_{0}\right)) \cdot \kappa(x; Z, \mathbf{D}_{[s]})
                 \right]
             \right| \\
             %
-            & \quad = \frac{1}{s!} \cdot \sup_{r \in(0,1), \eta \in \mathcal{T}_{n}}\left|
+            & \quad =  \sup_{r \in(0,1), \eta \in \mathcal{T}_{n}}\left|
                 \partial_r^2  \E_{1}\left[
                     m(Z_1, \theta_{0}, \eta_{0} + r\left(\eta-\eta_{0}\right)) \cdot s \E_{2:s}\left[\kappa(x; Z_{1}, \mathbf{D}_{[s]})\right]
                 \right]
@@ -138,7 +138,7 @@ More specifically, we are interested in the part absent the centering term as th
                     \vartheta_{s}^{1}\left(x; Z, \eta_{0} + r\left(\eta-\eta_{0}\right)\right)
                 \right]
             \right| 
-            = \frac{1}{s!} \cdot \sup_{r \in(0,1), \eta \in \mathcal{T}_{n}}\left| \E_{1}\left[
+            = \sup_{r \in(0,1), \eta \in \mathcal{T}_{n}}\left| \E_{1}\left[
                     \partial_r^2 m(Z_1, \theta_{0}, \eta_{0} + r\left(\eta-\eta_{0}\right)) \cdot s \E_{2:s}\left[\kappa(x; Z_{1}, \mathbf{D}_{[s]})\right]
                 \right]
             \right| \\
@@ -171,29 +171,29 @@ More specifically, we are interested in the part absent the centering term as th
             %
             & \quad = \sup_{\eta \in \mathcal{T}_{n}}\left(
                 \E_{D}\left[
-                    \left|\sum_{i = 1}^{s}\frac{\1\left(\kappa(x; Z_{i}, \mathbf{D}_{[s]}) = 1\right)}{s!} 
+                    \left|\sum_{i = 1}^{s} \kappa(x; Z_{i}, \mathbf{D}_{[s]}
                     \left(m(Z_{i}, \eta) - m(Z_{i}, \eta_{0})\right)
                     \right|^2
                 \right]
             \right)^{1 / 2} \\
             %
             & \quad \leq \sup_{\eta \in \mathcal{T}_{n}}\left(
-                \E_{D}\left[\sum_{i = 1}^{s}\frac{\1\left(\kappa(x; Z_{i}, \mathbf{D}_{[s]}) = 1\right)}{(s!)^{2}}
+                \E_{D}\left[\sum_{i = 1}^{s}\kappa(x; Z_{i}, \mathbf{D}_{[s]})
                     \left| m(Z_{i}, \eta) - m(Z_{i}, \eta_{0})\right|^2
                 \right]
             \right)^{1 / 2} \\
             %
-            & \quad = \frac{\sqrt{s}}{s!} \cdot \sup_{\eta \in \mathcal{T}_{n}}\left(
+            & \quad = \sqrt{s}\cdot \sup_{\eta \in \mathcal{T}_{n}}\left(
                  \E_{D}\left[\1\left(\kappa(x; Z, \mathbf{D}_{[s]}) = 1\right)
                     \left| m(Z, \eta) - m(Z, \eta_{0})\right|^2
                 \right]
             \right)^{1 / 2} \\
             %
-            & \quad \leq \frac{\sqrt{s}}{s!} \cdot \sup_{\eta \in \mathcal{T}_{n}}\left(
+            & \quad \leq \sqrt{s} \cdot \sup_{\eta \in \mathcal{T}_{n}}\left(
                 \E_{D}\left[\left| m(Z, \eta) - m(Z, \eta_{0})\right|^2\right]
             \right)^{1 / 2} \\
             %
-            & \quad = \frac{\sqrt{s}}{s!} \cdot r_{n}^{\prime}
+            & \quad = \sqrt{s} \cdot r_{n}^{\prime}
         \end{aligned}
     \end{equation}
 \end{proof}
@@ -215,12 +215,12 @@ More specifically, we are interested in the part absent the centering term as th
             %
             & \quad = \sup_{r \in(0,1), \eta \in \mathcal{T}_{n}}\left|
                 \partial_r^2 \E_{D}\left[
-                    \sum_{i = 1}^{s}\frac{\1\left(\kappa(x; Z_{i}, \mathbf{D}_{[s]}) = 1\right)}{s!} 
+                    \sum_{i = 1}^{s}\kappa(x; Z_{i}, \mathbf{D}_{[s]})
                     m\left(Z_{i}, \eta_{0} + r\left(\eta-\eta_{0}\right)\right)
                 \right]
             \right| \\
             %
-            & \quad = \frac{s}{s!} \cdot \sup_{r \in(0,1), \eta \in \mathcal{T}_{n}}\left|
+            & \quad = s \cdot \sup_{r \in(0,1), \eta \in \mathcal{T}_{n}}\left|
                 \partial_r^2 \E_{D}\left[
                     \1\left(\kappa(x; Z, \mathbf{D}_{[s]}) = 1\right) 
                     m\left(Z, \eta_{0} + r\left(\eta-\eta_{0}\right)\right)
