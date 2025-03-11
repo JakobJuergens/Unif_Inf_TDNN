@@ -1,0 +1,200 @@
+\subsection{First-Stage Error Decomposition and Analysis}
+\hrule
+
+Recall that we can decompose the first-stage error component in the following two ways.
+\begin{equation}
+    \begin{aligned}
+        & \binom{n}{s}^{-1} \sum_{\ell \in L_{n,s}}\left(\chi_{s}\left(x; \mathbf{D}_{\ell}, \hat{\eta}\right) - \chi_{s,0}\left(x; \mathbf{D}_{\ell}\right)\right)
+        = \underbrace{\sum_{i = 1}^{n - s + 1} \frac{\binom{n-i}{s-1}}{\binom{n}{s}} \left(m(Z_{(i)}, \hat{\eta}_{k_{(i)}}) - m(Z_{(i)}, \eta_{0})\right)}_{\text{Weighted-NN Error Representation}} \\
+        %
+        & \quad = \underbrace{\frac{s}{K} \sum_{k = 1}^{K} \frac{1}{m} \sum_{i \in \mathcal{I}_{k}}\left(\underbrace{\chi_{s}^{(1)}\left(x; Z_{i}, \hat{\eta}_{k}\right) - \chi_{s,0}^{(1)}\left(x; Z_{i}\right)}_{R_{1,k}\left(x; Z_{i}\right)}\right)}_{\text{Oracle-H\'ajek-Projection Error}}
+         + \underbrace{\sum_{j = 2}^{s} \binom{s}{j} \binom{n}{j}^{-1}\sum_{\ell \in L_{n,j}} R_{j}\left(x; \mathbf{D}_{\ell}\right)}_{\text{Higher-Order Error Terms}}
+    \end{aligned}
+\end{equation}
+where we have the following definition from Equation \ref{eq:DNNDML2_ResidDecomp}.
+\begin{equation}
+    \begin{aligned}
+        \chi_{s}^{(c)}\left(x; \mathbf{D}_{\ell}, \hat{\eta}\right)
+        & = \chi_{s,0}^{(c)}\left(x; \mathbf{D}_{\ell}\right) + \underbrace{\chi_{s}^{(c)}\left(x; \mathbf{D}_{\ell}, \hat{\eta}\right) - \chi_{s,0}^{(c)}\left(x; \mathbf{D}_{\ell}\right)}_{R_{c}\left(x; \mathbf{D}_{\ell}\right)}
+    \end{aligned}
+\end{equation}
+Recall that we are ultimately even more interested in the approximation errors of the following form.
+\begin{equation}
+    \tilde{R}_{c}\left(x; \mathbf{D}_{\ell}\right)
+     = R_{c}\left(x; \mathbf{D}_{\ell}\right) - (-1)^{c} \cdot \left(\E_{D}\left[\chi_{s}(x; \mathbf{D}_{[s]}, \hat{\eta}) - \chi_{s,0}\left(x; \mathbf{D}_{[s]}\right)\right]\right)
+\end{equation}
+This follows from the following combinatorial fact describing the elimination of centering terms in successive Hoeffding projection terms.
+\begin{equation}
+    \sum_{j = 1}^{s-1}(-1)^{j+1} \binom{s}{j} = 1 + (-1)^{s}
+\end{equation}
+
+\begin{boxD}
+    \begin{lem}[Behavior of Oracle-H\'ajek-Projection Error]\label{lem:ps_hajek_error}\mbox{}\\*
+    {\color{red} LOREM IPSUM}    
+\end{lem}
+\end{boxD}
+
+\begin{proof}[Proof of Lemma \ref{lem:ps_hajek_error}]\mbox{}\\*
+    Consider first the average Oracle-error within a given fold $k$ and observe the following.
+    \begin{equation}
+        \begin{aligned}
+            \bar{R}_{1, k}\left(x\right)
+            & = \frac{1}{m}\sum_{l \in I_{k}}\tilde{R}_{1, k}\left(x, Z_{l}\right)
+            % = \frac{1}{m}\sum_{l \in I_{k}}
+            % \left(\chi_{s}^{(1)}\left(x; Z_l, \hat{\eta}_{k}\right) - \chi_{s,0}^{(1)}\left(x; Z_l\right)\right) \\
+            % %
+            = \frac{1}{m}\sum_{l \in I_{k}}
+            \left(\vartheta_{s}^{1}\left(x; Z_l, \hat{\eta}_{k}\right)
+            - \vartheta_{s,0}^{1}\left(x; Z_l\right) 
+            \right)
+            % %
+            % & = \frac{1}{m}\sum_{l \in I_{k}}
+            % \E_{D}\left[\chi_{s}(x; \mathbf{D}_{[s]}, \hat{\eta}_{k}) - \chi_{s,0}(x; \mathbf{D}_{[s]})\, \middle| \, Z_1 = Z_l \right]
+            % %
+            % & = \frac{1}{m s!}\sum_{l \in I_{k}}
+            % \E_{D}\left[\sum_{i = 1}^{n}\kappa(x; Z_{i}, \mathbf{D}_{[s]})
+            % \left(m\left(Z_{i}, \hat{\eta}_{k}\right) - m\left(Z_{i}, \eta_{0}\right)\right) \, \middle| \, Z_1 = Z_l \right]
+            % %
+            % & = \frac{1}{m s!}\sum_{l \in I_{k}}
+            % \Bigg\{
+            %     \underbrace{\E_{D}\left[\kappa(x; Z_{1}, \mathbf{D}_{[s]})m\left(Z_{1}, \hat{\eta}_{k}\right)\, \middle| \, Z_1 = Z_l \right]}_{(A_{l})}
+            %     - \underbrace{m\left(Z_{l}, \eta_{0}\right)\E_{D}\left[\kappa(x; Z_{1}, \mathbf{D}_{[s]}) \, \middle| \, Z_1 = Z_l \right]}_{(B_{l})}  \\
+            % & \quad \quad  + (s-1) \left( \underbrace{\E_{D}\left[\kappa(x; Z_{2}, \mathbf{D}_{[s]})m\left(Z_{2}, \hat{\eta}_{k}\right)\, \middle| \, Z_1 = Z_l \right]}_{(C_{l})}
+            % - \underbrace{\E_{D}\left[\kappa(x; Z_{2}, \mathbf{D}_{[s]})m\left(Z_{2}, \eta_{0}\right) \, \middle| \, Z_1 = Z_l \right]}_{(D_{l})} \right)
+            % \Bigg\}
+        \end{aligned}
+    \end{equation}
+    Here, in analogy to step 3 in the proof of Theorem 3.1 in \citet{chernozhukov_doubledebiased_2018}, we can now observe the following which follows from the triangle inequality.
+    \begin{equation}
+        \begin{aligned}
+            \left|\bar{R}_{1, k}\left(x\right)\right|
+            & \leq \sqrt{\frac{1}{m}} \cdot \left(\mathcal{I}_{3,k}^{(1)} + \mathcal{I}_{4,k}^{(1)}\right)
+        \end{aligned}
+    \end{equation}
+    where we use the following two definitions.
+    \begin{align}
+        \mathcal{I}_{3,k}^{(1)} 
+        & := \left|\mathbb{G}_{m,k}\left[\vartheta_{s}^{1}\left(x; Z, \hat{\eta}_{k}\right)\right] 
+        - \mathbb{G}_{m,k}\left[\vartheta_{s,0}^{1}\left(x; Z\right) \right]\right|\\
+        %
+        \mathcal{I}_{4,k}^{(1)} 
+        & := \sqrt{m} \cdot \left|
+        \E_{Z}\left[\vartheta_{s}^{1}\left(x; Z, \hat{\eta}_{k}\right) \, \middle| \, \mathbf{D}_{I_{k}^{C}}\right]
+        - \E_{Z}\left[\vartheta_{s,0}^{1}\left(x; Z\right) \right]\right|
+    \end{align}
+    Notice that conditional on $\mathbf{D}_{I_{k}^{C}}$ the first-stage estimate $\hat{\eta}_{k}$ is non-stochastic.
+    This allows us to make the following observation given the event $\mathcal{E}_{n}$ obtains.
+    \begin{equation}
+        \begin{aligned}
+            \E_{D}\left[\left(\mathcal{I}_{3,k}^{(1)}\right)^{2} \, \middle| \, \mathbf{D}_{I_{k}^{C}}\right] 
+            & = \E_{D}\left[ \left(\mathbb{G}_{m,k}\left[\vartheta_{s}^{1}\left(x; Z, \hat{\eta}_{k}\right)\right] 
+            - \mathbb{G}_{m,k}\left[\vartheta_{s,0}^{1}\left(x; Z\right)\right]\right)^{2} \, \middle| \, \mathbf{D}_{I_{k}^{C}}\right]
+            = \E_{D}\left[\left|\vartheta_{s}^{1}\left(x; Z, \hat{\eta}_{k}\right) - \vartheta_{s,0}^{1}\left(x; Z\right)\right|^{2}
+            \, \middle| \, \mathbf{D}_{I_{k}^{C}}\right]\\
+            %
+            & \overset{\mathcal{E}_{n}}{\leq} \sup_{\eta \in \mathcal{T}_{n}} 
+             \E_{D}\left[\left|\vartheta_{s}^{1}\left(x; Z, \eta\right) - \vartheta_{s,0}^{1}\left(x; Z\right)\right|^{2}
+            \, \middle| \, \mathbf{D}_{I_{k}^{C}}\right]\\
+            %
+            & \leq \sup_{\eta \in \mathcal{T}_{n}} 
+             \E_{D}\left[\left|\vartheta_{s}^{1}\left(x; Z, \eta\right) - \vartheta_{s,0}^{1}\left(x; Z\right)\right|^{2}\right]
+             \overset{\text{Lem \ref{lem:rate_cond_errors1}}}{=} \left(s \cdot r_{n}^{\prime}\right)^{2}
+        \end{aligned}
+    \end{equation}
+    By \citet{chernozhukov_doubledebiased_2018} Lemma 6.1, this allows us to draw the following conclusion.
+    \begin{equation}
+        \begin{aligned}
+            \mathcal{I}_{3,k}^{(1)} = O_{p}\left(s \cdot r_{n}^{\prime}\right)
+        \end{aligned}
+    \end{equation}  
+    Next, to bound $\mathcal{I}_{4,k}^{(1)}$, we introduce a function analogous to the proof presented in \citet{chernozhukov_doubledebiased_2018}.
+    \begin{equation}
+        \begin{aligned}
+            f_{k}^{(1)}(r) 
+            & := \E_{Z}\left[\vartheta_{s}^{1}\left(x; Z, \eta_{0} + r \left(\hat{\eta}_{k} - \eta_{0}\right)\right) \, \middle| \, \mathbf{D}_{I_{k}^{C}}\right] - \E_{Z}\left[\vartheta_{s,0}^{1}\left(x; Z\right) \right] 
+            \quad \text{for} \quad r \in [0,1]
+        \end{aligned}
+    \end{equation}
+    Using a Taylor expansion, we obtain the following for some $\tilde{r} \in (0,1)$.
+    \begin{equation}
+        f_{k}^{(1)}(1)
+        = f_{k}^{(1)}(0) + \left[\frac{\partial}{\partial r}f_{k}^{(1)}(r)\right]_{r = 0} + \frac{1}{2}\left[\frac{\partial^{2}}{\partial r^{2}}f_{k}^{(1)}(r)\right]_{r = \tilde{r}}
+    \end{equation}
+    It can be easily recognized that $f_{k}^{(1)}(0) = 0$.
+    Additionally, by Neyman orthogonality, we find that $\left[\frac{\partial}{\partial r}f_{k}^{(1)}(r)\right]_{r = 0} = 0$.
+    Thus, on the event $\mathcal{E}_{n}$ we find the following.
+    \begin{equation}
+        \begin{aligned}
+            \mathcal{I}_{4,k}^{(1)}
+            & = \sqrt{n} \cdot f_{k}^{(1)}(1)
+            = \sqrt{n} \cdot \frac{1}{2}\left[\frac{\partial^{2}}{\partial r^{2}}f_{k}^{(1)}(r)\right]_{r = \tilde{r}}
+            \leq \sqrt{n} \cdot \sup_{x \in (0,1)} \frac{1}{2}\left[\frac{\partial^{2}}{\partial r^{2}}f_{k}^{(1)}(r)\right]_{r = x}
+            \overset{\text{Lem \ref{lem:rate_cond_errors2}}}{\leq} {\color{red} LOREM IPSUM}
+        \end{aligned}
+    \end{equation}
+    Combining these bounds, we obtain the following intermediate result.
+    \begin{equation}
+        \begin{aligned}
+            \bar{R}_{1, k}\left(x\right)
+            & = O_{p}\left(\sqrt{\frac{1}{n}} \cdot s \cdot r_{n}^{\prime} + {\color{red} LOREM IPSUM}\right)
+        \end{aligned}
+    \end{equation}
+    Now, recognizing that since $k$ is fixed, we can apply this logic to each individual fold, we obtain the desired result.
+    \begin{equation}
+        \begin{aligned}
+            \frac{s}{K} \sum_{k = 1}^{K} \bar{R}_{1, k}\left(x\right) 
+            = O_{p}\left(\frac{s}{\sqrt{n}} \cdot r_{n}^{\prime} + {\color{red} LOREM IPSUM}\right)
+        \end{aligned}
+    \end{equation}
+{\color{red} LOREM IPSUM}
+\end{proof}
+
+\newpage
+
+To obtain results on the asymptotic distribution of the proposed estimator it remains to analyze the behavior of the higher-order error terms due to the first-stage estimation error.
+Thus, similar to the analysis presented in Lemma \ref{lem:ps_hajek_error}, we obtain the following result.
+
+\begin{boxD}
+    \begin{lem}[Behavior of Higher-Order Error Terms]\label{lem:HO_error}\mbox{}\\*
+        {\color{red} LOREM IPSUM}
+    \end{lem}    
+\end{boxD}
+
+
+\begin{proof}[Proof of Lemma \ref{lem:HO_error}]\mbox{}\\*
+    Consider a data set $\mathbf{D}_{[n]}$ and an arbitrary subset $\ell \subseteq [n]$ such that $1 < \left|\ell\right| \leq s$.
+    Recognize that for each such subset there is exactly one observation $Z^{*}\left(\mathbf{D}_{\ell}\right)$ in $\mathbf{D}_{\ell}$ that is closest to the point of interest $x$.
+    Let $k^{*}\left(\mathbf{D}_{\ell}\right) \in [K]$ denote the fold to which this closest observation belongs.
+    Now, define the following random variables for $j = 2, \dotsc, s$ and $k \in [K]$.
+    \begin{equation}
+        m_{k}^{(j)}
+        = \sum_{\ell \in L_{n,j}} \1\left(k^{*}\left(\mathbf{D}_{\ell}\right) = k\right) 
+        \quad \text{and} \quad
+        \mathbf{M}_{k}^{(j)}
+        = \left\{\ell \in L_{n,j} \, \middle| \,  \1\left(k^{*}\left(\mathbf{D}_{\ell}\right) = k\right) \right\}
+    \end{equation}
+    Choose now an arbitrary $k \in [K]$ and consider the following argument.
+    \begin{equation}
+        \begin{aligned}
+            \bar{R}_{j, k}\left(x\right) 
+            & := \binom{s}{j}\binom{n}{j}^{-1} \sum_{\ell \in \mathbf{M}_{k}^{(j)}} \left(\vartheta_{s}^{j}(x; \mathbf{D}_{\ell}, \hat{\eta}_{k}) - \vartheta_{s,0}^{j}(x; \mathbf{D}_{\ell})\right) \\
+            %
+            & = \binom{s}{j}\binom{n}{j}^{-1} \sum_{\ell \in \mathbf{M}_{k}^{(j)}} \E_{D}\left[\chi_{s}(x; \mathbf{D}_{[s]}, \hat{\eta}_{k}) - \chi_{s,0}(x; \mathbf{D}_{[s]}) \, \middle| \, \mathbf{D}_{[j]} = \mathbf{D}_{\ell}\right] \\
+            %
+            & = \binom{s}{j}\binom{n}{j}^{-1} \sum_{\ell \in \mathbf{M}_{k}^{(j)}} \E_{D}\left[
+                \sum_{i = 1}^{s}\kappa(x; Z_{i}, \mathbf{D}_{[s]}) \left(m(Z_{i}, \hat{\eta}_{k_i}) - m(Z_{i}, \eta_{0})\right)
+            \, \middle| \, \mathbf{D}_{[j]} = \mathbf{D}_{\ell}\right] \\
+            %
+            & = \binom{s}{j}\binom{n}{j}^{-1}  \sum_{\ell \in \mathbf{M}_{k}^{(j)}} \Bigg\{\E_{D}\left[
+                \sum_{i = 1}^{j}\kappa(x; Z_{i}, \mathbf{D}_{[s]}) \left(m(Z_{i}, \hat{\eta}_{k}) - m(Z_{i}, \eta_{0})\right)
+                \, \middle| \, \mathbf{D}_{[j]} = \mathbf{D}_{\ell}\right]\\
+                & \quad \quad + \E_{D}\left[\sum_{i = j + 1}^{s}\kappa(x; Z_{i}, \mathbf{D}_{[s]}) \left(m(Z_{i}, \hat{\eta}_{k_i}) - m(Z_{i}, \eta_{0})\right)
+            \, \middle| \, \mathbf{D}_{[j]} = \mathbf{D}_{\ell}\right] \Bigg\}\\
+            %
+            & = \binom{s}{j}\binom{n}{j}^{-1} \sum_{\ell \in \mathbf{M}_{k}^{(j)}} \Bigg\{\E_{D}\left[
+                m(Z^{*}\left(\mathbf{D}_{\ell}\right), \hat{\eta}_{k}) - m(Z^{*}\left(\mathbf{D}_{\ell}\right), \eta_{0})\right]\\
+                & \quad \quad + (s-j)\E_{D}\left[\1\left(\kappa(x; Z_{s}, \mathbf{D}_{[s]}) = 1\right) \left(m(Z_{s}, \hat{\eta}_{k_s}) - m(Z_{s}, \eta_{0})\right)
+            \, \middle| \, \mathbf{D}_{[j]} = \mathbf{D}_{\ell}\right] \Bigg\}\\
+        \end{aligned}
+    \end{equation}
+\end{proof}
