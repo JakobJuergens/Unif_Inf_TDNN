@@ -31,4 +31,14 @@
         \end{aligned}
     \end{equation}
     As $s/n \rightarrow 0$ this shows that the desired condition holds.
+    Next, we need to consider the expectation of the kernel function and thus recall the result of Lemma \ref{lem:CATE_DNN_k_exp}.
+    \begin{equation}
+		  \begin{aligned}
+			\E_D\left[\chi_{s,0}\left(x; D\right)\right]
+			& = \E_{1}\left[m(Z_1, \eta_0)
+			s\E_{2:s}\left[\kappa(x; Z_1, D)\right]\right]
+            \longrightarrow \theta_{0}(x) \quad \text{as} \quad s \rightarrow \infty
+		\end{aligned}
+	\end{equation}
+    Now, by an application of Slutsky's Lemma, we obtain the desired result through Theorem \ref{thm:peng1}.
 \end{proof}

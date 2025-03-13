@@ -2,8 +2,6 @@
 \hrule
 Next, we address the CATE estimation setup, where we first consider the scenario where the nuisance parameters are assumed to be known a priori.
 In a second step, we will show that asymptotically, the estimation of nuisance parameters as described in Definition \ref{def:CATE_DNN_DML}, does not alter the asymptotic analysis of the estimator.
-For clarity, we point out that in contexts relating to the estimation of the conditional average treatment effect, the kernel or score function $h_s$ could hypothetically signify the first or second stage kernel.
-As the first stage is effectively covered by the nonparametric regression setup, we will take $h_s$ in these contexts to mean the kernel weighted Neyman-orthogonal score associated with the CATE.
 \vspace{0.5cm}
 \hrule
 
@@ -13,7 +11,7 @@ As the first stage is effectively covered by the nonparametric regression setup,
 	Then
 	\begin{equation}
 		\begin{aligned}
-			\E_D\left[h_s\left(x; D\right)\right]
+			\E_D\left[\chi_{s,0}\left(x; D\right)\right]
 			& = \E_{1}\left[m(Z_1, \eta_0)
 			s\E_{2:s}\left[\kappa(x; Z_1, D)\right]\right]\\
 			%
